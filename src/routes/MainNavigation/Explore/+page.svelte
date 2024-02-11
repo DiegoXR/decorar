@@ -1,32 +1,47 @@
 <script>
+// @ts-nocheck
+
     import ImageCard from "$lib/components/ImageCard.svelte";
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
 
     let images = [
-    { src: '/referenceImages/1080_608.jpg', alt: 'alt text', description: 'Horizontal Landscape', width : 1080 , height  : 608},
-    { src: '/referenceImages/1080_1080.jpg', alt: 'alt text', description: 'Square' , width : 1080 , height  : 1080},
-    { src: '/referenceImages/1080_1350.jpg', alt: 'alt text', description: 'Vertical Portrait' , width : 1080 , height  : 1350},
-    // Añade más imágenes según sea necesario
-  ];
+        {
+            src: "/referenceImages/1080_608.jpg",
+            alt: "alt text",
+            description: "Horizontal Landscape",
+            width: 1080,
+            height: 608,
+        },
+        {
+            src: "/referenceImages/1080_1080.jpg",
+            alt: "alt text",
+            description: "Square",
+            width: 1080,
+            height: 1080,
+        },
+        {
+            src: "/referenceImages/1080_1350.jpg",
+            alt: "alt text",
+            description: "Vertical Portrait",
+            width: 1080,
+            height: 1350,
+        },
+    ];
 
-
-  onMount(() => {
-    console.log('The explorer page has loaded');
-    // You can place your "on page load" logic here
-  });
-
-
+    onMount(() => {     
+        console.log("page loaded my browser");
+    });
 </script>
 
-
 <div class="w-full bg-slate-600 h-[150vh]">
-
     <div class="image-gallery">
         {#each images as image}
-          <ImageCard {image} />
+            <ImageCard {image}/> 
         {/each}
-      </div> 
+    </div>
 </div>
 
 
+<!-- Use it like any other HTML element -->
+<!-- <model-viewer alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum" src="shared-assets/models/NeilArmstrong.glb" ar environment-image="shared-assets/environments/moon_1k.hdr" poster="shared-assets/models/NeilArmstrong.webp" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer> -->
