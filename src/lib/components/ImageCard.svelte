@@ -7,9 +7,8 @@
 
     import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte";
     import NextIcon from "./NextIcon.svelte";
-    // import { selectedImage } from  "$src/stores.js";
-    import { selectedImage } from '../../stores.js';
     import { selectedImageObject } from '../../stores.js';
+    import { goto } from "$app/navigation";
    
 
     export let image;
@@ -26,11 +25,11 @@
         console.log(" target height is" + targetImageContainerHeight);
     });
 
-    function myFunction() {
-        alert('Button was clicked!');
-        selectedImage.set(image.description);
+    function goToCustomize() {
         selectedImageObject.set(image);
+        goto("/MainNavigation/Customize");
     }
+
 </script>
 
 <div class="flex flex-col mt-4">
@@ -40,7 +39,7 @@
     </div>
     <div class="h-16 bg-gray-200 flex flex-row justify-end p-5">
         <button
-        class="mx-2 mb-2 flex items-center justify-center  bg-white px-3 py-3" on:click={myFunction}>
+        class="mx-2 mb-2 flex items-center justify-center  bg-white px-3 py-3" on:click={goToCustomize}>
         <NextIcon></NextIcon>
         <span class=" font-medium text-gray-700">Customize</span>
       </button>
