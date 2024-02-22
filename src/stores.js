@@ -10,3 +10,4 @@ const Image = {
 }
 
 export const selectedImageObject = writable(Image);
+export const changeColorMessage = writable(false)

@@ -1,6 +1,6 @@
 <script>
     import Scene from "$lib/components/scene.svelte";
-    import { selectedImageObject } from "../../../stores.js";
+    import { selectedImageObject, changeColorMessage } from "../../../stores.js";
     import { onMount } from "svelte";
     import { Canvas } from '@threlte/core'
     let data = "initial value";
@@ -30,3 +30,6 @@
         <Scene></Scene>
     </Canvas>
 </div>
+<button on:click={() => {
+    $changeColorMessage = !$changeColorMessage  
+  }}>Cambiar Color del Material</button>

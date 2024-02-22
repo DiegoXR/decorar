@@ -37,7 +37,7 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
   
     // Se utiliza useGltf para cargar un modelo GLTF desde un archivo especificado y se tipa el resultado esperado con GLTFResult.
     // Se guarda el resultado en gltf que es despues de todo una promesa.
-    const gltf = useGltf<GLTFResult>('/ModelExample.glb')
+    const gltf = useGltf<GLTFResult>('/ModelExample2.glb')
     // se invoca para propagar los controladores de eventos del componente padre.
     const component = forwardEventHandlers()
   
