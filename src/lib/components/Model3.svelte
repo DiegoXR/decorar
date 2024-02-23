@@ -12,13 +12,14 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
     type Events,
     type Slots,
     forwardEventHandlers,
+    type AsyncWritable,
   } from "@threlte/core";
   import { useGltf,} from "@threlte/extras";
   import { onMount, onDestroy } from "svelte";
   import { changeColorMessage } from "../../stores.js";
-  import { Color } from 'three';
   import { writable } from 'svelte/store';
-  
+  import { TextureLoader } from 'three'
+  import { useLoader } from '@threlte/core'
 
   type $$Props = Props<THREE.Group>;
   type $$Events = Events<THREE.Group>;
@@ -30,7 +31,7 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
   let gltfResult: { materials: { [x: string]: any } };
 
   // const dispatch = createEventDispatcher();
-
+  let globalTexture: THREE.Texture | null | undefined;
   // Se crea una referencia ref a un nuevo Group de Three.js. Este grupo puede usarse para agrupar objetos en la escena 3D.
   export const ref = new Group();
 
@@ -49,27 +50,25 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
    // Aprovechamos en onMount para cambiar a verde el color del material
    onMount(async () => {
     gltfResult = await gltf;
-    console.log(gltfResult.materials.MaterialA.name);
-    //changeMaterialColor(gltfResult.materials.MaterialA.name, '#003300'); // Cambia MaterialA a verde
-    mat.set(gltfResult.materials.MaterialA);
-
+    // console.log(gltfResult.materials.MaterialA.name);
+    // mat.set(gltfResult.materials.MaterialA);
   });
 
   // Se utiliza useGltf para cargar un modelo GLTF desde un archivo especificado y se tipa el resultado esperado con GLTFResult.
   // Se guarda el resultado en gltf que es despues de todo una promesa.
+  const texture = useLoader(TextureLoader).load('/referenceImages/1080_1350.jpg');
   const gltf = useGltf<GLTFResult>("/ModelExample3.glb");
   // se invoca para propagar los controladores de eventos del componente padre.
   const component = forwardEventHandlers();
+
 
   const subscription = changeColorMessage.subscribe((value) => {
     console.log('Change color message received');
     
     let color = value ? "#ff0000" : "#00ff00";
     changeMaterialColor("MaterialB", color);
-
-    console.log("Given  color is" + {color});
-
-    console.log({component});
+    // console.log("Given  color is" + {color});
+    // console.log({component});
   })
 
   // Función para cambiar el color de un material específico
@@ -79,14 +78,23 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
     }
 
     const material = gltfResult.materials[materialName];
-    if (material) {
+    if (material) {   
+      const newMat = material;
+      newMat.color.set(color);   
       
-      const newMat = gltfResult.materials[materialName];
-      newMat.color.set(color);
+      if (globalTexture != null){
+        console.log("Texture is null");
+         newMat.map = globalTexture;
+      }
       mat.set(newMat);
     }
   }
 
+  texture.subscribe((text) =>{
+     console.log("texture is ready");
+     globalTexture = text;   
+  });
+  
   // Unsubscription to prevent memory leaks
   onDestroy(() => {
     subscription()
