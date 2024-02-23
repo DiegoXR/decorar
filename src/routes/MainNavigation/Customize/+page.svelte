@@ -1,8 +1,11 @@
 <script>
     import Scene from "$lib/components/scene.svelte";
-    import { selectedImageObject, changeColorMessage } from "../../../stores.js";
+    import {
+        selectedImageObject,
+        changeColorMessage,
+    } from "../../../stores.js";
     import { onMount } from "svelte";
-    import { Canvas } from '@threlte/core'
+    import { Canvas } from "@threlte/core";
     let data = "initial value";
 
     let dataObject = {
@@ -30,6 +33,17 @@
         <Scene></Scene>
     </Canvas>
 </div>
-<button on:click={() => {
-    $changeColorMessage = !$changeColorMessage  
-  }}>Cambiar Color del Material</button>
+<button
+    on:click={() => {
+        $changeColorMessage = !$changeColorMessage;
+    }}>Cambiar Color del Material</button
+>
+
+<button
+    class="mx-2 mb-2 h-10 w-10 bg-cyan-950"
+    on:click={() => {
+        $changeColorMessage = !$changeColorMessage;
+        console.log("Button has been pressed");
+    }}
+>
+</button>
