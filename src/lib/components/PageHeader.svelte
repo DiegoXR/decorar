@@ -21,6 +21,10 @@
     </div>
 
     <div class="h-[24px] w-[24px]">
+        V1.0
+    </div>
+
+    <div class="h-[24px] w-[24px]">
         <HamburgerMenuIcon></HamburgerMenuIcon>
     </div>
 </div>

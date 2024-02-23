@@ -65,10 +65,8 @@ Command: npx @threlte/gltf@2.0.1 ModelExample.glb --types -t
   const subscription = changeColorMessage.subscribe((value) => {
     console.log('Change color message received');
     
-    let color = value ? "#ff0000" : "#00ff00";
+    let color = value ? "#FFFFFF" : "#00ff00";
     changeMaterialColor("MaterialB", color);
-    // console.log("Given  color is" + {color});
-    // console.log({component});
   })
 
   // Función para cambiar el color de un material específico
