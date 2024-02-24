@@ -7,8 +7,8 @@
   import Model1 from "./Model1.svelte";
   import Model2 from "./Model2.svelte";
   import Model3 from "./Model3.svelte";
+  import Model4 from "./Model4.svelte";
   import { onMount } from "svelte";
-
 // Model 2 Logic
 
   let myModel2: Model2;
@@ -24,10 +24,10 @@
 <T.PerspectiveCamera
   fov={60}
   makeDefault
-  position={[1, 1, 10]}
+  position={[0, 0, 2]}
   rotation={[0, 0, 0]}
 />
-<T.DirectionalLight position={[0, 10, 10]} />
+<!-- <T.DirectionalLight position={[0, 10, 10]} /> -->
 <T.AmbientLight />
 
 <!-- Cubo Basico -->
@@ -50,5 +50,7 @@ Para aquello es necesario cachearlo desde el padre en una variable -->
   bind:this={myModel2}
 /> -->
 
-<Model3
-position={[-1, 0, 0]} scale={[10, 10, 10]} rotation={[0, 180, 0]} />
+<!-- <Model3
+position={[-1, 0, 0]} scale={[10, 10, 10]} rotation={[0, 180, 0]} /> -->
+
+<Model4></Model4>

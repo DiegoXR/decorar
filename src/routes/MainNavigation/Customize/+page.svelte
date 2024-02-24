@@ -9,8 +9,8 @@
     let data = "initial value";
 
     let dataObject = {
-        width: "",
-        height: "",
+        width: 1,
+        height: 1,
         src: "",
         description: "",
         alt: "",
@@ -21,7 +21,8 @@
     });
 
     onMount(() => {
-        console.log(dataObject);
+        // console.log(dataObject);
+        console.log("Customize Page Mounted" + dataObject.description);
     });
 </script>
 
