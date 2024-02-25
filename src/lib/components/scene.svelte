@@ -27,8 +27,8 @@
   position={[0, 0, 2]}
   rotation={[0, 0, 0]}
 />
-<!-- <T.DirectionalLight position={[0, 10, 10]} /> -->
-<T.AmbientLight />
+<T.DirectionalLight position={[0, 0, 1]} intensity = 0/>
+<T.AmbientLight color = {"white"} intensity = 1.2/>
 
 <!-- Cubo Basico -->
 <!-- <T.Mesh>

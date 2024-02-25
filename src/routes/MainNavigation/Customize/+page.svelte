@@ -28,7 +28,7 @@
 
 <p>Received data: {dataObject}</p>
 <p>This is the Page Customizew</p>
-<div class="bg-gray-500 w-full h-[50vh]">
+<div class="bg-gray-100 w-full h-[50vh]">
     hello
     <Canvas>
         <Scene></Scene>
