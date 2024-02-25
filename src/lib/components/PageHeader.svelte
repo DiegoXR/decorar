@@ -21,7 +21,7 @@
     </div>
 
     <div class="h-[24px] w-[24px]">
-        V1.3
+        V1.4
     </div>
 
     <div class="h-[24px] w-[24px]">

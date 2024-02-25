@@ -7,10 +7,6 @@
      * @type {HTMLDivElement}
      */
     let container;
-
-    // /**
-    //  * @type {THREE.Object3D<THREE.Object3DEventMap>}
-    //  */
     /**
      * @type {THREE.Object3D<THREE.Object3DEventMap>}
      */
@@ -26,6 +22,12 @@
      */
     let renderer;
 
+    import { rendererStore } from '../customizeSceneStoreV5'; // Adjust the import path as necessary
+  //let renderer;
+
+    // Subscribe to the store
+    $: renderer = $rendererStore;
+
     onMount(() => {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
@@ -34,7 +36,7 @@
             0.1,
             1000,
         );
-        renderer = new THREE.WebGLRenderer();
+        //renderer = new THREE.WebGLRenderer();
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setClearColor(0x808080); // El código de color hexadecimal para gris
 
@@ -67,8 +69,8 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            // cube.rotation.x += 0.01;
-            // cube.rotation.y += 0.01;
+            // plane.rotation.x += 0.01;
+            // plane.rotation.y += 0.01;
             renderer.render(scene, camera);
         }
 
