@@ -6,6 +6,8 @@
     } from "../../../stores.js";
     import { onMount } from "svelte";
     import { Canvas } from "@threlte/core";
+    import Scene2 from "$lib/components/scene2.svelte";
+    import Model5 from "$lib/components/Model5.svelte";
     let data = "initial value";
 
     let dataObject = {
@@ -26,14 +28,20 @@
     });
 </script>
 
-<p>Received data: {dataObject}</p>
+<h1>Received data: {dataObject.description}</h1>
 <p>This is the Page Customizew</p>
 <div class="bg-gray-100 w-full h-[50vh]">
-    hello
-    <Canvas>
+    
+    
+    <!-- <Canvas>
         <Scene></Scene>
-    </Canvas>
+    </Canvas> -->
+
+<!-- This is the three.js version -->
+    <Model5></Model5>
 </div>
+
+
 <button
     on:click={() => {
         $changeColorMessage = !$changeColorMessage;
