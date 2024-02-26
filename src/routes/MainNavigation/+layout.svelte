@@ -1,9 +1,12 @@
 <script lang="js">
     import PageHeader from "$lib/components/PageHeader.svelte";
     import NavigationBar from "$lib/components/NavigationBar.svelte";
+    import { page } from "$app/stores";
+    import { Canvas } from "@threlte/core";
+    import Scene2 from "$lib/components/scene2.svelte";
+    import Model5 from "$lib/components/Model5.svelte";
 
-
-    // This is the renderer part
+    // Esto almaceza el renderer dentro del store en la version three.js
     import { onMount } from "svelte";
     import * as THREE from "three";
     import { rendererStore } from "../../lib/customizeSceneStoreV5";
@@ -19,5 +22,23 @@
 <PageHeader></PageHeader>
 <NavigationBar></NavigationBar>
 <div class="w-max h-[15vh]"></div>
+
+<!-- {#if $page.url.pathname === "/MainNavigation/Customize"}
+    <div class="bg-red-100 w-full h-[50vh]">
+        <div>This is only visible in the customize written by the layout</div>
+        <Canvas>
+            <Scene2></Scene2>
+        </Canvas>
+    </div>
+{/if} -->
+
+
+{#if $page.url.pathname === "/MainNavigation/Customize"}
+    <div class="bg-red-100 w-full h-[50vh]">
+        <div>This is only visible in the customize written by the layout</div>
+         <Model5></Model5> 
+    </div>
+{/if} 
+
 <slot />
 <!-- Here is where the content of your pages will be injected -->

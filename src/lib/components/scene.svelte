@@ -9,15 +9,7 @@
   import Model3 from "./Model3.svelte";
   import Model4 from "./Model4.svelte";
   import { onMount } from "svelte";
-// Model 2 Logic
 
-  let myModel2: Model2;
-  // Aprovechamos el onMount para cambiar el color del material
-  onMount(async () => {
-    myModel2?.changeMaterialColor("MaterialA", "#800080"); // Cambia MaterialA a morado
-  });
-
- 
 </script>
 
 <!-- Camera and Lights -->
