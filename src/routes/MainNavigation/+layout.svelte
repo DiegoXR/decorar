@@ -23,6 +23,9 @@
 <NavigationBar></NavigationBar>
 <div class="w-max h-[15vh]"></div>
 
+
+
+<!-- If you uncomment this, the Threlte version will be enabled -->
 <!-- {#if $page.url.pathname === "/MainNavigation/Customize"}
     <div class="bg-red-100 w-full h-[50vh]">
         <div>This is only visible in the customize written by the layout</div>
@@ -32,7 +35,7 @@
     </div>
 {/if} -->
 
-
+<!-- If you uncomment this, the Three Js version will be enabled -->
 {#if $page.url.pathname === "/MainNavigation/Customize"}
     <div class="bg-red-100 w-full h-[50vh]">
         <div>This is only visible in the customize written by the layout</div>
