@@ -1,30 +1,19 @@
 <p>This is the Page AR Set</p>
 
-<!-- <script>
-    import { onMount } from 'svelte';
-    import { sceneStore } from "../../../lib/customizeSceneStoreV4.js";
+ <script>
+
+
+
+    
+</script> 
   
-    /**
-     * @type {HTMLDivElement}
-     */
-    let container; // This will be the DOM element to mount the Three.js renderer
-  
-    onMount(() => {
-      sceneStore.initialize(); // Initialize or reset the scene as needed
-  
-      $sceneStore.renderer.setSize(container.offsetWidth, container.offsetHeight);
-      container.appendChild($sceneStore.renderer.domElement);
-  
-      // Animation loop or rendering logic here
-      function animate() {
-        requestAnimationFrame(animate);
-        $sceneStore.renderer.render($sceneStore.scene, $sceneStore.camera);
-      }
-  
-      animate();
-    });
-  </script>
-  
-  <div bind:this={container}></div> -->
-  
-  
+ <div class="w-full h-full bg-slate-500"> 
+Hello 
+<model-viewer src="/ModelExample.glb" ar ar-placement="wall" camera-controls touch-action="pan-y" alt="A 3D model of some wall art"></model-viewer>
+
+<model-viewer ar camera-controls touch-action="pan-y" src="/ModelExample.glb" alt="A 3D model of an astronaut">
+  <button slot="ar-button" style="background-color: white; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
+      👋 Activate AR
+  </button>
+</model-viewer>
+</div>
