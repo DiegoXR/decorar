@@ -12,9 +12,10 @@
     import { rendererStore } from "../../lib/customizeSceneStoreV5";
 
     onMount(() => {
+        
+          // Update the store with the renderer instance
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        // Update the store with the renderer instance
         rendererStore.set(renderer);
     });
 </script>

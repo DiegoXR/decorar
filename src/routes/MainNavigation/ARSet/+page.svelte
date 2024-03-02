@@ -1,12 +1,13 @@
 <script>
-  import "@google/model-viewer";
+import GltfExporter from "$lib/components/GLTFExporter.svelte";
+import "@google/model-viewer";
 </script>
 
 <p>This is the Page AR Set</p>
 
 <!-- <div class="w-full h-full bg-slate-500"> -->
   Hello
-  <model-viewer
+  <!-- <model-viewer
     src="/ModelExample.glb"
     ar
     ar-placement="wall"
@@ -21,6 +22,12 @@
   <button slot="ar-button" style="background-color: red; border-radius: 4px; border: none; position: absolute; top: 16px; right: 16px; ">
     👋 Activate AR
 </button>
-  </model-viewer>
+  </model-viewer> -->
+
+
+  <div class="w-full h-[50vh] bg-green-300">
+    <GltfExporter></GltfExporter>
+  </div>
+
   
 <!-- </div> -->

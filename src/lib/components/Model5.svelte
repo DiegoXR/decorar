@@ -36,7 +36,7 @@
 
     let imageSize = [1, 1];
 
-    // Subscribe to the store
+    // Get the renderer from the Store
     $: renderer = $rendererStore;
 
     onMount(() => {
@@ -58,11 +58,6 @@
         const planeTexture = textureLoader.load(dataObject.src);
 
         const geometry = new THREE.PlaneGeometry(imageSize[0], imageSize[1]);
-
-        // const material = new THREE.MeshBasicMaterial({
-        //     map: cubeTexture,
-        //     side: THREE.FrontSide,
-        // });
 
         const material = new THREE.MeshPhysicalMaterial({
             map: planeTexture,
@@ -121,7 +116,8 @@
         });
 
         if (renderer.domElement) {
-            container.removeChild(renderer.domElement);
+            while (container.firstChild) container.removeChild(container.firstChild);
+            //container.childNodesremoveChild(renderer.domElement);
         }
     });
 
