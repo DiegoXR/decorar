@@ -5,6 +5,7 @@
     import { selectedImageObject } from "../../stores.js";
     import { rendererStore } from "../customizeSceneStoreV5"; // Adjust the import path as necessary
     import "@google/model-viewer";
+    
 
     /**
      * @type {HTMLDivElement}
@@ -28,6 +29,15 @@
     // Get the renderer from the Store
     $: renderer = $rendererStore;
 
+
+    let dataObject = {
+        width: 1,
+        height: 1,
+        src: "",
+        description: "",
+        alt: "",
+    };
+
     onMount(() => {
         scene = new THREE.Scene();
         camera = new THREE.PerspectiveCamera(
@@ -44,12 +54,12 @@
 
         const textureLoader = new THREE.TextureLoader();
 
-        //const planeTexture = textureLoader.load(dataObject.src);
+        const planeTexture = textureLoader.load(dataObject.src);
 
         const geometry = new THREE.PlaneGeometry(1, 1);
 
         const material = new THREE.MeshPhysicalMaterial({
-            color: 0x00ff00,
+            map: planeTexture,
             side: THREE.FrontSide,
         });
 
@@ -57,8 +67,8 @@
         scene.add(plane);
 
         // Agregar luz ambiental
-        // const ambientLight = new THREE.AmbientLight(0xffffff, 3); // color blanco, intensidad 0.5
-        // scene.add(ambientLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 3); // color blanco, intensidad 0.5
+        scene.add(ambientLight);
 
         camera.position.z = 1.5;
 
@@ -70,6 +80,11 @@
         }
 
         animate();
+    });
+
+
+    let unsubscribe = selectedImageObject.subscribe((value) => {
+        dataObject = value;
     });
 
     /**
@@ -103,12 +118,12 @@
                 modelUrl = url; // Assuming `modelUrl` is a reactive variable in Svelte
 
                 // Example: Download the file
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = 'scene.glb';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                // const link = document.createElement('a');
+                // link.href = url;
+                // link.download = 'scene.glb';
+                // document.body.appendChild(link);
+                // link.click();
+                // document.body.removeChild(link);
                 } 
                 
             },
@@ -123,6 +138,8 @@
     onDestroy(() => {
         storedGLTF = null;
     });
+
+    onDestroy(unsubscribe);
 </script>
 
 <div bind:this={container} class="w-full h-full"></div>
