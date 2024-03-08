@@ -1,16 +1,16 @@
-
 <script>
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
     import { selectedImageObject } from "../../stores.js";
-    import { rendererStore } from "../customizeSceneStoreV5"; // Adjust the import path as necessary
+    import { rendererStore, sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
 
     /**
      * @type {HTMLDivElement}
      */
     let container;
+    
     /**
-     * @type {THREE.Object3D<THREE.Object3DEventMap>}
+     * @type {THREE.Scene}
      */
     let scene;
 
@@ -24,6 +24,7 @@
      */
     let renderer;
 
+
     let dataObject = {
         width: 1,
         height: 1,
@@ -36,11 +37,15 @@
 
     let imageSize = [1, 1];
 
+
+    export let model5Value = 'hey Iam the scene model 5';
+
     // Get the renderer from the Store
     $: renderer = $rendererStore;
 
-    onMount(() => {
-        scene = new THREE.Scene();
+    onMount(() => {       
+        console.log("Mounting Model5");
+        scene = new THREE.Scene();      
         camera = new THREE.PerspectiveCamera(
             75,
             container.clientWidth / container.clientHeight,
@@ -85,16 +90,15 @@
 
     let unsubscribe = selectedImageObject.subscribe((value) => {
         dataObject = value;
-
-        calculateRatio(dataObject.width, dataObject.height);
+        calculateRatio(dataObject.width, dataObject.height);     
     });
 
-    onDestroy(() => {
+    onDestroy(() => {       
+        sceneStore.set(scene);
         // Stop the animation loop
         if (renderer) renderer.setAnimationLoop(null);
 
         // Dispose of resources
-
         scene.traverse((object) => {
             if (object instanceof THREE.Mesh) {
                 if (object.geometry) {
@@ -117,7 +121,6 @@
 
         if (renderer.domElement) {
             while (container.firstChild) container.removeChild(container.firstChild);
-            //container.childNodesremoveChild(renderer.domElement);
         }
     });
 
@@ -133,6 +136,16 @@
         if (ratio > 1) imageSize[0] = ratio; // Portrait Image (Horizontal)
         else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
     }
+
 </script>
 
+
 <div bind:this={container} class="w-full h-full"></div>
+<button
+    class="mx-2 mb-2 h-10 w-10 bg-cyan-950"
+    on:click={() => {
+
+        model5Value = "A" + model5Value;
+    }}
+>
+</button>

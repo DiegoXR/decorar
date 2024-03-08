@@ -1,15 +1,7 @@
 <script>
-    import Scene from "$lib/components/scene.svelte";
-    import {
-        selectedImageObject,
-        changeColorMessage,
-    } from "../../../stores.js";
+    import {selectedImageObject, changeColorMessage} from "../../../stores.js";
     import { onMount } from "svelte";
-    import { Canvas } from "@threlte/core";
-    import Scene2 from "$lib/components/scene2.svelte";
-    import Model5 from "$lib/components/Model5.svelte";
-
-    let data = "initial value";
+    import Model5 from "$lib/components/ThreeJSscene.svelte";
 
     let dataObject = {
         width: 1,
@@ -23,16 +15,14 @@
         dataObject = value;
     });
 
+    onMount(() => {     
+        console.log("Mouning Customize Page");
+    });
+
 </script>
 
 <div class="bg-gray-100 w-full h-[50vh]">
-       
-    <!-- <Canvas>
-        <Scene2></Scene2>
-    </Canvas> -->
-
-<!-- This is the three.js version -->
-    <!-- <Model5></Model5> -->
+    <Model5></Model5>
 </div>
 
 <h1>Received data: {dataObject.description}</h1>

@@ -2,8 +2,8 @@
     import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
-    import { selectedImageObject } from "../../stores.js";
-    import { rendererStore } from "../customizeSceneStoreV5"; // Adjust the import path as necessary
+    import { selectedImageObject } from "../../../stores.js";
+    import { rendererStore } from "../../threeJSstore.js"; // Adjust the import path as necessary
     import "@google/model-viewer";
     
 
