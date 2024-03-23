@@ -419,18 +419,18 @@ export function ProfiledContourUV( profileShape, contour, materials, matPerSquar
 	
 }
 
-
     /**
  * @param {number} x
  * @param {number} y
  * @param {number} z
+ * @param {number} color
  */
-    export function createDotAtPosition(x, y, z) {
+    export function createDotAtPosition(x, y, z, color) {
     // Create a geometry with a single vertex
     const geometryDot = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0)]);
 
     // Create a material for the dot
-    const materialDot = new THREE.PointsMaterial({ color: 0xff0000, size: 5 });
+    const materialDot = new THREE.PointsMaterial({ color: color, size: 5 });
 
     // Create the dot as a Points object
     const dot = new THREE.Points(geometryDot, materialDot);
@@ -441,6 +441,49 @@ export function ProfiledContourUV( profileShape, contour, materials, matPerSquar
     // Return the dot for further manipulation or to be added to the scene outside this function
     return dot;
 }
+
+/**
+ * @param {{ x: number; y: number; }} center
+ * @param {number} radius
+ * @param {number} quadrant
+ */
+export function CalculateCoordinatesInQuadrant(center, radius, quadrant) {
+  const coordinates = [];
+  let startAngle, endAngle;
+  switch (quadrant) {
+      case 1:
+          startAngle = 0;
+          endAngle = Math.PI / 2;
+          break;
+      case 2:
+          startAngle = Math.PI / 2;
+          endAngle = Math.PI;
+          break;
+      case 3:
+          startAngle = Math.PI;
+          endAngle = 3 * Math.PI / 2;
+          break;
+      case 4:
+          startAngle = 3 * Math.PI / 2;
+          endAngle = 2 * Math.PI;
+          break;
+      default:
+          console.log("Cuadrante no válido. Debe ser un valor entre 1 y 4.");
+          return;
+  }
+  // Calcular puntos sobre el arco del círculo para el cuadrante especificado
+  for (let angle = startAngle; angle <= endAngle; angle += Math.PI / 180) {
+      const x = center.x + radius * Math.cos(angle);
+      const y = center.y + radius * Math.sin(angle);
+      coordinates.push({x, y});
+      // coordinates.push(x);
+      // coordinates.push(y);
+  }
+  return coordinates;
+}
+
+
+//export function CreateSquareContourCoordinates()
 
 
 

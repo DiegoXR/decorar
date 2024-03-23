@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import * as THREE from "three";
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-  import {ProfiledContourUV, createDotAtPosition } from '../../../lib/FrameUtilies.js';
+  import {ProfiledContourUV, createDotAtPosition, CalculateCoordinatesInQuadrant} from '../../../lib/FrameUtilies.js';
 
   /**
    * @type {HTMLDivElement}
@@ -77,16 +77,15 @@ function increaseCount() {
     scene.add(cube);
 
     // Adding dots
-    var dot1 = createDotAtPosition(-4,0,2);
-    scene.add(dot1);
+    var dot1 = createDotAtPosition(-4,0,2, 0xff0000);
 
-    var dot2 = createDotAtPosition(-4,3,2);
+    var dot2 = createDotAtPosition(-4,3,2, 0xff0000);
     scene.add(dot2);
 
-    var dot3 = createDotAtPosition(-3.5,3.5,2);
+    var dot3 = createDotAtPosition(-3.5,3.5,2, 0xff0000);
     scene.add(dot3);
 
-    var dot4 = createDotAtPosition(-3,4,2);
+    var dot4 = createDotAtPosition(-3,4,2, 0xff0000);
     scene.add(dot4);
 
     // const  tex1 = new THREE.TextureLoader().load( 'uvgrid01.png' );
@@ -304,18 +303,22 @@ const roundedCorners = [
 ];
 
 
-processAndAddValues(roundedCorners);
+processAndAddValues(roundedCorners, 0xf0f0ff);
 
     /**
      * @param {any[]} dataArray
+     * @param {number} color
      */
-function processAndAddValues(dataArray) {
+function processAndAddValues(dataArray, color) {
     dataArray.forEach(item => {
-        var dot = createDotAtPosition(item.x, item.y,2);
+        var dot = createDotAtPosition(item.x, item.y,2, color);
         scene.add(dot);
     });
 }
 
+const roundedCorners2 = CalculateCoordinatesInQuadrant( {x: 0, y: 0}, 1, 2);
+// @ts-ignore
+processAndAddValues(roundedCorners2, 0xff00ff);
 
 </script>
 
