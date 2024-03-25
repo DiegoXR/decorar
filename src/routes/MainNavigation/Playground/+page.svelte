@@ -35,7 +35,7 @@ function increaseCount() {
     const near = 0.1; // Near clipping plane
     const far = 50; // Far clipping plane
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 40;
+    camera.position.z = 20;
 
     // Orthographic camera setup
     // const cameraLeft = -10;
@@ -45,7 +45,8 @@ function increaseCount() {
     // const cameraNear = 1;
     // const cameraFar = 10;
     // const camera = new THREE.OrthographicCamera(cameraLeft, cameraRight, cameraTop, cameraBottom, cameraNear, cameraFar);
-    // camera.position.z = 10;
+    // camera.position.z = 3;
+    // camera.position.x = 0;
 
    // Rederer Setup
     const renderer = new THREE.WebGLRenderer();
@@ -87,7 +88,14 @@ function increaseCount() {
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
+
+    const texture = new THREE.TextureLoader().load("/referenceTextures/Checker_256.png");
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(10, 2);
+
+    // const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
+    const m0 = new THREE.MeshStandardMaterial( { map: texture, side: THREE.FrontSide } );  
     const m1 = new THREE.MeshStandardMaterial( { color: 0xff7b00, metalness: 0.5, roughness: 0.5, side: THREE.FrontSide } );
     const m2 = new THREE.MeshStandardMaterial( { color: 0xf9f901, metalness: 0.5, roughness: 0.5, side: THREE.FrontSide } );
 
@@ -116,9 +124,8 @@ function increaseCount() {
     const profileShapex = CreateSquareProfileCoordinates(1,1,0.1);
     // const profileShapex = [ -1,1, 1,1, 1,-1, -1,-1, -1,1];   
     
-  
-    const contourx = CreateSquareContourCoordinates(10,30);
-    // const contourx = [10,10,  10,-10,  -10,-10  ,-10,10];
+    // const contourx = CreateSquareContourCoordinates(10,30);
+    const contourx = [10,10,  10,-10,  -10,-10  ,-10,10];
     
  
     // let Dots = createDotsfromCoordinatesArray(contourx, 0xff0000, 5);
@@ -129,8 +136,10 @@ function increaseCount() {
     
     // @ts-ignore
     const frame4 = ProfiledContourUVFM(profileShapex, contourx, materials, false, true);
-    frame4.position.z = 3;
+    frame4.position.z = 3;  
     scene.add(frame4);
+
+
 
 });
 

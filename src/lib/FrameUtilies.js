@@ -303,9 +303,22 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
 			
 		}
 		
+		// Assuming geometry is already created and has positions and indices set up
+		// @ts-ignore
+		// const indices = gFrame[ j ].getIndex().array;
+		// for (let i = 0; i < indices.length; i += 3) {
+		// const tmp = indices[i + 1];
+		// indices[i + 1] = indices[i + 2];
+		// indices[i + 2] = tmp;
+		// }
+		// // @ts-ignore
+		// gFrame[ j ].setIndex(indices);
+        //  ///
+
+
 		gFrame[ j ].computeVertexNormals( );
 		
-		fGroup.add( frame[ j ] )
+		fGroup.add( frame[ j ] );
 		
 	}
 	
