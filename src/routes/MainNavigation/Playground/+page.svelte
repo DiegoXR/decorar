@@ -9,7 +9,21 @@
     CreateSquareProfileCoordinates,
     createDotAtPositionObject,
     CreateSquareContourCoordinates,
+    CreateSquareContourCoordinatesWithIntermediatePoints,
     createDotsfromCoordinatesArray} from '../../../lib/FrameUtilies.js';
+
+
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+let moveUp = false;
+let moveDown = false;
+const velocity = new THREE.Vector3();
+const direction = new THREE.Vector3();
+const speed = 5; // Speed of the camera movemen
+
+
 
   /**
    * @type {HTMLDivElement}
@@ -92,7 +106,7 @@ function increaseCount() {
     const texture = new THREE.TextureLoader().load("/referenceTextures/Checker_256.png");
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(10, 2);
+     texture.repeat.set(3, 1);
 
     // const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
     const m0 = new THREE.MeshStandardMaterial( { map: texture, side: THREE.FrontSide } );  
@@ -106,10 +120,37 @@ function increaseCount() {
     ];
 
     const animate = function () {
+
+      const time = performance.now();
+    const delta = (time - prevTime) / 1000;
+
+    velocity.set(0, 0, 0);
+    direction.set(0, 0, 0);
+
+    if (moveForward) direction.z -= 1;
+    if (moveBackward) direction.z += 1;
+    if (moveLeft) direction.x -= 1;
+    if (moveRight) direction.x += 1;
+    if (moveUp) direction.y += 1;
+    if (moveDown) direction.y -=1;
+
+    // Normalize the direction vector, so moving diagonally doesn't exceed the max speed
+    direction.normalize();
+
+    // Apply the speed to the velocity in the direction we want to move
+    velocity.addScaledVector(direction, speed * delta);
+
+    // Move the camera by the calculated velocity
+    camera.position.add(velocity);
+
       requestAnimationFrame(animate);
       controls.update();
       renderer.render(scene, camera);
+
+      prevTime = time;
     };
+
+    let prevTime = performance.now();
 
     animate();
 
@@ -121,13 +162,14 @@ function increaseCount() {
 
     // El profile shape es el corte interno del marco. En realidad es una forma en el plano
     // ZX mirandolo desde arriba e
-    const profileShapex = CreateSquareProfileCoordinates(1,1,0.1);
+     const profileShapex = CreateSquareProfileCoordinates(1,1,0.03);
     // const profileShapex = [ -1,1, 1,1, 1,-1, -1,-1, -1,1];   
     
-    // const contourx = CreateSquareContourCoordinates(10,30);
-    const contourx = [10,10,  10,-10,  -10,-10  ,-10,10];
+    // const contourx = CreateSquareContourCoordinates(10,10);
+     const contourx = CreateSquareContourCoordinatesWithIntermediatePoints(10,5,2,2);
+    // const contourx = [10,10,  10,-10,  -10,-10  ,-10,10];
+
     
- 
     // let Dots = createDotsfromCoordinatesArray(contourx, 0xff0000, 5);
     // Dots.forEach((dot) => {
     //   scene.add(dot);
@@ -136,17 +178,67 @@ function increaseCount() {
     
     // @ts-ignore
     const frame4 = ProfiledContourUVFM(profileShapex, contourx, materials, false, true);
+    // @ts-ignore
     frame4.position.z = 3;  
+    // @ts-ignore
     scene.add(frame4);
-
-
-
 });
 
     
+    /**
+     * @param {{ code: any; }} event
+     */
+function onKeyDown(event) {
+    switch (event.code) {
+        case 'KeyW':
+            moveForward = true;
+            break;
+        case 'KeyA':
+            moveLeft = true;
+            break;
+        case 'KeyS':
+            moveBackward = true;
+            break;
+        case 'KeyD':
+            moveRight = true;
+            break;
+        case 'KeyE':
+            moveUp = true;
+            break;
+        case 'KeyQ':
+            moveDown = true;
+            break;
+    }
+}
 
+    /**
+     * @param {{ code: any; }} event
+     */
+function onKeyUp(event) {
+    switch (event.code) {
+        case 'KeyW':
+            moveForward = false;
+            break;
+        case 'KeyA':
+            moveLeft = false;
+            break;
+        case 'KeyS':
+            moveBackward = false;
+            break;
+        case 'KeyD':
+            moveRight = false;
+            break;
+        case 'KeyE':
+            moveUp = false;
+            break;
+        case 'KeyQ':
+            moveDown = false;
+            break;
+    }
+}
     
-
+document.addEventListener('keydown', onKeyDown);
+document.addEventListener('keyup', onKeyUp);
 
 
 </script>

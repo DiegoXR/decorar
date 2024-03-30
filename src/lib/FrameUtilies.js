@@ -285,6 +285,26 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
 		gFrame[ j ].setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( frmpos[ j ] ), 3 ) );
 		gFrame[ j ].setAttribute( 'uv', new THREE.BufferAttribute( new Float32Array( frmuvs[ j ] ), 2 ) );
 		
+/////////////////////////////////////////////
+		// if (gFrame[ j ].index) {
+		// 	const index = gFrame[ j ].index;
+		// 	console.log(index);
+		// 	// @ts-ignore			
+		// 	const array = index.array;
+		// 	for (let i = 0; i < array.length; i += 3) {
+		// 		// Swap the indices for the first and last vertex in each face
+		// 		[array[i], array[i + 2]] = [array[i + 2], array[i]];
+		// 	}
+
+		// 	// @ts-ignore
+		// 	index.needsUpdate = true;
+		// 	gFrame[ j ].computeVertexNormals( );			
+		// 	gFrame[ j ].attributes.position.needsUpdate = true;
+		// 	gFrame[ j ].attributes.normal.needsUpdate = true;
+			
+		// }
+					   
+///////////////////////////////////////
 		if ( matPerSquare ) { // MultiMaterial support (for each square)
 			
 			for ( let i = 0; i < hs; i ++ ) {
@@ -302,20 +322,7 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
       frame[ j ] = new THREE.Mesh( gFrame[ j ], materials[ 0 ] );
 			
 		}
-		
-		// Assuming geometry is already created and has positions and indices set up
-		// @ts-ignore
-		// const indices = gFrame[ j ].getIndex().array;
-		// for (let i = 0; i < indices.length; i += 3) {
-		// const tmp = indices[i + 1];
-		// indices[i + 1] = indices[i + 2];
-		// indices[i + 2] = tmp;
-		// }
-		// // @ts-ignore
-		// gFrame[ j ].setIndex(indices);
-        //  ///
-
-
+	
 		gFrame[ j ].computeVertexNormals( );
 		
 		fGroup.add( frame[ j ] );
@@ -418,34 +425,33 @@ export function CalculateCoordinatesInQuadrant(center, radius, quadrant) {
   
   switch (quadrant) {
       case 1:
-          startAngle = 0;
-          endAngle = Math.PI / 2;
+		  startAngle = Math.PI / 2;;
+          endAngle = 0;
           break;
       case 2:
-          startAngle = Math.PI / 2;
-          endAngle = Math.PI;
+		  startAngle = Math.PI;
+          endAngle = Math.PI / 2;
           break;
       case 3:
-          startAngle = Math.PI;
-          endAngle = 3 * Math.PI / 2;
+		  startAngle = 3 * Math.PI / 2;
+          endAngle = Math.PI;
           break;
       case 4:
-          startAngle = 3 * Math.PI / 2;
-          endAngle = 2 * Math.PI;
+		  startAngle = 2 * Math.PI;
+          endAngle = 3 * Math.PI / 2;
           break;
       default:
           console.log("Cuadrante no válido. Debe ser un valor entre 1 y 4.");
           return;
   }
   // Calcular puntos sobre el arco del círculo para el cuadrante especificado
-  for (let angle = startAngle; angle <= endAngle; angle += Math.PI / 180) {
-      const x = center.x + radius * Math.cos(angle);
-      const y = center.y + radius * Math.sin(angle);
-      coordinates.push({x, y});
-      // coordinates.push(x);
-      // coordinates.push(y);
-  }
-
+  for (let angle = startAngle; angle >= endAngle; angle -= Math.PI / 180) {
+	const x = center.x + radius * Math.cos(angle);
+	const y = center.y + radius * Math.sin(angle);
+	coordinates.push({x, y});
+	// coordinates.push(x);
+	// coordinates.push(y);
+}
   return coordinates;
 }
 
@@ -473,23 +479,27 @@ export function CreateSquareProfileCoordinates(width, height, cornerRadius)
     // console.log(`BottomRightC, ${bottomRightCenter.x} ${bottomRightCenter.y}`);
     // console.log(`BottomLeftC, ${bottomLeftCenter.x} ${bottomLeftCenter.y}`);
 
-
     let storedCoordinates = [];
+	let selectedQuadrant;
     
     for (let i = 1; i <= 4; i++) {  
       let givenCorner;
       switch (i) {
         case 1:
-            givenCorner = topRightCenter;
+            givenCorner = topLeftCenter;
+			selectedQuadrant = 2;
             break;
         case 2:
-          givenCorner = topLeftCenter;
+          givenCorner = topRightCenter;
+		  selectedQuadrant = 1;
             break;
         case 3:
-          givenCorner = bottomLeftCenter;
+          givenCorner = bottomRightCenter;
+		  selectedQuadrant = 4;
             break;
         case 4:
-          givenCorner = bottomRightCenter;
+          givenCorner = bottomLeftCenter;
+		  selectedQuadrant = 3;
             break;
         default:
             console.log("Cuadrante no válido. Debe ser un valor entre 1 y 4.");
@@ -497,13 +507,15 @@ export function CreateSquareProfileCoordinates(width, height, cornerRadius)
     }
       
       // @ts-ignore
-      const cornerCoordinates = CalculateCoordinatesInQuadrant(givenCorner, cornerRadius, i)
+      const cornerCoordinates = CalculateCoordinatesInQuadrant(givenCorner, cornerRadius, selectedQuadrant)
+	  // @ts-ignore
+	  console.log(cornerCoordinates[0]);
       // @ts-ignore
       storedCoordinates.push(...cornerCoordinates);
     }
 
     // Copy the first coordinate to the last index in order to create a loop
-    storedCoordinates.push(storedCoordinates[0]);
+     storedCoordinates.push(storedCoordinates[0]);
       
     return convertCoupleCoordinatesToFlatCoordinates(storedCoordinates);
 }
@@ -534,6 +546,52 @@ export function CreateSquareContourCoordinates(width, height){
   return storedCoordinates;
 }
 
+/**
+ * @param {number} width
+ * @param {number} height
+ * @param {number} dividerHorizontal
+ * @param {number} dividerVertical
+ */
+export function CreateSquareContourCoordinatesWithIntermediatePoints(width, height, dividerHorizontal, dividerVertical) {
+    
+	/**
+	 * @type {any[]}
+	 */
+	let storedCoordinates = [];
+
+    // Calculate 4 corner coordinates
+    let topLeft = { x: -width / 2, y: height / 2 };
+    let topRight = { x: width / 2, y: height / 2 };
+    let bottomRight = { x: width / 2, y: -height / 2 };
+    let bottomLeft = { x: -width / 2, y: -height / 2 };
+
+    // Function to add intermediate points between two points
+    /**
+	 * @param {{ x: any; y: any; }} pointA
+	 * @param {{ x: any; y: any; }} pointB
+	 * @param {number} divider
+	 */
+    function addIntermediatePoints(pointA, pointB, divider) {
+        storedCoordinates.push(pointA.x, pointA.y); // Add the starting point
+
+        if (divider > 1) {
+            let stepX = (pointB.x - pointA.x) / divider;
+            let stepY = (pointB.y - pointA.y) / divider;
+
+            for (let i = 1; i < divider; i++) { // Start from 1 to add points between the corners
+                storedCoordinates.push(pointA.x + stepX * i, pointA.y + stepY * i);
+            }
+        }
+    }
+
+    // Add points for each side of the square
+    addIntermediatePoints(topRight, bottomRight, dividerVertical);
+    addIntermediatePoints(bottomRight, bottomLeft, dividerHorizontal);
+    addIntermediatePoints(bottomLeft, topLeft, dividerVertical);
+    addIntermediatePoints(topLeft, topRight, dividerHorizontal);
+
+	return storedCoordinates;
+}
 
 
 /**
