@@ -12,7 +12,6 @@
     CreateSquareContourCoordinatesWithIntermediatePoints,
     createDotsfromCoordinatesArray} from '../../../lib/FrameUtilies.js';
 
-
 let moveForward = false;
 let moveBackward = false;
 let moveLeft = false;
@@ -103,7 +102,10 @@ function increaseCount() {
     scene.add(cube);
 
 
-    const texture = new THREE.TextureLoader().load("/referenceTextures/Checker_256.png");
+    // const texturePath = "/referenceTextures/Checker_256.png";
+    const texturePath = "/referenceTextures/Oak_512.png";
+
+    const texture = new THREE.TextureLoader().load(texturePath);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
      texture.repeat.set(3, 1);
@@ -162,7 +164,7 @@ function increaseCount() {
 
     // El profile shape es el corte interno del marco. En realidad es una forma en el plano
     // ZX mirandolo desde arriba e
-     const profileShapex = CreateSquareProfileCoordinates(1,1,0.03);
+     const profileShapex = CreateSquareProfileCoordinates(1,1,0.01);
     // const profileShapex = [ -1,1, 1,1, 1,-1, -1,-1, -1,1];   
     
     // const contourx = CreateSquareContourCoordinates(10,10);
@@ -239,7 +241,6 @@ function onKeyUp(event) {
     
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
-
 
 </script>
 
