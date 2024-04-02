@@ -2,15 +2,9 @@
   import { onMount } from "svelte";
   import * as THREE from "three";
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-  
-  
-  import {ProfiledContourUVFM, 
-    createDotAtPosition, 
-    CreateSquareProfileCoordinates,
-    createDotAtPositionObject,
-    CreateSquareContourCoordinates,
-    CreateSquareContourCoordinatesWithIntermediatePoints,
-    createDotsfromCoordinatesArray} from '../../../lib/FrameUtilies.js';
+  import {ProfiledContourUVFM} from '../../../lib/FrameUtilies.js';
+  import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
+
 
 let moveForward = false;
 let moveBackward = false;
@@ -48,17 +42,19 @@ function increaseCount() {
     const near = 0.1; // Near clipping plane
     const far = 50; // Far clipping plane
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 20;
+    camera.position.z = 2;
 
     // Orthographic camera setup
-    // const cameraLeft = -10;
-    // const cameraRight = 10;
-    // const cameraTop = 10;
-    // const cameraBottom = -10;
-    // const cameraNear = 1;
-    // const cameraFar = 10;
+
+    // const orthoConstants = 5;
+    // const cameraLeft = -orthoConstants;
+    // const cameraRight = orthoConstants;
+    // const cameraTop = orthoConstants;
+    // const cameraBottom = -orthoConstants;
+    // const cameraNear = 0.01;
+    // const cameraFar = 5;
     // const camera = new THREE.OrthographicCamera(cameraLeft, cameraRight, cameraTop, cameraBottom, cameraNear, cameraFar);
-    // camera.position.z = 3;
+    // camera.position.z = 3.1;
     // camera.position.x = 0;
 
    // Rederer Setup
@@ -84,23 +80,29 @@ function increaseCount() {
     const color = 0xffffff; // White
     const intensity = 1; // Full intensity
     const directionalLight = new THREE.DirectionalLight(color, intensity);
-    directionalLight.position.set(1, 1, 1); // x, y, z
+    directionalLight.position.set(1, 1, 1); 
     scene.add(directionalLight);
    
+    // Adding a plane for reference
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.MeshBasicMaterial({color: 0x576b6b});
+    const plane = new THREE.Mesh(geometry, material);
+    plane.position.set(0, 0, 0);
+    scene.add(plane);
+
+    const geometry2 = new THREE.PlaneGeometry(0.5, 1);
+    const material2 = new THREE.MeshBasicMaterial({color: 0xff0000});
+    const plane2 = new THREE.Mesh(geometry2, material2);
+    plane2.position.set(0, 0, 0.02);
+    scene.add(plane2);
+
     // Adding grid
-    const size = 50;
-    const divisions = 50;
+    const size = 1;
+    const divisions = 100;
     const gridHelper = new THREE.GridHelper( size, divisions, 0x0000ff);
     gridHelper.rotateX(Math.PI / 2);
-    gridHelper.position.set(0, 0, 2);   
-    scene.add( gridHelper );
-
-    // Adding a plane for reference
-    const geometry = new THREE.PlaneGeometry(100, 100);
-    const material = new THREE.MeshBasicMaterial({color: 0x576b6b});
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
+    gridHelper.position.set(0, 0, 0.01);   
+    // scene.add( gridHelper );
 
     // const texturePath = "/referenceTextures/Checker_256.png";
     const texturePath = "/referenceTextures/Oak_512.png";
@@ -111,14 +113,13 @@ function increaseCount() {
      texture.repeat.set(3, 1);
 
     // const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
-    const m0 = new THREE.MeshStandardMaterial( { map: texture, side: THREE.FrontSide } );  
-    const m1 = new THREE.MeshStandardMaterial( { color: 0xff7b00, metalness: 0.5, roughness: 0.5, side: THREE.FrontSide } );
-    const m2 = new THREE.MeshStandardMaterial( { color: 0xf9f901, metalness: 0.5, roughness: 0.5, side: THREE.FrontSide } );
+    const m0 = new THREE.MeshStandardMaterial( { map: texture, 
+      side: THREE.FrontSide,
+      transparent : true,
+      opacity :0.5 } );  
 
     const materials = [
-      m0,
-      m1,
-      m2,
+      m0
     ];
 
     const animate = function () {
@@ -156,32 +157,15 @@ function increaseCount() {
 
     animate();
 
-    // RED INDIVIDUAL DOTS
-    // var dot1 = createDotAtPosition(-4,0,2, 0xff0000);
-    // scene.add(dot1);
-
     // REAL FRAME    
+    const innerWidth = 0.5;
+    const innerHeight = 1;
+    const framewidth = 0.09;
+    const frameDepth = 0.3;
+    const frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth ,materials)
 
-    // El profile shape es el corte interno del marco. En realidad es una forma en el plano
-    // ZX mirandolo desde arriba e
-     const profileShapex = CreateSquareProfileCoordinates(1,1,0.01);
-    // const profileShapex = [ -1,1, 1,1, 1,-1, -1,-1, -1,1];   
-    
-    // const contourx = CreateSquareContourCoordinates(10,10);
-     const contourx = CreateSquareContourCoordinatesWithIntermediatePoints(10,5,2,2);
-    // const contourx = [10,10,  10,-10,  -10,-10  ,-10,10];
-
-    
-    // let Dots = createDotsfromCoordinatesArray(contourx, 0xff0000, 5);
-    // Dots.forEach((dot) => {
-    //   scene.add(dot);
-    // });
-
-    
     // @ts-ignore
-    const frame4 = ProfiledContourUVFM(profileShapex, contourx, materials, false, true);
-    // @ts-ignore
-    frame4.position.z = 3;  
+    frame4.position.z = 0;  
     // @ts-ignore
     scene.add(frame4);
 });
