@@ -106,11 +106,10 @@ function increaseCount() {
 
     // const texturePath = "/referenceTextures/Checker_256.png";
     const texturePath = "/referenceTextures/Oak_512.png";
-
     const texture = new THREE.TextureLoader().load(texturePath);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-     texture.repeat.set(3, 1);
+    texture.repeat.set(3, 1);
 
     // const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
     const m0 = new THREE.MeshStandardMaterial( { map: texture, 
@@ -162,7 +161,7 @@ function increaseCount() {
     const innerHeight = 1;
     const framewidth = 0.09;
     const frameDepth = 0.3;
-    const frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth ,materials)
+    const frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
 
     // @ts-ignore
     frame4.position.z = 0;  

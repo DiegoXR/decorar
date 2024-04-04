@@ -1,43 +1,59 @@
 <script>
-    import {selectedImageObject, changeColorMessage} from "../../../stores.js";
+    import {currentFrameProperties} from "../../../lib/FrameStore.js";
     import { onMount } from "svelte";
-    import Model5 from "$lib/components/ThreeJSscene.svelte";
+    import ThreeJsScene from "$lib/components/ThreeJSscene.svelte";
+    import Toggle from "$lib/components/Toggle.svelte";
 
-    let dataObject = {
-        width: 1,
-        height: 1,
-        src: "",
-        description: "",
-        alt: "",
-    };
+    let isCheckedInParent = false;
 
-    selectedImageObject.subscribe((value) => {
-        dataObject = value;
-    });
+
 
     onMount(() => {     
         console.log("Mouning Customize Page");
     });
 
+//////////////////////////////////
+    $: if (isCheckedInParent) {
+    console.log('El toggle está ON');
+
+    const FrameObject = {
+    isVisible: true,
+    innerWidth: 1,
+    innerHeight: 1,
+    framewidth: 1,
+    frameDepth: 1
+}
+
+    currentFrameProperties.set(FrameObject);
+
+  } 
+  else
+  {
+    console.log('El toggle está OFF');
+    const FrameObject2 = {
+    isVisible: false,
+    innerWidth: 1,
+    innerHeight: 1,
+    framewidth: 1,
+    frameDepth: 1
+}
+currentFrameProperties.set(FrameObject2);
+  }
+//////////////////////////////////
 </script>
 
 <div class="bg-gray-100 w-full h-[50vh]">
-    <Model5></Model5>
+    <ThreeJsScene></ThreeJsScene>
 </div>
 
-<h1>Received data: {dataObject.description}</h1>
-
-<button
+ <!-- <button
     on:click={() => {
         $changeColorMessage = !$changeColorMessage;
     }}>Cambiar Color del Material</button
->
+> -->
 
-<button
-    class="mx-2 mb-2 h-10 w-10 bg-cyan-950"
-    on:click={() => {
-        $changeColorMessage = !$changeColorMessage;
-        console.log("Button has been pressed");
-    }}
->
-</button>
+<Toggle bind:isChecked={isCheckedInParent} />
+
+{#if isCheckedInParent}
+  <p>El toggle está activado en el componente padre.</p>
+{/if} 

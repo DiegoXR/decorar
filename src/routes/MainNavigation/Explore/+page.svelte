@@ -26,6 +26,13 @@
             width: 1080,
             height: 1350,
         },
+        {
+            src: "/referenceImages/1080_1080_Green.jpg",
+            alt: "alt text",
+            description: "Vertical Portrait",
+            width: 1080,
+            height: 608,
+        }
     ];
 
     onMount(() => {     

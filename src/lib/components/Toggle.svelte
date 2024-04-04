@@ -1,0 +1,18 @@
+<script>
+    export let isChecked = false;
+  
+    // Esta función se llama cada vez que cambia el valor de isChecked
+    $: if (isChecked) {
+      //console.log('El toggle está ON');
+    }
+  </script>
+  
+  <label>
+    <input type="checkbox" bind:checked={isChecked} />
+    Toggle
+  </label>
+  
+  {#if isChecked}
+    <p>Hello</p>
+  {/if}
+  
