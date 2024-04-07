@@ -146,7 +146,6 @@
 
     let unsubscribe2 = currentFrameProperties.subscribe((currentFrame) =>{
         
-        console.log(`From three js scene I have received some the current frame status and the value is: ${currentFrame.isVisible}`);
         frameObject = currentFrame;
         SetVisibleCube(currentFrame.isVisible);
     });
