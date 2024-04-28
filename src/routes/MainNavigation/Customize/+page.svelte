@@ -1,59 +1,68 @@
 <script>
-    import {currentFrameProperties} from "../../../lib/FrameStore.js";
-    import { onMount } from "svelte";
+    import { currentFrameProperties } from "../../../lib/FrameStore.js";
+    import { onMount, onDestroy } from "svelte";
     import ThreeJsScene from "$lib/components/ThreeJSscene.svelte";
     import Toggle from "$lib/components/Toggle.svelte";
+    import Dropdown from "$lib/components/Dropdown.svelte";
+    import {extractDimensionFromString} from '../../../lib/FormatConversionUtilities.js';
+    import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
 
-    let isCheckedInParent = false;
+    let isFrameVisible = false;
 
+    /**
+     * @type {string}
+     */
+    let selectedInnerSize = '1 x 1';
 
-
-    onMount(() => {     
-        console.log("Mouning Customize Page");
+    let frameObject = THREEJsUtilities.emptyFrame;
+    
+    onMount(() => {
+        console.log("Mounting Customize Page");
     });
 
-//////////////////////////////////
-    $: if (isCheckedInParent) {
-    console.log('El toggle está ON');
+    ////////////////////////////////// UPDATE FRAME VISIBILITY
+    $: handleFrameVisibilityChange(isFrameVisible);
 
-    const FrameObject = {
-    isVisible: true,
-    innerWidth: 1,
-    innerHeight: 1,
-    framewidth: 1,
-    frameDepth: 1
-}
+    /**
+     * @param {boolean} newValue
+     */
+    function handleFrameVisibilityChange(newValue){
+        frameObject.isVisible = newValue;
+        currentFrameProperties.set(frameObject);
+        console.log("Frame Visibility Updated");
+    }
 
-    currentFrameProperties.set(FrameObject);
+    ////////////////////////////////// UPDATE INNER SIZES OF FRAME
+    
+    $: handleInnerSizesChange(selectedInnerSize);
 
-  } 
-  else
-  {
-    console.log('El toggle está OFF');
-    const FrameObject2 = {
-    isVisible: false,
-    innerWidth: 1,
-    innerHeight: 1,
-    framewidth: 1,
-    frameDepth: 1
-}
-currentFrameProperties.set(FrameObject2);
-  }
-//////////////////////////////////
+    /**
+     * @param {string} newValue
+     */
+     function handleInnerSizesChange(newValue){
+        frameObject.innerWidth = extractDimensionFromString(newValue, true);
+        frameObject.innerHeight = extractDimensionFromString(newValue, false);
+        currentFrameProperties.set(frameObject);
+        console.log("Inner sizes Updated");
+    }   
+    /////////////////////////////////
+
+    // onDestroy(unsubscribe);
 </script>
 
 <div class="bg-gray-100 w-full h-[50vh]">
     <ThreeJsScene></ThreeJsScene>
 </div>
 
- <!-- <button
+<!-- <button
     on:click={() => {
         $changeColorMessage = !$changeColorMessage;
     }}>Cambiar Color del Material</button
 > -->
 
-<Toggle bind:isChecked={isCheckedInParent} />
+<Toggle bind:isChecked={isFrameVisible} />
+<Dropdown bind:selectedOption={selectedInnerSize}></Dropdown>
 
-{#if isCheckedInParent}
-  <p>El toggle está activado en el componente padre.</p>
-{/if} 
+<!-- {#if isFrameVisible}
+    <p>El toggle está activado en el componente padre.</p>
+{/if} -->
