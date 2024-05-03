@@ -12,10 +12,10 @@ export let baseFrame = {
 
 export let emptyFrame = {
     isVisible: true,
-    innerWidth: 0,
-    innerHeight:0,
-    framewidth: 0,
-    frameDepth: 0,
+    innerWidth: 0.2,
+    innerHeight:0.2,
+    framewidth: 0.04,
+    frameDepth: 0.02,
 };
 
 /**

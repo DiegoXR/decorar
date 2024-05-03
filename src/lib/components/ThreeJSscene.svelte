@@ -71,7 +71,7 @@
         map: texture,
         side: THREE.FrontSide,
         transparent: true,
-        opacity: 0.5,
+        opacity: 1,
     });
 
     let materials = [m0];
@@ -186,9 +186,14 @@
 
                     THREEJsUtilities.removeMeshFromScene(frame, scene);
 
+                    console.log(
+                    `Creating frame with the following properties : Inner Width : ${updatedFrame.innerWidth}, Inner Height : ${updatedFrame.innerHeight}, Frame Width : ${updatedFrame.framewidth} Frame Dpeth : ${updatedFrame.frameDepth} `,
+                );
+
+
                     frame = CreateOrUpdateFrame(
-                        currentFrame.innerWidth,
-                        currentFrame.innerHeight,
+                        updatedFrame.innerWidth,
+                        updatedFrame.innerHeight,
                         updatedFrame.framewidth,
                         updatedFrame.frameDepth,
                         materials,
