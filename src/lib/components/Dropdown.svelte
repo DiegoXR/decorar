@@ -6,7 +6,7 @@
     let selected = 'Select an option';
     // const options = ['23 x 20', '30 x 41', '38 x 51', '46 x 61' ];
     // const options = ['23 x 20', '30 x 41', '38 x 51', '46 x 61' ];
-    const options = ['0.2 x 0.2','1.5 x 1.5','1 x 1', '0.5 x 0.5', '0.25 x 0.25', '0.125 x 0.125' ];
+    const options = ['0.2 x 0.2','0.25 x 0.25','0.5 x 0.5','1 x 1','1.5 x 1.5'];
   
     onMount(() => { 
       selectOption(options[0]);

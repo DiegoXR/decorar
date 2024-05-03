@@ -29,7 +29,6 @@
     function handleFrameVisibilityChange(newValue){
         frameObject.isVisible = newValue;
         currentFrameProperties.set(frameObject);
-        console.log("Frame Visibility Updated");
     }
 
     ////////////////////////////////// UPDATE INNER SIZES OF FRAME
@@ -43,11 +42,12 @@
         frameObject.innerWidth = extractDimensionFromString(newValue, true);
         frameObject.innerHeight = extractDimensionFromString(newValue, false);
         currentFrameProperties.set(frameObject);
-        console.log("Inner sizes Updated");
     }   
     /////////////////////////////////
 
-    // onDestroy(unsubscribe);
+
+    onDestroy(() => {console.log("Destroying Customize Page");});
+
 </script>
 
 <div class="bg-gray-100 w-full h-[50vh]">

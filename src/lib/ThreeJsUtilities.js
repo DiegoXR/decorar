@@ -12,8 +12,8 @@ export let baseFrame = {
 
 export let emptyFrame = {
     isVisible: true,
-    innerWidth: 0.2,
-    innerHeight:0.2,
+    innerWidth: 0.5,
+    innerHeight:0.5,
     framewidth: 0.04,
     frameDepth: 0.02,
 };

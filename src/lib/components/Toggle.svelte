@@ -15,9 +15,9 @@
 
 <label>
   <input type="checkbox" bind:checked={isChecked} />
-  Toggle
+  Enable Frame
 </label>
 
-{#if isChecked}
+<!-- {#if isChecked}
   <p>Hello</p>
-{/if}
+{/if} -->

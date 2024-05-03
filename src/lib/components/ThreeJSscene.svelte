@@ -163,35 +163,18 @@
                
         currentFrameSubscription = currentFrameProperties.subscribe(
             (updatedFrame) => {
-                console.log("Three js received a frame update");
-                console.log(
-                    `Info visibility received by Three JS scene : ${updatedFrame.isVisible}`,
-                );
 
                 if (currentFrame.isVisible != updatedFrame.isVisible) {
-                    console.log(
-                        `Applying visibility ${updatedFrame.isVisible} of frame at the scene`,
-                    );
-                    SetFrameVisibility(currentFrame.isVisible);
+                    SetFrameVisibility(updatedFrame.isVisible);
                     currentFrame.isVisible = updatedFrame.isVisible;
                 }
-
-                console.log(
-                    `Info Inner received by Three JS scene : ${updatedFrame.innerWidth} AND ${updatedFrame.innerHeight} ref is : ${currentFrame.innerWidth} AND ${currentFrame.innerHeight} `,
-                );
-                
+               
                 if ( currentFrame.innerWidth != updatedFrame.innerWidth || currentFrame.innerHeight != updatedFrame.innerHeight) {
 
-                    // console.log(`Applying Inner Width size change ${updatedFrame.innerWidth} and ${updatedFrame.innerHeight}  of frame at the scene`);
-
                     THREEJsUtilities.removeMeshFromScene(frame, scene);
-
-                    console.log(
-                    `Creating frame with the following properties : Inner Width : ${updatedFrame.innerWidth}, Inner Height : ${updatedFrame.innerHeight}, Frame Width : ${updatedFrame.framewidth} Frame Dpeth : ${updatedFrame.frameDepth} `,
-                );
-
-
-                    frame = CreateOrUpdateFrame(
+                  
+                    // @ts-ignore
+                    frame = SQUAREFRAME.CreateFrameSquare(
                         updatedFrame.innerWidth,
                         updatedFrame.innerHeight,
                         updatedFrame.framewidth,
@@ -208,6 +191,8 @@
     }
 
     onDestroy(() => {
+        
+        console.log("Destroying Three Js scene component");
         sceneStore.set(scene);
 
         THREEJsUtilities.DisposeThreeJsScene(scene, renderer, container);
@@ -240,32 +225,6 @@
         if (frame != null) {
             frame.visible = isVisible;
         }
-    }
-
-    /**
-     * @param {number} innerWidth
-     * @param {number} innerHeight
-     * @param {number} frameWidth
-     * @param {number} frameDepth
-     * @param {any} materials
-     */
-    function CreateOrUpdateFrame(
-        innerWidth,
-        innerHeight,
-        frameWidth,
-        frameDepth,
-        materials,
-    ) {
-        // @ts-ignore
-        frame = SQUAREFRAME.CreateFrameSquare(
-            innerWidth,
-            innerHeight,
-            frameWidth,
-            frameDepth,
-            materials,
-        );
-
-        return frame;
     }
 </script>
 
