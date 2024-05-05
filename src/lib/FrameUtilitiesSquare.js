@@ -95,7 +95,7 @@ export function CalculateCoordinatesInQuadrant(center, radius, quadrant) {
         // @ts-ignore
         const cornerCoordinates = CalculateCoordinatesInQuadrant(givenCorner, cornerRadius, selectedQuadrant)
         // @ts-ignore
-        console.log(cornerCoordinates[0]);
+        // console.log(cornerCoordinates[0]);
         // @ts-ignore
         storedCoordinates.push(...cornerCoordinates);
       }

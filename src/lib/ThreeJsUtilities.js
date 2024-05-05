@@ -25,7 +25,7 @@ export let emptyFrame = {
     export function removeMeshFromScene(mesh, scene) {
         if (mesh == null || scene == null) {
             console.error("Unable to remove from scene null mesh or the scene itself is null.");
-            return;
+            return false;
         }
     
         // Remove mesh from scene
@@ -44,6 +44,8 @@ export let emptyFrame = {
         } else {
             disposeMaterialAndTexture(mesh.material);
         }
+
+        return true
     }
 
     /**
@@ -102,6 +104,15 @@ function disposeMaterialAndTexture(material) {
     }   
 }
 
+/**
+ * @param {THREE.Mesh} mesh
+ * @param {number} deltaValue
+ */
+export function repositionMesh(mesh, deltaValue){
+    mesh.position.z += deltaValue;
+}
+
+
 
 ////// CUBE 
 
@@ -114,12 +125,15 @@ function disposeMaterialAndTexture(material) {
 
 ////// PLANE
 
- // Create plane with texture
-const geometry = new THREE.PlaneGeometry(0.2, 0.2);
-const material = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-export const plane = new THREE.Mesh( geometry, material );
+ // Create Test plane with texture
+// const geometryTest = new THREE.PlaneGeometry(0.2, 0.2);
+// const materialTest = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
+// export const planeTest = new THREE.Mesh( geometryTest, materialTest );
 
-// Create frame mesh
+
+///// FRAME 
+
+// Create Test frame mesh
         // const innerWidth = 1;
         // const innerHeight = 1;
         // const framewidth = 0.09;
@@ -134,3 +148,16 @@ export const plane = new THREE.Mesh( geometry, material );
         // );
         // Automatically create frame
         //scene.add(frame);
+
+
+    //         /**
+    //  * @param {number} width
+    //  * @param {number} height
+    //  */
+    // function calculateRatio(width, height) {
+    //     ratio = width / height;
+
+    //     if (ratio > 1)
+    //         imageSize[0] = ratio; // Portrait Image (Horizontal)
+    //     else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
+    // }

@@ -19,6 +19,13 @@
             width: 0.2,
             height: 0.2,
         },
+        {
+            src: "/referenceImages/1080_1080_v2.jpg",
+            alt: "alt text",
+            description: "Square",
+            width: 0.2,
+            height: 0.2,
+        }
         // {
         //     src: "/referenceImages/1080_1350.jpg",
         //     alt: "alt text",

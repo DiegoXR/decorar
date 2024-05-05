@@ -34,6 +34,17 @@
      */
     let frame;
 
+     /**
+     * @type {THREE.Mesh}
+     */
+    let planeImage;
+
+
+    /**
+     * @type {THREE.TextureLoader}
+     */
+    let textureLoader;
+
     let dataObject = {
         width: 1,
         height: 1,
@@ -41,10 +52,6 @@
         description: "",
         alt: "",
     };
-
-    let ratio = null;
-
-    let imageSize = [1, 1];
 
     /**
      * @type {{ innerWidth: number; innerHeight: number; isVisible: boolean; }}
@@ -83,9 +90,7 @@
         
         currentFrame = THREEJsUtilities.baseFrame;
         console.log("Mounting Three Js Scene");
-        
-        InitializeImageSubscription();
-      
+           
        scene = new THREE.Scene();
 
         // Create camera
@@ -112,33 +117,11 @@
         container.appendChild(renderer.domElement);
 
         // Create plane with texture
-        const textureLoader = new THREE.TextureLoader();
-        const planeTexture = textureLoader.load(dataObject.src);
-        const geometry = new THREE.PlaneGeometry(dataObject.width, dataObject.width);
-
-        const material = new THREE.MeshPhysicalMaterial({
-            map: planeTexture,
-            side: THREE.FrontSide,
-        });
-
-        const plane = new THREE.Mesh(geometry, material);
-        scene.add(plane);
+        textureLoader = new THREE.TextureLoader();
 
         // Create ambient light
         const ambientLight = new THREE.AmbientLight(0xffffff, 3); // color blanco, intensidad 0.5
         scene.add(ambientLight);
-
-       // Create testing plane 1
-       const planeTest = THREEJsUtilities.plane;
-       planeTest.position.set(0,0,0.01);
-       scene.add(planeTest); 
-
-       // Create testing plane 2
-    //    const geometry2 = new THREE.PlaneGeometry( 1, 1 );
-    //    const material2 = new THREE.MeshBasicMaterial( {color: 0xff00, side: THREE.DoubleSide} );
-    //    const plane2 = new THREE.Mesh( geometry2, material2 );
-    //    plane2.position.set(0,0,0.01);
-    //    scene.add( plane2 );
 
         function animate() {
             requestAnimationFrame(animate);
@@ -148,14 +131,20 @@
         }
 
         animate();
-        
+
+        InitializeImageSubscription();
         InitializeFrameSubscription();
     });
 
     function InitializeImageSubscription(){
         currentImageSubscription = selectedImageObject.subscribe((value) => {
         dataObject = value;
-        calculateRatio(dataObject.width, dataObject.height);      
+        
+        // @ts-ignore
+        planeImage = CreatePlaneImage(dataObject.src, dataObject.width, dataObject.height)
+        
+        if (planeImage != null) scene.add(planeImage);
+        
     });
     }
 
@@ -164,12 +153,14 @@
         currentFrameSubscription = currentFrameProperties.subscribe(
             (updatedFrame) => {
 
+                // Frame visibility change
                 if (currentFrame.isVisible != updatedFrame.isVisible) {
                     SetFrameVisibility(updatedFrame.isVisible);
                     currentFrame.isVisible = updatedFrame.isVisible;
                 }
                
-                if ( currentFrame.innerWidth != updatedFrame.innerWidth || currentFrame.innerHeight != updatedFrame.innerHeight) {
+                // Frame size change
+                if (currentFrame.innerWidth != updatedFrame.innerWidth || currentFrame.innerHeight != updatedFrame.innerHeight) {
 
                     THREEJsUtilities.removeMeshFromScene(frame, scene);
                   
@@ -182,10 +173,17 @@
                         materials,
                     );
 
+                    // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+                    THREEJsUtilities.repositionMesh(frame, -updatedFrame.frameDepth)
                     scene.add(frame);
                     currentFrame.innerWidth = updatedFrame.innerWidth;
                     currentFrame.innerHeight = updatedFrame.innerHeight;
+
+                    // When the frame size is updated the image is updated as well.
+                    UpdateImageSize(updatedFrame.innerWidth, updatedFrame.innerHeight);
                 }
+
+                // Frame Color change
             },
         );
     }
@@ -207,18 +205,6 @@
     });
 
     /**
-     * @param {number} width
-     * @param {number} height
-     */
-    function calculateRatio(width, height) {
-        ratio = width / height;
-
-        if (ratio > 1)
-            imageSize[0] = ratio; // Portrait Image (Horizontal)
-        else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
-    }
-
-    /**
      * @param {boolean} isVisible
      */
     function SetFrameVisibility(isVisible) {
@@ -226,6 +212,42 @@
             frame.visible = isVisible;
         }
     }
+
+    /**
+     * @param {string} imagePath
+     * @param {number} width
+     * @param {number} height
+     */
+    function CreatePlaneImage(imagePath, width, height){
+        
+        if (imagePath == null) return null;
+             
+        let planeTexture = textureLoader.load(imagePath);
+        let geometry = new THREE.PlaneGeometry(width, height);
+
+        let planeMaterial = new THREE.MeshPhysicalMaterial({
+            map: planeTexture,
+            side: THREE.FrontSide,
+        });
+
+        let plane = new THREE.Mesh(geometry, planeMaterial);
+
+        return plane;
+    }
+
+    /**
+     * @param {number} width
+     * @param {number} height
+     */
+    function UpdateImageSize(width, height){
+        
+        THREEJsUtilities.removeMeshFromScene(planeImage, scene);
+        // @ts-ignore
+        planeImage = CreatePlaneImage(dataObject.src, width, height)
+        
+        if (planeImage != null) scene.add(planeImage);
+    }
+
 </script>
 
 <div bind:this={container} class="w-full h-full"></div>
