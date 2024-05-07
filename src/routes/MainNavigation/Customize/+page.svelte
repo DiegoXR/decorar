@@ -3,19 +3,33 @@
     import { onMount, onDestroy } from "svelte";
     import ThreeJsScene from "$lib/components/ThreeJSscene.svelte";
     import Toggle from "$lib/components/Toggle.svelte";
-    import Dropdown from "$lib/components/Dropdown.svelte";
-    import {extractDimensionFromString} from '../../../lib/FormatConversionUtilities.js';
     import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
+    import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
+    import { currentImageProperties } from "../../../lib/ImageStore.js";
 
     let isFrameVisible = false;
 
     /**
-     * @type {string}
+     * @type {number[]}
      */
-    let selectedInnerSize = '1 x 1';
+    let selectedInnerSizeV2;
+    /**
+     * @type {import("svelte/store").Unsubscriber}
+     */
+    let currentImageSubscription;
+
+    let currentImage = {
+        src: "",
+        alt: "",
+        description: "",
+        availableSizes: [[0, 0]],
+        defaultSize: [0, 0],
+    };
 
     let frameObject = THREEJsUtilities.emptyFrame;
-    
+
+    InitializeImageSubscription();
+
     onMount(() => {
         console.log("Mounting Customize Page");
     });
@@ -26,27 +40,42 @@
     /**
      * @param {boolean} newValue
      */
-    function handleFrameVisibilityChange(newValue){
+    function handleFrameVisibilityChange(newValue) {
         frameObject.isVisible = newValue;
         currentFrameProperties.set(frameObject);
     }
 
-    ////////////////////////////////// UPDATE INNER SIZES OF FRAME
-    
-    $: handleInnerSizesChange(selectedInnerSize);
+    ////////////////////////////////// UPDATE INNER SIZES v2 OF FRAME
+
+    $: handleInnerSizesChangeV2(selectedInnerSizeV2);
 
     /**
-     * @param {string} newValue
+     * @param {number[]} selectedSize
      */
-     function handleInnerSizesChange(newValue){
-        frameObject.innerWidth = extractDimensionFromString(newValue, true);
-        frameObject.innerHeight = extractDimensionFromString(newValue, false);
-        currentFrameProperties.set(frameObject);
-    }   
+    function handleInnerSizesChangeV2(selectedSize) {
+        if (selectedSize != null) {
+            frameObject.innerWidth = selectedSize[0];
+            frameObject.innerHeight = selectedSize[1];
+            currentFrameProperties.set(frameObject);
+        }
+    }
     /////////////////////////////////
 
+    onDestroy(() => {
+        console.log("Destroying Customize Page");
+        if (currentImageSubscription) {
+            currentImageSubscription();
+        }
+    });
 
-    onDestroy(() => {console.log("Destroying Customize Page");});
+    function InitializeImageSubscription() {
+        currentImageSubscription = currentImageProperties.subscribe((value) => {
+            currentImage = value;
+            console.log(
+                `From customize, the selecte image is ${currentImage.availableSizes}`,
+            );
+        });
+    }
 
 </script>
 
@@ -61,7 +90,11 @@
 > -->
 
 <Toggle bind:isChecked={isFrameVisible} />
-<Dropdown bind:selectedOption={selectedInnerSize}></Dropdown>
+<DropdownInitializable
+    bind:selectedOption={selectedInnerSizeV2}
+    availableSizes={currentImage.availableSizes}
+    defaultSize={currentImage.defaultSize}
+/>
 
 <!-- {#if isFrameVisible}
     <p>El toggle está activado en el componente padre.</p>

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { T } from "@threlte/core";
     import { onMount } from "svelte";
-    import { selectedImageObject } from "../../stores.js";
+    import { currentImageProperties } from "../ImageStore.js";
     import { useLoader } from "@threlte/core";
     import { Texture, TextureLoader } from "three";
 
@@ -10,13 +10,23 @@
 
     let imageSize = [1, 1, 1];
 
+    // let dataObject = {
+    //     width: 1,
+    //     height: 1,
+    //     src: "",
+    //     description: "",
+    //     alt: "",
+    // };
+
     let dataObject = {
-        width: 1,
-        height: 1,
-        src: "",
-        description: "",
-        alt: "",
-    };
+    src: "",
+    alt: "",
+    description: "",
+    availableSizes: [
+    [0, 0]
+],
+    defaultSize: [0, 0]
+}
 
     const textureLoader = new TextureLoader();
     $: texture = textureLoader.load(dataObject.src);
@@ -28,11 +38,11 @@
         else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
     }
 
-    let unsubscribe = selectedImageObject.subscribe((value) => {
+    let unsubscribe = currentImageProperties.subscribe((value) => {
         dataObject = value;
 
         console.log(dataObject.description + "From scene2");
-        calculateRatio(dataObject.width, dataObject.height);
+        calculateRatio(dataObject.defaultSize[0], dataObject.defaultSize[1]);
     });
 </script>
 

@@ -16,15 +16,29 @@
             src: "/referenceImages/1080_1080.jpg",
             alt: "alt text",
             description: "Square",
-            width: 0.2,
-            height: 0.2,
+            hr: "ff",
+            // width: 0.2,
+            // height: 0.2,
+            availableSizes: [
+            [0.1, 0.1],
+            [0.2, 0.2],
+            [0.3, 0.3]
+            ],
+            defaultSize: [0.2, 0.2]
         },
         {
             src: "/referenceImages/1080_1080_v2.jpg",
             alt: "alt text",
             description: "Square",
-            width: 0.2,
-            height: 0.2,
+            hr: "ff",
+            // width: 0.2,
+            // height: 0.2,
+            availableSizes: [
+            [0.3, 0.3],
+            [0.4, 0.4],
+            [0.5, 0.5]
+            ],
+            defaultSize: [0.4, 0.4]
         }
         // {
         //     src: "/referenceImages/1080_1350.jpg",

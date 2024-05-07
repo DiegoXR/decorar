@@ -1,13 +1,14 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
-    import { selectedImageObject } from "../../stores.js";
+    import { currentImageProperties } from "../ImageStore.js";
     import { currentFrameProperties } from "../../lib/FrameStore.js";
     // import { frameVisibilityStore } from "../../lib/FrameVisibilityStore.js";
     import { rendererStore, sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import ConstNode from "three/examples/jsm/nodes/core/ConstNode.js";
 
     /**
      * @type {HTMLDivElement}
@@ -45,13 +46,24 @@
      */
     let textureLoader;
 
+    // let dataObject = {
+    //     width: 1,
+    //     height: 1,
+    //     src: "",
+    //     description: "",
+    //     alt: "",
+    // };
+
     let dataObject = {
-        width: 1,
-        height: 1,
-        src: "",
-        description: "",
-        alt: "",
-    };
+    src: "",
+    alt: "",
+    description: "",
+    availableSizes: [
+    [0, 0]
+],
+    defaultSize: [0, 0]
+}
+
 
     /**
      * @type {{ innerWidth: number; innerHeight: number; isVisible: boolean; }}
@@ -137,11 +149,11 @@
     });
 
     function InitializeImageSubscription(){
-        currentImageSubscription = selectedImageObject.subscribe((value) => {
+        currentImageSubscription = currentImageProperties.subscribe((value) => {
         dataObject = value;
         
         // @ts-ignore
-        planeImage = CreatePlaneImage(dataObject.src, dataObject.width, dataObject.height)
+        planeImage = CreatePlaneImage(dataObject.src, dataObject.defaultSize[0], dataObject.defaultSize[1])
         
         if (planeImage != null) scene.add(planeImage);
         
@@ -164,6 +176,8 @@
 
                     THREEJsUtilities.removeMeshFromScene(frame, scene);
                   
+                    console.log("hEY");
+                    
                     // @ts-ignore
                     frame = SQUAREFRAME.CreateFrameSquare(
                         updatedFrame.innerWidth,
@@ -174,7 +188,7 @@
                     );
 
                     // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-                    THREEJsUtilities.repositionMesh(frame, -updatedFrame.frameDepth)
+                    THREEJsUtilities.repositionMesh(frame, updatedFrame.frameDepth)
                     scene.add(frame);
                     currentFrame.innerWidth = updatedFrame.innerWidth;
                     currentFrame.innerHeight = updatedFrame.innerHeight;

@@ -4,7 +4,7 @@
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   import {ProfiledContourUVFM} from '../../../lib/FrameUtilies.js';
   import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
-
+  import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
 
 let moveForward = false;
 let moveBackward = false;
@@ -225,6 +225,14 @@ function onKeyUp(event) {
 document.addEventListener('keydown', onKeyDown);
 document.addEventListener('keyup', onKeyUp);
 
+/**
+ * @type {string}
+ */
+let selectedInnerSize = '1 x 1';
+
+let options = ['A','B','C','D','E'];
+let defaultOption = 'C';
+
 </script>
 
 <p>This is the playground page</p>
@@ -239,3 +247,4 @@ document.addEventListener('keyup', onKeyUp);
   Click me
 </button>
 
+<!-- <DropdownInitializable bind:selectedOption={selectedInnerSize} availableSizes={options} defaultSize={defaultOption}/>  -->

@@ -1,32 +1,36 @@
 <script>
     // @ts-nocheck
-
-    /**
-     * @type {{ description: any;  }}
-     */
-
     import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte";
     import NextIcon from "./NextIcon.svelte";
-    import { selectedImageObject } from '../../stores.js';
+    import { currentImageProperties } from '../ImageStore.js';
     import { goto } from "$app/navigation";
    
-
+     /**
+     * @type {{ src: string;
+                alt: string;
+                description: string;
+                hr: string;
+                availableSizes: number [][];
+                defaultSize: number [];
+            }}
+     */
+  
     export let image;
     let browserWidth;
     let targetImageContainerHeight;
 
     onMount(() => {
-        let diego = image.description;
-        console.log({ diego });
+        // let diego = image.description;
+        // console.log({ diego });
         browserWidth = window.innerWidth;
         targetImageContainerHeight = Math.round(
-            (image.height / image.width) * browserWidth,
+            (image.defaultSize[1] / image.defaultSize[0]) * browserWidth,
         );
-        console.log(" target height is" + targetImageContainerHeight);
+        // console.log(" target height is" + targetImageContainerHeight);
     });
 
     function goToCustomize() {
-        selectedImageObject.set(image);
+        currentImageProperties.set(image);
         goto("/MainNavigation/Customize");
     }
 

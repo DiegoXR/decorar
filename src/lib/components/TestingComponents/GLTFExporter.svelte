@@ -2,7 +2,7 @@
     import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
-    import { selectedImageObject } from "../../../stores.js";
+    import { currentImageProperties } from "../../ImageStore.js";
     import { rendererStore } from "../../threeJSstore.js"; // Adjust the import path as necessary
     import "@google/model-viewer";
     
@@ -30,13 +30,23 @@
     $: renderer = $rendererStore;
 
 
+    // let dataObject = {
+    //     width: 1,
+    //     height: 1,
+    //     src: "",
+    //     description: "",
+    //     alt: "",
+    // };
+
     let dataObject = {
-        width: 1,
-        height: 1,
-        src: "",
-        description: "",
-        alt: "",
-    };
+    src: "",
+    alt: "",
+    description: "",
+    availableSizes: [
+    [0, 0]
+],
+    defaultSize: [0, 0]
+}
 
     onMount(() => {
         scene = new THREE.Scene();
@@ -83,7 +93,7 @@
     });
 
 
-    let unsubscribe = selectedImageObject.subscribe((value) => {
+    let unsubscribe = currentImageProperties.subscribe((value) => {
         dataObject = value;
     });
 

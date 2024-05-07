@@ -10,11 +10,21 @@ import { writable } from 'svelte/store';
 // }
 
 const Image = {
-    width: 1,
-    height: 1,
     src: "",
+    alt: "",
     description: "",
-    alt: ""
+    availableSizes: [
+    [0, 0]
+],
+    defaultSize: [0, 0]
 }
-export const selectedImageObject = writable(Image);
+
+// const Image = {
+//     width: 1,
+//     height: 1,
+//     src: "",
+//     description: "",
+//     alt: ""
+// }
+export const currentImageProperties = writable(Image);
 export const changeColorMessage = writable(false)
