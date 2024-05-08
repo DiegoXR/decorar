@@ -5,20 +5,10 @@
     import { onMount } from "svelte";
 
     let images = [
-        // {
-        //     src: "/referenceImages/1080_608.jpg",
-        //     alt: "alt text",
-        //     description: "Horizontal Landscape",
-        //     width: 1080,
-        //     height: 608,
-        // },
         {
             src: "/referenceImages/1080_1080.jpg",
             alt: "alt text",
             description: "Square",
-            hr: "ff",
-            // width: 0.2,
-            // height: 0.2,
             availableSizes: [
             [0.1, 0.1],
             [0.2, 0.2],
@@ -30,22 +20,44 @@
             src: "/referenceImages/1080_1080_v2.jpg",
             alt: "alt text",
             description: "Square",
-            hr: "ff",
-            // width: 0.2,
-            // height: 0.2,
             availableSizes: [
             [0.3, 0.3],
             [0.4, 0.4],
             [0.5, 0.5]
             ],
             defaultSize: [0.4, 0.4]
+        },
+        {
+            src: "/referenceImages/446_595.jpg",
+            alt: "alt text",
+            description: "Vertical Portrait",
+            availableSizes: [
+            [0.23, 0.20],
+            [0.30, 0.41],
+            [0.38, 0.51],
+            [0.46, 0.61]
+            ],
+            defaultSize: [0.46, 0.61]
+        },
+        {
+            src:"/referenceImages/644_429.jpg",
+            alt: "alt text",
+            description: "Horizontal Landscape",
+            availableSizes: [
+            [0.3048, 0.2032],
+            [0.4572, 0.3048],
+            [0.6096, 0.4064],
+            [0.762, 0.508],
+            [0.9144, 0.6096],
+            ],
+            defaultSize: [0.6096, 0.4064]
         }
-        // {
-        //     src: "/referenceImages/1080_1350.jpg",
+                // {
+        //     src: "/referenceImages/1080_608.jpg",
         //     alt: "alt text",
-        //     description: "Vertical Portrait",
+        //     description: "Horizontal Landscape",
         //     width: 1080,
-        //     height: 304,
+        //     height: 608,
         // },
     ];
 
