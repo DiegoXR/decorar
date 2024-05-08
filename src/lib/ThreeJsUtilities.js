@@ -6,16 +6,16 @@ export let baseFrame = {
     isVisible: true,
     innerWidth: 10,
     innerHeight: 10,
-    framewidth: 0.04,
-    frameDepth: 0.1,
+    borderWidth: 0.04,
+    borderDepth: 0.1,
 };
 
 export let emptyFrame = {
     isVisible: true,
     innerWidth: 0.5,
     innerHeight:0.5,
-    framewidth: 0.04,
-    frameDepth: 0.02,
+    borderWidth: 0.02,
+    borderDepth: 0.02,
 };
 
 /**
@@ -110,6 +110,8 @@ function disposeMaterialAndTexture(material) {
  */
 export function repositionMesh(mesh, deltaValue){
     mesh.position.z += deltaValue;
+    console.log("Repositionnning at" + deltaValue);
+    return mesh;
 }
 
 

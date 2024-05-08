@@ -4,7 +4,7 @@ const FrameObject = {
     isVisible: true,
     innerWidth: 1,
     innerHeight: 1,
-    framewidth: 1,
-    frameDepth: 1
+    borderWidth: 1,
+    borderDepth: 1
 }
 export const currentFrameProperties = writable(FrameObject);

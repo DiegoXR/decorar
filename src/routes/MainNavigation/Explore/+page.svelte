@@ -32,12 +32,12 @@
             alt: "alt text",
             description: "Vertical Portrait",
             availableSizes: [
-            [0.23, 0.20],
-            [0.30, 0.41],
-            [0.38, 0.51],
-            [0.46, 0.61]
+            [0.2286, 0.3048],
+            [0.3048, 0.4064],
+            [0.381, 0.508],
+            [0.4572, 0.6096]
             ],
-            defaultSize: [0.46, 0.61]
+            defaultSize: [0.381, 0.508]
         },
         {
             src:"/referenceImages/644_429.jpg",

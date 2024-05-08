@@ -5,6 +5,7 @@
   import {ProfiledContourUVFM} from '../../../lib/FrameUtilies.js';
   import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
   import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
+  import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
 
 let moveForward = false;
 let moveBackward = false;
@@ -161,12 +162,27 @@ function increaseCount() {
     const innerHeight = 1;
     const framewidth = 0.09;
     const frameDepth = 0.3;
-    const frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
+    let frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
 
     // @ts-ignore
-    frame4.position.z = 0;  
+    frame4 = THREEJsUtilities.repositionMesh(frame4, 0.150);
+
+
+    // @ts-ignore
+    // frame4.position.z = 0.0;  
     // @ts-ignore
     scene.add(frame4);
+
+    ////// CUBE 
+
+    // Crear un cubo y añadirlo a la escena
+    const geometryCube = new THREE.BoxGeometry(0.3,0.3,0.3); // Parámetros por defecto para un cubo 1x1x1
+    const materialCube = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Material verde básico
+    scene.add(new THREE.Mesh(geometryCube, materialCube)); // Añadir el cubo a la materialCube
+
+    
+
+
 });
 
     

@@ -3,12 +3,11 @@
     import * as THREE from "three";
     import { currentImageProperties } from "../ImageStore.js";
     import { currentFrameProperties } from "../../lib/FrameStore.js";
-    // import { frameVisibilityStore } from "../../lib/FrameVisibilityStore.js";
     import { rendererStore, sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import ConstNode from "three/examples/jsm/nodes/core/ConstNode.js";
+
 
     /**
      * @type {HTMLDivElement}
@@ -46,14 +45,6 @@
      */
     let textureLoader;
 
-    // let dataObject = {
-    //     width: 1,
-    //     height: 1,
-    //     src: "",
-    //     description: "",
-    //     alt: "",
-    // };
-
     let dataObject = {
     src: "",
     alt: "",
@@ -64,6 +55,9 @@
     defaultSize: [0, 0]
 }
 
+     
+    let frameInnerOffset = 0.005;
+    let frameWallOffset = 0.004;
 
     /**
      * @type {{ innerWidth: number; innerHeight: number; isVisible: boolean; }}
@@ -180,15 +174,15 @@
                     
                     // @ts-ignore
                     frame = SQUAREFRAME.CreateFrameSquare(
-                        updatedFrame.innerWidth,
-                        updatedFrame.innerHeight,
-                        updatedFrame.framewidth,
-                        updatedFrame.frameDepth,
+                        updatedFrame.innerWidth - frameInnerOffset,
+                        updatedFrame.innerHeight - frameInnerOffset,
+                        updatedFrame.borderWidth,
+                        updatedFrame.borderDepth,
                         materials,
                     );
 
                     // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-                    THREEJsUtilities.repositionMesh(frame, updatedFrame.frameDepth)
+                    frame = THREEJsUtilities.repositionMesh(frame, (updatedFrame.borderDepth / 2))
                     scene.add(frame);
                     currentFrame.innerWidth = updatedFrame.innerWidth;
                     currentFrame.innerHeight = updatedFrame.innerHeight;
