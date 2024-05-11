@@ -2,7 +2,7 @@
     // @ts-nocheck
     import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte";
     import NextIcon from "./NextIcon.svelte";
-    import { currentImageProperties } from '../ImageStore.js';
+    import { currentSelectedImageStore } from '../CurrentSelectedImageStore.js';
     import { goto } from "$app/navigation";
    
      /**
@@ -30,7 +30,7 @@
     });
 
     function goToCustomize() {
-        currentImageProperties.set(image);
+        currentSelectedImageStore.set(image);
         goto("/MainNavigation/Customize");
     }
 

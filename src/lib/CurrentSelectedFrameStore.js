@@ -7,4 +7,4 @@ const FrameObject = {
     borderWidth: 1,
     borderDepth: 1
 }
-export const currentFrameProperties = writable(FrameObject);
+export const currentSelectedFrameDimensionsStore = writable(FrameObject);

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { T } from "@threlte/core";
     import { onMount } from "svelte";
-    import { currentImageProperties } from "../ImageStore.js";
+    import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
     import { useLoader } from "@threlte/core";
     import { Texture, TextureLoader } from "three";
 
@@ -38,7 +38,7 @@
         else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
     }
 
-    let unsubscribe = currentImageProperties.subscribe((value) => {
+    let unsubscribe = currentSelectedImageStore.subscribe((value) => {
         dataObject = value;
 
         console.log(dataObject.description + "From scene2");

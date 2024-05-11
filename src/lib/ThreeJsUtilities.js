@@ -18,6 +18,21 @@ export let emptyFrame = {
     borderDepth: 0.02,
 };
 
+export let startingGlobalProperties = {
+    ImageWidth: 0,
+    ImageHeigh:  0,
+    ImageSize: [0, 0],
+    FrameIsVisible: true
+}
+
+export let startingThreeJSGlobalProperties = {
+    ImageWidth: 1,
+    ImageHeigh:  1,
+    ImageSize: [1, 1],
+    FrameIsVisible: true
+}
+
+
 /**
  * @param {THREE.Mesh} mesh
  * @param {THREE.Scene} scene

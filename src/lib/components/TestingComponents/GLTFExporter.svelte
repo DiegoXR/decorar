@@ -2,7 +2,7 @@
     import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
-    import { currentImageProperties } from "../../ImageStore.js";
+    import { currentSelectedImageStore } from "../../CurrentSelectedImageStore.js";
     import { rendererStore } from "../../threeJSstore.js"; // Adjust the import path as necessary
     import "@google/model-viewer";
     
@@ -93,7 +93,7 @@
     });
 
 
-    let unsubscribe = currentImageProperties.subscribe((value) => {
+    let unsubscribe = currentSelectedImageStore.subscribe((value) => {
         dataObject = value;
     });
 
