@@ -20,7 +20,7 @@
         </button>
     </div>
 
-    <div class="h-[24px] w-[24px]">V2.5 Mai_12</div>
+    <div class="h-[24px] w-[24px]">V2.6 Mai_18</div>
 
     <div class="h-[24px] w-[24px]">
         <HamburgerMenuIcon></HamburgerMenuIcon>

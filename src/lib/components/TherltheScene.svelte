@@ -10,14 +10,6 @@
 
     let imageSize = [1, 1, 1];
 
-    // let dataObject = {
-    //     width: 1,
-    //     height: 1,
-    //     src: "",
-    //     description: "",
-    //     alt: "",
-    // };
-
     let dataObject = {
     src: "",
     alt: "",
