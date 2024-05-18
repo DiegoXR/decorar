@@ -1,37 +1,20 @@
 // Three Js Utiliies contains Methods related to the management of the Three.Js as well as premade three.js objects to be added to the scene
 import * as THREE from "three";
 
-
-export let baseFrame = {
-    isVisible: true,
-    innerWidth: 10,
-    innerHeight: 10,
-    borderWidth: 0.04,
-    borderDepth: 0.1,
-};
-
-export let emptyFrame = {
-    isVisible: true,
-    innerWidth: 0.5,
-    innerHeight:0.5,
-    borderWidth: 0.02,
-    borderDepth: 0.02,
-};
-
 export let startingGlobalProperties = {
-    ImageWidth: 0,
-    ImageHeigh:  0,
     ImageSize: [0, 0],
-    FrameIsVisible: true
+    FrameIsVisible: true,
+    FrameBorderWidth : 0.02,
+    FrameDepth :0.02,   
 }
 
-export let startingThreeJSGlobalProperties = {
-    ImageWidth: 1,
-    ImageHeigh:  1,
-    ImageSize: [1, 1],
-    FrameIsVisible: true
+export let startingSelectedImage = {
+    src: "",
+    alt: "",
+    description: "",
+    availableSizes: [[0, 0]],
+    defaultSize: [0, 0],
 }
-
 
 /**
  * @param {THREE.Mesh} mesh

@@ -2,10 +2,10 @@ import { writable } from 'svelte/store';
 
 
 const GlobalProperties = {
-    ImageWidth: 0,
-    ImageHeigh:  0,
     ImageSize:[0, 0],
-    FrameIsVisible: true
+    FrameIsVisible: true,
+    FrameBorderWidth : 0.02,
+    FrameDepth :0.02,   
 }
 
 

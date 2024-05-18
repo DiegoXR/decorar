@@ -2,13 +2,11 @@
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
     import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
-    import { currentSelectedFrameDimensionsStore } from "../CurrentSelectedFrameStore.js";
     import { rendererStore, sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import {currentGlobalPropertiesStore } from "../GlobalPropertiesStore.js";
-
+    import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+    import { currentGlobalPropertiesStore } from "../GlobalPropertiesStore.js";
 
     /**
      * @type {HTMLDivElement}
@@ -35,11 +33,15 @@
      */
     let frame;
 
-     /**
+    /**
      * @type {THREE.Mesh}
      */
     let planeImage;
 
+    /**
+     * @type {boolean}
+     */
+    let IsFrameSynchronizedWithImage = false;
 
     /**
      * @type {THREE.TextureLoader}
@@ -47,16 +49,13 @@
     let textureLoader;
 
     let dataObject = {
-    src: "",
-    alt: "",
-    description: "",
-    availableSizes: [
-    [0, 0]
-],
-    defaultSize: [0, 0]
-}
+        src: "",
+        alt: "",
+        description: "",
+        availableSizes: [[0, 0]],
+        defaultSize: [0, 0],
+    };
 
-     
     let frameInnerOffset = 0.005;
     let frameWallOffset = 0.004;
 
@@ -68,18 +67,14 @@
     /**
      * @type {import("svelte/store").Unsubscriber}
      */
-    let currentFrameSubscription;
+    let currentImageSubscription;
+
     /**
      * @type {import("svelte/store").Unsubscriber}
      */
-    let currentImageSubscription;
+    let currentPropertiesSubscription;
 
-     /**
-     * @type {import("svelte/store").Unsubscriber}
-     */
-     let currentPropertiesSubscription;
-
-    let currentReferenceProperties = THREEJsUtilities.startingThreeJSGlobalProperties;
+    let currentLocalReferenceProperties = THREEJsUtilities.startingGlobalProperties;
 
     //// Automatically create default Material
     const texturePath = "/referenceTextures/Oak_512.png";
@@ -101,14 +96,12 @@
     $: renderer = $rendererStore;
 
     onMount(() => {
-        
-        currentFrame = THREEJsUtilities.baseFrame;
         console.log("Mounting Three Js Scene");
-           
-       scene = new THREE.Scene();
+
+        scene = new THREE.Scene();
 
         // Create camera
-       camera = new THREE.PerspectiveCamera(
+        camera = new THREE.PerspectiveCamera(
             75,
             container.clientWidth / container.clientHeight,
             0.1,
@@ -117,13 +110,13 @@
         camera.position.z = 0.5;
 
         // Create orbit controls for camera
-        const controls = new OrbitControls( camera, renderer.domElement );
+        const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
         controls.dampingFactor = 0.25;
         controls.screenSpacePanning = false;
         controls.minDistance = 1;
         controls.maxDistance = 1000;
-        controls.maxPolarAngle = Math.PI / 2
+        controls.maxPolarAngle = Math.PI / 2;
 
         // Setup render
         renderer.setSize(container.clientWidth, container.clientHeight);
@@ -147,89 +140,72 @@
         animate();
 
         InitializeImageSubscription();
-        InitializeFrameSubscription();
         InitializePropertiesSubscription();
     });
 
-    function InitializeImageSubscription(){
-        currentImageSubscription = currentSelectedImageStore.subscribe((value) => {
-        dataObject = value;
-        
-        // console.log(`THREE JS: CurrentSelected Image store changed. Creating plane ${dataObject.defaultSize[0], dataObject.defaultSize[1]} `);
-        // @ts-ignore
-        planeImage = CreatePlaneImage(dataObject.src, dataObject.defaultSize[0], dataObject.defaultSize[1])
-        
-        if (planeImage != null) scene.add(planeImage);
-        
-    });
-    }
+    function InitializeImageSubscription() {
+        currentImageSubscription = currentSelectedImageStore.subscribe(
+            (value) => {
+                dataObject = value;
 
-    function InitializeFrameSubscription() {
-               
-        // currentFrameSubscription = currentSelectedFrameDimensionsStore.subscribe(
-        //     (updatedFrame) => {
+                // @ts-ignore
+                planeImage = CreatePlaneImage(
+                    dataObject.src,
+                    dataObject.defaultSize[0],
+                    dataObject.defaultSize[1],
+                );
 
-        //         // Frame visibility change
-        //         if (currentFrame.isVisible != updatedFrame.isVisible) {
-        //             SetFrameVisibility(updatedFrame.isVisible);
-        //             currentFrame.isVisible = updatedFrame.isVisible;
-        //         }
-               
-        //         // Frame size change
-        //         if (currentFrame.innerWidth != updatedFrame.innerWidth || currentFrame.innerHeight != updatedFrame.innerHeight) {
-
-        //             THREEJsUtilities.removeMeshFromScene(frame, scene);
-                  
-        //             console.log("hEY");
-                    
-        //             // @ts-ignore
-        //             frame = SQUAREFRAME.CreateFrameSquare(
-        //                 updatedFrame.innerWidth - frameInnerOffset,
-        //                 updatedFrame.innerHeight - frameInnerOffset,
-        //                 updatedFrame.borderWidth,
-        //                 updatedFrame.borderDepth,
-        //                 materials,
-        //             );
-
-        //             // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-        //             frame = THREEJsUtilities.repositionMesh(frame, (updatedFrame.borderDepth / 2))
-        //             scene.add(frame);
-        //             currentFrame.innerWidth = updatedFrame.innerWidth;
-        //             currentFrame.innerHeight = updatedFrame.innerHeight;
-
-        //             // When the frame size is updated the image is updated as well.
-        //             UpdateImageSize(updatedFrame.innerWidth, updatedFrame.innerHeight);
-        //         }
-
-        //         // Frame Color change
-        //     },
-        // );
+                if (planeImage != null) scene.add(planeImage);
+            },
+        );
     }
 
     function InitializePropertiesSubscription() {
-        currentPropertiesSubscription = currentGlobalPropertiesStore.subscribe((currentGlobalProperties) => {
+        currentPropertiesSubscription = currentGlobalPropertiesStore.subscribe(
+            (currentGlobalProperties) => {
+                console.log(`THREEJS : Detected a global property change`);
 
-            console.log(`THREEJS : Detected a global property change`);
+                // When the image size is updated the plane image is updated as well.
+                if (
+                    currentGlobalProperties.ImageSize[0] !==
+                        currentLocalReferenceProperties.ImageSize[0] &&
+                    currentGlobalProperties.ImageSize[1] !==
+                        currentLocalReferenceProperties.ImageSize[1]
+                ) {
+                    console.log(
+                        `THREEJS : The global properties for img size changed. Applying Plane size update ${currentGlobalProperties.ImageSize[0]} - ${currentGlobalProperties.ImageSize[1]}`,
+                    );
+                    UpdateImageSize(
+                        currentGlobalProperties.ImageSize[0],
+                        currentGlobalProperties.ImageSize[1],
+                    );
+                    currentLocalReferenceProperties.ImageSize =
+                        currentGlobalProperties.ImageSize;
 
-            // When the image size is updated the plane image is updated as well.
-            if (currentGlobalProperties.ImageSize[0] !== currentReferenceProperties.ImageSize[0] &&
-                currentGlobalProperties.ImageSize[1] !== currentReferenceProperties.ImageSize[1]){
-                    console.log(`THREEJS : The global properties for img size changed. Applying Plane size update ${currentGlobalProperties.ImageSize[0]} - ${currentGlobalProperties.ImageSize[1]}`);
-                    UpdateImageSize(currentGlobalProperties.ImageSize[0], currentGlobalProperties.ImageSize[1]);
 
-                    currentReferenceProperties.ImageSize = currentGlobalProperties.ImageSize;
-            }
-        
-            
-            
-            // console.log(
-            //     `From customize, the selected image has the following available sizes  ${currentSelectedImage.availableSizes}`,
-            // );
-        });
+
+                    if (currentGlobalProperties.FrameIsVisible) {
+                        CreateFrame(currentGlobalProperties);
+                        IsFrameSynchronizedWithImage = true;
+                    } else {
+                        IsFrameSynchronizedWithImage = false;
+                    }
+                }
+
+                // Frame visibility change
+                if (
+                    currentLocalReferenceProperties.FrameIsVisible !=
+                    currentGlobalProperties.FrameIsVisible
+                ) {
+                    
+                    console.log(`***THREE JS Local visibility != global visibility. Local has : ${currentLocalReferenceProperties.FrameIsVisible}  And Global Has ${currentGlobalProperties.FrameIsVisible}`);
+                    SetFrameVisibility(currentGlobalProperties);
+                }
+            },
+        );
     }
 
     onDestroy(() => {
-        
         console.log("Destroying Three Js scene component");
         sceneStore.set(scene);
 
@@ -237,19 +213,33 @@
 
         if (currentImageSubscription) currentImageSubscription();
 
-        if (currentFrameSubscription) currentFrameSubscription();
-
         if (currentPropertiesSubscription) currentPropertiesSubscription();
-        
     });
 
     /**
-     * @param {boolean} isVisible
+     * @param {{ ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; }} CurrentGlobalProperties
      */
-    function SetFrameVisibility(isVisible) {
+    function SetFrameVisibility(CurrentGlobalProperties) {
         if (frame != null) {
-            frame.visible = isVisible;
+            
+            if (CurrentGlobalProperties.FrameIsVisible){
+                if (IsFrameSynchronizedWithImage){
+                    frame.visible = true;
+                }else{
+                    CreateFrame(CurrentGlobalProperties);
+                    frame.visible = true;
+                }           
+            }else{
+                frame.visible = false;
+            }         
         }
+        else if (frame == null && CurrentGlobalProperties.FrameIsVisible){
+            CreateFrame(CurrentGlobalProperties);
+        }
+
+        console.log(`***THREE JS I have applied the following visibility to the local ref ${CurrentGlobalProperties.FrameIsVisible}`);
+
+        currentLocalReferenceProperties.FrameIsVisible = CurrentGlobalProperties.FrameIsVisible;
     }
 
     /**
@@ -257,10 +247,9 @@
      * @param {number} width
      * @param {number} height
      */
-    function CreatePlaneImage(imagePath, width, height){
-        
+    function CreatePlaneImage(imagePath, width, height) {
         if (imagePath == null) return null;
-             
+
         let planeTexture = textureLoader.load(imagePath);
         let geometry = new THREE.PlaneGeometry(width, height);
 
@@ -278,15 +267,41 @@
      * @param {number} width
      * @param {number} height
      */
-    function UpdateImageSize(width, height){
-        
+    function UpdateImageSize(width, height) {
         THREEJsUtilities.removeMeshFromScene(planeImage, scene);
         // @ts-ignore
-        planeImage = CreatePlaneImage(dataObject.src, width, height)
-        
+        planeImage = CreatePlaneImage(dataObject.src, width, height);
+
         if (planeImage != null) scene.add(planeImage);
     }
 
+    /**
+     * @param {{ ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; }} CurrentGlobalProperties
+     */
+    function CreateFrame(CurrentGlobalProperties) {
+        // When the image size is updated the frame is recreated as well
+        THREEJsUtilities.removeMeshFromScene(frame, scene);
+        // @ts-ignore
+        frame = SQUAREFRAME.CreateFrameSquare(
+            CurrentGlobalProperties.ImageSize[0] - frameInnerOffset,
+            CurrentGlobalProperties.ImageSize[1] - frameInnerOffset,
+            CurrentGlobalProperties.FrameBorderWidth,
+            CurrentGlobalProperties.FrameDepth,
+            materials,
+        );
+
+        // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+        frame = THREEJsUtilities.repositionMesh(
+            frame,
+            CurrentGlobalProperties.FrameDepth / 2,
+        );
+        scene.add(frame);
+
+        currentLocalReferenceProperties.FrameBorderWidth =
+            CurrentGlobalProperties.FrameBorderWidth;
+        currentLocalReferenceProperties.FrameDepth =
+            CurrentGlobalProperties.FrameDepth;
+    }
 </script>
 
 <div bind:this={container} class="w-full h-full"></div>

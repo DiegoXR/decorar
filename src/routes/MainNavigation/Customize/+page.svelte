@@ -1,14 +1,22 @@
 <script>
-    import { currentSelectedFrameDimensionsStore } from "../../../lib/CurrentSelectedFrameStore.js";
     import { onMount, onDestroy } from "svelte";
     import ThreeJsScene from "$lib/components/ThreeJSscene.svelte";
-    import Toggle from "$lib/components/Toggle.svelte";
     import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
     import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
-    import {currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
-    import {currentGlobalPropertiesStore } from "../../../lib/GlobalPropertiesStore.js";
+    import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
+    import { currentGlobalPropertiesStore } from "../../../lib/GlobalPropertiesStore.js";
+    import ToggleInitializable from "$lib/components/ToggleInitializable.svelte";
 
-    let isFrameVisible = false;
+
+    /**
+     * @type {boolean}
+     */
+     let isInitialized = false;
+
+    /**
+     * @type {boolean}
+     */
+     let isFrameVisible;
 
     /**
      * @type {number[]}
@@ -19,59 +27,58 @@
      */
     let currentImageSubscription;
 
-     /**
+    /**
      * @type {import("svelte/store").Unsubscriber}
      */
-    let currentPropertiesSubscription;
+    let currentPropertiesUnsubscription;
 
-    let currentSelectedImage = {
-        src: "",
-        alt: "",
-        description: "",
-        availableSizes: [[0, 0]],
-        defaultSize: [0, 0],
-    };
+    // let currentSelectedImage = {
+    //     src: "",
+    //     alt: "",
+    //     description: "",
+    //     availableSizes: [[0, 0]],
+    //     defaultSize: [0, 0],
+    // };
 
-    // let startingProperties = {
-    //     ImageWidth: 0,
-    //     ImageHeigh:  0,
-    //     FrameIsVisible: true
-    // }
+    let currentSelectedImage = THREEJsUtilities.startingSelectedImage;
+    let currentReferenceProperties = THREEJsUtilities.startingGlobalProperties;
 
-    let currentReferenceProperties = THREEJsUtilities.startingThreeJSGlobalProperties;
-
-    let frameObject = THREEJsUtilities.emptyFrame;
-
-    InitializeImageSubscription();
     InitializePropertiesSubscription();
+    InitializeImageSubscription();
+    
 
     onMount(() => {
         console.log("Mounting Customize Page");
+        isInitialized = true;
     });
 
     ////////////////////////////////// UPDATE FRAME VISIBILITY
-    $: handleFrameVisibilityChange(isFrameVisible);
+    $: if (isInitialized) {
+    handleFrameVisibilityChange(isFrameVisible);
+  }
 
     /**
-     * @param {boolean} newValue
+     * @param {boolean} isFrameVisible
      */
-    function handleFrameVisibilityChange(newValue) {
-        frameObject.isVisible = newValue;
-        currentSelectedFrameDimensionsStore.set(frameObject);
+    function handleFrameVisibilityChange(isFrameVisible) {
+        console.log(
+            `CUSTOMIZE : Handle visibility change ${isFrameVisible}`,
+        );
+        currentReferenceProperties.FrameIsVisible = isFrameVisible;
+        currentGlobalPropertiesStore.set(currentReferenceProperties);
     }
 
-    ////////////////////////////////// UPDATE INNER SIZES v2 OF FRAME
+    ////////////////////////////////// UPDATE IMAGE SIZES
 
-    $: handleImageSizeChange(selectedImageSize);
+    $: if (isInitialized) {
+        handleImageSizeChange(selectedImageSize);
+  }
 
     /**
      * @param {number[]} selectedSize
      */
     function handleImageSizeChange(selectedSize) {
         if (selectedSize != null) {
-            // frameObject.innerWidth = selectedSize[0];
-            // frameObject.innerHeight = selectedSize[1];
-            // currentSelectedFrameDimensionsStore.set(frameObject);
             currentReferenceProperties.ImageSize = selectedSize;
             currentGlobalPropertiesStore.set(currentReferenceProperties);
         }
@@ -79,46 +86,61 @@
     /////////////////////////////////
 
     onDestroy(() => {
-        console.log("Destroying Customize Page");      
-        console.log(`CUSTOMIZE : Saving the properties before leaving the page ${currentReferenceProperties.ImageSize}`);
+        console.log("Destroying Customize Page");
+        console.log(
+            `CUSTOMIZE : Saving the properties before leaving the page ${currentReferenceProperties.ImageSize} - ${currentReferenceProperties.FrameIsVisible}`,
+        );
         currentGlobalPropertiesStore.set(currentReferenceProperties);
-        
-        if (currentImageSubscription) currentImageSubscription();
-            
-        if (InitializePropertiesSubscription) InitializePropertiesSubscription();
 
+        //if (currentImageSubscription) currentImageSubscription();
 
     });
 
     function InitializeImageSubscription() {
-        currentImageSubscription = currentSelectedImageStore.subscribe((value) => {
-            currentSelectedImage = value;
-            console.log(
-                `CUSTOMIZE :, Getting the current Image from the explorer ${currentSelectedImage.availableSizes}`,
-            );
-        });
+        currentImageSubscription = currentSelectedImageStore.subscribe(
+            (value) => {
+                currentSelectedImage = value;
+                console.log(
+                    `CUSTOMIZE :, Getting the current Image from the explorer ${currentSelectedImage.availableSizes}`,
+                );
+            },
+        );
+        currentImageSubscription();
+
     }
 
     function InitializePropertiesSubscription() {
-        currentPropertiesSubscription = currentGlobalPropertiesStore.subscribe((value) => {
-            currentReferenceProperties = value;
-            console.log(
-                `CUSTOMIZE, Getting  the currentGlobal propeties`,
-            );
-        });
+        currentPropertiesUnsubscription = currentGlobalPropertiesStore.subscribe(
+            (value) => {
+                currentReferenceProperties = value;
+                console.log(`CUSTOMIZE, Getting  the currentGlobal propeties, visibility is ${currentReferenceProperties.FrameIsVisible}`);
+            },
+        );
+        currentPropertiesUnsubscription();
     }
 
-    function DefineDropdownDefaultImageSize(){
+    function DefineDropdownDefaultImageSize() {
+        if (
+            currentSelectedImage.availableSizes.some(
+                (subArr) =>
+                    subArr[0] === currentReferenceProperties.ImageSize[0] &&
+                    subArr[1] === currentReferenceProperties.ImageSize[1],
+            )
+        ) {
+            console.log(
+                `CUSTOMIZE, Ignoring the default option and keeping the previous one :${currentReferenceProperties.ImageSize}`,
+            );
+            return currentReferenceProperties.ImageSize;
+        } else {
+            console.log(
+                `CUSTOMIZE, Ignoring the previous option and selecting the new default option :${currentSelectedImage.defaultSize}`,
+            );
+            return currentSelectedImage.defaultSize;
+        }
+    }
 
-        if (currentSelectedImage.availableSizes.some(subArr => subArr[0] === currentReferenceProperties.ImageSize[0] && 
-             subArr[1] === currentReferenceProperties.ImageSize[1])){
-                console.log(`CUSTOMIZE, Ignoring the default option and keeping the previous one :${currentReferenceProperties.ImageSize}`);
-                return currentReferenceProperties.ImageSize;
-             }else{
-                console.log(`CUSTOMIZE, Ignoring the previous option and selecting the new default option :${currentSelectedImage.defaultSize}`);
-                return currentSelectedImage.defaultSize;
-             }
-
+    function DefineInitialToggleValue(){
+        return currentReferenceProperties.FrameIsVisible;
     }
 </script>
 
@@ -132,13 +154,12 @@
     }}>Cambiar Color del Material</button
 > -->
 <p>FRAME VISIBILITY</p>
-<Toggle bind:isChecked={isFrameVisible} />
+<!-- <Toggle bind:isChecked={isFrameVisible} /> -->
+<ToggleInitializable bind:isChecked={isFrameVisible} initialStatus = {currentReferenceProperties.FrameIsVisible}/>
+
 
 <p>IMAGE SIZE</p>
-<DropdownInitializable
-    bind:selectedOption={selectedImageSize}
-    availableSizes={currentSelectedImage.availableSizes}
-    defaultSize={DefineDropdownDefaultImageSize()}
+<DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {currentSelectedImage.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
 />
 
 <!-- {#if isFrameVisible}
