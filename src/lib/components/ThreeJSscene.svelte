@@ -60,11 +60,6 @@
     let frameWallOffset = 0.004;
 
     /**
-     * @type {{ innerWidth: number; innerHeight: number; isVisible: boolean; }}
-     */
-    let currentFrame;
-
-    /**
      * @type {import("svelte/store").Unsubscriber}
      */
     let currentImageSubscription;
@@ -147,7 +142,7 @@
         currentImageSubscription = currentSelectedImageStore.subscribe(
             (value) => {
                 dataObject = value;
-
+                console.log(`THREEJS : Creating Plane with default image sizes`);
                 // @ts-ignore
                 planeImage = CreatePlaneImage(
                     dataObject.src,
@@ -155,6 +150,7 @@
                     dataObject.defaultSize[1],
                 );
 
+                currentLocalReferenceProperties.ImageSize= [dataObject.defaultSize[0], dataObject.defaultSize[1]];
                 if (planeImage != null) scene.add(planeImage);
             },
         );
@@ -193,14 +189,7 @@
                 }
 
                 // Frame visibility change
-                if (
-                    currentLocalReferenceProperties.FrameIsVisible !=
-                    currentGlobalProperties.FrameIsVisible
-                ) {
-                    
-                    console.log(`***THREE JS Local visibility != global visibility. Local has : ${currentLocalReferenceProperties.FrameIsVisible}  And Global Has ${currentGlobalProperties.FrameIsVisible}`);
-                    SetFrameVisibility(currentGlobalProperties);
-                }
+                SetFrameVisibility(currentGlobalProperties);
             },
         );
     }
@@ -214,6 +203,10 @@
         if (currentImageSubscription) currentImageSubscription();
 
         if (currentPropertiesSubscription) currentPropertiesSubscription();
+
+        currentLocalReferenceProperties = THREEJsUtilities.startingGlobalProperties;
+
+        IsFrameSynchronizedWithImage = false;
     });
 
     /**
@@ -237,7 +230,7 @@
             CreateFrame(CurrentGlobalProperties);
         }
 
-        console.log(`***THREE JS I have applied the following visibility to the local ref ${CurrentGlobalProperties.FrameIsVisible}`);
+        // console.log(`***THREE JS I have applied the following visibility to the local ref ${CurrentGlobalProperties.FrameIsVisible}`);
 
         currentLocalReferenceProperties.FrameIsVisible = CurrentGlobalProperties.FrameIsVisible;
     }

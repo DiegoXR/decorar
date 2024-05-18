@@ -32,13 +32,6 @@
      */
     let currentPropertiesUnsubscription;
 
-    // let currentSelectedImage = {
-    //     src: "",
-    //     alt: "",
-    //     description: "",
-    //     availableSizes: [[0, 0]],
-    //     defaultSize: [0, 0],
-    // };
 
     let currentSelectedImage = THREEJsUtilities.startingSelectedImage;
     let currentReferenceProperties = THREEJsUtilities.startingGlobalProperties;

@@ -16,6 +16,7 @@ export let startingSelectedImage = {
     defaultSize: [0, 0],
 }
 
+
 /**
  * @param {THREE.Mesh} mesh
  * @param {THREE.Scene} scene
@@ -108,7 +109,7 @@ function disposeMaterialAndTexture(material) {
  */
 export function repositionMesh(mesh, deltaValue){
     mesh.position.z += deltaValue;
-    console.log("Repositionnning at" + deltaValue);
+    // console.log("Repositionnning at" + deltaValue);
     return mesh;
 }
 

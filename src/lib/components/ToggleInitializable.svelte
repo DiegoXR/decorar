@@ -9,11 +9,8 @@
      */
     export let initialStatus;
   
-    onMount(() => {
-      
-        console.log(`***TOGGLE INIT value applied ${initialStatus}`);
+    onMount(() => {     
         isChecked = initialStatus;
-        console.log("Mounting Toggle Initializable");
     });
   
     // This function is called when the value isChecked changes.

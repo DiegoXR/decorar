@@ -25,7 +25,7 @@
 
     onMount(() => { 
       selectOption(defaultSize);
-      console.log("Mounting DropDown");
+      // console.log("Mounting DropDown");
     });
 
     /**
