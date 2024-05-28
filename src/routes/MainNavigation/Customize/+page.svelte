@@ -2,10 +2,10 @@
     import { onMount, onDestroy } from "svelte";
     import ThreeJsScene from "$lib/components/ThreeJSscene.svelte";
     import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
-    import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
+    import DropdownInitializable from "$lib/components/UIComponents/DropdownInitializable.svelte";
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import { currentGlobalPropertiesStore } from "../../../lib/GlobalPropertiesStore.js";
-    import ToggleInitializable from "$lib/components/ToggleInitializable.svelte";
+    import ToggleInitializable from "$lib/components/UIComponents/ToggleInitializable.svelte";
 
 
     /**

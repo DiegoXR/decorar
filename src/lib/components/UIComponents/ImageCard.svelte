@@ -1,8 +1,8 @@
 <script>
     // @ts-nocheck
     import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte";
-    import NextIcon from "./NextIcon.svelte";
-    import { currentSelectedImageStore } from '../CurrentSelectedImageStore.js';
+    import NextIcon from "../IconComponents/NextIcon.svelte";
+    import { currentSelectedImageStore } from '../../CurrentSelectedImageStore.js';
     import { goto } from "$app/navigation";
    
      /**
@@ -21,7 +21,6 @@
 
     onMount(() => {
         // let diego = image.description;
-        // console.log({ diego });
         browserWidth = window.innerWidth;
         targetImageContainerHeight = Math.round(
             (image.defaultSize[1] / image.defaultSize[0]) * browserWidth,
@@ -31,7 +30,7 @@
 
     function goToCustomize() {
         currentSelectedImageStore.set(image);
-        goto("/MainNavigation/Customize");
+        goto("/MainNavigation/Setup");
     }
 
 </script>

@@ -1,5 +1,5 @@
 <script>
-    import HamburgerMenuIcon from "$lib/components/HamburgerMenuIcon.svelte";
+    import HamburgerMenuIcon from "$lib/components/IconComponents/HamburgerMenuIcon.svelte";
     import { goto } from "$app/navigation";
 
     function GotoHomePage() {
@@ -20,7 +20,7 @@
         </button>
     </div>
 
-    <div class="h-[24px] w-[24px]">V2.6 Mai_18</div>
+    <div class="h-[24px] w-[24px]">V2.7 Mai_28</div>
 
     <div class="h-[24px] w-[24px]">
         <HamburgerMenuIcon></HamburgerMenuIcon>

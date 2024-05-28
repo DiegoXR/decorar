@@ -1,6 +1,6 @@
 <script lang="js">
-    import PageHeader from "$lib/components/PageHeader.svelte";
-    import NavigationBar from "$lib/components/NavigationBar.svelte";
+    import PageHeader from "$lib/components/UIComponents/PageHeader.svelte";
+    import NavigationBar from "$lib/components/UIComponents/NavigationBar.svelte";
     import { onMount } from "svelte";
     import * as THREE from "three";
     import { rendererStore, sceneStore } from "../../lib/threeJSstore";

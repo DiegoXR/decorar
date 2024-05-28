@@ -1,6 +1,6 @@
 <script>
-  import LoginForm from "$lib/components/LoginForm.svelte";
-  import EmailIcon from "$lib/components/EmailIcon.svelte";
+  import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
+  import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
 
   let isVisible = false; // Initial visibility is set to false

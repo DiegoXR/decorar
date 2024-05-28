@@ -1,7 +1,7 @@
 <script lang="ts">
     import { T } from "@threlte/core";
     import { onMount } from "svelte";
-    import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
+    import { currentSelectedImageStore } from "../../CurrentSelectedImageStore.js";
     import { useLoader } from "@threlte/core";
     import { Texture, TextureLoader } from "three";
 

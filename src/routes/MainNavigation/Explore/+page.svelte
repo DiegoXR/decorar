@@ -1,7 +1,7 @@
 <script>
 // @ts-nocheck
 
-    import ImageCard from "$lib/components/ImageCard.svelte";
+    import ImageCard from "$lib/components/UIComponents/ImageCard.svelte";
     import { onMount } from "svelte";
 
     let images = [

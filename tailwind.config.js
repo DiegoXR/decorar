@@ -8,7 +8,10 @@ export default {
         primary: '#302d2e',   // Replace with your primary color
         secondary: '#059669', // Replace with your secondary color
         iconColor: '#302d2e' // Replace with your secondary color
-      }
+      },
+      height: {
+        'dynamic': 'var(--dynamic-height)',
+      },
     },
     //If you’d like to completely delete the default color palette and replace it with your own custom colors, add your colors directly under the theme.colors
     /* colors: {
