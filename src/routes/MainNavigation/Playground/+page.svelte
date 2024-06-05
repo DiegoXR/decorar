@@ -4,7 +4,7 @@
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   import {ProfiledContourUVFM} from '../../../lib/FrameUtilies.js';
   import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
-  import DropdownInitializable from "$lib/components/DropdownInitializable.svelte";
+  import DropdownInitializable from "$lib/components/UIComponents/DropdownInitializable.svelte";
   import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
 
 let moveForward = false;
