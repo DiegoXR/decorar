@@ -35,7 +35,7 @@
 
 </script>
 
-<div class="flex flex-col mt-4">
+<div class="flex flex-col mb-5">
     <div class="h-16 bg-gray-200">{image.description}</div>
     <div class="h-{targetImageContainerHeight} bg-gray-500">
         <img src={image.src} alt={image.alt} />

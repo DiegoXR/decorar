@@ -8,7 +8,7 @@
 </script>
 
 <div
-    class="fixed flex h-[10vh] w-full flex-row justify-between items-center bg-white p-6"
+    class=" fixed w-full flex flex-row justify-between items-center bg-red-800 h-[10vh] mt-[4px] ml-[4px]"
 >
     <div class="h-[24px] w-[24px]">
         <button class=" h-auto w-auto" on:click={GotoHomePage}>
@@ -20,7 +20,7 @@
         </button>
     </div>
 
-    <div class="h-[24px] w-[24px]">V2.7 Mai_28</div>
+    <div class="h-[24px] w-[24px]">V2.8 June 05</div>
 
     <div class="h-[24px] w-[24px]">
         <HamburgerMenuIcon></HamburgerMenuIcon>

@@ -1,5 +1,5 @@
-<nav class="fixed top-[10vh] left-0 w-full bg-gray-800 text-white z-50">
-    <div class="max-w-6xl mx-auto px-4">
+<nav class=" fixed bg-gray-800 text-white z-50 w-full h-[10vh] mt-[10vh] ml-[4px]">
+    <div class="mx-auto">
         <div class="flex justify-between items-center">
             <div class="flex items-center">
                 <!-- Navigation Links -->

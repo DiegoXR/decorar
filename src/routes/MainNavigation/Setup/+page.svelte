@@ -42,16 +42,16 @@
 
 <div
     bind:this={parentElement}
-    class="bg-yellow-100 w-full h-[50vh]"
+    class="bg-yellow-800 w-full h-full flex flex-col"
 >
-    <div class="bg-red-100 w-full h-[50vh]">
+    <div class="bg-orange-800 flex-1">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>
 
-    <div class="bg-blue-500 w-full">
+     <div class="bg-blue-500 flex-1">
 
-    </div>
+    </div> 
 
 
 </div>

@@ -8,6 +8,17 @@ export let startingGlobalProperties = {
     FrameDepth :0.02,   
 }
 
+export let startingFrameConfiguration = {   
+    ImageSrc: "",
+    ImageSize:[0, 0],
+    FrameIsVisible: true,
+    FrameBorderWidth : 0,
+    FrameDepth :0, 
+    availableSizes: [
+        [0, 0]
+    ],      
+}
+
 export let startingSelectedImage = {
     src: "",
     alt: "",

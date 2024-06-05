@@ -2,7 +2,9 @@
 <script>
 import { onMount, onDestroy } from "svelte";
 import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
+import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
+import * as THREEJsUtilities from "../ThreeJsUtilities.js";
 
 /**
 * @type {import("svelte/store").Unsubscriber}
@@ -50,6 +52,8 @@ let imageElement;
 let frameElement;
 
 
+let currentFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+
 let currentImageProperties = {
 src: "",
 alt: "",
@@ -69,39 +73,66 @@ onMount(() => {
 
     //console.log("Mounting VIEW");
     InitializeImageSubscription();
+    InitialFrameConfigurationSubscription();
 
 });
 
 onDestroy(() => {
+        
         if (currentImageSubscription) currentImageSubscription();
         if (currentCanvasWidthSubscription) currentCanvasWidthSubscription();
+
+        frameConfigurationStore.set(currentFrameConfiguration);
+
     });
 
 function InitializeImageSubscription() {
     currentImageSubscription = currentSelectedImageStore.subscribe(
         (value) => {
-            currentImageProperties = value;
-            imageRatio = currentImageProperties.defaultSize[0]/currentImageProperties.defaultSize[1];
-                       
-            // imageElement.style.width = "300" + 'px';
-
-            //console.log(`from the image subscription the current parent width from child is: ${canvasWidth}`);
-         
-            // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
-            let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);
-
-            // We calculate a converion factor meter to pixel
-            meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /currentImageProperties.defaultSize[0];
             
-            // We apply these values to the image html element
-            imageElement.style.width = ConvertToString(currentImageProperties.defaultSize[0] * meterToPixelconversionFactor);
-            imageElement.style.height = ConvertToString(currentImageProperties.defaultSize[1] * meterToPixelconversionFactor);
-
-
-            frameElement.style.width = ConvertToString(currentImageProperties.defaultSize[0] * meterToPixelconversionFactor);
-            frameElement.style.height = ConvertToString(currentImageProperties.defaultSize[1] * meterToPixelconversionFactor);
+            currentImageProperties = value;        
+            console.log("I got the Image subscription");
         },
     );
+}
+
+function InitialFrameConfigurationSubscription(){
+    
+    currentImageSubscription = frameConfigurationStore.subscribe(
+            (value) => {
+                currentFrameConfiguration = value;
+
+                currentFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
+                currentFrameConfiguration.ImageSrc = currentImageProperties.src;
+                currentFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
+
+                imageRatio = currentFrameConfiguration.ImageSize[0]/currentFrameConfiguration.ImageSize[1];
+                            
+                //console.log(`from the image subscription the current parent width from child is: ${canvasWidth}`);
+                
+                // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
+                let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);
+
+                // We calculate a converion factor meter to pixel
+                meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /currentFrameConfiguration.ImageSize[0];
+                
+                // We apply these values to the image html element
+                imageElement.style.width = ConvertToString(currentFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
+                imageElement.style.height = ConvertToString(currentFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+
+                // We apply these values to the frame html element
+                frameElement.style.width = ConvertToString(currentFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
+                frameElement.style.height = ConvertToString(currentFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+                
+                console.log("I got the Frame Configuration subscription");
+                
+                console.log(
+                    `SETUN VIEW  :, The frame config subscription says ${currentFrameConfiguration.ImageSrc}`,
+                );
+            },
+        );
+        // By calling currentImageSubscription, we make sure the subscription only happens once
+        currentImageSubscription();
 }
 
 function CanvasWidthChangeSubscription(){

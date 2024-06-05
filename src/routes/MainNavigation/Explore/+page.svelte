@@ -66,7 +66,7 @@
     });
 </script>
 
-<div class="w-full bg-slate-600 h-[150vh]">
+<div class="w-full bg-green-600 h-full">
     <div class="image-gallery">
         {#each images as image}
             <ImageCard {image}/> 

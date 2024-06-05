@@ -20,11 +20,22 @@
 
 </script>
 
-<PageHeader></PageHeader>
-<NavigationBar></NavigationBar>
-<div class="w-max h-[15vh]"></div>
+    <PageHeader></PageHeader>
+    <NavigationBar></NavigationBar>
 
-<!-- If you uncomment this, the Three Js version will be enabled -->
+ <div class="h-[100vh] w-full bg-black">         
+   
+   <div class="w-full h-[20vh] bg-slate-600">
+   </div >
+        
+   <div class="w-full h-[80vh]">
+    <slot />
+   </div>
+   
+</div> 
 
-<slot />
+
 <!-- Here is where the content of your pages will be injected -->
+<!-- <div class="w-max h-[15vh]"></div> -->
+
+<!-- flex-none basis-[50%] flex-shrink-0 -->
