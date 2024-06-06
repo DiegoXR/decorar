@@ -14,6 +14,11 @@ let currentImageSubscription;
 /**
 * @type {import("svelte/store").Unsubscriber}
 */
+let currentFrameSubscription;
+
+/**
+* @type {import("svelte/store").Unsubscriber}
+*/
 let currentCanvasWidthSubscription;
 
 /**
@@ -81,6 +86,7 @@ onDestroy(() => {
         
         if (currentImageSubscription) currentImageSubscription();
         if (currentCanvasWidthSubscription) currentCanvasWidthSubscription();
+        if (currentFrameSubscription) currentFrameSubscription();
 
         // frameConfigurationStore.set(localFrameConfiguration);
 
@@ -100,13 +106,14 @@ function InitializeImageSubscription() {
 
 function InitialFrameConfigurationSubscription(){
     
-    currentImageSubscription = frameConfigurationStore.subscribe(
+    currentFrameSubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-
-                localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
+              
                 localFrameConfiguration.ImageSrc = currentImageProperties.src;
-                localFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
+                // localFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
+                localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
+                console.log("Transfer Done");
 
                 imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
                             
@@ -130,8 +137,6 @@ function InitialFrameConfigurationSubscription(){
                     `CANVAS/frame Update/Image scr : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}` ); 
             },
         );
-        // By calling currentImageSubscription, we make sure the subscription only happens once
-        //currentImageSubscription();
 }
 
 function CanvasWidthChangeSubscription(){
