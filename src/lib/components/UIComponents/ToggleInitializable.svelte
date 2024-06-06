@@ -11,6 +11,7 @@
   
     onMount(() => {     
         isChecked = initialStatus;
+        console.log(`Initial Status of the toogle is: ${isChecked}`);
     });
   
     // This function is called when the value isChecked changes.

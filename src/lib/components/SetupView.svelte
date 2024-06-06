@@ -52,7 +52,7 @@ let imageElement;
 let frameElement;
 
 
-let currentFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+let localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
 
 let currentImageProperties = {
 src: "",
@@ -82,7 +82,7 @@ onDestroy(() => {
         if (currentImageSubscription) currentImageSubscription();
         if (currentCanvasWidthSubscription) currentCanvasWidthSubscription();
 
-        frameConfigurationStore.set(currentFrameConfiguration);
+        // frameConfigurationStore.set(localFrameConfiguration);
 
     });
 
@@ -91,22 +91,24 @@ function InitializeImageSubscription() {
         (value) => {
             
             currentImageProperties = value;        
-            console.log("I got the Image subscription");
+            console.log("CANVAS/ I got the Image Update");
         },
     );
+
+    currentImageSubscription();
 }
 
 function InitialFrameConfigurationSubscription(){
     
     currentImageSubscription = frameConfigurationStore.subscribe(
             (value) => {
-                currentFrameConfiguration = value;
+                localFrameConfiguration = value;
 
-                currentFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
-                currentFrameConfiguration.ImageSrc = currentImageProperties.src;
-                currentFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
+                localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
+                localFrameConfiguration.ImageSrc = currentImageProperties.src;
+                localFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
 
-                imageRatio = currentFrameConfiguration.ImageSize[0]/currentFrameConfiguration.ImageSize[1];
+                imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
                             
                 //console.log(`from the image subscription the current parent width from child is: ${canvasWidth}`);
                 
@@ -114,25 +116,22 @@ function InitialFrameConfigurationSubscription(){
                 let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);
 
                 // We calculate a converion factor meter to pixel
-                meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /currentFrameConfiguration.ImageSize[0];
+                meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
                 
                 // We apply these values to the image html element
-                imageElement.style.width = ConvertToString(currentFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
-                imageElement.style.height = ConvertToString(currentFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+                imageElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
+                imageElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
 
                 // We apply these values to the frame html element
-                frameElement.style.width = ConvertToString(currentFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
-                frameElement.style.height = ConvertToString(currentFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
-                
-                console.log("I got the Frame Configuration subscription");
-                
+                frameElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
+                frameElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+                              
                 console.log(
-                    `SETUN VIEW  :, The frame config subscription says ${currentFrameConfiguration.ImageSrc}`,
-                );
+                    `CANVAS/frame Update/Image scr : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}` ); 
             },
         );
         // By calling currentImageSubscription, we make sure the subscription only happens once
-        currentImageSubscription();
+        //currentImageSubscription();
 }
 
 function CanvasWidthChangeSubscription(){
@@ -163,9 +162,6 @@ function ConvertToString(numberToConvert){
     else if (imageRatio > 1) return imageScreenSpaceRatios[2];
     else return imageScreenSpaceRatios[0]
 }
-
-
-
 
 
 </script>    
