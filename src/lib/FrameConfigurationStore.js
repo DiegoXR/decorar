@@ -6,7 +6,7 @@ const FrameConfiguration = {
     ImageSrc: "",
     ImageSize:[0, 0],
     FrameIsVisible: true,
-    FrameBorderWidth : 0,
+    FrameBorderWidth : 0.05,
     FrameDepth :0, 
     availableSizes: [
         [0, 0]

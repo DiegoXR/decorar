@@ -5,6 +5,7 @@
     import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
     import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
+    import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
 
     /**
      * @type {boolean}
@@ -20,6 +21,11 @@
      * @type {number[]}
      */
      let selectedImageSize;
+
+      /**
+     * @type {number}
+     */
+     let selectedFrameWidth;
 
     let localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
 
@@ -90,7 +96,7 @@
         frameConfigurationStore.set(localFrameConfiguration);
     }
 
-     ///////////////////////////////////////////////////
+     ///////////////////////////////////// UPDATE IMAGE SIZE
 
      $: if (isInitialized) {
         handleImageSizeChange(selectedImageSize);
@@ -105,7 +111,28 @@
             frameConfigurationStore.set(localFrameConfiguration);
         }
     }
-    ////////////////////////////////////////////////////////
+    ///////////////////////////////////////// UPDATE FRAME WIDTH
+
+    $: if (isInitialized) {
+        handleFrameWidthChange(selectedFrameWidth);
+  }
+
+    /**
+     * @param {number} selectedSize
+     */
+    function handleFrameWidthChange(selectedSize) {
+        if (selectedSize != null) {
+            localFrameConfiguration.FrameBorderWidth = selectedSize/100;
+            frameConfigurationStore.set(localFrameConfiguration);
+        }
+    }
+    ////////////////////////////////////////
+
+
+
+
+
+
     function DefineDropdownDefaultImageSize() {
         if (
             localImageProperties.availableSizes.some(
@@ -135,3 +162,6 @@
 <p>IMAGE SIZE</p>
 <DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
 />
+<p>FRAME BORDER WIDTH (cm)</p>
+<SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = "5"></SelectorNumberInitializable>
+<!-- <input type="number" id="quantity" name="quantity" min="1" max="10" step="1" value="1"> -->

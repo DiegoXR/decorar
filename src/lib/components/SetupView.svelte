@@ -111,9 +111,7 @@ function InitialFrameConfigurationSubscription(){
                 localFrameConfiguration = value;
               
                 localFrameConfiguration.ImageSrc = currentImageProperties.src;
-                // localFrameConfiguration.ImageSize = currentImageProperties.defaultSize;
                 localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
-                console.log("Transfer Done");
 
                 imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
                             
@@ -125,14 +123,27 @@ function InitialFrameConfigurationSubscription(){
                 // We calculate a converion factor meter to pixel
                 meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
                 
-                // We apply these values to the image html element
+                // We apply size values to the image html element
                 imageElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
                 imageElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+                // imageElement.style.visibility = "hidden";
 
-                // We apply these values to the frame html element
+
+
+                // We apply size values to the frame html element
                 frameElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
                 frameElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
-                              
+
+                // We apply visibility values to the frame html element
+                frameElement.style.visibility = localFrameConfiguration.FrameIsVisible ? "visible" : "hidden";
+                 
+                let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
+
+                frameElement.style.border= `${borderWidthPx} solid gray`;
+
+                console.log(
+                    `frame border is : ${ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor)}`); 
+
                 console.log(
                     `CANVAS/frame Update/Image scr : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}` ); 
             },
