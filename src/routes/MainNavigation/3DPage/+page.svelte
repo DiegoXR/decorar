@@ -1,7 +1,5 @@
 <script>
     import { onMount, onDestroy } from "svelte";
-    import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
-    import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
     import SceneMaker from "$lib/components/SceneMaker.svelte";
     import SceneToGltf from "$lib/components/SceneToGltf.svelte";
     import { sceneIsReady } from "../../../lib/ThreeJSstore.js"; // Adjust the import path as necessary
