@@ -84,9 +84,6 @@
             `CUSTOMIZE : Saving the properties before leaving the page ${currentReferenceProperties.ImageSize} - ${currentReferenceProperties.FrameIsVisible}`,
         );
         currentGlobalPropertiesStore.set(currentReferenceProperties);
-
-        //if (currentImageSubscription) currentImageSubscription();
-
     });
 
     function InitializeImageSubscription() {
@@ -120,14 +117,14 @@
                     subArr[1] === currentReferenceProperties.ImageSize[1],
             )
         ) {
-            console.log(
-                `CUSTOMIZE, Ignoring the default option and keeping the previous one :${currentReferenceProperties.ImageSize}`,
-            );
+            // console.log(
+            //     `CUSTOMIZE, Ignoring the default option and keeping the previous one :${currentReferenceProperties.ImageSize}`,
+            // );
             return currentReferenceProperties.ImageSize;
         } else {
-            console.log(
-                `CUSTOMIZE, Ignoring the previous option and selecting the new default option :${currentSelectedImage.defaultSize}`,
-            );
+            // console.log(
+            //     `CUSTOMIZE, Ignoring the previous option and selecting the new default option :${currentSelectedImage.defaultSize}`,
+            // );
             return currentSelectedImage.defaultSize;
         }
     }

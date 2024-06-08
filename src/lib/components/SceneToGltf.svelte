@@ -2,7 +2,7 @@
     import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter.js";
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
-    import { sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
+    import { sceneStore } from "../ThreeJSstore.js"; // Adjust the import path as necessary
     import "@google/model-viewer";
 
     /**
@@ -10,15 +10,28 @@
      */
     let scene;
 
+    let gltfIsReady = false;
+
+       /**
+     * @type {import("svelte/store").Unsubscriber}
+     */
+     let sceneUnsubscription;
+
     onMount(() => {
-        console.log("AR Mounted");
+        console.log("GLTF CReator will be mounted");
+        sceneInscription();
         exportGLTF();
     });
 
-    let unsubscribe = sceneStore.subscribe((value) => {
+
+    function sceneInscription(){
+        sceneUnsubscription = sceneStore.subscribe((value) => {
         console.log("AR received the scene");
         scene = value;
-    });
+        });
+        sceneUnsubscription();
+    }
+   
 
     /**
      * @type {ArrayBuffer | { [key: string]: any; } | null}
@@ -32,12 +45,38 @@
     };
 
     function exportGLTF() {
-        if (scene == null) return;
+        if (scene == null) {
+            console.log("Scene is null");
+            return;
+        }
+
+        console.log("Exporting Gltf again");
 
         removeAmbientLights();
 
         // Instantiate a exporter
         const exporter = new GLTFExporter();
+
+
+        // Ensure all textures are loaded and valid
+    scene.traverse((object) => {
+        if ( object instanceof THREE.Mesh && object.material) {
+            let materials = object.material;
+            if (!Array.isArray(materials)) {
+                materials = [materials];
+            }
+            materials.forEach((/** @type {{ map: { image: any; }; }} */ material) => {
+                if (material.map && !material.map.image) {
+                    console.warn('Material map texture is not loaded:', material.map);
+                    throw new Error('Texture not loaded');
+                }
+            });
+        }
+    });
+
+
+
+
 
         // Parse the input and generate the glTF output
         exporter.parse(
@@ -54,6 +93,7 @@
                     const url = URL.createObjectURL(blob);
                     // Now you can use this URL with <model-viewer>
                     modelUrl = url; // Assuming `modelUrl` is a reactive variable in Svelte
+                    gltfIsReady = true;
 
                     // Example: Download the file
                     // const link = document.createElement('a');
@@ -67,6 +107,7 @@
             // called when there is an error in the generation
             function (error) {
                 console.log("An error happened");
+                console.log(error);
             },
             options,
         );
@@ -74,9 +115,8 @@
 
     onDestroy(() => {
         storedGLTF = null;
+        sceneUnsubscription();
     });
-
-    onDestroy(unsubscribe);
 
     function removeAmbientLights() {
         /**
@@ -104,6 +144,7 @@
 >
 </button> -->
 
+{#if gltfIsReady}
 <model-viewer
     src={modelUrl}
     ar
@@ -119,3 +160,4 @@
         👋 Activate AR
     </button>
 </model-viewer>
+{/if}

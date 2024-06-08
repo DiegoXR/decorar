@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
     import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
-    import { rendererStore, sceneStore } from "../threeJSstore.js"; // Adjust the import path as necessary
+    import { rendererStore, sceneStore } from "../ThreeJSstore.js"; // Adjust the import path as necessary
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
     import { OrbitControls } from "three/addons/controls/OrbitControls.js";

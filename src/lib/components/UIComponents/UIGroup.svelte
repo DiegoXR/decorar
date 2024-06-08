@@ -61,13 +61,13 @@
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-                console.log(
-                    `UI Group says that the current available sizes in the config are : ${localFrameConfiguration.ImageSize}, Visi : ${localFrameConfiguration.availableSizes}`,
-                );
-                console.log(
-                    `UI Group says that the current available sizes in the selected image are : ${localImageProperties.defaultSize}, Visi : ${localImageProperties.availableSizes}`,
-                );
-            },
+            //     console.log(
+            //         `UI Group says that the current available sizes in the config are : ${localFrameConfiguration.ImageSize}, Visi : ${localFrameConfiguration.availableSizes}`,
+            //     );
+            //     console.log(
+            //         `UI Group says that the current available sizes in the selected image are : ${localImageProperties.defaultSize}, Visi : ${localImageProperties.availableSizes}`,
+            //     );
+             },
         );
 
         FrameConfigurationUnsubscription();
@@ -141,14 +141,14 @@
                     subArr[1] === localFrameConfiguration.ImageSize[1],
             )
         ) {
-            console.log(
-                `CUSTOMIZE, Ignoring the default option and keeping the previous one :${localFrameConfiguration.ImageSize}`,
-            );
+            // console.log(
+            //     `CUSTOMIZE, Ignoring the default option and keeping the previous one :${localFrameConfiguration.ImageSize}`,
+            // );
             return localFrameConfiguration.ImageSize;
         } else {
-            console.log(
-                `CUSTOMIZE, Ignoring the previous option and selecting the new default option :${localImageProperties.defaultSize}`,
-            );
+            // console.log(
+            //     `CUSTOMIZE, Ignoring the previous option and selecting the new default option :${localImageProperties.defaultSize}`,
+            // );
             return localImageProperties.defaultSize;
         }
     }
