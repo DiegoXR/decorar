@@ -3,7 +3,7 @@
     import { onMount, onDestroy } from "svelte";
     import * as THREE from "three";
     import { currentSelectedImageStore } from "../../CurrentSelectedImageStore.js";
-    import { rendererStore } from "../../../lib/ThreeJSstore.js"; // Adjust the import path as necessary
+    import { rendererStore } from "../../../lib/SceneStatusStore.js"; // Adjust the import path as necessary
     import "@google/model-viewer";
     
 

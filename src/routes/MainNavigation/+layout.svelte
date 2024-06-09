@@ -3,7 +3,7 @@
     import NavigationBar from "$lib/components/UIComponents/NavigationBar.svelte";
     import { onMount } from "svelte";
     import * as THREE from "three";
-    import { rendererStore, sceneStore } from "../../lib/threeJSstore";
+    import { rendererStore, sceneStore } from "../../lib/SceneStatusStore";
 
     onMount(() => {
         
