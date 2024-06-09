@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import SceneMaker from "$lib/components/SceneMaker.svelte";
     import SceneToGltf from "$lib/components/SceneToGltf.svelte";
-    //import { sceneIsReady } from "../../../lib/ThreeJSstore";
+    import { sceneIsReady } from "../../../lib/SceneStatusStore";
 
     let isSceneMakerLoaded = false;
 
@@ -11,18 +11,18 @@
     //     console.log("GLAG COLOMBIA RECEIVED");
     // });
 
-    //    /**
-    //  * @type {import("svelte/store").Unsubscriber}
-    //  */
-    //  let sceneUnsubscription;
+       /**
+     * @type {import("svelte/store").Unsubscriber}
+     */
+     let sceneUnsubscription;
 
-    // function sceneInscription(){
-    //     sceneUnsubscription = sceneIsReady.subscribe((value) => {
-    //     isSceneMakerLoaded = value;
-    //     });
-    // }
+    function sceneInscription(){
+        sceneUnsubscription = sceneIsReady.subscribe((value) => {
+        isSceneMakerLoaded = value;
+        });
+    }
    
-    // sceneInscription();
+    sceneInscription();
     onMount(() => {});
 
     onDestroy(() => {});

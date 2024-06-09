@@ -2,8 +2,8 @@
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../lib/FrameConfigurationStore.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
-    import { sceneStore} from "../ThreeJSstore.js";
-    import {sceneIsReady} from "../ThreeJSstore.js";
+    import {sceneStore} from "../ThreeJSstore.js";
+    import {sceneIsReady} from "../SceneStatusStore.js";
     import { CreateSquareContourCoordinatesWithIntermediatePoints } from "$lib/FrameUtilitiesSquare.js";
     import * as THREE from "three";
 

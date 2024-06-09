@@ -18,6 +18,3 @@ scene.add(ambientLight);
 export const sceneStore = writable(scene);
 
 
-
-export const sceneIsReady = writable(false);
-
