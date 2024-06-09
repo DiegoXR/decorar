@@ -3,7 +3,7 @@
     import DropdownInitializable from "$lib/components/UIComponents/DropdownInitializable.svelte";
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
-    import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
+    import * as THREEJsConfiguration from "../../../lib/SceneConstants.js";
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
 
@@ -27,7 +27,7 @@
      */
      let selectedFrameWidth;
 
-    let localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+    let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
 
     /**
      * @type {import("svelte/store").Unsubscriber}

@@ -3,10 +3,11 @@
     import { frameConfigurationStore } from "../../lib/FrameConfigurationStore.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
     import {sceneIsReady, sceneStore} from "../SceneStatusStore.js";
-    import { CreateSquareContourCoordinatesWithIntermediatePoints } from "$lib/FrameUtilitiesSquare.js";
+    import * as THREEJsConfiguration from  "../../lib/SceneConstants.js";
+    import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREE from "three";
 
-    let localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+    let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
 
     /**
      * @type {import("svelte/store").Unsubscriber}
@@ -28,11 +29,26 @@
      */
     let textureLoader;
 
-    /**
+     /**
      * @type {THREE.Mesh}
      */
-    let planeImage;
+     let frame;
 
+     //// Automatically create default Material
+     const texturePath = "/referenceTextures/Oak_512.png";
+    const texture = new THREE.TextureLoader().load(texturePath);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(3, 1);
+
+    const m0 = new THREE.MeshStandardMaterial({
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: 1,
+        color : 0xff0000
+    });
+
+    let materials = [m0];
     
 
     onMount(() => {
@@ -47,7 +63,7 @@
 
         console.log("3D Maker : Remove Elements from scene");
         THREEJsUtilities.CleanScene(scene);
-        localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+        localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
         sceneStore.set(scene);
         sceneIsReady.set(false);
 
@@ -77,60 +93,32 @@
 
     function CreateScene() {
         // Create plane with texture
-        textureLoader = new THREE.TextureLoader();
+        textureLoader = new THREE.TextureLoader();       
+        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);
+        CreateFrame(localFrameConfiguration);
+    }
 
-        // @ts-ignore
-        // planeImage = CreatePlaneImage(
-        //     localFrameConfiguration.ImageSrc,
-        //     localFrameConfiguration.ImageSize[0],
-        //     localFrameConfiguration.ImageSize[1],
-        // );
+    /**
+     * @param {string} imagePath
+     * @param {number} width
+     * @param {number} height
+     */
+    function CreatePlaneAsynchronously(imagePath, width, height){
+        if (imagePath == null) return null;
 
-        //  if (planeImage != null){
-        //     scene.add(planeImage);
-        //  }else{
-        //     console.log("Plane is null");
-        //  }
-
-        // const geometryCube = new THREE.BoxGeometry(0.2, 0.2); // Parámetros por defecto para un cubo 1x1x1
-        // const materialCube = new THREE.MeshBasicMaterial({ color: 0x0000ff }); // Material verde básico
-        // const cube = new THREE.Mesh(geometryCube, materialCube); // Crear el mesh del cubo
-        // cube.position.set(generateRandom(), generateRandom(), generateRandom());
-        // scene.add(cube);
-
-        // Create Test plane with texture
-        // const geometryTest = new THREE.PlaneGeometry(0.5, 0.5);
-        // const materialTest = new THREE.MeshBasicMaterial({
-        //     color: 0xff0000,
-        //     side: THREE.DoubleSide,
-        // });
-        // const planeTest = new THREE.Mesh(geometryTest, materialTest);
-        // planeTest.position.set(
-        //     generateRandom(),
-        //     generateRandom(),
-        //     generateRandom(),
-        // );
-        // scene.add(planeTest);
-
-        // let planeTexture = textureLoader.load("/referenceImages/1080_1080.jpg");
-
-        // Step 2: Load the Texture
-        const geometryTest2 = new THREE.PlaneGeometry(0.2, 0.2);
         const planeTexture = textureLoader.load(
-            localFrameConfiguration.ImageSrc, // URL of the texture
-            () => {
-                console.log("Texture loaded successfully");
-                
-                // const materialTest = new THREE.MeshBasicMaterial( {color: 0xffff00, side: THREE.DoubleSide} );
-                let materialTest2 = new THREE.MeshPhysicalMaterial({
+            imagePath, // URL of the texture
+            () => {                
+                let material = new THREE.MeshPhysicalMaterial({
                     map: planeTexture,
                     side: THREE.FrontSide,
                 });
-                const planeTest2 = new THREE.Mesh(geometryTest2, materialTest2);
-                scene.add(planeTest2);
+
+                let geometry = new THREE.PlaneGeometry(width, height);
+                const plane = new THREE.Mesh(geometry, material);
+                scene.add(plane);
                 sceneStore.set(scene);
                 sceneIsReady.set(true);
-                console.log("Scene async is ready maker");
             },
             undefined,
             (err) => {
@@ -140,40 +128,31 @@
                 );
             },
         );
-
-        // sceneStore.set(scene);
-        // sceneIsReady.set(true);
     }
 
-    /**
-     * @param {string} imagePath
-     * @param {number} width
-     * @param {number} height
+
+     /**
+     * @param {{ ImageSrc: string; ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; availableSizes: number[][]; }} localFrameConfiguration
      */
-    function CreatePlaneImage(imagePath, width, height) {
-        if (imagePath == null) return null;
+     function CreateFrame(localFrameConfiguration) {
+        
+        console.log(`Frame will be created with the following params : Width :${localFrameConfiguration.ImageSize[0]}- Height : ${localFrameConfiguration.ImageSize[1]} `);
+        console.log(`Frame will be created with the following params : BorderWidth :${localFrameConfiguration.FrameBorderWidth}- Depth : ${localFrameConfiguration.FrameDepth} `);
+        
+        // @ts-ignore
+        frame = SQUAREFRAME.CreateFrameSquare(
+            localFrameConfiguration.ImageSize[0] - THREEJsConfiguration.frameInnerOffset,
+            localFrameConfiguration.ImageSize[1] - THREEJsConfiguration.frameInnerOffset,
+            localFrameConfiguration.FrameBorderWidth,
+            localFrameConfiguration.FrameDepth,
+            materials,
+        );
 
-        let planeTexture = textureLoader.load(imagePath);
-        let geometry = new THREE.PlaneGeometry(width, height);
-
-        let planeMaterial = new THREE.MeshPhysicalMaterial({
-            map: planeTexture,
-            side: THREE.FrontSide,
-        });
-
-        let plane = new THREE.Mesh(geometry, planeMaterial);
-
-        return plane;
-    }
-
-    function generateRandom() {
-        // Define the range for the random x position
-        const minX = -0.5;
-        const maxX = 0.5;
-
-        // Generate a random x position within the defined range
-        const randomX = Math.random() * (maxX - minX) + minX;
-
-        return randomX;
+        // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+        frame = THREEJsUtilities.repositionMesh(
+            frame,
+            localFrameConfiguration.FrameDepth / 2,
+        );
+        scene.add(frame);
     }
 </script>

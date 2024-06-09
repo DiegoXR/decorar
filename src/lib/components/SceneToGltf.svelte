@@ -145,7 +145,8 @@
 </button> -->
 
 {#if gltfIsReady}
-<model-viewer
+<div class="h-full w-full bg-slate-600">
+    <model-viewer
     src={modelUrl}
     ar
     ar-placement="wall"
@@ -160,4 +161,13 @@
         👋 Activate AR
     </button>
 </model-viewer>
+</div>
 {/if}
+
+<style>
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+  }
+</style>

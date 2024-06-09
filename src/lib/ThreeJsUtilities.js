@@ -8,26 +8,6 @@ export let startingGlobalProperties = {
     FrameDepth: 0.02,
 }
 
-export let startingFrameConfiguration = {
-    ImageSrc: "",
-    ImageSize: [0, 0],
-    FrameIsVisible: true,
-    FrameBorderWidth: 0,
-    FrameDepth: 0,
-    availableSizes: [
-        [0, 0]
-    ],
-}
-
-export let startingSelectedImage = {
-    src: "",
-    alt: "",
-    description: "",
-    availableSizes: [[0, 0]],
-    defaultSize: [0, 0],
-}
-
-
 /**
  * @param {THREE.Mesh} mesh
  * @param {THREE.Scene} scene

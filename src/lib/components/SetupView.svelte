@@ -4,7 +4,7 @@ import { onMount, onDestroy } from "svelte";
 import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
 import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
-import * as THREEJsUtilities from "../ThreeJsUtilities.js";
+import * as THREEJsConfiguration from  "../SceneConstants.js";
 
 /**
 * @type {import("svelte/store").Unsubscriber}
@@ -57,7 +57,7 @@ let imageElement;
 let frameElement;
 
 
-let localFrameConfiguration = THREEJsUtilities.startingFrameConfiguration;
+let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
 
 let currentImageProperties = {
 src: "",
