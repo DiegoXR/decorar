@@ -9,7 +9,7 @@
     // export let isVisible = true;
 
      /**
-     * @type {string}
+     * @type {number}
      */
      export let defaultValue;
 
@@ -23,7 +23,8 @@
     });
     
     function numberChanged() {
-        selectedOption = parseInt(inputElement.value, 10); 
+      // Convert from String to Number  
+      selectedOption = parseInt(inputElement.value, 10); 
     }
        
   </script>

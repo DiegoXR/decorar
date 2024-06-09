@@ -27,6 +27,11 @@
      */
      let selectedFrameWidth;
 
+     /**
+     * @type {number}
+     */
+     let selectedFrameDepth;
+
     let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
 
     /**
@@ -38,6 +43,8 @@
      * @type {import("svelte/store").Unsubscriber}
      */
     let currentImageSubscription;
+
+    let IsGroupMounted = false;
 
     let localImageProperties = {
         src: "",
@@ -56,23 +63,21 @@
     });
 
     onDestroy(() => {});
-
+////////////////////////////////////////////////////////////////////
     function InitialFrameConfigurationSubscription() {
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-            //     console.log(
-            //         `UI Group says that the current available sizes in the config are : ${localFrameConfiguration.ImageSize}, Visi : ${localFrameConfiguration.availableSizes}`,
-            //     );
-            //     console.log(
-            //         `UI Group says that the current available sizes in the selected image are : ${localImageProperties.defaultSize}, Visi : ${localImageProperties.availableSizes}`,
-            //     );
+                console.log(
+                    `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
+                );
              },
         );
 
         FrameConfigurationUnsubscription();
     }
-
+///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////
     function InitializeImageSubscription() {
         currentImageSubscription = currentSelectedImageStore.subscribe(
             (value) => {
@@ -94,6 +99,7 @@
     function handleFrameVisibilityChange(isFrameVisible) {
         localFrameConfiguration.FrameIsVisible = isFrameVisible;
         frameConfigurationStore.set(localFrameConfiguration);
+        console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
 
      ///////////////////////////////////// UPDATE IMAGE SIZE
@@ -126,12 +132,23 @@
             frameConfigurationStore.set(localFrameConfiguration);
         }
     }
-    ////////////////////////////////////////
+    //////////////////////////////////////// UPDATE FRAME DEPTH
 
+    $: if (isInitialized) {
+        handleFrameDepthChange(selectedFrameDepth);
+  }
 
+    /**
+     * @param {number} selectedSize
+     */
+    function handleFrameDepthChange(selectedSize) {
+        if (selectedSize != null) {
+            localFrameConfiguration.FrameDepth = selectedSize/100;
+            frameConfigurationStore.set(localFrameConfiguration);
+        }
+    }
 
-
-
+    ////////////////////////////////////
 
     function DefineDropdownDefaultImageSize() {
         if (
@@ -152,6 +169,14 @@
             return localImageProperties.defaultSize;
         }
     }
+
+    function DefineFrameBorderWidthInitialSize(){       
+        return localFrameConfiguration.FrameBorderWidth === 0 ? THREEJsConfiguration.frameBorderWidthMinimalSize * 100 :  localFrameConfiguration.FrameBorderWidth * 100;
+    }
+
+    function DefineFrameBorderDepthInitialSize(){
+        return localFrameConfiguration.FrameDepth === 0 ? THREEJsConfiguration.frameDepthMinimalSize * 100 :  localFrameConfiguration.FrameDepth * 100;
+    }
 </script>
 
 <ToggleInitializable
@@ -163,5 +188,8 @@
 <DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
 />
 <p>FRAME BORDER WIDTH (cm)</p>
-<SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = "5"></SelectorNumberInitializable>
-<!-- <input type="number" id="quantity" name="quantity" min="1" max="10" step="1" value="1"> -->
+<SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></SelectorNumberInitializable>
+
+<p>FRAME DEPTH (cm)</p>
+<SelectorNumberInitializable bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()}></SelectorNumberInitializable>
+

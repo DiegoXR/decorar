@@ -76,7 +76,6 @@ CanvasWidthChangeSubscription();
 
 onMount(() => {
 
-    //console.log("Mounting VIEW");
     InitializeImageSubscription();
     InitialFrameConfigurationSubscription();
 
@@ -115,7 +114,7 @@ function InitialFrameConfigurationSubscription(){
 
                 imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
                             
-                //console.log(`from the image subscription the current parent width from child is: ${canvasWidth}`);
+                console.log(`from the Setup View: ${value.FrameDepth}`);
                 
                 // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
                 let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);

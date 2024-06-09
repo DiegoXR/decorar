@@ -6,23 +6,11 @@
 
     let isSceneMakerLoaded = false;
 
-    // $: sceneIsReady.subscribe((value) => {
-    //     isSceneMakerLoaded = value;
-    //     console.log("GLAG COLOMBIA RECEIVED");
-    // });
-
-       /**
-     * @type {import("svelte/store").Unsubscriber}
-     */
-     let sceneUnsubscription;
-
-    function sceneInscription(){
-        sceneUnsubscription = sceneIsReady.subscribe((value) => {
+    $: sceneIsReady.subscribe((value) => {
         isSceneMakerLoaded = value;
-        });
-    }
-   
-    sceneInscription();
+        console.log("GLAG COLOMBIA RECEIVED");
+    });
+
     onMount(() => {});
 
     onDestroy(() => {});

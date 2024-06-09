@@ -42,10 +42,11 @@
     texture.repeat.set(3, 1);
 
     const m0 = new THREE.MeshStandardMaterial({
-        side: THREE.DoubleSide,
-        transparent: true,
+        side: THREE.FrontSide,
+        transparent: false,
         opacity: 1,
         color : 0xff0000
+
     });
 
     let materials = [m0];
@@ -94,8 +95,10 @@
     function CreateScene() {
         // Create plane with texture
         textureLoader = new THREE.TextureLoader();       
-        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);
+        
         CreateFrame(localFrameConfiguration);
+        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);
+        
     }
 
     /**
@@ -148,6 +151,10 @@
             materials,
         );
 
+        // frame.position.set(getRandomNumber(), getRandomNumber() , getRandomNumber());
+
+        // frame.material(material as THREE.MeshStandardMaterial).color.set(getRandomColor());
+
         // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
         frame = THREEJsUtilities.repositionMesh(
             frame,
@@ -155,4 +162,29 @@
         );
         scene.add(frame);
     }
+
+    // function getRandomNumber() {
+    // // Generate a random number between 0 and 1
+    // const random = Math.random();
+    // // Scale it to the range -0.1 to 0.1
+    // const scaledRandom = (random * 0.2) - 0.1;
+    // return scaledRandom;
+
+    // }
+
+    // function getRandomColor() {
+    // // Generate a random integer between 0 and 255 for each color channel
+    // const r = Math.floor(Math.random() * 256);
+    // const g = Math.floor(Math.random() * 256);
+    // const b = Math.floor(Math.random() * 256);
+    
+    // // Convert the integers to hexadecimal format and pad with leading zeros if necessary
+    // const hexR = r.toString(16).padStart(2, '0');
+    // const hexG = g.toString(16).padStart(2, '0');
+    // const hexB = b.toString(16).padStart(2, '0');
+    
+    // // Combine the three hexadecimal values into a single color string
+    // return `#${hexR}${hexG}${hexB}`;
+    
+//}
 </script>
