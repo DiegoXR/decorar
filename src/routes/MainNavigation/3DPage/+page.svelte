@@ -2,7 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import SceneMaker from "$lib/components/SceneMaker.svelte";
     import SceneToGltf from "$lib/components/SceneToGltf.svelte";
-    import { sceneIsReady } from "../../../lib/ThreeJSstore.js";
+    import { sceneIsReady } from "../../../lib/ThreeJSstore";
 
     let isSceneMakerLoaded = false;
 
