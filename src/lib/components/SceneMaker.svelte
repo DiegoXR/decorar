@@ -63,7 +63,7 @@
         if (sceneUnsubscription) sceneUnsubscription();
 
         console.log("3D Maker : Remove Elements from scene");
-        THREEJsUtilities.CleanScene(scene);
+        THREEJsUtilities.ClearScene(scene);
         localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
         sceneStore.set(scene);
         sceneIsReady.set(false);
