@@ -128,7 +128,10 @@
      */
     function handleFrameWidthChange(selectedSize) {
         if (selectedSize != null) {
-            localFrameConfiguration.FrameBorderWidth = selectedSize/100;
+            localFrameConfiguration.FrameBorderWidth = selectedSize * 0.01; //  /100 (convert to meters)
+            
+            console.log(`Define border width ${localFrameConfiguration.FrameBorderWidth}`);
+            
             frameConfigurationStore.set(localFrameConfiguration);
         }
     }
@@ -143,7 +146,10 @@
      */
     function handleFrameDepthChange(selectedSize) {
         if (selectedSize != null) {
-            localFrameConfiguration.FrameDepth = selectedSize/100;
+            localFrameConfiguration.FrameDepth = selectedSize * 0.01; // /100 (convert to meters)
+            
+            console.log(`Define border depth ${localFrameConfiguration.FrameDepth}`);
+            
             frameConfigurationStore.set(localFrameConfiguration);
         }
     }

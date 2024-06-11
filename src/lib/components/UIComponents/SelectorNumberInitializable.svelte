@@ -20,6 +20,7 @@
 
     onMount(() => { 
       inputElement.addEventListener('change', numberChanged);
+      selectedOption = defaultValue;
     });
     
     function numberChanged() {
