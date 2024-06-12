@@ -8,7 +8,6 @@
 
     $: sceneIsReady.subscribe((value) => {
         isSceneMakerLoaded = value;
-        console.log("GLAG COLOMBIA RECEIVED");
     });
 
     onMount(() => {});
@@ -17,9 +16,8 @@
 </script>
 
 <SceneMaker></SceneMaker>
-<div class="w-full h-[50vh] bg-green-300">
+<div class="w-full h-full bg-green-300">
     {#if isSceneMakerLoaded}
-    <p>SCENE TO GLTF</p>
     <SceneToGltf></SceneToGltf>
     {/if}
 </div>

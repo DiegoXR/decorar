@@ -93,12 +93,10 @@
     }
 
     function CreateScene() {
-        // Create plane with texture
         textureLoader = new THREE.TextureLoader();       
         
-        CreateFrame(localFrameConfiguration);
-        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);
-        
+        if (localFrameConfiguration.FrameIsVisible)CreateFrame(localFrameConfiguration);     
+        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);        
     }
 
     /**

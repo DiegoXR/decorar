@@ -145,7 +145,7 @@
 </button> -->
 
 {#if gltfIsReady}
-<div class="h-full w-full bg-slate-600">
+<div class="h-full w-full">
     <model-viewer
     src={modelUrl}
     ar
@@ -153,13 +153,16 @@
     camera-controls
     touch-action="pan-y"
     alt="A 3D model of some wall art"
+    min-camera-orbit="-90deg 0deg auto"
+    max-camera-orbit="90deg 180deg auto"
 >
-    <button
-        slot="ar-button"
-        class="h-100 w-100 bg bg-blue-600 position: static bottom-0 left-0"
-    >
-        👋 Activate AR
+    
+<div class="absolute inset-x-0 bottom-4 flex justify-center">
+    <button slot="ar-button"  class="bg-blue-500 text-white font-bold px-6 py-4 rounded">
+        Activate AR
     </button>
+</div>
+
 </model-viewer>
 </div>
 {/if}
@@ -171,3 +174,4 @@ model-viewer {
     height: 100%;
   }
 </style>
+
