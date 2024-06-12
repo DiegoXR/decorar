@@ -157,7 +157,7 @@
     max-camera-orbit="90deg 180deg auto"
 >
 <button
-
+slot="ar-button"
 class="h-100 w-100 bg bg-blue-600 position : absolute left-1/2 bottom-6 transform -translate-x-1/2"
 >
 👋 Activate AR
