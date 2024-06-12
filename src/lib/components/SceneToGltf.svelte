@@ -145,7 +145,7 @@
 </button> -->
 
 {#if gltfIsReady}
-<div class="h-full w-full">
+<div class="h-[70%] w-[90%] m-auto bg-slate-400">
     <model-viewer
     src={modelUrl}
     ar
@@ -156,13 +156,14 @@
     min-camera-orbit="-90deg 0deg auto"
     max-camera-orbit="90deg 180deg auto"
 >
-    
-<div class="absolute inset-x-0 bottom-4 flex justify-center">
-    <button slot="ar-button"  class="bg-blue-500 text-white font-bold px-6 py-4 rounded">
-        Activate AR
-    </button>
-</div>
+<button
 
+class="h-100 w-100 bg bg-blue-600 position : absolute left-1/2 bottom-6 transform -translate-x-1/2"
+>
+👋 Activate AR
+</button>
+
+<!-- slot="ar-button" -->
 </model-viewer>
 </div>
 {/if}
@@ -172,6 +173,7 @@
 model-viewer {
     width: 100%;
     height: 100%;
+    position: relative;
   }
 </style>
 
