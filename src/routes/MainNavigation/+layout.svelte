@@ -25,9 +25,10 @@
 
  <div class="h-[100vh] w-full bg-black">         
    
+    <!-- SPACER BEHIND HEADER AND NAV BAR  -->
    <div class="w-full h-[20vh] bg-slate-600">
    </div >
-        
+    <!-- SLOT FOR OTHER PAGES  -->
    <div class="w-full h-[80vh]">
     <slot />
    </div>

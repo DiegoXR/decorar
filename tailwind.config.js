@@ -13,6 +13,14 @@ export default {
         'dynamic': 'var(--dynamic-height)',
       },
     },
+    screens: {
+      'xs': '390px', // Custom breakpoint for iPhones and similar devices
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     //If you’d like to completely delete the default color palette and replace it with your own custom colors, add your colors directly under the theme.colors
     /* colors: {
       primaryText: '#2563eb',   // Replace with your primary color
