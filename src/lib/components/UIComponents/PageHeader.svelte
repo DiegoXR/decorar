@@ -8,9 +8,9 @@
 </script>
 
 <div
-    class=" fixed w-full flex flex-row justify-between items-center bg-red-800 h-[10vh] mt-[4px] ml-[4px]"
+    class=" fixed w-full flex flex-row justify-between items-center bg-white h-[10vh]"
 >
-    <div class="h-[24px] w-[24px]">
+    <div class="h-[24px] w-[24px] ml-5">
         <button class=" h-auto w-auto" on:click={GotoHomePage}>
             <img
                 src="/CompanyLogo.svg"
@@ -22,7 +22,7 @@
 
     <div class="h-[30px] w-[50px]">V3.5 June11</div>
 
-    <div class="h-[24px] w-[24px]">
+    <div class="h-[24px] w-[24px] mr-5">
         <HamburgerMenuIcon></HamburgerMenuIcon>
     </div>
 </div>
