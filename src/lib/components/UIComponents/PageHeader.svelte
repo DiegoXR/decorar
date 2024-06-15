@@ -8,7 +8,7 @@
 </script>
 
 <div
-    class=" fixed w-full flex flex-row justify-between items-center bg-white h-[10vh]"
+    class=" fixed w-full flex flex-row justify-between items-center bg-white h-[10vh] ml-5"
 >
     <div class="h-[24px] w-[24px] ml-5">
         <button class=" h-auto w-auto" on:click={GotoHomePage}>

@@ -68,9 +68,9 @@
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-                console.log(
-                    `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
-                );
+                // console.log(
+                //     `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
+                // );
              },
         );
 
@@ -99,7 +99,7 @@
     function handleFrameVisibilityChange(isFrameVisible) {
         localFrameConfiguration.FrameIsVisible = isFrameVisible;
         frameConfigurationStore.set(localFrameConfiguration);
-        console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
+        // console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
 
      ///////////////////////////////////// UPDATE IMAGE SIZE
@@ -130,7 +130,7 @@
         if (selectedSize != null) {
             localFrameConfiguration.FrameBorderWidth = selectedSize * 0.01; //  /100 (convert to meters)
             
-            console.log(`Define border width ${localFrameConfiguration.FrameBorderWidth}`);
+            // console.log(`Define border width ${localFrameConfiguration.FrameBorderWidth}`);
             
             frameConfigurationStore.set(localFrameConfiguration);
         }
@@ -148,7 +148,7 @@
         if (selectedSize != null) {
             localFrameConfiguration.FrameDepth = selectedSize * 0.01; // /100 (convert to meters)
             
-            console.log(`Define border depth ${localFrameConfiguration.FrameDepth}`);
+            // console.log(`Define border depth ${localFrameConfiguration.FrameDepth}`);
             
             frameConfigurationStore.set(localFrameConfiguration);
         }

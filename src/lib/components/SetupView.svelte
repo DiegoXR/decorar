@@ -1,6 +1,6 @@
 <!-- <div class="bg-blue-100 w- h-[50vh]" -->
 <script>
-import { onMount, onDestroy } from "svelte";
+import { onMount, onDestroy,tick  } from "svelte";
 import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
 import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
@@ -78,13 +78,17 @@ defaultSize: [0, 0],
  */
 let canvasWidthStore = getContext('parentWidth');
 
-CanvasWidthChangeSubscription();
+let isInitialized = false
 
-onMount(() => {
 
+
+
+onMount(async () => {
+
+    isInitialized = true;
+    CanvasWidthChangeSubscription();
     InitializeImageSubscription();
     InitialFrameConfigurationSubscription();
-
 });
 
 onDestroy(() => {
@@ -92,6 +96,7 @@ onDestroy(() => {
         if (currentImageSubscription) currentImageSubscription();
         if (currentCanvasWidthSubscription) currentCanvasWidthSubscription();
         if (currentFrameSubscription) currentFrameSubscription();
+
     });
 
 function InitializeImageSubscription() {
@@ -99,7 +104,7 @@ function InitializeImageSubscription() {
         (value) => {
             
             currentImageProperties = value;        
-            console.log("CANVAS/ I got the Image Update");
+            // console.log("CANVAS/ I got the Image Update");
         },
     );
 
@@ -111,13 +116,30 @@ function InitialFrameConfigurationSubscription(){
     currentFrameSubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-              
-                localFrameConfiguration.ImageSrc = currentImageProperties.src;
+
+                updateHTMLElements();                   
+            },
+        );
+}
+
+function CanvasWidthChangeSubscription(){
+    currentCanvasWidthSubscription = canvasWidthStore.subscribe((value) => {
+    canvasWidth = value;
+    updateHTMLElements();
+    console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
+  });
+}
+
+ function updateHTMLElements(){
+    
+   if (!isInitialized)   return;
+ 
+    console.log("Updating HTML ELEMENTS");
+    localFrameConfiguration.ImageSrc = currentImageProperties.src;
                 localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
 
                 imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
                             
-                // console.log(`from the Setup View: ${value.FrameDepth}`);
                 
                 // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
                 let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);
@@ -125,11 +147,11 @@ function InitialFrameConfigurationSubscription(){
                 // We calculate a converion factor meter to pixel
                 if (localFrameConfiguration.FrameIsVisible){
                     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /((localFrameConfiguration.ImageSize[0] + (2 * localFrameConfiguration.FrameBorderWidth)));
-                    console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
+                    // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
                 }                
                 else{
                     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
-                    console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
+                    // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
                 }
                 
                 // We apply size values to the image html element
@@ -146,28 +168,16 @@ function InitialFrameConfigurationSubscription(){
                  
                 let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
 
-                frameElement.style.border= `${borderWidthPx} solid gray`;
+                frameElement.style.border= `${borderWidthPx} solid red`;
 
-                console.log(
-                    `frame border is : ${borderWidthPx}`); 
+                // console.log(
+                //     `frame border is : ${borderWidthPx}`); 
 
-                console.log(
-                    `Image width is : ${ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor)}`);
+                // console.log(
+                //     `Image width is : ${ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor)}`);
 
-                // console.log(`The current canvas width is ${canvasWidth}`);    
-            },
-        );
-}
-
-function CanvasWidthChangeSubscription(){
-    currentCanvasWidthSubscription = canvasWidthStore.subscribe((value) => {
-    canvasWidth = value;
-    // console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
-    // if (imageElement != null) imageElement.style.width = (canvasWidth/2).toString() + "px"; 
-  });
-}
-
- 
+                // console.log(`The current canvas width is ${canvasWidth}`);
+ }
 
 /**
  * @param {number} numberToConvert

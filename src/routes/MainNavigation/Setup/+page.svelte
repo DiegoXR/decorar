@@ -18,26 +18,32 @@
     canvasWidthStore.set(window.innerWidth);
 
    
-    GetInitialWidth();
+    //GetInitialWidth();
     setContext("parentWidth", canvasWidthStore);
 
     onMount(() => {
       
         InitializeSpaceResizing();
-        console.log("SETUP SetuPage Mounting Completed");
+        // console.log("SETUP SetuPage Mounting Completed");
+        UpdateWidth();
     });
 
     onDestroy(() => {
-        console.log("Destroying SETUP PAGE and saving frame configuration");
+        // console.log("Destroying SETUP PAGE and saving frame configuration");
     });
 
     function InitializeSpaceResizing() {
         window.addEventListener("resize", UpdateWidth);
     }
 
-    function GetInitialWidth(){
-        canvasWidthStore.set(window.innerWidth);       
-    }
+    // function GetInitialWidth(){
+    //     // canvasWidthStore.set(window.innerWidth);
+        
+    //     if (parentElement != null) {
+    //         canvasWidthStore.set(parentElement.clientWidth);
+    //         console.log("width sent to store FIRST TIME");
+    //    }
+    // }
 
     function UpdateWidth() {
         if (parentElement != null) {
@@ -48,22 +54,20 @@
 </script>
 
 <div
-    bind:this={parentElement}
-    class="bg-yellow-800 w-full h-full flex flex-col"
+    class="container mx-0 flex flex-wrap pt-4 bg-red-600 h-[100vh] items-stretch"
 >
-    <div class="bg-orange-800 flex-1">
+    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-orange-500">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>
-
-     <div class="bg-blue-500 flex-1">
-        <p>FRAME VISIBILITY</p>
+    
+     <div class="bg-blue-500 w-full md:w-1/2  p-6 flex flex-col ">
         <UiGroup></UiGroup>
     </div> 
         
-
-
 </div>
 
 
-<!-- flex items-center justify-center -->
+<!-- container mx-auto flex items-center flex-wrap pt-4 pb-12
+
+bg-yellow-800 w-full h-full flex flex-col lg:flex-row -->

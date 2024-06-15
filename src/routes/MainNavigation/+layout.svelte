@@ -21,12 +21,11 @@
 </script>
 
 <PageHeader></PageHeader>
-<div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div> 
-<div class="h-[100vh] w-full bg-black">         
-   
-    <!-- SPACER BEHIND HEADER AND NAV BAR  -->
-   <!-- <div class="w-full h-[20vh] bg-slate-600">
-   </div > -->
+<!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
+<div class="h-[100vh] w-full bg-black">           
+    <!-- SPACER BEHIND THE HEADER  -->
+   <div class="w-full h-[10vh] bg-slate-600">
+   </div >
     <!-- SLOT FOR OTHER PAGES  -->
    <div class="w-full h-[80vh]">
     <slot />
@@ -34,13 +33,4 @@
    
 </div> 
 
-
-
-
 <NavigationBar></NavigationBar>
-
-
-<!-- Here is where the content of your pages will be injected -->
-<!-- <div class="w-max h-[15vh]"></div> -->
-
-<!-- flex-none basis-[50%] flex-shrink-0 -->
