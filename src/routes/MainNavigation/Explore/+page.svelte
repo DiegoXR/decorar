@@ -51,14 +51,19 @@
                 [0.9144, 0.6096],
             ],
             defaultSize: [0.6096, 0.4064],
-        },
-        // {
-        //     src: "/referenceImages/1080_608.jpg",
-        //     alt: "alt text",
-        //     description: "Horizontal Landscape",
-        //     width: 1080,
-        //     height: 608,
-        // },
+        }, 
+        {
+            src: "/referenceImages/sinddy.jpg",
+            alt: "alt text",
+            description: "Vertical Portrait",
+            availableSizes: [
+                [0.2286, 0.3048],
+                [0.3048, 0.4064],
+                [0.381, 0.508],
+                [0.4572, 0.6096],
+            ],
+            defaultSize: [0.381, 0.508],
+        }
     ];
 
     onMount(() => {

@@ -54,20 +54,16 @@
 </script>
 
 <div
-    class="container mx-0 flex flex-wrap pt-4 bg-red-600 h-[100vh] items-stretch"
+    class="flex flex-wrap bg-red-600 h-[100vh] w-[100vw]"
 >
-    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-orange-500">
+    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-200">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>
-    
-     <div class="bg-blue-500 w-full md:w-1/2  p-6 flex flex-col ">
-        <UiGroup></UiGroup>
-    </div> 
-        
+       
+     <div class="bg-gray-300 w-full md:w-1/2 p-4 flex flex-col">      
+        <div class="bg-red-100 w-full h-[50%]"> 
+             <UiGroup></UiGroup> 
+         </div>       
+     </div>         
 </div>
-
-
-<!-- container mx-auto flex items-center flex-wrap pt-4 pb-12
-
-bg-yellow-800 w-full h-full flex flex-col lg:flex-row -->

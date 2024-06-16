@@ -5,6 +5,7 @@ import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
 import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
 import * as THREEJsConfiguration from  "../SceneConstants.js";
+import * as SetupUtilities from "../SetupUtilities.js"
 
 /**
 * @type {import("svelte/store").Unsubscriber}
@@ -168,13 +169,15 @@ function CanvasWidthChangeSubscription(){
                  
                 let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
 
-                frameElement.style.border= `${borderWidthPx} solid red`;
+                let color = "#ffffff";
 
-                // console.log(
-                //     `frame border is : ${borderWidthPx}`); 
-
-                // console.log(
-                //     `Image width is : ${ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor)}`);
+                let lightColor = SetupUtilities.lightenColor(color, 10);
+                 
+                frameElement.style.border= `${borderWidthPx} solid`;
+                
+                // frameElement.style.border= `${borderWidthPx} solid ${color}`;
+                // frameElement.style.borderBottomColor = lightColor;
+                // frameElement.style.borderTopColor = lightColor;
 
                 // console.log(`The current canvas width is ${canvasWidth}`);
  }
@@ -201,7 +204,7 @@ function ConvertToString(numberToConvert){
 
 </script>    
 
-<div class="relative bg-gray-200 h-full w-full ">
+<div class="relative h-full w-full ">
 
     <!-- Declaring Frame Element -->
     <div bind:this={testBox} class="bg-red-500 testBox">
@@ -231,10 +234,18 @@ function ConvertToString(numberToConvert){
     transform: translate(-50%, -50%);
     position: absolute;
     z-index: 2;
-    border:solid 10px rgb(0, 0, 0);
     border-radius:2px; 
-    padding:0px;
+    padding: 0px;
     box-sizing: content-box;
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);   
+}
+
+.frameElement::after{
+    border-image-source: url("/referenceTextures/Oak_512.png"); /* Replace with your image URL */
+    border-image-slice: 100; /* Slices the image */
+    border-image-width: 30px; /* Width of the border image */
+    border-image-outset: 10px; /* Extends the border image beyond the border box */
+    border-image-repeat: stretch; /* How the border image is repeated */
 }
 
 .imageElement{
@@ -256,6 +267,5 @@ function ConvertToString(numberToConvert){
 </style>
 
 <!-- <button on:click={printHello}>Click me</button> -->
-
 
 

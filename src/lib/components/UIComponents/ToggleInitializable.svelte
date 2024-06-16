@@ -21,8 +21,8 @@
   </script>
   
   <label>
-    <input type="checkbox" bind:checked={isChecked} />
-    Enable Frame
+     ENABLE FRAME <br>
+    <input class="bg-black" type="checkbox" bind:checked={isChecked} />
   </label>
   
   <!-- {#if isChecked}
