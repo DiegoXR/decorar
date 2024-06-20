@@ -57,6 +57,10 @@ let imageElement;
      */
 let frameElement;
 
+ /**
+     * @type {HTMLDivElement}
+     */
+let frameImageElement;
 
  /**
      * @type {HTMLDivElement}
@@ -165,21 +169,40 @@ function CanvasWidthChangeSubscription(){
                 frameElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
 
                 // We apply visibility values to the frame html element
-                frameElement.style.visibility = localFrameConfiguration.FrameIsVisible ? "visible" : "hidden";
-                 
+                frameElement.style.visibility = localFrameConfiguration.FrameIsVisible ? "visible" : "hidden";               
                 let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
 
-                let color = "#ffffff";
-
-                let lightColor = SetupUtilities.lightenColor(color, 10);
+                                             
+                const borderWidthPxConcat = `${borderWidthPx} ${borderWidthPx} ${borderWidthPx} ${borderWidthPx}`;
+                frameElement.style.borderWidth = borderWidthPxConcat;
+                              
                  
-                frameElement.style.border= `${borderWidthPx} solid`;
+
+                // Code Below is for flat color to be applied in the frame
                 
+                // let color = "#ffffff";
+                // let lightColor = SetupUtilities.lightenColor(color, 10);
                 // frameElement.style.border= `${borderWidthPx} solid ${color}`;
                 // frameElement.style.borderBottomColor = lightColor;
                 // frameElement.style.borderTopColor = lightColor;
 
-                // console.log(`The current canvas width is ${canvasWidth}`);
+
+                // Code Below is for a Wooden Texture to be applied in the frame
+                const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
+                const tintedImage = document.getElementById('tintedImage');
+                const canvas = document.createElement('canvas');
+                const tint = { r: 238, g: 208, b: 157 };
+
+                SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
+                    // @ts-ignore
+                    tintedImage.src = tintedImageUrl;
+                    frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
+                    frameElement.style.borderImageSlice = "fill";
+                    frameElement.style.borderImageRepeat = "round";
+              
+                }).catch((err) => {
+                    console.error(err);
+                });
  }
 
 /**
@@ -201,7 +224,6 @@ function ConvertToString(numberToConvert){
     else return imageScreenSpaceRatios[0]
 }
 
-
 </script>    
 
 <div class="relative h-full w-full ">
@@ -211,7 +233,6 @@ function ConvertToString(numberToConvert){
         <p>hola</p>
     </div>
 
-
     <!-- Declaring Image Element -->
     <div bind:this={imageElement} class="bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
         <img src={currentImageProperties.src} alt="Description of the image" class="w-full h-full object-cover">
@@ -220,15 +241,16 @@ function ConvertToString(numberToConvert){
      <!-- Declaring Frame Element -->
     <div bind:this={frameElement} class="frameElement">
     </div>
+
+    <img id="tintedImage" style="visibility:hidden">
+
 </div>
 
 
 <style>
 
 .frameElement{
-    width: 10px;
-    height: 10px;
-    background-color: rgba(26, 72, 139, 1);
+    background-color: rgb(255, 255, 255);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -237,15 +259,8 @@ function ConvertToString(numberToConvert){
     border-radius:2px; 
     padding: 0px;
     box-sizing: content-box;
-    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);   
-}
-
-.frameElement::after{
-    border-image-source: url("/referenceTextures/Oak_512.png"); /* Replace with your image URL */
-    border-image-slice: 100; /* Slices the image */
-    border-image-width: 30px; /* Width of the border image */
-    border-image-outset: 10px; /* Extends the border image beyond the border box */
-    border-image-repeat: stretch; /* How the border image is repeated */
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);     
+    border-image-slice: 180;   
 }
 
 .imageElement{
@@ -263,6 +278,13 @@ function ConvertToString(numberToConvert){
     height: 208px;
     visibility: hidden;
     opacity: 50%;
+    background-image: url('/referenceTextures/Oak_512.png');
+}
+
+.frameImage{
+    visibility: hidden;
+    width: 995px;
+    height: 995px;
 }
 </style>
 
