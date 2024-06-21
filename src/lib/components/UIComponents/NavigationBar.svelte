@@ -1,4 +1,4 @@
-<nav class=" text-black   bg-white w-full h-[10vh] bottom-0 fixed">
+<nav class=" text-black   bg-white w-full h-[10vh] bottom-0 fixed z-10">
     <div class="mx-auto">
         <div class="flex justify-between items-center">
             <div class="flex items-center">

@@ -45,6 +45,7 @@
     };
 
     function exportGLTF() {
+        
         if (scene == null) {
             console.log("Scene is null");
             return;
@@ -59,24 +60,20 @@
 
 
         // Ensure all textures are loaded and valid
-    scene.traverse((object) => {
-        if ( object instanceof THREE.Mesh && object.material) {
-            let materials = object.material;
-            if (!Array.isArray(materials)) {
-                materials = [materials];
-            }
-            materials.forEach((/** @type {{ map: { image: any; }; }} */ material) => {
-                if (material.map && !material.map.image) {
-                    console.warn('Material map texture is not loaded:', material.map);
-                    throw new Error('Texture not loaded');
+        scene.traverse((object) => {
+            if ( object instanceof THREE.Mesh && object.material) {
+                let materials = object.material;
+                if (!Array.isArray(materials)) {
+                    materials = [materials];
                 }
-            });
-        }
-    });
-
-
-
-
+                materials.forEach((/** @type {{ map: { image: any; }; }} */ material) => {
+                    if (material.map && !material.map.image) {
+                        console.warn('Material map texture is not loaded:', material.map);
+                        throw new Error('Texture not loaded');
+                    }
+                });
+            }
+        });
 
         // Parse the input and generate the glTF output
         exporter.parse(
@@ -145,7 +142,7 @@
 </button> -->
 
 {#if gltfIsReady}
-<div class="h-[70%] w-[90%] m-auto bg-slate-400">
+<div class="h-[70%] w-[90%] m-auto bg-slate-400 modelViewerSpace">
     <model-viewer
     src={modelUrl}
     ar
@@ -175,5 +172,10 @@ model-viewer {
     height: 100%;
     position: relative;
   }
+
+  .modelViewerSpace{
+    background: linear-gradient(0deg, rgba(184,184,184,1) 10%, rgba(255,255,255,1) 100%);  
+  }
+  
 </style>
 

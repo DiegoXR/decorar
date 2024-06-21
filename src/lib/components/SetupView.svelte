@@ -180,29 +180,32 @@ function CanvasWidthChangeSubscription(){
 
                 // Code Below is for flat color to be applied in the frame
                 
-                // let color = "#ffffff";
-                // let lightColor = SetupUtilities.lightenColor(color, 10);
-                // frameElement.style.border= `${borderWidthPx} solid ${color}`;
-                // frameElement.style.borderBottomColor = lightColor;
-                // frameElement.style.borderTopColor = lightColor;
+                let color = "#ff00ff";
+                let lightColor = SetupUtilities.lightenColor(color, 20);
+                frameElement.style.border= `${borderWidthPx} solid ${color}`;
+                frameElement.style.borderBottomColor = lightColor;
+                frameElement.style.borderTopColor = lightColor;
 
 
-                // Code Below is for a Wooden Texture to be applied in the frame
-                const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
-                const tintedImage = document.getElementById('tintedImage');
-                const canvas = document.createElement('canvas');
-                const tint = { r: 238, g: 208, b: 157 };
+                // // Code Below is for a Wooden Texture to be applied in the frame
+                // const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
+                // const tintedImage = document.getElementById('tintedImage');
+                // const canvas = document.createElement('canvas');
+                // const tint = { r: 238, g: 208, b: 157 };
 
-                SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
-                    // @ts-ignore
-                    tintedImage.src = tintedImageUrl;
-                    frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
-                    frameElement.style.borderImageSlice = "fill";
-                    frameElement.style.borderImageRepeat = "round";
+                // frameElement.style.border= `${borderWidthPx} solid rgba(238, 208, 157, 1)`;
+
+                // SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
+                //     // @ts-ignore
+                //     tintedImage.src = tintedImageUrl;
+                //     frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
+                //     // frameElement.style.borderImageSlice = "fill";
+                //     // frameElement.style.borderImageRepeat = "strech";
+                //     frameElement.style.borderImageSlice = "200 200";                                 
               
-                }).catch((err) => {
-                    console.error(err);
-                });
+                // }).catch((err) => {
+                //     console.error(err);
+                // });
  }
 
 /**
@@ -250,7 +253,7 @@ function ConvertToString(numberToConvert){
 <style>
 
 .frameElement{
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgba(255, 0, 0, 0); */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -259,12 +262,12 @@ function ConvertToString(numberToConvert){
     border-radius:2px; 
     padding: 0px;
     box-sizing: content-box;
-    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);     
-    border-image-slice: 180;   
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);    
 }
 
 .imageElement{
     visibility: visible;
+    z-index: 3;
 }
 
 .testBox{

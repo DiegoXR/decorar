@@ -35,7 +35,8 @@
      let frame;
 
      //// Automatically create default Material
-     const texturePath = "/referenceTextures/Oak_512.png";
+    
+    const texturePath = "/referenceTextures/Oak_512.png";
     const texture = new THREE.TextureLoader().load(texturePath);
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
@@ -45,11 +46,23 @@
         side: THREE.FrontSide,
         transparent: false,
         opacity: 1,
-        color : 0xff0000
-
+        color : 0xff0000,
+        map : texture
     });
 
-    let materials = [m0];
+
+    
+    const pbrMaterial  = new THREE.MeshPhysicalMaterial({
+    map: texture,
+    // normalMap: normalTexture,
+    // roughnessMap: roughnessTexture,
+    // metalnessMap: metalnessTexture,
+    clearcoat: 0.05,
+    // clearcoatRoughness: 0.1,
+    // reflectivity: 1
+});
+
+    let materials = [pbrMaterial];
     
 
     onMount(() => {
@@ -63,6 +76,7 @@
         if (sceneUnsubscription) sceneUnsubscription();
 
         console.log("3D Maker : Remove Elements from scene");
+        sceneStore.set(scene);
         THREEJsUtilities.ClearScene(scene);
         localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
         sceneStore.set(scene);

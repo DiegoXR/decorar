@@ -54,6 +54,25 @@
         isOpen = !isOpen;
       }
     }
+    /**
+     * @param {number[]} dimensions
+     */
+    function formatDimensions(dimensions){
+      
+      if (dimensions == undefined)
+          return `Undefined`;
+      
+      if (dimensions.length !== 2 || !dimensions.every(num => typeof num === 'number')) {
+        throw new Error("Input must be an array of two numbers");
+    }
+
+    const firstDimension = (dimensions[0] * 100).toFixed(1);
+    const secondDimension = (dimensions[1] * 100).toFixed(1);
+
+    return `${firstDimension} cm X ${secondDimension} cm`;
+       
+    }
+
   </script>
   
   <div class="relative">
@@ -62,7 +81,7 @@
       on:click={toggleDropdownMouse}
       on:keydown={toggleDropdownKey}
     >
-      {selected}
+      {formatDimensions(selected)}
     </button>
     {#if isOpen}
       <div class="absolute right-0 w-48 mt-2 bg-white shadow-lg rounded-md z-10">
@@ -72,7 +91,7 @@
               class="px-4 py-2 hover:bg-blue-100 cursor-pointer w-full text-left"
               on:click={() => selectOption(option)}
             >
-              {option}
+              {formatDimensions(option)}
             </button>
           {/each}
         </ul>

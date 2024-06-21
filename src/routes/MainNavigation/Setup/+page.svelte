@@ -61,8 +61,8 @@
         <SetupView></SetupView>
     </div>
        
-     <div class="bg-gray-300 w-full md:w-1/2 p-4 flex flex-col">      
-        <div class="bg-red-100 w-full h-[50%]"> 
+     <div class="bg-white w-full md:w-1/2 p-4 flex flex-col">      
+        <div class="bg-gray-300 w-full h-[50%]"> 
              <UiGroup></UiGroup> 
          </div>       
      </div>         
