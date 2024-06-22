@@ -42,22 +42,40 @@
     texture.wrapT = THREE.RepeatWrapping;
     texture.repeat.set(3, 1);
 
+
+
+    var loader = new THREE.CubeTextureLoader();
+    var textureCube = loader.load([
+        '/referenceTextures/Oak_512.png', // Right
+        '/referenceTextures/Oak_512.png', // Left
+        '/referenceTextures/Oak_512.png', // Top
+        '/referenceTextures/Oak_512.png', // Bottom
+        '/referenceTextures/Oak_512.png', // Front
+        '/referenceTextures/Oak_512.png'  // Back
+    ]);
+
     const m0 = new THREE.MeshStandardMaterial({
+        side: THREE.FrontSide,
+        transparent: false,
+        opacity: 1,
+        color : 0xff0000,
+        map : textureCube
+    });
+
+    const m1 = new THREE.MeshStandardMaterial({
         side: THREE.FrontSide,
         transparent: false,
         opacity: 1,
         color : 0xff0000,
         map : texture
     });
-
-
     
     const pbrMaterial  = new THREE.MeshPhysicalMaterial({
     map: texture,
     // normalMap: normalTexture,
     // roughnessMap: roughnessTexture,
     // metalnessMap: metalnessTexture,
-    clearcoat: 0.05,
+    // clearcoat: 1,
     // clearcoatRoughness: 0.1,
     // reflectivity: 1
 });

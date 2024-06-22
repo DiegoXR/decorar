@@ -180,32 +180,33 @@ function CanvasWidthChangeSubscription(){
 
                 // Code Below is for flat color to be applied in the frame
                 
-                let color = "#ff00ff";
-                let lightColor = SetupUtilities.lightenColor(color, 20);
-                frameElement.style.border= `${borderWidthPx} solid ${color}`;
-                frameElement.style.borderBottomColor = lightColor;
-                frameElement.style.borderTopColor = lightColor;
+                // let color = "#ff00ff";
+                // let lightColor = SetupUtilities.lightenColor(color, 20);
+                // frameElement.style.border= `${borderWidthPx} solid ${color}`;
+                // frameElement.style.borderBottomColor = lightColor;
+                // frameElement.style.borderTopColor = lightColor;
 
 
-                // // Code Below is for a Wooden Texture to be applied in the frame
-                // const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
-                // const tintedImage = document.getElementById('tintedImage');
-                // const canvas = document.createElement('canvas');
-                // const tint = { r: 238, g: 208, b: 157 };
+                //Code Below is for a Wooden Texture to be applied in the frame
 
-                // frameElement.style.border= `${borderWidthPx} solid rgba(238, 208, 157, 1)`;
+                const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
+                const tintedImage = document.getElementById('tintedImage');
+                const canvas = document.createElement('canvas');
+                const tint = { r: 238, g: 208, b: 157 };
 
-                // SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
-                //     // @ts-ignore
-                //     tintedImage.src = tintedImageUrl;
-                //     frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
-                //     // frameElement.style.borderImageSlice = "fill";
-                //     // frameElement.style.borderImageRepeat = "strech";
-                //     frameElement.style.borderImageSlice = "200 200";                                 
+                frameElement.style.border= `${borderWidthPx} solid rgba(238, 208, 157, 1)`;
+
+                SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
+                    // @ts-ignore
+                    tintedImage.src = tintedImageUrl;
+                    frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
+                    // frameElement.style.borderImageSlice = "fill";
+                    // frameElement.style.borderImageRepeat = "strech";
+                    frameElement.style.borderImageSlice = "200 200";                                 
               
-                // }).catch((err) => {
-                //     console.error(err);
-                // });
+                }).catch((err) => {
+                    console.error(err);
+                });
  }
 
 /**
