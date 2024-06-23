@@ -17,7 +17,7 @@
             defaultSize: [0.2, 0.2],
         },
         {
-            src: "/referenceImages/1080_1080_v2.jpg",
+            src: "/referenceImages/1080_1080_v2_w.webp",
             alt: "alt text",
             description: "Square",
             availableSizes: [
@@ -53,7 +53,7 @@
             defaultSize: [0.6096, 0.4064],
         }, 
         {
-            src: "/referenceImages/sinddy.jpg",
+            src: "/referenceImages/sinddy_w.webp",
             alt: "alt text",
             description: "Vertical Portrait",
             availableSizes: [

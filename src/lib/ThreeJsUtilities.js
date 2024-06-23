@@ -250,3 +250,28 @@ function disposeMaterial(material) {
 //         imageSize[0] = ratio; // Portrait Image (Horizontal)
 //     else if (ratio < 1) imageSize[1] = 1 + (1 - ratio); // Landscape Image (Vertical)
 // }
+
+// function getRandomNumber() {
+    // // Generate a random number between 0 and 1
+    // const random = Math.random();
+    // // Scale it to the range -0.1 to 0.1
+    // const scaledRandom = (random * 0.2) - 0.1;
+    // return scaledRandom;
+
+    // }
+
+    // function getRandomColor() {
+    // // Generate a random integer between 0 and 255 for each color channel
+    // const r = Math.floor(Math.random() * 256);
+    // const g = Math.floor(Math.random() * 256);
+    // const b = Math.floor(Math.random() * 256);
+
+    // // Convert the integers to hexadecimal format and pad with leading zeros if necessary
+    // const hexR = r.toString(16).padStart(2, '0');
+    // const hexG = g.toString(16).padStart(2, '0');
+    // const hexB = b.toString(16).padStart(2, '0');
+
+    // // Combine the three hexadecimal values into a single color string
+    // return `#${hexR}${hexG}${hexB}`;
+
+    //}

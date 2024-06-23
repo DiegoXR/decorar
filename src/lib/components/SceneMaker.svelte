@@ -2,12 +2,13 @@
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../lib/FrameConfigurationStore.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
-    import {sceneIsReady, sceneStore} from "../SceneStatusStore.js";
-    import * as THREEJsConfiguration from  "../../lib/SceneConstants.js";
+    import { sceneIsReady, sceneStore } from "../SceneStatusStore.js";
+    import * as THREEJsConfiguration from "../../lib/SceneConstants.js";
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREE from "three";
 
-    let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
+    let localFrameConfiguration =
+        THREEJsConfiguration.startingFrameConfiguration;
 
     /**
      * @type {import("svelte/store").Unsubscriber}
@@ -29,64 +30,20 @@
      */
     let textureLoader;
 
-     /**
+    /**
      * @type {THREE.Mesh}
      */
-     let frame;
+    let frame;
 
-     //// Automatically create default Material
-    
-    const texturePath = "/referenceTextures/Oak_512.png";
-    const texture = new THREE.TextureLoader().load(texturePath);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(3, 1);
-
-
-
-    var loader = new THREE.CubeTextureLoader();
-    var textureCube = loader.load([
-        '/referenceTextures/Oak_512.png', // Right
-        '/referenceTextures/Oak_512.png', // Left
-        '/referenceTextures/Oak_512.png', // Top
-        '/referenceTextures/Oak_512.png', // Bottom
-        '/referenceTextures/Oak_512.png', // Front
-        '/referenceTextures/Oak_512.png'  // Back
-    ]);
-
-    const m0 = new THREE.MeshStandardMaterial({
-        side: THREE.FrontSide,
-        transparent: false,
-        opacity: 1,
-        color : 0xff0000,
-        map : textureCube
-    });
-
-    const m1 = new THREE.MeshStandardMaterial({
-        side: THREE.FrontSide,
-        transparent: false,
-        opacity: 1,
-        color : 0xff0000,
-        map : texture
-    });
-    
-    const pbrMaterial  = new THREE.MeshPhysicalMaterial({
-    map: texture,
-    // normalMap: normalTexture,
-    // roughnessMap: roughnessTexture,
-    // metalnessMap: metalnessTexture,
-    // clearcoat: 1,
-    // clearcoatRoughness: 0.1,
-    // reflectivity: 1
-});
-
-    let materials = [pbrMaterial];
-    
+    /**
+     * @type {THREE.Material[]}
+     */
+    let materials = [];
 
     onMount(() => {
         SceneSubscription();
         FrameConfigurationSubscription();
-        CreateScene();    
+        createScenePromise(localFrameConfiguration);
     });
 
     onDestroy(() => {
@@ -96,10 +53,10 @@
         console.log("3D Maker : Remove Elements from scene");
         sceneStore.set(scene);
         THREEJsUtilities.ClearScene(scene);
-        localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
+        localFrameConfiguration =
+            THREEJsConfiguration.startingFrameConfiguration;
         sceneStore.set(scene);
         sceneIsReady.set(false);
-
     });
 
     function FrameConfigurationSubscription() {
@@ -124,24 +81,22 @@
         sceneUnsubscription();
     }
 
-    function CreateScene() {
-        textureLoader = new THREE.TextureLoader();       
-        
-        if (localFrameConfiguration.FrameIsVisible)CreateFrame(localFrameConfiguration);     
-        CreatePlaneAsynchronously(localFrameConfiguration.ImageSrc, localFrameConfiguration.ImageSize[0], localFrameConfiguration.ImageSize[1]);        
-    }
-
-    /**
-     * @param {string} imagePath
-     * @param {number} width
-     * @param {number} height
+     /**
+     * @param {{ ImageSrc: string; ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; availableSizes: number[][]; }} localFrameConfiguration
      */
-    function CreatePlaneAsynchronously(imagePath, width, height){
+    function CreatePlaneAsynchronously(localFrameConfiguration) {
+             
+        let imagePath = localFrameConfiguration.ImageSrc;
+        let width = localFrameConfiguration.ImageSize[0];
+        let height = localFrameConfiguration.ImageSize[1]
+        
         if (imagePath == null) return null;
 
-        const planeTexture = textureLoader.load(
+        return new Promise((resolve, reject) => {
+
+            const planeTexture = textureLoader.load(
             imagePath, // URL of the texture
-            () => {                
+            () => {
                 let material = new THREE.MeshPhysicalMaterial({
                     map: planeTexture,
                     side: THREE.FrontSide,
@@ -149,72 +104,140 @@
 
                 let geometry = new THREE.PlaneGeometry(width, height);
                 const plane = new THREE.Mesh(geometry, material);
+                console.log(
+                    `Succesfully loaded texture ${imagePath} in the Scene Maker`,
+                );
                 scene.add(plane);
-                sceneStore.set(scene);
-                sceneIsReady.set(true);
+                resolve(true);
             },
             undefined,
-            (err) => {
+            (error) => {
                 console.error(
-                    "An error happened while loading the texture",
-                    err,
+                    `An error happened while loading the texture in the following path ${imagePath}`,
+                    error,
                 );
+
+                reject(error);
             },
-        );
+        );    
+  });
     }
 
-
-     /**
+    /**
      * @param {{ ImageSrc: string; ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; availableSizes: number[][]; }} localFrameConfiguration
      */
-     function CreateFrame(localFrameConfiguration) {
-        
-        console.log(`Frame will be created with the following params : Width :${localFrameConfiguration.ImageSize[0]}- Height : ${localFrameConfiguration.ImageSize[1]} `);
-        console.log(`Frame will be created with the following params : BorderWidth :${localFrameConfiguration.FrameBorderWidth}- Depth : ${localFrameConfiguration.FrameDepth} `);
-        
-        // @ts-ignore
-        frame = SQUAREFRAME.CreateFrameSquare(
-            localFrameConfiguration.ImageSize[0] - THREEJsConfiguration.frameInnerOffset,
-            localFrameConfiguration.ImageSize[1] - THREEJsConfiguration.frameInnerOffset,
-            localFrameConfiguration.FrameBorderWidth,
-            localFrameConfiguration.FrameDepth,
-            materials,
+    function CreateFrame(localFrameConfiguration) {
+        // console.log(
+        //     `Frame will be created with the following params : Width :${localFrameConfiguration.ImageSize[0]}- Height : ${localFrameConfiguration.ImageSize[1]} `,
+        // );
+        // console.log(
+        //     `Frame will be created with the following params : BorderWidth :${localFrameConfiguration.FrameBorderWidth}- Depth : ${localFrameConfiguration.FrameDepth} `,
+        // );
+
+        return new Promise((resolve, reject) => {
+
+        if (!localFrameConfiguration.FrameIsVisible)
+            resolve(true);
+            
+
+
+
+    // var loader = new THREE.CubeTextureLoader();
+    // var textureCube = loader.load([
+    //     "/referenceTextures/Oak_512.png", // Right
+    //     "/referenceTextures/Oak_512.png", // Left
+    //     "/referenceTextures/Oak_512.png", // Top
+    //     "/referenceTextures/Oak_512.png", // Bottom
+    //     "/referenceTextures/Oak_512.png", // Front
+    //     "/referenceTextures/Oak_512.png", // Back
+    // ]);
+
+    // const m0 = new THREE.MeshStandardMaterial({
+    //     side: THREE.FrontSide,
+    //     transparent: false,
+    //     opacity: 1,
+    //     color: 0xff0000,
+    //     map: texture,
+    // });
+
+    //const pbrMaterial = new THREE.MeshPhysicalMaterial({
+        //map: texture,
+        // normalMap: normalTexture,
+        // roughnessMap: roughnessTexture,
+        // metalnessMap: metalnessTexture,
+        // clearcoat: 1,
+        // clearcoatRoughness: 0.1,
+        // reflectivity: 1
+    //});
+       
+            const frameTexture = textureLoader.load(
+            "/referenceTextures/Oak_512.png", // URL of the texture
+            () => {
+                frameTexture.wrapS = THREE.RepeatWrapping;
+                frameTexture.wrapT = THREE.RepeatWrapping;
+                frameTexture.repeat.set(4, 1);
+
+                let frameMaterial = new THREE.MeshPhysicalMaterial({
+                    map: frameTexture,
+                    side: THREE.FrontSide,
+                });
+
+                materials.push(frameMaterial);
+
+                // @ts-ignore
+                frame = SQUAREFRAME.CreateFrameSquare(
+                    localFrameConfiguration.ImageSize[0] -
+                        THREEJsConfiguration.frameInnerOffset,
+                    localFrameConfiguration.ImageSize[1] -
+                        THREEJsConfiguration.frameInnerOffset,
+                    localFrameConfiguration.FrameBorderWidth,
+                    localFrameConfiguration.FrameDepth,
+                    materials,
+                );
+
+                // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+                frame = THREEJsUtilities.repositionMesh(
+                    frame,
+                    localFrameConfiguration.FrameDepth / 2,
+                );
+                scene.add(frame);
+                resolve(true);
+            },
+            undefined,
+            (error) => {
+                console.error(
+                    `An error happened while loading the frame texture in the following path`,
+                    error,
+                );
+                reject(error);
+            },
         );
 
-        // frame.position.set(getRandomNumber(), getRandomNumber() , getRandomNumber());
-
-        // frame.material(material as THREE.MeshStandardMaterial).color.set(getRandomColor());
-
-        // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-        frame = THREEJsUtilities.repositionMesh(
-            frame,
-            localFrameConfiguration.FrameDepth / 2,
-        );
-        scene.add(frame);
+      });
     }
 
-    // function getRandomNumber() {
-    // // Generate a random number between 0 and 1
-    // const random = Math.random();
-    // // Scale it to the range -0.1 to 0.1
-    // const scaledRandom = (random * 0.2) - 0.1;
-    // return scaledRandom;
+    /**
+     * @param {any} localFrameConfiguration
+     */
+    function createScenePromise(localFrameConfiguration) {
 
-    // }
+    textureLoader = new THREE.TextureLoader();
+    
+    Promise.all([CreateFrame(localFrameConfiguration), CreatePlaneAsynchronously(localFrameConfiguration)])
+    .then(([isFrameReady, isPlaneReady]) => {
+      console.log('Both Objects created succesfully');
+      // Do something with the textures if needed
+      
+      if (isFrameReady && isPlaneReady){
+        sceneStore.set(scene);
+        sceneIsReady.set(true);
+      }
 
-    // function getRandomColor() {
-    // // Generate a random integer between 0 and 255 for each color channel
-    // const r = Math.floor(Math.random() * 256);
-    // const g = Math.floor(Math.random() * 256);
-    // const b = Math.floor(Math.random() * 256);
-    
-    // // Convert the integers to hexadecimal format and pad with leading zeros if necessary
-    // const hexR = r.toString(16).padStart(2, '0');
-    // const hexG = g.toString(16).padStart(2, '0');
-    // const hexB = b.toString(16).padStart(2, '0');
-    
-    // // Combine the three hexadecimal values into a single color string
-    // return `#${hexR}${hexG}${hexB}`;
-    
-//}
+    })
+    .catch((error) => {
+      console.error('Error loading textures', error);
+    });
+}
+
+
 </script>

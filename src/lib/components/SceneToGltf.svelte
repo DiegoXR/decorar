@@ -68,7 +68,7 @@
                 }
                 materials.forEach((/** @type {{ map: { image: any; }; }} */ material) => {
                     if (material.map && !material.map.image) {
-                        console.warn('Material map texture is not loaded:', material.map);
+                        console.log(`Material map ${object.name} texture is not loaded: ${material.map}`);
                         throw new Error('Texture not loaded');
                     }
                 });
