@@ -2,9 +2,7 @@
   import { onMount } from "svelte";
   import * as THREE from "three";
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-  import {ProfiledContourUVFM} from '../../../lib/FrameUtilies.js';
   import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
-  import DropdownInitializable from "$lib/components/UIComponents/DropdownInitializable.svelte";
   import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
 
 let moveForward = false;
@@ -25,7 +23,6 @@ const speed = 5; // Speed of the camera movemen
   let container;
   let  flexibleNumber = 1;
 
-  const scene = new THREE.Scene();
 
 // Function to increase the count
 function increaseCount() {
@@ -34,18 +31,21 @@ function increaseCount() {
       }
 
   onMount(async () => {
-    //const scene = new THREE.Scene();
+    
+    // SCENE
+    const scene = new THREE.Scene();
     
   
-    // Perspective Camera setup
+    // CAMERA
     const fov = 75; // Field of view
     const aspect = window.innerWidth / window.innerHeight; // Display aspect
     const near = 0.1; // Near clipping plane
     const far = 50; // Far clipping plane
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = 2;
+    scene.add(camera);
+    camera.position.z = 4;
 
-    // Orthographic camera setup
+    // CAMERA
 
     // const orthoConstants = 5;
     // const cameraLeft = -orthoConstants;
@@ -58,17 +58,18 @@ function increaseCount() {
     // camera.position.z = 3.1;
     // camera.position.x = 0;
 
-   // Rederer Setup
+   // RENDERER
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
 
 
+    // CAMERA CONTROLS
     const controls = new OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
     controls.dampingFactor = 0.25;
     controls.screenSpacePanning = false;
-    controls.minDistance = 1;
+    controls.minDistance = 0.5;
     controls.maxDistance = 1000;
     controls.maxPolarAngle = Math.PI / 2
 
@@ -91,101 +92,198 @@ function increaseCount() {
     plane.position.set(0, 0, 0);
     scene.add(plane);
 
-    const geometry2 = new THREE.PlaneGeometry(0.5, 1);
-    const material2 = new THREE.MeshBasicMaterial({color: 0xff0000});
-    const plane2 = new THREE.Mesh(geometry2, material2);
-    plane2.position.set(0, 0, 0.02);
-    scene.add(plane2);
+    // const geometry2 = new THREE.PlaneGeometry(0.5, 1);
+    // const material2 = new THREE.MeshBasicMaterial({color: 0xff0000});
+    // const plane2 = new THREE.Mesh(geometry2, material2);
+    // plane2.position.set(0, 0, 0.02);
+    // scene.add(plane2);
 
     // Adding grid
-    const size = 1;
-    const divisions = 100;
-    const gridHelper = new THREE.GridHelper( size, divisions, 0x0000ff);
-    gridHelper.rotateX(Math.PI / 2);
-    gridHelper.position.set(0, 0, 0.01);   
+    // const size = 1;
+    // const divisions = 100;
+    // const gridHelper = new THREE.GridHelper( size, divisions, 0x0000ff);
+    // gridHelper.rotateX(Math.PI / 2);
+    // gridHelper.position.set(0, 0, 0.01);   
     // scene.add( gridHelper );
 
-    // const texturePath = "/referenceTextures/Checker_256.png";
-    const texturePath = "/referenceTextures/Oak_512.png";
-    const texture = new THREE.TextureLoader().load(texturePath);
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(3, 1);
 
-    // const m0 = new THREE.MeshStandardMaterial( { color: 0xffe3f9, metalness: 0.5, roughness: 0.5, side: THREE.DoubleSide } );
-    const m0 = new THREE.MeshStandardMaterial( { map: texture, 
-      side: THREE.FrontSide,
-      transparent : true,
-      opacity :0.5 } );  
+    // const materials = [
+    //   m0
+    // ];
 
-    const materials = [
-      m0
-    ];
-
-    const animate = function () {
-
-      const time = performance.now();
-    const delta = (time - prevTime) / 1000;
-
-    velocity.set(0, 0, 0);
-    direction.set(0, 0, 0);
-
-    if (moveForward) direction.z -= 1;
-    if (moveBackward) direction.z += 1;
-    if (moveLeft) direction.x -= 1;
-    if (moveRight) direction.x += 1;
-    if (moveUp) direction.y += 1;
-    if (moveDown) direction.y -=1;
-
-    // Normalize the direction vector, so moving diagonally doesn't exceed the max speed
-    direction.normalize();
-
-    // Apply the speed to the velocity in the direction we want to move
-    velocity.addScaledVector(direction, speed * delta);
-
-    // Move the camera by the calculated velocity
-    camera.position.add(velocity);
-
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-
-      prevTime = time;
-    };
-
-    let prevTime = performance.now();
-
-    animate();
-
-    // REAL FRAME    
-    const innerWidth = 0.5;
-    const innerHeight = 1;
-    const framewidth = 0.09;
-    const frameDepth = 0.3;
-    let frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
-
-    // @ts-ignore
-    frame4 = THREEJsUtilities.repositionMesh(frame4, 0.150);
-
-
-    // @ts-ignore
-    // frame4.position.z = 0.0;  
-    // @ts-ignore
-    scene.add(frame4);
 
     ////// CUBE 
-
-    // Crear un cubo y añadirlo a la escena
     const geometryCube = new THREE.BoxGeometry(0.3,0.3,0.3); // Parámetros por defecto para un cubo 1x1x1
     const materialCube = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Material verde básico
     scene.add(new THREE.Mesh(geometryCube, materialCube)); // Añadir el cubo a la materialCube
 
+    // TEXTURE AND FRAME
+  // var Cubeloader = new THREE.CubeTextureLoader();
+  //   const frameTexture2 = Cubeloader.load([
+  //           "/referenceTextures/Oak_512.png",
+  //           "/referenceTextures/Oak_512.png",
+  //           "/referenceTextures/Oak_512.png",
+  //           "/referenceTextures/Oak_512.png",
+  //           "/referenceTextures/Oak_512.png",
+  //           "/referenceTextures/Oak_512.png"], // URL of the texture
+  //           () => {
+  //               // frameTexture2.wrapS = THREE.RepeatWrapping;
+  //               // frameTexture2.wrapT = THREE.RepeatWrapping;
+  //               // frameTexture2.repeat.set(4, 1);
+
+
+  //               console.log("Sucessfully loaded the cube texture");
+
+  //               let frameMaterial2 = new THREE.MeshPhysicalMaterial({
+  //                   map: frameTexture2,
+  //                   side: THREE.FrontSide,
+  //               });
+
+  //               let materials = [frameMaterial2]; // Ensure
+  //               const innerWidth = 0.5;
+  //               const innerHeight = 1;
+  //               const framewidth = 0.03;
+  //               const frameDepth = 0.0.3;
+  //               let frame = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials);
+
+  //               // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+  //               frame = THREEJsUtilities.repositionMesh(
+  //                   frame,
+  //                   localFrameConfiguration.FrameDepth / 2,
+  //               );
+  //               scene.add(frame);
+  //           },
+  //           undefined,
+  //           (error) => {
+  //               console.error(
+  //                   `An error happened while loading the frame texture in the following path`,
+  //                   error,
+  //               );
+  //               reject(error);
+  //           },
+  //       );
+
+  //     });
+
+
+// // SIMPLIFIED
+
+  var Cubeloader = new THREE.CubeTextureLoader();
+    const frameTexture = Cubeloader.load([
+            "/referenceTextures/Oak_512.png",
+            "/referenceTextures/Oak_512.png",
+            "/referenceTextures/Oak_512.png",
+            "/referenceTextures/Oak_512.png",
+            "/referenceTextures/Oak_512.png",
+            "/referenceTextures/Oak_512.png"], // URL of the texture
+
+
+// var textureLoader = new THREE.TextureLoader();
+// const frameTexture = textureLoader.load(
+//             "/referenceTextures/Oak_512.png", // URL of the texture
+
+            () => {
+                frameTexture.wrapS = THREE.RepeatWrapping;
+                frameTexture.wrapT = THREE.RepeatWrapping;
+                frameTexture.repeat.set(10, 10);
+
+                let frameMaterial = new THREE.MeshPhysicalMaterial({
+                    map: frameTexture,
+                    side: THREE.FrontSide,
+                });
+
+                // let frameMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+
+                let materials = [frameMaterial]; // Ensure
+
+                console.log("hey");
+                // REAL FRAME    
+                const innerWidth = 0.5;
+                const innerHeight = 1;
+                const framewidth = 0.03;
+                const frameDepth = 0.03;
+                // @ts-ignore
+                let frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
+
+                // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+                // frame4 = THREEJsUtilities.repositionMesh(
+                //     frame4,
+                //     frameDepth.FrameDepth / 2,
+                // );
+                scene.add(frame4);
+            },
+            undefined,
+            (error) => {
+                console.error(
+                    `An error happened while loading the frame texture in the following path`,
+                    error,
+                );
+            },
+        );
     
 
+      
+    //////////////////
 
-});
+  const animate = function () {
 
-    
+  // if (camera == undefined)
+  //    return;
+     
+  
+  // const time = performance.now();
+  // const delta = (time - prevTime) / 1000;
+
+  //   velocity.set(0, 0, 0);
+  //   direction.set(0, 0, 0);
+
+  //   if (moveForward) direction.z -= 1;
+  //   if (moveBackward) direction.z += 1;
+  //   if (moveLeft) direction.x -= 1;
+  //   if (moveRight) direction.x += 1;
+  //   if (moveUp) direction.y += 1;
+  //   if (moveDown) direction.y -=1;
+
+    // Normalize the direction vector, so moving diagonally doesn't exceed the max speed
+    //direction.normalize();
+
+    // Apply the speed to the velocity in the direction we want to move
+    //velocity.addScaledVector(direction, speed * delta);
+
+    // Move the camera by the calculated velocity
+    //camera.position.add(velocity);
+
+      requestAnimationFrame(animate);
+      //controls.update();
+      renderer.render(scene, camera);
+
+      //prevTime = time;
+    };
+
+    //let prevTime = performance.now();
+
+    animate();
+
+
+    window.addEventListener('resize', onWindowResize, false);
+
+    function onWindowResize() {
+    // Update camera
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    // Update renderer
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Optional: Tell any controls to update (only if you are using something like OrbitControls)
+    if (controls) {
+        controls.update();
+    }
+
+    // document.addEventListener('keydown', onKeyDown);
+    // document.addEventListener('keyup', onKeyUp);
+}
+
     /**
      * @param {{ code: any; }} event
      */
@@ -238,17 +336,7 @@ function onKeyUp(event) {
     }
 }
     
-document.addEventListener('keydown', onKeyDown);
-document.addEventListener('keyup', onKeyUp);
-
-/**
- * @type {string}
- */
-let selectedInnerSize = '1 x 1';
-
-let options = ['A','B','C','D','E'];
-let defaultOption = 'C';
-
+});
 </script>
 
 <p>This is the playground page</p>
@@ -257,10 +345,8 @@ let defaultOption = 'C';
   <title>Three.js in SvelteKit</title>
 </svelte:head>
 
-<div class="w-full h-[70vh] bg-red-500" bind:this={container}></div>
+<div class="w-full h-[70vh] bg-red-400" bind:this={container}></div>
 
-<button on:click={increaseCount}>
-  Click me
-</button>
+<button on:click={increaseCount}> Click me </button>
 
 <!-- <DropdownInitializable bind:selectedOption={selectedInnerSize} availableSizes={options} defaultSize={defaultOption}/>  -->

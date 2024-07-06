@@ -43,7 +43,7 @@
         />
         </div>
 
-        <div class="pt-3 flex items-center justify-between">
+        <div class="pt-3 flex items-center justify-center">
             <p class="">Product Name</p>
             
             <button
@@ -51,10 +51,8 @@
             <NextIcon></NextIcon>
             <span class=" font-medium text-gray-700">Customize</span>
             </button>
-
-            <HeartIcon></HeartIcon>
+            <!-- <HeartIcon></HeartIcon> -->
         </div>
-        <!-- <p class="pt-1 text-gray-900">£9.99</p> -->
 </div>
 
 <style>

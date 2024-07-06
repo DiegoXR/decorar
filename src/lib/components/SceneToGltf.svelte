@@ -142,7 +142,7 @@
 </button> -->
 
 {#if gltfIsReady}
-<div class="h-[70%] w-[90%] m-auto bg-slate-400 modelViewerSpace">
+<div class="h-[100%] w-[100%] m-auto bg-slate-400 modelViewerSpace">
     <model-viewer
     src={modelUrl}
     ar
@@ -155,7 +155,7 @@
 >
 <button
 slot="ar-button"
-class="h-100 w-100 bg bg-blue-600 position : absolute left-1/2 bottom-6 transform -translate-x-1/2"
+class="h-100 w-100 bg bg-black position : absolute left-1/2 bottom-6 transform -translate-x-1/2"
 >
 👋 Activate AR
 </button>

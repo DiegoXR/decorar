@@ -4,6 +4,21 @@
     import { onMount } from "svelte";
     import * as THREE from "three";
     import { rendererStore, sceneStore } from "../../lib/SceneStatusStore";
+    import { get } from 'svelte/store';
+    import { redirect } from '@sveltejs/kit';
+    import {isMainPageVisited} from '../../lib/PageStatusStore'
+
+
+
+    // @ts-ignore
+    export async function load({ session }) {
+    console.log('Load function executed in layout');
+    const visited = get(isMainPageVisited);
+    if (!visited) {
+      throw redirect(307, '/');
+    }
+    return {};
+  }
 
     onMount(() => {
         

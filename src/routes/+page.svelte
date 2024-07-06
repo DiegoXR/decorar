@@ -69,8 +69,8 @@
     <div class="flex flex-col bg-yellow-200 items-center justify-center h-full p-1">
       <!-- BRAND SECTION - HEADER -->
       <div class="bg-white items-center justify-center h-1/5 w-full p-1 flex flex-row">
-        <img src="/CompanyLogo.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
-        <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p>
+        <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
+        <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
       </div>
        <!-- BRAND SECTION - IMG -->
       <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->

@@ -16,7 +16,7 @@
 </script>
 
 <SceneMaker></SceneMaker>
-<div class="w-full h-full bg-green-300">
+<div class="w-full h-full bg-white">
     {#if isSceneMakerLoaded}
     <SceneToGltf></SceneToGltf>
     {/if}
