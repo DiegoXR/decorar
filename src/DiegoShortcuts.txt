@@ -1,1 +1,7 @@
 Cleanup code : Shift + Alt + F
+
+// console.log(
+        //     `Width is : ${width}, Height is : ${height} and the ratio is ${
+        //         width / height
+        //     }`,
+        // );
