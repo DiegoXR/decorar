@@ -12,7 +12,7 @@
         // Add Google Analytics script
         const script = document.createElement('script');
         script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=G-46424JX940`;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
         document.head.appendChild(script);
 
         // Initialize Google Analytics
@@ -22,7 +22,7 @@
         }
         gtag('js', new Date());
         // gtag('config', 'G-46424JX940');
-        gtag('config', '${GA4_ID}');
+        gtag('config', `${GA4_ID}`);
         
         // Replace with your Google Analytics tracking ID
     });
