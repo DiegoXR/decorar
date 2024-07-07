@@ -3,6 +3,7 @@
   import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
+  import {GA4_ID} from "../projectConstants.js"
 
   let isVisible = false; // Initial visibility is set to false
 
@@ -20,7 +21,10 @@
             window.dataLayer.push(arguments);
         }
         gtag('js', new Date());
-        gtag('config', 'G-46424JX940'); // Replace with your Google Analytics tracking ID
+        // gtag('config', 'G-46424JX940');
+        gtag('config', '${GA4_ID}');
+        
+        // Replace with your Google Analytics tracking ID
     });
 
   function navigateToPage() {
