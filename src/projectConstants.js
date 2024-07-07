@@ -1,0 +1,1 @@
+export const GA4_ID = 'G-46424JX940';
