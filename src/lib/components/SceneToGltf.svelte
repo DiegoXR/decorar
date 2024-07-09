@@ -155,12 +155,11 @@
 >
 <button
 slot="ar-button"
-class="text-white font-bold py-2 px-4 rounded-full bg-gray-900 position : absolute left-1/2 bottom-6 transform -translate-x-1/2 "
+class="text-white font-bold py-2 px-4 rounded-full bg-gray-900 position : absolute left-1/2 bottom-20 transform -translate-x-1/2 "
 >
  Activate AR
 </button>
 
-<!-- slot="ar-button" -->
 </model-viewer>
 </div>
 {/if}

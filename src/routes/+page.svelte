@@ -95,9 +95,11 @@
   </div>
 </div> -->
 
-<div class="flex-[4]  text-white h-full p-[5%]">
+<div class="flex-[4]  text-white p-[5%]">
   <div class="flex flex-col items-center justify-center  w-full h-full">
     <h2 class="mb-5 text-xl font-bold text-gray-900">Artwork in Augmented Reality</h2>
+    <h2 class="mb-5 text-xxl font-bold text-gray-900">Turn your walls into a showcase of living art</h2>
+    
 
     {#if isVisible}
     <LoginForm />
@@ -114,6 +116,37 @@
 </div>
 </div>
 
+<section class="bg-gray-900">
+  <div class="container py-8 px-6 mx-auto">
+      <p
+          class="uppercase tracking-wide no-underline hover:no-underline font-bold text-white text-xl mb-8"
+        >
+          About Us
+  </p>
+
+      <p class="mt-8 mb-8 text-white">
+        This project is inspired by our passion in technology and art. We bring artwork beyond the screen, turning it into a vibrant content that enhances your physical space!
+          <br />
+          <br />          
+          <a
+              class="text-white underline hover:text-gray-900"
+              href="https://eltiempo.com/">Feedback Form</a
+          >
+          <br />
+          <a
+              class="text-white underline hover:text-gray-900"
+              href="https:www.linkedin.com/in/diegomillanxr"
+              target="_blank">Diego Profile</a
+          >
+          <br />
+          <a
+              class="text-white underline hover:text-gray-900"
+              href="https://www.linkedin.com/in/sinddy-carreno/"
+              target="_blank">Sinddy Profile</a
+          >
+      </p>
+  </div>
+</section>
 
 
 <!-- YourComponent.svelte -->
