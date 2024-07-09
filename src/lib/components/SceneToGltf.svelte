@@ -155,9 +155,9 @@
 >
 <button
 slot="ar-button"
-class="h-100 w-100 bg bg-black position : absolute left-1/2 bottom-6 transform -translate-x-1/2"
+class="text-white font-bold py-2 px-4 rounded-full bg-gray-900 position : absolute left-1/2 bottom-6 transform -translate-x-1/2 "
 >
-👋 Activate AR
+ Activate AR
 </button>
 
 <!-- slot="ar-button" -->
