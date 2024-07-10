@@ -32,17 +32,20 @@
   }
 </script>
 
+<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-row">
+  <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
+  <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
+</div> 
+
 <div
   class="parentContainer w-screen h-screen flex flex-col md:flex-row p-1"
 >
   <!-- BRAND SECTION -->
   <div class=" flex-[6]  text-white h-full p-1">
+    <!-- BRAND SECTION - HEADER -->
+      
     <div class="flex flex-col  items-center justify-center h-full p-1">
-      <!-- BRAND SECTION - HEADER -->
-      <div class="bg-white items-center justify-center h-1/5 w-full p-1 flex flex-row">
-        <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
-        <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
-      </div>
+      
        <!-- BRAND SECTION - IMG -->
       <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->
        <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center   h-4/5 w-full">
@@ -115,39 +118,6 @@
   </div>
 </div>
 </div>
-
-<section class="bg-gray-900">
-  <div class="container py-8 px-6 mx-auto">
-      <p
-          class="uppercase tracking-wide no-underline hover:no-underline font-bold text-white text-xl mb-8"
-        >
-          About Us
-  </p>
-
-      <p class="mt-8 mb-8 text-white">
-        This project is inspired by our passion in technology and art. We bring artwork beyond the screen, turning it into a vibrant content that enhances your physical space!
-          <br />
-          <br />          
-          <a
-              class="text-white underline hover:text-gray-900"
-              href="https://eltiempo.com/">Feedback Form</a
-          >
-          <br />
-          <a
-              class="text-white underline hover:text-gray-900"
-              href="https:www.linkedin.com/in/diegomillanxr"
-              target="_blank">Diego Profile</a
-          >
-          <br />
-          <a
-              class="text-white underline hover:text-gray-900"
-              href="https://www.linkedin.com/in/sinddy-carreno/"
-              target="_blank">Sinddy Profile</a
-          >
-      </p>
-  </div>
-</section>
-
 
 <!-- YourComponent.svelte -->
 <style>

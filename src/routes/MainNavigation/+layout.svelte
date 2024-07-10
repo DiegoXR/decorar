@@ -37,7 +37,7 @@
 
 <PageHeader></PageHeader>
 <!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
-<div class="h-[100vh] w-full bg-black">           
+<div class="h-[100vh] w-full bg-white">           
     <!-- SPACER BEHIND THE HEADER  -->
    <div class="w-full h-[10vh] bg-slate-600">
    </div >
