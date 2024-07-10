@@ -77,7 +77,7 @@
   
   <div class="relative">
     <button 
-      class="px-4 py-2 bg-black text-white rounded-md focus:outline-none focus:ring"
+      class="px-4 py-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring"
       on:click={toggleDropdownMouse}
       on:keydown={toggleDropdownKey}
     >
