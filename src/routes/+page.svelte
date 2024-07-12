@@ -2,35 +2,35 @@
   import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
   import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
-  import {GA4_ID} from "../projectConstants.js"
+  // import { onMount } from "svelte";
+  // import {GA4_ID} from "../projectConstants.js"
+  import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
 
   let isVisible = false; // Initial visibility is set to false
 
 
-  onMount(() => {
-        // Add Google Analytics script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-        document.head.appendChild(script);
+  // onMount(() => {
+  //       // Add Google Analytics script
+  //       const script = document.createElement('script');
+  //       script.async = true;
+  //       script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  //       document.head.appendChild(script);
 
-        // Initialize Google Analytics
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            window.dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        // gtag('config', 'G-46424JX940');
-        gtag('config', `${GA4_ID}`);
-        
-        // Replace with your Google Analytics tracking ID
-    });
+  //       // Initialize Google Analytics
+  //       window.dataLayer = window.dataLayer || [];
+  //       function gtag() {
+  //           window.dataLayer.push(arguments);
+  //       }
+  //       gtag('js', new Date());
+  //       gtag('config', `${GA4_ID}`);       
+  //   });
 
   function navigateToPage() {
     goto("MainNavigation/Explore");
   }
 </script>
+
+<GoogleAnalytics></GoogleAnalytics>
 
 <div class=" items-center justify-center h-2/5 w-full p-5 flex flex-row">
   <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />

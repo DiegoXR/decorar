@@ -26,6 +26,10 @@
                 href="https://www.linkedin.com/in/sinddy-carreno/"
                 target="_blank">Sinddy Profile</a
             >
+            <br/>
+            
         </p>
+        <p class=" text-white">App version 12 June </p>
     </div>
+    
   </section>
