@@ -29,7 +29,7 @@
             <br/>
             
         </p>
-        <p class=" text-white">App version 12 June </p>
+        <p class=" text-white">App version 12 June 11H27 </p>
     </div>
     
   </section>
