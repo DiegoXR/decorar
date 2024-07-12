@@ -33,3 +33,18 @@
     </div>
     
   </section>
+
+  <button class="inline-block text-white font-bold py-2 px-4 rounded-full bg-gray-900 border border-transparent transform hover:scale-110 hover: transition-transform duration-1000 ease-in-out" on:click={handdleLikeButton}>
+    YES
+  </button>
+
+  <script>
+     import { browser} from '$app/environment';
+
+    function handdleLikeButton(){
+        if (browser && window.gtag) {
+      window.gtag("event", "tutorial_complete");
+      console.log('Custom event sent');
+    }  
+    }
+  </script>

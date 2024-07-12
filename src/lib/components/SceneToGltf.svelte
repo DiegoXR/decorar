@@ -134,15 +134,12 @@
 
     function handleButtonClick() {
     if (browser && window.gtag) {
-      window.gtag('event', 'AR_Launched', {
-        event_category: 'Custom_Category',
-        event_label: 'Custom_Label',
-        value: '1'
+      window.gtag("event", "level_start", {
+        level_name: "AR Session Started"
       });
       console.log('Custom event sent');
     }
   }
-
 
 </script>
 
