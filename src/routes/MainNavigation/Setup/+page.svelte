@@ -56,13 +56,13 @@
 <div
     class="flex flex-wrap bg-red-600 h-[100vh] w-[100vw]"
 >
-    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-200">
+    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-100">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>
        
      <div class="bg-white w-full md:w-1/2 p-4 flex flex-col">      
-        <div class="bg-gray-300 w-full h-[50%]"> 
+        <div class="bg-white w-full h-[50%]"> 
              <UiGroup></UiGroup> 
          </div>       
      </div>         

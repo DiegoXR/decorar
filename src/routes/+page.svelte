@@ -2,47 +2,50 @@
   import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
   import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
-  import {GA4_ID} from "../projectConstants.js"
+  // import { onMount } from "svelte";
+  // import {GA4_ID} from "../projectConstants.js"
+  import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
 
   let isVisible = false; // Initial visibility is set to false
 
 
-  onMount(() => {
-        // Add Google Analytics script
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-        document.head.appendChild(script);
+  // onMount(() => {
+  //       // Add Google Analytics script
+  //       const script = document.createElement('script');
+  //       script.async = true;
+  //       script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+  //       document.head.appendChild(script);
 
-        // Initialize Google Analytics
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            window.dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        // gtag('config', 'G-46424JX940');
-        gtag('config', `${GA4_ID}`);
-        
-        // Replace with your Google Analytics tracking ID
-    });
+  //       // Initialize Google Analytics
+  //       window.dataLayer = window.dataLayer || [];
+  //       function gtag() {
+  //           window.dataLayer.push(arguments);
+  //       }
+  //       gtag('js', new Date());
+  //       gtag('config', `${GA4_ID}`);       
+  //   });
 
   function navigateToPage() {
     goto("MainNavigation/Explore");
   }
 </script>
 
+<GoogleAnalytics></GoogleAnalytics>
+
+<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-row">
+  <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
+  <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
+</div> 
+
 <div
-  class="parentContainer w-screen h-screen bg-slate-900 flex flex-col md:flex-row p-1"
+  class="parentContainer w-screen h-screen flex flex-col md:flex-row p-1"
 >
   <!-- BRAND SECTION -->
-  <div class=" flex-[6] bg-blue-500 text-white h-full p-1">
-    <div class="flex flex-col bg-yellow-200 items-center justify-center h-full p-1">
-      <!-- BRAND SECTION - HEADER -->
-      <div class="bg-white items-center justify-center h-1/5 w-full p-1 flex flex-row">
-        <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
-        <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
-      </div>
+  <div class=" flex-[6]  text-white h-full p-1">
+    <!-- BRAND SECTION - HEADER -->
+      
+    <div class="flex flex-col  items-center justify-center h-full p-1">
+      
        <!-- BRAND SECTION - IMG -->
       <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->
        <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center   h-4/5 w-full">
@@ -54,7 +57,7 @@
   </div>
 
   <!-- LOGIN SECTION -->
-  <div class="flex-[4] bg-blue-300 text-white h-full p-[5%]">
+  <!-- <div class="flex-[4]  text-white h-full p-[5%]">
     <div class="flex flex-col items-center justify-center bg-slate-600 w-full h-full">
       <h2 class="mb-5 text-xl font-bold text-gray-900">Login With</h2>
       <div class="flex flex-row">
@@ -93,6 +96,27 @@
       </p>
     </div>
   </div>
+</div> -->
+
+<div class="flex-[4]  text-white p-[5%]">
+  <div class="flex flex-col items-center justify-center  w-full h-full">
+    <h2 class="mb-5 text-xl font-bold text-gray-900">Artwork in Augmented Reality</h2>
+    <h2 class="mb-5 text-xxl font-bold text-gray-900">Turn your walls into a showcase of living art</h2>
+    
+
+    {#if isVisible}
+    <LoginForm />
+    {/if}
+
+    <button class="inline-block text-white font-bold py-2 px-4 rounded-full bg-gray-900 border border-transparent transform hover:scale-110 hover: transition-transform duration-1000 ease-in-out" on:click={navigateToPage}>
+      Continue
+    </button>
+    <p class=" mt-3 text-center text-[14px] text-gray-900">
+      This experience is optimized on high-end phones with LiDAR technology.
+      <!-- <a href="/signup" class="text-gray-900">Create one</a> -->
+    </p>
+  </div>
+</div>
 </div>
 
 <!-- YourComponent.svelte -->

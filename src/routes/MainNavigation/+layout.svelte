@@ -6,7 +6,9 @@
     import { rendererStore, sceneStore } from "../../lib/SceneStatusStore";
     import { get } from 'svelte/store';
     import { redirect } from '@sveltejs/kit';
-    import {isMainPageVisited} from '../../lib/PageStatusStore'
+    import {isMainPageVisited} from '../../lib/PageStatusStore';
+    import {GA4_ID} from "../../projectConstants.js"
+    import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
 
 
 
@@ -22,7 +24,24 @@
 
     onMount(() => {
         
-        // Update the store with the renderer instance
+      // // Add Google Analytics script
+      // const script = document.createElement('script');
+      //   script.async = true;
+      //   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+      //   document.head.appendChild(script);
+
+      //   // Initialize Google Analytics
+      //   window.dataLayer = window.dataLayer || [];
+      //   function gtag() {
+      //       window.dataLayer.push(arguments);
+      //   }
+      //   gtag('js', new Date());
+      //   gtag('config', `${GA4_ID}`);
+        
+      //   console.log("Layout Mounted");
+      
+      
+      // Update the store with the renderer instance
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         rendererStore.set(renderer);
@@ -32,12 +51,12 @@
         const scene = new THREE.Scene();
         sceneStore.set(scene); 
     });
-
 </script>
 
+<GoogleAnalytics></GoogleAnalytics>
 <PageHeader></PageHeader>
 <!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
-<div class="h-[100vh] w-full bg-black">           
+<div class="h-[100vh] w-full bg-white">           
     <!-- SPACER BEHIND THE HEADER  -->
    <div class="w-full h-[10vh] bg-slate-600">
    </div >
