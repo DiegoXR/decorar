@@ -44,10 +44,10 @@
         </div>
 
         <div class="pt-3 flex items-center justify-center">
-            <p class="">Product Name</p>
+            <p class="">Art Info</p>
             
             <button
-            class="mx-2 mb-2 flex items-center justify-center  bg-white px-3 py-3" on:click={goToCustomize}>
+            class="mx-2 flex items-center justify-center  bg-white px-3 py-3" on:click={goToCustomize}>
             <NextIcon></NextIcon>
             <span class=" font-medium text-gray-700">Customize</span>
             </button>

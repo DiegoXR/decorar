@@ -77,14 +77,14 @@
   
   <div class="relative">
     <button 
-      class="px-4 py-2 bg-black text-white rounded-md focus:outline-none focus:ring"
+      class="px-4 py-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring"
       on:click={toggleDropdownMouse}
       on:keydown={toggleDropdownKey}
     >
       {formatDimensions(selected)}
     </button>
     {#if isOpen}
-      <div class="absolute right-0 w-48 mt-2 bg-white shadow-lg rounded-md z-10">
+      <div class="absolute right-0  top-[-30px] w-48  bg-white shadow-lg rounded-md z-10">
         <ul>
           {#each availableSizes as option}
             <button
