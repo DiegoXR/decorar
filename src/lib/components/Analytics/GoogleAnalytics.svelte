@@ -23,7 +23,13 @@
                 window.gtag = gtag; 
 
                 gtag("js", new Date());
-                gtag("config", GA4_ID);
+                gtag("config", GA4_ID, {
+                    'cookie_domain': 'auto', // Ensures cookies are set for the current domain
+                    'cookie_flags': 'SameSite=Lax; Secure', // Adds security flags to cookies
+                    'anonymize_ip': true, // Optional: Anonymize IP addresses for privacy
+                    'allow_google_signals': false, // Optional: Disable Google Signals to prevent cross-site tracking
+                    'allow_ad_personalization_signals': false // Optional: Disable ad personalization signals
+                });
 
                 console.log("Google Analytics Initialized");
             }
