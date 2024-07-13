@@ -2,7 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<!-- <link rel="icon" href="%sveltekit.assets%/favicon.png" /> -->
+		<Favicon></Favicon>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
@@ -10,3 +11,8 @@
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
+
+
+<script>
+	import Favicon from "$lib/components/IconComponents/Favicon.svelte";
+</script>
