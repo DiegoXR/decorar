@@ -13,7 +13,7 @@
     if (browser && window.gtag) {
     window.gtag("event", "post_score", {     
     question: "1",
-    answer: "YES"
+    answer: "Q1YES"
     });
     }  
     if (!isQ1YesButtonClicked)isQ1YesButtonClicked = !isQ1YesButtonClicked;
@@ -23,7 +23,7 @@
     if (browser && window.gtag) {
         window.gtag("event", "post_score", {     
     question: "1",
-    answer: "NO"
+    answer: "Q1NO"
     });
     }  
     if (!isQ1NOButtonClicked)isQ1NOButtonClicked = !isQ1NOButtonClicked;
@@ -33,7 +33,7 @@
     if (browser && window.gtag) {
         window.gtag("event", "post_score", {     
     question: "2",
-    answer: "YES"
+    answer: "Q2YES"
     });
     }  
     if (!isQ2YesButtonClicked)isQ2YesButtonClicked = !isQ2YesButtonClicked;
@@ -44,7 +44,7 @@
     if (browser && window.gtag) {
         window.gtag("event", "post_score", {     
     question: "2",
-    answer: "NO"
+    answer: "Q2NO"
     });
     }  
     if (!isQ2NOButtonClicked)isQ2NOButtonClicked = !isQ2NOButtonClicked;
