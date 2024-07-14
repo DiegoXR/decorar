@@ -7,8 +7,8 @@
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREE from "three";
 
-    let localFrameConfiguration =
-        THREEJsConfiguration.startingFrameConfiguration;
+
+    let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
 
     /**
      * @type {import("svelte/store").Unsubscriber}
@@ -40,7 +40,8 @@
      */
     let materials = [];
 
-    onMount(() => {
+    onMount(() => {    
+        // window.addEventListener('beforeunload', handleBeforeUnload);
         SceneSubscription();
         FrameConfigurationSubscription();
         createScenePromise(localFrameConfiguration);
@@ -53,10 +54,10 @@
         console.log("3D Maker : Remove Elements from scene");
         sceneStore.set(scene);
         THREEJsUtilities.ClearScene(scene);
-        localFrameConfiguration =
-            THREEJsConfiguration.startingFrameConfiguration;
+        localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
         sceneStore.set(scene);
         sceneIsReady.set(false);
+        // window.removeEventListener('beforeunload', handleBeforeUnload);
     });
 
     function FrameConfigurationSubscription() {
@@ -68,13 +69,14 @@
                     `SCENE Maker /The received configuration is img src : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}, frame width
                     ${localFrameConfiguration.FrameBorderWidth}`,
                 );
+
             },
         );
     }
 
     function SceneSubscription() {
         let sceneUnsubscription = sceneStore.subscribe((value) => {
-            console.log("Step 1 : SCENE Maker : Getting the scene ");
+            console.log("Step 1 : SCENE Maker : Getting the scene " + scene);
             scene = value;
         });
 
@@ -237,7 +239,15 @@
     .catch((error) => {
       console.error('Error loading textures', error);
     });
-}
+    }
+
+    // Code to run before the user leaves or refreshes the page
+    // @ts-ignore
+//     const handleBeforeUnload = (event) => {
+//     // Perform your action here
+//     console.log('User is refreshing or leaving the page');
+//     frameConfigurationStore.set(localFrameConfiguration);
+//   }; 
 
 
 </script>
