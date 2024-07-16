@@ -1,10 +1,28 @@
 <script>
     import { onMount } from "svelte";
-    import {GA4_ID} from "../../../projectConstants.js"
+    //import {GA4_ID} from "../../../projectConstants.js"
     import {afterNavigate} from '$app/navigation';
     import { browser} from '$app/environment';
+    import { PUBLIC_GAID_PROD, PUBLIC_GAID_DEV} from '$env/static/public';
 
+
+    /**
+     * @type {string}
+     */
+    let GA4_ID;
+    
     onMount(() => {
+        
+        const isProduction = process.env.NODE_ENV === 'production';
+        if (isProduction){          
+            GA4_ID = PUBLIC_GAID_PROD;
+            console.log("ISPROD" + GA4_ID);
+        }else{          
+            GA4_ID = PUBLIC_GAID_DEV;
+            console.log("ISDEV" + GA4_ID);
+        }       
+
+            
         // Ensure this code is only executed in the client
         if (browser)
         {

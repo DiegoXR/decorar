@@ -40,7 +40,7 @@
             defaultSize: [0.6096, 0.9144],
         },
         {
-            author : "laura Chouette",
+            author : "Laura Chouette",
             src: "/referenceImages/laura-chouette-g6Ny4dvHlE0-unsplash_0.67.webp",
             alt: "alt text",
             description: "Square",
@@ -51,7 +51,7 @@
             defaultSize: [0.6096, 0.9144],
         },
         {
-            author : "alex Rainer",
+            author : "Alex Rainer",
             src: "/referenceImages/alex_rainer-2_f83Sqwdrg-unsplash_0.67.webp",
             alt: "alt text",
             description: "Square",
