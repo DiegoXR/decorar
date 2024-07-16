@@ -4,6 +4,7 @@ import { writable } from 'svelte/store';
 
 
 const Image = {
+    author: "",
     src: "",
     alt: "",
     description: "",

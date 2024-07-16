@@ -7,64 +7,71 @@
 
     let images = [
         {
-            src: "/referenceImages/1080_1080.jpg",
+            author : "Oladimeji Odunsi",
+            src: "/referenceImages/oladimeji-odunsi-br7vCg8693o-unsplash_0.8.webp",
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.1, 0.1],
-                [0.2, 0.2],
-                [0.3, 0.3],
+                [0.508, 0.635],
+                [0.6096, 0.762],
             ],
-            defaultSize: [0.2, 0.2],
+            defaultSize: [0.6096, 0.762],
         },
         {
-            src: "/referenceImages/1080_1080_v2_w.webp",
+            author : "Pexels Steve",
+            src: "/referenceImages/pexels-steve-1292241_1.5.webp",
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.3, 0.3],
-                [0.4, 0.4],
-                [0.5, 0.5],
-            ],
-            defaultSize: [0.4, 0.4],
-        },
-        {
-            src: "/referenceImages/446_595.jpg",
-            alt: "alt text",
-            description: "Vertical Portrait",
-            availableSizes: [
-                [0.2286, 0.3048],
-                [0.3048, 0.4064],
-                [0.381, 0.508],
-                [0.4572, 0.6096],
-            ],
-            defaultSize: [0.381, 0.508],
-        },
-        {
-            src: "/referenceImages/644_429.jpg",
-            alt: "alt text",
-            description: "Horizontal Landscape",
-            availableSizes: [
-                [0.3048, 0.2032],
-                [0.4572, 0.3048],
-                [0.6096, 0.4064],
                 [0.762, 0.508],
                 [0.9144, 0.6096],
             ],
-            defaultSize: [0.6096, 0.4064],
-        }, 
+            defaultSize: [0.9144, 0.6096],
+        },
         {
-            src: "/referenceImages/sinddy_w.webp",
+            author : "Jocelyn Morales",
+            src: "/referenceImages/jocelyn-morales-R3Mi_Y1JQ4-unsplash_0.67.webp",
             alt: "alt text",
-            description: "Vertical Portrait",
+            description: "Square",
             availableSizes: [
-                [0.2286, 0.3048],
-                [0.3048, 0.4064],
-                [0.381, 0.508],
-                [0.4572, 0.6096],
+                [0.508, 0.762],
+                [0.6096, 0.9144],
             ],
-            defaultSize: [0.381, 0.508],
-        }
+            defaultSize: [0.6096, 0.9144],
+        },
+        {
+            author : "laura Chouette",
+            src: "/referenceImages/laura-chouette-g6Ny4dvHlE0-unsplash_0.67.webp",
+            alt: "alt text",
+            description: "Square",
+            availableSizes: [
+                [0.508, 0.762],
+                [0.6096, 0.9144],
+            ],
+            defaultSize: [0.6096, 0.9144],
+        },
+        {
+            author : "alex Rainer",
+            src: "/referenceImages/alex_rainer-2_f83Sqwdrg-unsplash_0.67.webp",
+            alt: "alt text",
+            description: "Square",
+            availableSizes: [
+                [0.508, 0.762],
+                [0.6096, 0.9144],
+            ],
+            defaultSize: [0.6096, 0.9144],
+        },
+        {
+            author : "Giorgio Trovato",
+            src: "/referenceImages/giorgio-trovato-EI-bSCZ17o-unsplash_1.5.webp",
+            alt: "alt text",
+            description: "Square",
+            availableSizes: [
+                [0.762, 0.508],
+                [0.9144, 0.6096],
+            ],
+            defaultSize: [0.9144, 0.6096],
+        }      
     ];
 
     onMount(() => {
