@@ -1,4 +1,4 @@
-<section class="bg-gray-900">
+<section class="bg-gray-900 h-full">
     <div class="container py-8 px-6 mx-auto">
         <p
             class="uppercase tracking-wide no-underline hover:no-underline font-bold text-white text-xl mb-8"
@@ -29,22 +29,10 @@
             <br/>
             
         </p>
-        <p class=" text-white">App version 12 June 12H23 </p>
+        <p class=" text-white">App version 14 June 10h57 </p>
     </div>
-    
+    <Feedback></Feedback>
   </section>
-
-  <button class="inline-block text-white font-bold py-2 px-4 rounded-full bg-gray-900 border border-transparent transform hover:scale-110 hover: transition-transform duration-1000 ease-in-out" on:click={handdleLikeButton}>
-    YES
-  </button>
-
   <script>
-     import { browser} from '$app/environment';
-
-    function handdleLikeButton(){
-        if (browser && window.gtag) {
-      window.gtag("event", "tutorial_complete");
-      console.log('Custom event sent');
-    }  
-    }
+    import Feedback from "$lib/components/Analytics/Feedback.svelte";
   </script>

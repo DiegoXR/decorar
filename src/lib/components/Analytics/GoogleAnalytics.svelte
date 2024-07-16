@@ -1,10 +1,28 @@
 <script>
     import { onMount } from "svelte";
-    import {GA4_ID} from "../../../projectConstants.js"
+    //import {GA4_ID} from "../../../projectConstants.js"
     import {afterNavigate} from '$app/navigation';
     import { browser} from '$app/environment';
+    import { PUBLIC_GAID_PROD, PUBLIC_GAID_DEV} from '$env/static/public';
 
+
+    /**
+     * @type {string}
+     */
+    let GA4_ID;
+    
     onMount(() => {
+        
+        const isProduction = process.env.NODE_ENV === 'production';
+        if (isProduction){          
+            GA4_ID = PUBLIC_GAID_PROD;
+            console.log("ISPROD" + GA4_ID);
+        }else{          
+            GA4_ID = PUBLIC_GAID_DEV;
+            console.log("ISDEV" + GA4_ID);
+        }       
+
+            
         // Ensure this code is only executed in the client
         if (browser)
         {
@@ -23,7 +41,13 @@
                 window.gtag = gtag; 
 
                 gtag("js", new Date());
-                gtag("config", GA4_ID);
+                gtag("config", GA4_ID, {
+                    'cookie_domain': 'auto', // Ensures cookies are set for the current domain
+                    'cookie_flags': 'SameSite=Lax; Secure', // Adds security flags to cookies
+                    'anonymize_ip': true, // Optional: Anonymize IP addresses for privacy
+                    'allow_google_signals': false, // Optional: Disable Google Signals to prevent cross-site tracking
+                    'allow_ad_personalization_signals': false // Optional: Disable ad personalization signals
+                });
 
                 console.log("Google Analytics Initialized");
             }
