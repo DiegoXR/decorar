@@ -7,7 +7,9 @@
     import HeartIcon from "../IconComponents/HeartIcon.svelte";
    
      /**
-     * @type {{ src: string;
+     * @type {{ 
+     *          author: string;
+     *          src: string;
                 alt: string;
                 description: string;
                 hr: string;
@@ -35,7 +37,7 @@
 </script>
 
 <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col bg-white mb-2">
-        <div class=" w-full h-[300px] bg-gray-50">
+        <div class=" w-full h-[300px] bg-gray-50" on:click={goToCustomize}>
             <img
             class="hover:grow hover:shadow-lg"
             src={image.src}
@@ -44,7 +46,7 @@
         </div>
 
         <div class="pt-3 flex items-center justify-center">
-            <p class="">Art Info</p>
+            <p class="">Unsplash - {image.author}</p>
             
             <button
             class="mx-2 flex items-center justify-center  bg-white px-3 py-3" on:click={goToCustomize}>

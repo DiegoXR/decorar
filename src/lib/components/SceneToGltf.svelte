@@ -138,8 +138,15 @@
         level_name: "AR Session Started"
       });
       console.log('Custom event sent');
+    
+      window.gtag("event", "post_score", {     
+      question: "3",
+      answer: "AR_LAUNCHED"
+    });
+    
+      }
     }
-  }
+
 
 </script>
 

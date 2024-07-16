@@ -51,6 +51,9 @@
         const scene = new THREE.Scene();
         sceneStore.set(scene); 
     });
+
+    // export const ssr = false;
+    
 </script>
 
 <GoogleAnalytics></GoogleAnalytics>
@@ -68,3 +71,4 @@
 </div> 
 
 <NavigationBar></NavigationBar>
+
