@@ -13,14 +13,16 @@
     
     onMount(() => {
         
-        const isProduction = process.env.NODE_ENV === 'production';
-        if (isProduction){          
-            GA4_ID = PUBLIC_GAID_PROD;
-            console.log("ISPROD" + GA4_ID);
-        }else{          
-            GA4_ID = PUBLIC_GAID_DEV;
-            console.log("ISDEV" + GA4_ID);
-        }       
+        // const isProduction = process.env.NODE_ENV === 'production';
+        // if (isProduction){          
+        //     GA4_ID = PUBLIC_GAID_PROD;
+        //     console.log("ISPROD" + GA4_ID);
+        // }else{          
+        //     GA4_ID = PUBLIC_GAID_DEV;
+        //     console.log("ISDEV" + GA4_ID);
+        // } 
+        
+        GA4_ID = "G-2Z02D9KJ26";
 
             
         // Ensure this code is only executed in the client
