@@ -13,22 +13,25 @@
     
     onMount(() => {
         
-        const isProduction = process.env.NODE_ENV === 'production';
-        if (isProduction){          
-            GA4_ID = PUBLIC_GAID_PROD;
-            console.log("ISPROD" + GA4_ID);
-        }else{          
-            GA4_ID = PUBLIC_GAID_DEV;
-            console.log("ISDEV" + GA4_ID);
-        } 
+        // This will differentiate dev if running npm run dev and prod if online (regardless if its decorar or dev.decorar)
+        // const isProduction = process.env.NODE_ENV === 'production';
+        // if (isProduction){          
+        //     GA4_ID = PUBLIC_GAID_PROD;
+        //     console.log("ISPROD" + GA4_ID);
+        // }else{          
+        //     GA4_ID = PUBLIC_GAID_DEV;
+        //     console.log("ISDEV" + GA4_ID);
+        // } 
         
-
+        // This will not work in npm run dev (environment not set) but will make the difference if its dev.decorar or decorar
         const environment = import.meta.env.VITE_ENV;
 
         let message;
         if (environment === 'production') {
+        GA4_ID = PUBLIC_GAID_PROD;
         message = 'You are in the production environment.';
         } else if (environment === 'preview') {
+        GA4_ID = PUBLIC_GAID_DEV;
         message = 'You are in the preview environment.';
         } else {
         message = 'Environment is not set.';
