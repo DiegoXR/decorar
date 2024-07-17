@@ -22,6 +22,18 @@
             console.log("ISDEV" + GA4_ID);
         } 
         
+
+        const environment = import.meta.env.VITE_ENV;
+
+        let message;
+        if (environment === 'production') {
+        message = 'You are in the production environment.';
+        } else if (environment === 'preview') {
+        message = 'You are in the preview environment.';
+        } else {
+        message = 'Environment is not set.';
+        }
+
         // GA4_ID = "G-2Z02D9KJ26";
 
             
