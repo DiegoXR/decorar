@@ -34,6 +34,7 @@
         message = 'Environment is not set.';
         }
 
+        console.log(message);
         // GA4_ID = "G-2Z02D9KJ26";
 
             
