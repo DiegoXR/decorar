@@ -9,6 +9,7 @@
     import {isMainPageVisited} from '../../lib/PageStatusStore';
     import {GA4_ID} from "../../projectConstants.js"
     import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
+    import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
 
 
 
@@ -71,4 +72,5 @@
 </div> 
 
 <NavigationBar></NavigationBar>
+<CloudfareAnalytics></CloudfareAnalytics>
 

@@ -5,6 +5,7 @@
   // import { onMount } from "svelte";
   // import {GA4_ID} from "../projectConstants.js"
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
+  import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
 
   let isVisible = false; // Initial visibility is set to false
 
@@ -118,6 +119,7 @@
   </div>
 </div>
 </div>
+<CloudfareAnalytics></CloudfareAnalytics>
 
 <!-- YourComponent.svelte -->
 <style>
