@@ -142,7 +142,7 @@
         currentImageSubscription = currentSelectedImageStore.subscribe(
             (value) => {
                 dataObject = value;
-                console.log(`THREEJS : Creating Plane with default image sizes`);
+                // console.log(`THREEJS : Creating Plane with default image sizes`);
                 // @ts-ignore
                 planeImage = CreatePlaneImage(
                     dataObject.src,
@@ -159,7 +159,7 @@
     function InitializePropertiesSubscription() {
         currentPropertiesSubscription = currentGlobalPropertiesStore.subscribe(
             (currentGlobalProperties) => {
-                console.log(`THREEJS : Detected a global property change`);
+                // console.log(`THREEJS : Detected a global property change`);
 
                 // When the image size is updated the plane image is updated as well.
                 if (
@@ -168,9 +168,9 @@
                     currentGlobalProperties.ImageSize[1] !==
                         currentLocalReferenceProperties.ImageSize[1]
                 ) {
-                    console.log(
-                        `THREEJS : The global properties for img size changed. Applying Plane size update ${currentGlobalProperties.ImageSize[0]} - ${currentGlobalProperties.ImageSize[1]}`,
-                    );
+                    // console.log(
+                    //     `THREEJS : The global properties for img size changed. Applying Plane size update ${currentGlobalProperties.ImageSize[0]} - ${currentGlobalProperties.ImageSize[1]}`,
+                    // );
                     UpdateImageSize(
                         currentGlobalProperties.ImageSize[0],
                         currentGlobalProperties.ImageSize[1],

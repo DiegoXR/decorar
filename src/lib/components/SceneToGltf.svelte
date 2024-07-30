@@ -19,7 +19,7 @@
      let sceneUnsubscription;
 
     onMount(() => {
-        console.log("GLTF CReator will be mounted");
+        // console.log("GLTF CReator will be mounted");
         sceneInscription();
         exportGLTF();
     });
@@ -27,7 +27,7 @@
 
     function sceneInscription(){
         sceneUnsubscription = sceneStore.subscribe((value) => {
-        console.log("AR received the scene");
+        // console.log("AR received the scene");
         scene = value;
         });
         sceneUnsubscription();
@@ -48,11 +48,11 @@
     function exportGLTF() {
         
         if (scene == null) {
-            console.log("Scene is null");
+            // console.log("Scene is null");
             return;
         }
 
-        console.log("Exporting Gltf again");
+        // console.log("Exporting Gltf again");
 
         removeAmbientLights();
 
@@ -81,7 +81,7 @@
             scene,
             // called when the gltf has been generated
             function (gltf) {
-                console.log(gltf);
+                // console.log(gltf);
                 storedGLTF = gltf;
 
                 if (gltf instanceof ArrayBuffer) {
@@ -137,7 +137,7 @@
       window.gtag("event", "level_start", {
         level_name: "AR Session Started"
       });
-      console.log('Custom event sent');
+    //   console.log('Custom event sent');
     
       window.gtag("event", "post_score", {     
       question: "3",
