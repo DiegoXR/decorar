@@ -48,7 +48,7 @@
     function UpdateWidth() {
         if (parentElement != null) {
             canvasWidthStore.set(parentElement.clientWidth);
-            console.log("width sent to store");
+            // console.log("width sent to store");
        }
     }
 </script>

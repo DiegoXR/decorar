@@ -131,7 +131,7 @@ function CanvasWidthChangeSubscription(){
     currentCanvasWidthSubscription = canvasWidthStore.subscribe((value) => {
     canvasWidth = value;
     updateHTMLElements();
-    console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
+    // console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
   });
 }
 
@@ -139,7 +139,7 @@ function CanvasWidthChangeSubscription(){
     
    if (!isInitialized)   return;
  
-    console.log("Updating HTML ELEMENTS");
+    // console.log("Updating HTML ELEMENTS");
     localFrameConfiguration.ImageSrc = currentImageProperties.src;
                 localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
 

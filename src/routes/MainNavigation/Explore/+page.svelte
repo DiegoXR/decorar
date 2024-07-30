@@ -75,7 +75,7 @@
     ];
 
     onMount(() => {
-        console.log("page loaded my browser");
+        // console.log("page loaded my browser");
         // Preselect the first image
         currentSelectedImageStore.set(images[0]);
     });
