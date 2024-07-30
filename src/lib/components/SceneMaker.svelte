@@ -65,10 +65,10 @@
             (value) => {
                 localFrameConfiguration = value;
 
-                console.log(
-                    `SCENE Maker /The received configuration is img src : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}, frame width
-                    ${localFrameConfiguration.FrameBorderWidth}`,
-                );
+                // console.log(
+                //     `SCENE Maker /The received configuration is img src : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}, frame width
+                //     ${localFrameConfiguration.FrameBorderWidth}`,
+                // );
 
             },
         );
@@ -76,7 +76,7 @@
 
     function SceneSubscription() {
         let sceneUnsubscription = sceneStore.subscribe((value) => {
-            console.log("Step 1 : SCENE Maker : Getting the scene " + scene);
+            // console.log("Step 1 : SCENE Maker : Getting the scene " + scene);
             scene = value;
         });
 
@@ -106,9 +106,9 @@
 
                 let geometry = new THREE.PlaneGeometry(width, height);
                 const plane = new THREE.Mesh(geometry, material);
-                console.log(
-                    `Succesfully loaded texture ${imagePath} in the Scene Maker`,
-                );
+                // console.log(
+                //     `Succesfully loaded texture ${imagePath} in the Scene Maker`,
+                // );
                 scene.add(plane);
                 resolve(true);
             },
@@ -227,7 +227,7 @@
     
     Promise.all([CreateFrame(localFrameConfiguration), CreatePlaneAsynchronously(localFrameConfiguration)])
     .then(([isFrameReady, isPlaneReady]) => {
-      console.log('Both Objects created succesfully');
+       //   console.log('Both Objects created succesfully');
       // Do something with the textures if needed
       
       if (isFrameReady && isPlaneReady){

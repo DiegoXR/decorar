@@ -37,7 +37,7 @@
         message = 'Environment is not set.';
         }
 
-        console.log(message);
+        // console.log(message);
         // GA4_ID = "G-2Z02D9KJ26";
 
             
@@ -67,19 +67,19 @@
                     'allow_ad_personalization_signals': false // Optional: Disable ad personalization signals
                 });
 
-                console.log("Google Analytics Initialized");
+                // console.log("Google Analytics Initialized");
             }
         }
     });
 
     afterNavigate(() => {
-        console.log('Navigation happened!');
+        // console.log('Navigation happened!');
                
       if (browser && window.gtag) {
       window.gtag('config', GA4_ID, {
         page_path: window.location.pathname,
       });
-      console.log('Page view tracked:', window.location.pathname);
+    //   console.log('Page view tracked:', window.location.pathname);
     }
     });
 
