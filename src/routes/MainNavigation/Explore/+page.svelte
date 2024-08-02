@@ -4,6 +4,7 @@
     import ImageCard from "$lib/components/UIComponents/ImageCard.svelte";
     import { onMount } from "svelte";
     import { currentSelectedImageStore } from '../../../lib/CurrentSelectedImageStore';
+    import InputImage from "$lib/components/InputImage.svelte";
 
     let images = [
         {
@@ -81,7 +82,7 @@
     });
 
 </script>
-
+<InputImage></InputImage>
 <section class="bg-white py-8">
     <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
        {#each images as image}
