@@ -144,11 +144,12 @@
       }
     }
 
-    if (minDiff > 1.0){
-        return backupSizeDataset.supportedSizes.map(size => [size[0], size[1] * ratio ])
+    if (minDiff > 0.25){
+        // console.log(`Image ratio is ${ratio} and the equivalent ratio is has not been found so the supported sizes generated are : ${backupSizeDataset.supportedSizes.map(size => [size[0], size[1] * ratio ])} the Diff is ${minDiff}`);
+        return backupSizeDataset.supportedSizes.map(size => [size[0], size[0] / ratio ])
     }else{
 
-        console.log(`Image ratio is ${ratio} and the equivalent ratio is ${closest.ratio} supported sizes found ${closest.supportedSizes}`);
+        // console.log(`Image ratio is ${ratio} and the equivalent ratio is ${closest.ratio} supported sizes found ${closest.supportedSizes} the Diff is ${minDiff}`);
         return closest.supportedSizes;
     }   
   }
