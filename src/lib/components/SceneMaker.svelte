@@ -2,6 +2,7 @@
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../lib/FrameConfigurationStore.js";
     import * as THREEJsUtilities from "../../lib/ThreeJsUtilities.js";
+    import * as SetupUtilities from "../../lib/SetupUtilities.js";
     import { sceneIsReady, sceneStore } from "../SceneStatusStore.js";
     import * as THREEJsConfiguration from "../../lib/SceneConstants.js";
     import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
@@ -43,8 +44,7 @@
     onMount(() => {    
         // window.addEventListener('beforeunload', handleBeforeUnload);
         SceneSubscription();
-        FrameConfigurationSubscription();
-        createScenePromise(localFrameConfiguration);
+        FrameConfigurationSubscription();  
     });
 
     onDestroy(() => {
@@ -64,6 +64,7 @@
         currentFrameSubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
+                createScenePromise();
 
                 // console.log(
                 //     `SCENE Maker /The received configuration is img src : ${localFrameConfiguration.ImageSrc}, Visi : ${localFrameConfiguration.FrameIsVisible}, frame width
@@ -83,10 +84,7 @@
         sceneUnsubscription();
     }
 
-     /**
-     * @param {{ ImageSrc: string; ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; availableSizes: number[][]; }} localFrameConfiguration
-     */
-    function CreatePlaneAsynchronously(localFrameConfiguration) {
+    function CreatePlaneAsynchronously() {
              
         let imagePath = localFrameConfiguration.ImageSrc;
         let width = localFrameConfiguration.ImageSize[0];
@@ -125,10 +123,7 @@
   });
     }
 
-    /**
-     * @param {{ ImageSrc: string; ImageSize: number[]; FrameIsVisible: boolean; FrameBorderWidth: number; FrameDepth: number; availableSizes: number[][]; }} localFrameConfiguration
-     */
-    function CreateFrame(localFrameConfiguration) {
+    function CreateFrame() {
         // console.log(
         //     `Frame will be created with the following params : Width :${localFrameConfiguration.ImageSize[0]}- Height : ${localFrameConfiguration.ImageSize[1]} `,
         // );
@@ -141,9 +136,6 @@
         if (!localFrameConfiguration.FrameIsVisible)
             resolve(true);
             
-
-
-
     // var loader = new THREE.CubeTextureLoader();
     // var textureCube = loader.load([
     //     "/referenceTextures/Oak_512.png", // Right
@@ -186,12 +178,22 @@
 
                 materials.push(frameMaterial);
 
+
+            let imageWidth = localFrameConfiguration.ImageSize[0];
+            let imageHeight = localFrameConfiguration.ImageSize[1];
+
+            let passPartoutContribution = 0;
+
+            if (localFrameConfiguration.PasspartoutIsVisible)
+                passPartoutContribution = SetupUtilities.CalculatePasspartoutBorders(localFrameConfiguration.PasspartoutCutoutSize, imageWidth); 
+                      
+            let frameTargetWidth = passPartoutContribution + imageWidth -  THREEJsConfiguration.frameInnerOffset;
+            let frameTargetHeight = passPartoutContribution + imageHeight - THREEJsConfiguration.frameInnerOffset; 
+
                 // @ts-ignore
                 frame = SQUAREFRAME.CreateFrameSquare(
-                    localFrameConfiguration.ImageSize[0] -
-                        THREEJsConfiguration.frameInnerOffset,
-                    localFrameConfiguration.ImageSize[1] -
-                        THREEJsConfiguration.frameInnerOffset,
+                    frameTargetWidth,
+                    frameTargetHeight,
                     localFrameConfiguration.FrameBorderWidth,
                     localFrameConfiguration.FrameDepth,
                     materials,
@@ -218,19 +220,67 @@
       });
     }
 
-    /**
-     * @param {any} localFrameConfiguration
-     */
-    function createScenePromise(localFrameConfiguration) {
+    function createPasspartout(){
+            
+        return new Promise((resolve, reject) => {
+        
+            if (!localFrameConfiguration.PasspartoutIsVisible)
+            resolve(true);
+
+            let imageWidth = localFrameConfiguration.ImageSize[0];
+            let imageHeight = localFrameConfiguration.ImageSize[1];
+
+            let passPartoutContribution = SetupUtilities.CalculatePasspartoutBorders(localFrameConfiguration.PasspartoutCutoutSize, imageWidth); 
+                      
+            let planeWidth = passPartoutContribution + imageWidth;
+            let planeHeight = passPartoutContribution + imageHeight;   
+        // reject("Error: Invalid URL");
+
+
+        // TESTING EXTRUDE
+              const shape = new THREE.Shape();
+              shape.moveTo(-planeWidth/2, -planeHeight/2);
+              shape.lineTo(-planeWidth/2, planeHeight/2);
+              shape.lineTo(planeWidth/2, planeHeight/2);
+              shape.lineTo(planeWidth/2, -planeHeight/2);
+              shape.moveTo(-planeWidth/2, -planeHeight/2);
+
+              const hole = new THREE.Path();
+              hole.moveTo(-imageWidth/2, -imageHeight/2);
+              hole.lineTo(-imageWidth/2, imageHeight/2);
+              hole.lineTo(imageWidth/2, imageHeight/2);
+              hole.lineTo(imageWidth/2, -imageHeight/2);
+              hole.lineTo(-imageWidth/2, -imageHeight/2);
+
+              shape.holes = [hole];
+
+              const extrudeSettings = { 
+            	depth: 0.005, 
+            	bevelEnabled: false, 
+            	bevelSegments: 0, 
+            	steps: 1, 
+            	bevelSize: 0, 
+            	bevelThickness: 0 
+            };
+
+              const extrudedGeometery = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+              extrudedGeometery.center();
+              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshBasicMaterial({side: THREE.DoubleSide}));
+              scene.add( passPartoutPlane );
+              resolve(true);
+    });       
+    }
+
+    function createScenePromise() {
 
     textureLoader = new THREE.TextureLoader();
     
-    Promise.all([CreateFrame(localFrameConfiguration), CreatePlaneAsynchronously(localFrameConfiguration)])
-    .then(([isFrameReady, isPlaneReady]) => {
+    Promise.all([CreateFrame(), CreatePlaneAsynchronously(), createPasspartout()])
+    .then(([isFrameReady, isPlaneReady, isPassPartoutReady]) => {
        //   console.log('Both Objects created succesfully');
       // Do something with the textures if needed
       
-      if (isFrameReady && isPlaneReady){
+      if (isFrameReady && isPlaneReady && isPassPartoutReady){
         sceneStore.set(scene);
         sceneIsReady.set(true);
       }
