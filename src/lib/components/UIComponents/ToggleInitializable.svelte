@@ -8,6 +8,14 @@
      * @type {boolean}
      */
     export let initialStatus;
+
+
+    /**
+     * @type {string}
+     */
+     export let title;
+
+
   
     onMount(() => {     
         isChecked = initialStatus;
@@ -21,7 +29,7 @@
   </script>
   
   <label>
-     ENABLE FRAME <br>
+     {title} <br>
     <input class="bg-black" type="checkbox" bind:checked={isChecked} />
   </label>
   
