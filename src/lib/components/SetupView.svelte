@@ -33,11 +33,6 @@ let canvasWidth;
 let imageWidth = 10;
 
 /**
-* @type {number[]}
-*/
-let imageScreenSpaceRatios = [0.5, 0.5, 0.7]; // Square, Portrait, Landscape
-
-/**
 * @type {number}
 */
 let imageRatio = 0;
@@ -56,6 +51,11 @@ let imageElement;
      * @type {HTMLDivElement}
      */
 let frameElement;
+
+ /**
+     * @type {HTMLDivElement}
+     */
+let innerPasspartout;
 
  /**
      * @type {HTMLDivElement}
@@ -85,8 +85,15 @@ let canvasWidthStore = getContext('parentWidth');
 
 let isInitialized = false
 
+let imageElementWidthPx;
+let imageElementHeightPx;
 
+let targetPasspartout;
 
+ /**
+     * @type {number}
+     */
+let selectedPasspartoutPercentage;
 
 onMount(async () => {
 
@@ -139,74 +146,120 @@ function CanvasWidthChangeSubscription(){
     
    if (!isInitialized)   return;
  
-    // console.log("Updating HTML ELEMENTS");
     localFrameConfiguration.ImageSrc = currentImageProperties.src;
-                localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
+            
+    localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
 
-                imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
-                            
-                
-                // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
-                let selectedPercentageOfCanvasOccupacy= GetPercentageOfCanvasOccupacy(imageRatio);
+    // imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
+                                        
+    // // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
+    // let selectedPercentageOfCanvasOccupacy= SetupUtilities.GetPercentageOfCanvasOccupacy(imageRatio);
 
-                // We calculate a converion factor meter to pixel
-                if (localFrameConfiguration.FrameIsVisible){
-                    meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /((localFrameConfiguration.ImageSize[0] + (2 * localFrameConfiguration.FrameBorderWidth)));
-                    // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
-                }                
-                else{
-                    meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
-                    // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
-                }
-                
-                // We apply size values to the image html element
-                imageElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
-                imageElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+    // // We calculate a converion factor meter to pixel
+    // if (localFrameConfiguration.FrameIsVisible){
+    //     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /((localFrameConfiguration.ImageSize[0] + (2 * localFrameConfiguration.FrameBorderWidth)));
+    //     // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
+    // }                
+    // else{
+    //     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
+    //     // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
+    // }
+
+    meterToPixelconversionFactor = SetupUtilities.meterToPixelConversion(canvasWidth, 
+    localFrameConfiguration.ImageSize[0], 
+    localFrameConfiguration.ImageSize[1],
+    localFrameConfiguration.FrameIsVisible, 
+    localFrameConfiguration.FrameBorderWidth, 
+    localFrameConfiguration.PasspartoutIsVisible, 
+    localFrameConfiguration.PasspartoutCutoutSize);
+    
+    // We apply size values to the image html element
+
+    imageElementWidthPx = localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor;
+    imageElementHeightPx = localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor;
+
+    imageElement.style.width = ConvertToString(imageElementWidthPx);
+    imageElement.style.height = ConvertToString(imageElementHeightPx);
+
+    // We apply size values to the frame html element
+    frameElement.style.width = ConvertToString(imageElementWidthPx);
+    frameElement.style.height = ConvertToString(imageElementHeightPx);
+
+    // We apply visibility values to the frame html element
+    frameElement.style.visibility = localFrameConfiguration.FrameIsVisible ? "visible" : "hidden";               
+    let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
+
+                                    
+    const borderWidthPxConcat = `${borderWidthPx} ${borderWidthPx} ${borderWidthPx} ${borderWidthPx}`;
+    frameElement.style.borderWidth = borderWidthPxConcat;
+
+    // We set the pass partout configuration
+        if (localFrameConfiguration.PasspartoutIsVisible){
+                    
+        innerPasspartout.style.visibility = "visible";
+      
+        if (localFrameConfiguration.PasspartoutType == SetupUtilities.PasspartoutType.OUTTER){                       
+            // Outter mode
+            innerPasspartout.style.visibility = "hidden";
+            
+            // Make a switch case based on the size type
+            switch(localFrameConfiguration.PasspartoutCutoutSize){
+
+                case SetupUtilities.PasspartoutCutoutSize.NARROW:                                                  
+                selectedPasspartoutPercentage = SetupUtilities.narrowPasspartoutPercentage;
+                    break;
+                case SetupUtilities.PasspartoutCutoutSize.MEDIUM:
+                selectedPasspartoutPercentage = SetupUtilities.mediumPasspartoutPercentage;
+                    break;
+                case SetupUtilities.PasspartoutCutoutSize.WIDE:
+                selectedPasspartoutPercentage = SetupUtilities.widePasspartoutPercentage;
+                    break;
+            }
+
+            targetPasspartout = ((selectedPasspartoutPercentage)/(1 - 2*(selectedPasspartoutPercentage))*imageElementWidthPx);
+
+            frameElement.style.padding = ConvertToString(targetPasspartout);
+
+        }else{
+            // Inner mode
+            frameElement.style.padding = "0px";
+            // Make a switch case based on the size type
+            innerPasspartout.style.borderWidth= "40px";   /* This value controls the pass partout of type inner */
+            innerPasspartout.style.visibility = "visible";
+
+        }
+        }else{
+        innerPasspartout.style.visibility = "hidden";
+        frameElement.style.padding = "0px";
+        }   
+
+    // Code Below is for flat color to be applied in the frame
+    
+    // let color = "#ff00ff";
+    // let lightColor = SetupUtilities.lightenColor(color, 20);
+    // frameElement.style.border= `${borderWidthPx} solid ${color}`;
+    // frameElement.style.borderBottomColor = lightColor;
+    // frameElement.style.borderTopColor = lightColor;
 
 
-                // We apply size values to the frame html element
-                frameElement.style.width = ConvertToString(localFrameConfiguration.ImageSize[0] * meterToPixelconversionFactor);
-                frameElement.style.height = ConvertToString(localFrameConfiguration.ImageSize[1] * meterToPixelconversionFactor);
+    //Code Below is for a Wooden Texture to be applied in the frame
 
-                // We apply visibility values to the frame html element
-                frameElement.style.visibility = localFrameConfiguration.FrameIsVisible ? "visible" : "hidden";               
-                let borderWidthPx = ConvertToString(localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor);
+    const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
+    const tintedImage = document.getElementById('tintedImage');
+    const canvas = document.createElement('canvas');
+    const tint = { r: 238, g: 208, b: 157 };
 
-                                             
-                const borderWidthPxConcat = `${borderWidthPx} ${borderWidthPx} ${borderWidthPx} ${borderWidthPx}`;
-                frameElement.style.borderWidth = borderWidthPxConcat;
-                              
-                 
+    frameElement.style.border= `${borderWidthPx} solid rgba(238, 208, 157, 1)`;
 
-                // Code Below is for flat color to be applied in the frame
-                
-                // let color = "#ff00ff";
-                // let lightColor = SetupUtilities.lightenColor(color, 20);
-                // frameElement.style.border= `${borderWidthPx} solid ${color}`;
-                // frameElement.style.borderBottomColor = lightColor;
-                // frameElement.style.borderTopColor = lightColor;
-
-
-                //Code Below is for a Wooden Texture to be applied in the frame
-
-                const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
-                const tintedImage = document.getElementById('tintedImage');
-                const canvas = document.createElement('canvas');
-                const tint = { r: 238, g: 208, b: 157 };
-
-                frameElement.style.border= `${borderWidthPx} solid rgba(238, 208, 157, 1)`;
-
-                SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
-                    // @ts-ignore
-                    tintedImage.src = tintedImageUrl;
-                    frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
-                    // frameElement.style.borderImageSlice = "fill";
-                    // frameElement.style.borderImageRepeat = "strech";
-                    frameElement.style.borderImageSlice = "200 200";                                 
-              
-                }).catch((err) => {
-                    console.error(err);
-                });
+    SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
+        // @ts-ignore
+        tintedImage.src = tintedImageUrl;
+        frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
+        frameElement.style.borderImageSlice = "200 200";                                 
+    
+    }).catch((err) => {
+        console.error(err);
+    });
  }
 
 /**
@@ -217,25 +270,16 @@ function ConvertToString(numberToConvert){
 }
 
 
-/**
- * @param {number} imageRatio
- */
- function GetPercentageOfCanvasOccupacy(imageRatio){
-    
-    if (imageRatio === 1) return imageScreenSpaceRatios[0];
-    else if (imageRatio < 1) return imageScreenSpaceRatios[1];
-    else if (imageRatio > 1) return imageScreenSpaceRatios[2];
-    else return imageScreenSpaceRatios[0]
-}
+
 
 </script>    
 
 <div class="relative h-full w-full ">
 
     <!-- Declaring Frame Element -->
-    <div bind:this={testBox} class="bg-red-500 testBox">
+    <!-- <div bind:this={testBox} class="bg-red-500 testBox">
         <p>hola</p>
-    </div>
+    </div> -->
 
     <!-- Declaring Image Element -->
     <div bind:this={imageElement} class="bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
@@ -244,6 +288,10 @@ function ConvertToString(numberToConvert){
 
      <!-- Declaring Frame Element -->
     <div bind:this={frameElement} class="frameElement">
+    </div>
+
+     <!-- Declaring Inner Passpartout -->
+     <div bind:this={innerPasspartout} class="innerPasspartout">
     </div>
 
     <img id="tintedImage" style="visibility:hidden">
@@ -261,9 +309,10 @@ function ConvertToString(numberToConvert){
     position: absolute;
     z-index: 2;
     border-radius:2px; 
-    padding: 0px;
+    /* padding: 10px;  This value controls the pass partout of type outter */
     box-sizing: content-box;
-    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);    
+    box-shadow: 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41) inset, 2.9px 5.8px 5.8px hsl(0deg 0% 0% / 0.41);
+    visibility: visible;    
 }
 
 .imageElement{
@@ -271,7 +320,21 @@ function ConvertToString(numberToConvert){
     z-index: 3;
 }
 
-.testBox{
+.innerPasspartout{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 4;
+    width: 150px;
+    height: 100px;
+    /* background-color: blue; */
+    /* border-width: 40px;   This value controls the pass partout of type inner */
+    border-color: rgb(255, 255, 255);
+    /* box-sizing: content-box; */
+}
+
+/* .testBox{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -283,13 +346,13 @@ function ConvertToString(numberToConvert){
     visibility: hidden;
     opacity: 50%;
     background-image: url('/referenceTextures/Oak_512.png');
-}
+} */
 
-.frameImage{
+/* .frameImage{
     visibility: hidden;
     width: 995px;
     height: 995px;
-}
+} */
 </style>
 
 <!-- <button on:click={printHello}>Click me</button> -->

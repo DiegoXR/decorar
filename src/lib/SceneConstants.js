@@ -1,5 +1,8 @@
 // These are values for the Three.JS Scene configuration
 
+
+import * as SetupUtilities from "../lib/SetupUtilities.js"
+
 export const frameInnerOffset = 0.005; // 5cm
 export const frameWallOffset = 0.004; // 4cm
 export const frameDepthMinimalSize = 0.02 // 1cm
@@ -14,6 +17,9 @@ export let startingFrameConfiguration = {
     availableSizes: [
         [0, 0]
     ],
+    PasspartoutIsVisible: false,
+    PasspartoutType: SetupUtilities.PasspartoutType.OUTTER, 
+    PasspartoutCutoutSize : SetupUtilities.PasspartoutCutoutSize.MEDIUM,
 }
 
 export let startingSelectedImage = {
