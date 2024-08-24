@@ -4,8 +4,10 @@
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
     import * as THREEJsConfiguration from "../../../lib/SceneConstants.js";
+    import * as SetupUtilities from "../../../lib/SetupUtilities.js"
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
+    import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
 
     /**
      * @type {boolean}
@@ -17,10 +19,26 @@
      */
     let isFrameVisible;
 
+    /**
+     * @type {boolean}
+     */
+    let isPasspartoutVisible;
+
       /**
      * @type {number[]}
      */
      let selectedImageSize;
+
+
+     /**
+     * @type {string}
+     */
+     let selectedPasspartoutType;
+
+      /**
+     * @type {string}
+     */
+     let selectedPasspartoutCutoutSizeType;
 
       /**
      * @type {number}
@@ -98,7 +116,12 @@
      */
     function handleFrameVisibilityChange(isFrameVisible) {
         localFrameConfiguration.FrameIsVisible = isFrameVisible;
-        frameConfigurationStore.set(localFrameConfiguration);
+        
+        // If Frame is not visible the passPartout disappear by default
+        if (!isFrameVisible)
+         isPasspartoutVisible = false;
+
+        frameConfigurationStore.set(localFrameConfiguration);       
         // console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
 
@@ -154,7 +177,57 @@
         }
     }
 
-    ////////////////////////////////////
+     ////////////////////////////////// UPDATE PASSPARTOUT VISIBILITY
+     $: if (isInitialized) {
+        handlePassPartoutVisibilityChange(isPasspartoutVisible);
+    }
+
+    /**
+     * @param {boolean} isPasspartoutVisible
+     */
+    function handlePassPartoutVisibilityChange(isPasspartoutVisible) {
+        localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
+        
+        // If passPartout is enabled and the frame is not visible, the frame will become visible by default
+        if (isPasspartoutVisible && !isFrameVisible){
+            isPasspartoutVisible = false;
+            return;
+        }
+        
+        frameConfigurationStore.set(localFrameConfiguration);
+    }
+
+     ///////////////////////////////////// UPDATE PASSPARTOUT TYPE
+
+     $: if (isInitialized) {
+        handlePasspartoutTypeChange(selectedPasspartoutType);
+  }
+
+    /**
+     * @param {string} selectedType
+     */
+    function handlePasspartoutTypeChange(selectedType) {
+        if (selectedType != null) {
+            localFrameConfiguration.PasspartoutType = selectedType;
+            frameConfigurationStore.set(localFrameConfiguration);
+        }
+    }
+
+     ///////////////////////////////////// UPDATE PASSPARTOUT CUTOUT SIZE
+
+     $: if (isInitialized) {
+        handlePasspartoutCutoutSizeChange(selectedPasspartoutCutoutSizeType);
+    }
+
+    /**
+     * @param {string} selectedSize
+     */
+    function handlePasspartoutCutoutSizeChange(selectedSize) {
+        if (selectedSize != null) {
+            localFrameConfiguration.PasspartoutCutoutSize = selectedSize;
+            frameConfigurationStore.set(localFrameConfiguration);
+        }
+    }
 
     function DefineDropdownDefaultImageSize() {
         if (
@@ -176,6 +249,16 @@
         }
     }
 
+    /**
+   * @param {{ [s: string]: any; } | ArrayLike<any>} enumType
+   */
+    function ExtractOptionsFromEnum(enumType){
+        // Convert the enum object to an array of key-value pairs
+        const enumDictionnary =  Object.entries(enumType);
+        // Extract the values and return them as an array of strings
+        return enumDictionnary.map(kv => kv[1].toString());
+    }
+
     function DefineFrameBorderWidthInitialSize(){       
         return localFrameConfiguration.FrameBorderWidth === 0 ? THREEJsConfiguration.frameBorderWidthMinimalSize * 100 :  localFrameConfiguration.FrameBorderWidth * 100;
     }
@@ -185,17 +268,38 @@
     }
 </script>
 
-<ToggleInitializable
-    bind:isChecked={isFrameVisible}
-    initialStatus={localFrameConfiguration.FrameIsVisible}
-/>
 
+<p>--------------------</p>
 <p>IMAGE SIZE</p>
 <DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
 />
+
+<br>
+
+<p>--------------------</p>
+<ToggleInitializable
+    bind:isChecked={isFrameVisible}
+    initialStatus={localFrameConfiguration.FrameIsVisible}
+    title="ENABLE FRAME"
+/>
+
 <p>FRAME BORDER WIDTH (cm)</p>
 <SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></SelectorNumberInitializable>
 
 <p>FRAME DEPTH (cm)</p>
 <SelectorNumberInitializable bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()}></SelectorNumberInitializable>
 
+<br>
+
+<p>--------------------</p>
+<ToggleInitializable
+    bind:isChecked={isPasspartoutVisible}
+    initialStatus={localFrameConfiguration.PasspartoutIsVisible}
+    title="ENABLE PASSPARTOUT"
+/>
+
+<!-- <p>PASSPARTOUT TYPE</p> -->
+<!-- <DropdownStringInitializable bind:selectedOption={selectedPasspartoutType} availableOptions = {ExtractOptionsFromEnum(THREEJsConfiguration.PasspartoutType)} defaultOption={localFrameConfiguration.PasspartoutType}/> -->
+<br>
+<p>PASSPARTOUT SIZE</p>
+<DropdownStringInitializable bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}/>

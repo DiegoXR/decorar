@@ -59,7 +59,6 @@
         // Instantiate a exporter
         const exporter = new GLTFExporter();
 
-
         // Ensure all textures are loaded and valid
         scene.traverse((object) => {
             if ( object instanceof THREE.Mesh && object.material) {
