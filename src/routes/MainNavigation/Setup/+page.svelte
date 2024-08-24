@@ -54,7 +54,7 @@
 </script>
 
 <div
-    class="flex flex-wrap bg-red-600 h-[100vh] w-[100vw]"
+    class="flex flex-wrap bg-white h-[100vh] w-[100vw]"
 >
     <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-100">
         <!-- {console.log('HTML Parent section rendered')} -->
@@ -62,8 +62,10 @@
     </div>
        
      <div class="bg-white w-full md:w-1/2 p-4 flex flex-col">      
-        <div class="bg-white w-full h-[50%]"> 
+        <div class="bg-white w-full h-full"> 
              <UiGroup></UiGroup> 
          </div>       
-     </div>         
+     </div> 
+     <div class=" w-full h-[150px]">
+     </div>        
 </div>
