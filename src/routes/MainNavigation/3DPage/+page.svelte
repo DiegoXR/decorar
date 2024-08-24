@@ -35,8 +35,6 @@
         );
     }
 
-    
-
 </script>
 {#if enable3DGeneration}
     <SceneMaker></SceneMaker>
