@@ -116,7 +116,12 @@
      */
     function handleFrameVisibilityChange(isFrameVisible) {
         localFrameConfiguration.FrameIsVisible = isFrameVisible;
-        frameConfigurationStore.set(localFrameConfiguration);
+        
+        // If Frame is not visible the passPartout disappear by default
+        if (!isFrameVisible)
+         isPasspartoutVisible = false;
+
+        frameConfigurationStore.set(localFrameConfiguration);       
         // console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
 
@@ -182,6 +187,13 @@
      */
     function handlePassPartoutVisibilityChange(isPasspartoutVisible) {
         localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
+        
+        // If passPartout is enabled and the frame is not visible, the frame will become visible by default
+        if (isPasspartoutVisible && !isFrameVisible){
+            isPasspartoutVisible = false;
+            return;
+        }
+        
         frameConfigurationStore.set(localFrameConfiguration);
     }
 
@@ -289,5 +301,5 @@
 <!-- <p>PASSPARTOUT TYPE</p> -->
 <!-- <DropdownStringInitializable bind:selectedOption={selectedPasspartoutType} availableOptions = {ExtractOptionsFromEnum(THREEJsConfiguration.PasspartoutType)} defaultOption={localFrameConfiguration.PasspartoutType}/> -->
 <br>
-<p>PASSPARTOUT CUTOUT SIZE</p>
+<p>PASSPARTOUT SIZE</p>
 <DropdownStringInitializable bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}/>

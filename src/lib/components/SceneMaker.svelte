@@ -133,8 +133,11 @@
 
         return new Promise((resolve, reject) => {
 
-        if (!localFrameConfiguration.FrameIsVisible)
+        if (!localFrameConfiguration.FrameIsVisible){
             resolve(true);
+            return;
+        }
+            
             
     // var loader = new THREE.CubeTextureLoader();
     // var textureCube = loader.load([
@@ -224,9 +227,11 @@
             
         return new Promise((resolve, reject) => {
         
-            if (!localFrameConfiguration.PasspartoutIsVisible)
-            resolve(true);
-
+            if (!localFrameConfiguration.PasspartoutIsVisible || !localFrameConfiguration.FrameIsVisible){
+                resolve(true);
+                return;
+            }
+            
             let imageWidth = localFrameConfiguration.ImageSize[0];
             let imageHeight = localFrameConfiguration.ImageSize[1];
 
@@ -234,8 +239,6 @@
                       
             let planeWidth = passPartoutContribution + imageWidth;
             let planeHeight = passPartoutContribution + imageHeight;   
-        // reject("Error: Invalid URL");
-
 
         // TESTING EXTRUDE
               const shape = new THREE.Shape();
@@ -265,7 +268,7 @@
 
               const extrudedGeometery = new THREE.ExtrudeGeometry(shape, extrudeSettings);
               extrudedGeometery.center();
-              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshBasicMaterial({side: THREE.DoubleSide}));
+              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xffffff, side: THREE.DoubleSide}));
               scene.add( passPartoutPlane );
               resolve(true);
     });       
