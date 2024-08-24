@@ -43,7 +43,7 @@ function increaseCount() {
     const far = 50; // Far clipping plane
     const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
     scene.add(camera);
-    camera.position.z = 4;
+    camera.position.z = 5;
 
     // CAMERA
 
@@ -77,7 +77,6 @@ function increaseCount() {
     const ambientLight = new THREE.AmbientLight(0xffffff, 3); // color blanco, intensidad 0.5
     scene.add(ambientLight);
 
-
     // Directional Light
     const color = 0xffffff; // White
     const intensity = 1; // Full intensity
@@ -90,136 +89,104 @@ function increaseCount() {
     const material = new THREE.MeshBasicMaterial({color: 0x576b6b});
     const plane = new THREE.Mesh(geometry, material);
     plane.position.set(0, 0, 0);
-    scene.add(plane);
-
-    // const geometry2 = new THREE.PlaneGeometry(0.5, 1);
-    // const material2 = new THREE.MeshBasicMaterial({color: 0xff0000});
-    // const plane2 = new THREE.Mesh(geometry2, material2);
-    // plane2.position.set(0, 0, 0.02);
-    // scene.add(plane2);
-
-    // Adding grid
-    // const size = 1;
-    // const divisions = 100;
-    // const gridHelper = new THREE.GridHelper( size, divisions, 0x0000ff);
-    // gridHelper.rotateX(Math.PI / 2);
-    // gridHelper.position.set(0, 0, 0.01);   
-    // scene.add( gridHelper );
-
-
-    // const materials = [
-    //   m0
-    // ];
-
+    // scene.add(plane);
 
     ////// CUBE 
-    const geometryCube = new THREE.BoxGeometry(0.3,0.3,0.3); // Parámetros por defecto para un cubo 1x1x1
+    const geometryCube = new THREE.BoxGeometry(5,5,5); // Parámetros por defecto para un cubo 1x1x1
     const materialCube = new THREE.MeshBasicMaterial({ color: 0x00ff00 }); // Material verde básico
-    scene.add(new THREE.Mesh(geometryCube, materialCube)); // Añadir el cubo a la materialCube
+    const ccube = new THREE.Mesh(geometryCube, materialCube)
+    ccube.position.set(0,0,-8.5);
+    scene.add(ccube); // Añadir el cubo a la materialCube
 
-    // TEXTURE AND FRAME
-  // var Cubeloader = new THREE.CubeTextureLoader();
-  //   const frameTexture2 = Cubeloader.load([
-  //           "/referenceTextures/Oak_512.png",
-  //           "/referenceTextures/Oak_512.png",
-  //           "/referenceTextures/Oak_512.png",
-  //           "/referenceTextures/Oak_512.png",
-  //           "/referenceTextures/Oak_512.png",
-  //           "/referenceTextures/Oak_512.png"], // URL of the texture
-  //           () => {
-  //               // frameTexture2.wrapS = THREE.RepeatWrapping;
-  //               // frameTexture2.wrapT = THREE.RepeatWrapping;
-  //               // frameTexture2.repeat.set(4, 1);
+    // TESTING EXTRUDE
+    const shape = new THREE.Shape();
+  shape.moveTo(0, 0);
+  shape.lineTo(0, 5);
+  shape.lineTo(5, 5);
+  shape.lineTo(5, 0);
+  shape.lineTo(0, 0);
+
+  const hole = new THREE.Path();
+  hole.moveTo(0.5, 0.5);
+  hole.lineTo(0.5, 4.5);
+  hole.lineTo(4.5, 4.5);
+  hole.lineTo(4.5, 0.5);
+  hole.lineTo(0.5, 0.5);
+
+  shape.holes = [hole];
+
+  const extrudeSettings = { 
+	depth: 0.005, 
+	bevelEnabled: false, 
+	bevelSegments: 0, 
+	steps: 1, 
+	bevelSize: 0, 
+	bevelThickness: 0 
+};
+
+  const geometry2 = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+  geometry2.center();
+  const mesh = new THREE.Mesh(geometry2, new THREE.MeshNormalMaterial({side: THREE.DoubleSide}));
+  
+  scene.add( mesh );
 
 
-  //               console.log("Sucessfully loaded the cube texture");
-
-  //               let frameMaterial2 = new THREE.MeshPhysicalMaterial({
-  //                   map: frameTexture2,
-  //                   side: THREE.FrontSide,
-  //               });
-
-  //               let materials = [frameMaterial2]; // Ensure
-  //               const innerWidth = 0.5;
-  //               const innerHeight = 1;
-  //               const framewidth = 0.03;
-  //               const frameDepth = 0.0.3;
-  //               let frame = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials);
-
-  //               // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-  //               frame = THREEJsUtilities.repositionMesh(
-  //                   frame,
-  //                   localFrameConfiguration.FrameDepth / 2,
-  //               );
-  //               scene.add(frame);
-  //           },
-  //           undefined,
-  //           (error) => {
-  //               console.error(
-  //                   `An error happened while loading the frame texture in the following path`,
-  //                   error,
-  //               );
-  //               reject(error);
-  //           },
-  //       );
-
-  //     });
 
 
 // // SIMPLIFIED
 
-  var Cubeloader = new THREE.CubeTextureLoader();
-    const frameTexture = Cubeloader.load([
-            "/referenceTextures/Oak_512.png",
-            "/referenceTextures/Oak_512.png",
-            "/referenceTextures/Oak_512.png",
-            "/referenceTextures/Oak_512.png",
-            "/referenceTextures/Oak_512.png",
-            "/referenceTextures/Oak_512.png"], // URL of the texture
+//   var Cubeloader = new THREE.CubeTextureLoader();
+//     const frameTexture = Cubeloader.load([
+//             "/referenceTextures/Oak_512.png",
+//             "/referenceTextures/Oak_512.png",
+//             "/referenceTextures/Oak_512.png",
+//             "/referenceTextures/Oak_512.png",
+//             "/referenceTextures/Oak_512.png",
+//             "/referenceTextures/Oak_512.png"], // URL of the texture
 
 
 // var textureLoader = new THREE.TextureLoader();
 // const frameTexture = textureLoader.load(
 //             "/referenceTextures/Oak_512.png", // URL of the texture
 
-            () => {
-                frameTexture.wrapS = THREE.RepeatWrapping;
-                frameTexture.wrapT = THREE.RepeatWrapping;
-                frameTexture.repeat.set(10, 10);
+            // () => {
+            //     frameTexture.wrapS = THREE.RepeatWrapping;
+            //     frameTexture.wrapT = THREE.RepeatWrapping;
+            //     frameTexture.repeat.set(10, 10);
 
-                let frameMaterial = new THREE.MeshPhysicalMaterial({
-                    map: frameTexture,
-                    side: THREE.FrontSide,
-                });
+            //     let frameMaterial = new THREE.MeshPhysicalMaterial({
+            //         map: frameTexture,
+            //         side: THREE.FrontSide,
+            //     });
 
                 // let frameMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
 
-                let materials = [frameMaterial]; // Ensure
+        //         let materials = [frameMaterial]; // Ensure
 
-                console.log("hey");
-                // REAL FRAME    
-                const innerWidth = 0.5;
-                const innerHeight = 1;
-                const framewidth = 0.03;
-                const frameDepth = 0.03;
-                // @ts-ignore
-                let frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
+        //         console.log("hey");
+        //         // REAL FRAME    
+        //         const innerWidth = 0.5;
+        //         const innerHeight = 1;
+        //         const framewidth = 0.03;
+        //         const frameDepth = 0.03;
+        //         // @ts-ignore
+        //         let frame4 = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials)
 
-                // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
-                // frame4 = THREEJsUtilities.repositionMesh(
-                //     frame4,
-                //     frameDepth.FrameDepth / 2,
-                // );
-                scene.add(frame4);
-            },
-            undefined,
-            (error) => {
-                console.error(
-                    `An error happened while loading the frame texture in the following path`,
-                    error,
-                );
-            },
-        );
+        //         // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+        //         // frame4 = THREEJsUtilities.repositionMesh(
+        //         //     frame4,
+        //         //     frameDepth.FrameDepth / 2,
+        //         // );
+        //         scene.add(frame4);
+        //     },
+        //     undefined,
+        //     (error) => {
+        //         console.error(
+        //             `An error happened while loading the frame texture in the following path`,
+        //             error,
+        //         );
+        //     },
+        // );
     
 
       
@@ -350,3 +317,71 @@ function onKeyUp(event) {
 <button on:click={increaseCount}> Click me </button>
 
 <!-- <DropdownInitializable bind:selectedOption={selectedInnerSize} availableSizes={options} defaultSize={defaultOption}/>  -->
+
+
+<!-- // TEXTURE AND FRAME
+// var Cubeloader = new THREE.CubeTextureLoader();
+//   const frameTexture2 = Cubeloader.load([
+//           "/referenceTextures/Oak_512.png",
+//           "/referenceTextures/Oak_512.png",
+//           "/referenceTextures/Oak_512.png",
+//           "/referenceTextures/Oak_512.png",
+//           "/referenceTextures/Oak_512.png",
+//           "/referenceTextures/Oak_512.png"], // URL of the texture
+//           () => { -->
+<!-- //               // frameTexture2.wrapS = THREE.RepeatWrapping;
+//               // frameTexture2.wrapT = THREE.RepeatWrapping;
+//               // frameTexture2.repeat.set(4, 1);
+
+
+//               console.log("Sucessfully loaded the cube texture");
+
+//               let frameMaterial2 = new THREE.MeshPhysicalMaterial({ -->
+<!-- //                   map: frameTexture2,
+//                   side: THREE.FrontSide,
+//               });
+
+//               let materials = [frameMaterial2]; // Ensure
+//               const innerWidth = 0.5;
+//               const innerHeight = 1;
+//               const framewidth = 0.03;
+//               const frameDepth = 0.0.3;
+//               let frame = SQUAREFRAME.CreateFrameSquare(innerWidth, innerHeight, framewidth, frameDepth, materials);
+
+//               // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
+//               frame = THREEJsUtilities.repositionMesh(
+//                   frame,
+//                   localFrameConfiguration.FrameDepth / 2,
+//               );
+//               scene.add(frame);
+//           },
+//           undefined,
+//           (error) => {
+//               console.error(
+//                   `An error happened while loading the frame texture in the following path`,
+//                   error,
+//               );
+//               reject(error);
+//           },
+//       );
+
+//     }); -->
+
+<!-- // const geometry2 = new THREE.PlaneGeometry(0.5, 1);
+// const material2 = new THREE.MeshBasicMaterial({color: 0xff0000});
+// const plane2 = new THREE.Mesh(geometry2, material2);
+// plane2.position.set(0, 0, 0.02);
+// scene.add(plane2);
+
+// Adding grid
+// const size = 1;
+// const divisions = 100;
+// const gridHelper = new THREE.GridHelper( size, divisions, 0x0000ff);
+// gridHelper.rotateX(Math.PI / 2);
+// gridHelper.position.set(0, 0, 0.01);   
+// scene.add( gridHelper );
+
+
+// const materials = [
+//   m0
+// ]; -->

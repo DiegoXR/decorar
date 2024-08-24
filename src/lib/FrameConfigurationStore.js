@@ -1,6 +1,7 @@
 // This should be the final version
-
 import { writable } from 'svelte/store';
+import * as SceneConstants from  "../lib/SceneConstants.js"; 
+import * as SetupUtilities from "../lib/SetupUtilities.js"
 
 const FrameConfiguration = {
     ImageSrc: "",
@@ -10,7 +11,10 @@ const FrameConfiguration = {
     FrameDepth :0, 
     availableSizes: [
         [0, 0]
-    ],  
+    ],
+    PasspartoutIsVisible: false,
+    PasspartoutType: SetupUtilities.PasspartoutType.OUTTER, 
+    PasspartoutCutoutSize : SetupUtilities.PasspartoutCutoutSize.MEDIUM,  
 }
 
 export const frameConfigurationStore = writable(FrameConfiguration);
