@@ -80,25 +80,21 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
-               
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
         },      
-        {
+         
             author : "christopher James",
             src: "/referenceImages/christopher-james-scheller-WkR5V4gENDw-unsplash.webp",
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                 [0.254,0.356],
-                 [0.005,0.007],
-                 [0.007,0.010],
+                  [0.254,0.356],
                 
             ],
-            defaultSize:  [0.005,0.007],
-        }, 
+            defaultSize: [0.254,0.356],
+            
         {
             author : "Damien Bozzini",
             src: "/referenceImages/damien-bozzini-fIjexR_afi4-unsplash.webp",
@@ -141,11 +137,10 @@
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                 [0.254,0.356],
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
         },  
         {
             author : "Enginakyurt",
@@ -166,10 +161,9 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
         },  
         {
             author : "Siyan Ren",
@@ -202,10 +196,9 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
         },
         {
             author : "Bdna",
@@ -214,10 +207,9 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
 
             },
             {
@@ -227,11 +219,9 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                
             ],
-            defaultSize: [0.005,0.007],
-
+            defaultSize: [0.254,0.356],
             },
             {
             author : "Ren Ran",
@@ -240,10 +230,9 @@
             description: "Square",
             availableSizes: [
                 [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.254,0.356],
 
         },
         {
@@ -252,12 +241,10 @@
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+               [0.254,0.356],
+                
             ],
-            defaultSize: [0.005,0.007],
-
+            defaultSize: [0.254,0.356],
         },
         {
             author : "Enrol Ahmed",
@@ -265,11 +252,11 @@
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.254,0.356],
-                [0.005,0.007],
-                [0.007,0.010],
+                [0.610,0.406],
+                [0.762,0.508],
+                [0.914,0.610],
             ],
-            defaultSize: [0.005,0.007],
+            defaultSize: [0.610,0.406],
 
         },
         {
@@ -278,11 +265,10 @@
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.356,0.406],
-                [0.762,0.508],
-                [0.914,0.610],
+               [0.254,0.356],
+                
             ],
-            defaultSize: [0.356,0.406],
+            defaultSize: [0.254,0.356],
 
         },
          {
@@ -291,11 +277,10 @@
             alt: "alt text",
             description: "Square",
             availableSizes: [
-                [0.356,0.406],
-                [0.762,0.508],
-                [0.914,0.610],
+                [0.254,0.356],
+                
             ],
-            defaultSize: [0.356,0.406],
+            defaultSize: [0.254,0.356],
 
         },
     ];
