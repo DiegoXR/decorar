@@ -84,7 +84,7 @@
             ],
             defaultSize: [0.254,0.356],
         },      
-         
+        {
             author : "christopher James",
             src: "/referenceImages/christopher-james-scheller-WkR5V4gENDw-unsplash.webp",
             alt: "alt text",
@@ -94,7 +94,7 @@
                 
             ],
             defaultSize: [0.254,0.356],
-            
+        },           
         {
             author : "Damien Bozzini",
             src: "/referenceImages/damien-bozzini-fIjexR_afi4-unsplash.webp",
