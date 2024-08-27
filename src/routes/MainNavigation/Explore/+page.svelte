@@ -19,6 +19,18 @@
             defaultSize: [0.6096, 0.762],
         },
         {
+            author : "Puxet",
+            src: "/referenceImages/Puxet.webp",
+            alt: "alt text",
+            description: "Square",
+            availableSizes: [
+                [0.305, 0.305],
+                [0.406, 0.406],
+                [0.508, 0.508],
+            ],
+            defaultSize: [0.305, 0.305],
+        }, 
+        {
             author : "Pexels Steve",
             src: "/referenceImages/pexels-steve-1292241_1.5.webp",
             alt: "alt text",
