@@ -4,6 +4,8 @@
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   import * as SQUAREFRAME from '../../../lib/FrameUtilitiesSquare.js';
   import * as THREEJsUtilities from "../../../lib/ThreeJsUtilities.js";
+//   import { Button } from "$lib/components/ui/button";
+//   import { Button } from "$lib/components/ui/button/index.js";
 
 let moveForward = false;
 let moveBackward = false;
@@ -307,6 +309,8 @@ function onKeyUp(event) {
 </script>
 
 <p>This is the playground page</p>
+
+<!-- <Button>Button</Button> -->
 
 <svelte:head>
   <title>Three.js in SvelteKit</title>
