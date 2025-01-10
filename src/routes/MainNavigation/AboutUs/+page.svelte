@@ -1,3 +1,8 @@
+<script>
+  import Feedback from "$lib/components/Analytics/Feedback.svelte";
+  import { Alert } from 'flowbite-svelte';
+  import { Button } from 'flowbite-svelte';
+</script>
 <section class="bg-gray-900 h-full">
     <div class="container py-8 px-6 mx-auto">
         <p
@@ -32,7 +37,9 @@
         <p class=" text-white">Page version V1.0 (07 July 2024) </p>
     </div>
     <!-- <Feedback></Feedback> -->
+    <Alert>
+      <span class="font-medium">Info alert!</span>
+      Change a few things up and try submitting again.
+    </Alert>
+    <Button>Default</Button>
   </section>
-  <script>
-    import Feedback from "$lib/components/Analytics/Feedback.svelte";
-  </script>
