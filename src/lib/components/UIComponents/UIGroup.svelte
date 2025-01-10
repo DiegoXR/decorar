@@ -8,7 +8,10 @@
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
-    import FB_CustomButtonGroup from "./FB_CustomButtonGroup.svelte";
+    import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
+    import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
+    import {Label, Toast} from 'flowbite-svelte';
+    import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
     /**
      * @type {boolean}
@@ -275,8 +278,21 @@
 
 <FB_CustomButtonGroup></FB_CustomButtonGroup>
 
+
+<div class="flex justify-evenly items-center content-between  mt-4" >
+    <Label for="textarea-id" class="mb-2">Image Size</Label>
+    
+</div>
+
+
+<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
+    <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
+    <FB_Dropdown></FB_Dropdown>
+</Toast>
+
 <p>--------------------</p>
-<p>IMAGE SIZE</p>
+
 <DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
 />
 

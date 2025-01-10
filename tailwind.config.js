@@ -4,7 +4,8 @@ import flowbitePlugin from 'flowbite/plugin';
 export default {
   content: [
     './src/**/*.{html,js,svelte,ts}', // Tu configuración
-    './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}' // Configuración de Flowbite
+    './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}' , // Configuración de Flowbite
+    "./node_modules/flowbite-svelte-icons/**/*.{html,js,svelte,ts}" // Configuración de Flowbite Icons
   ],
   darkMode: 'selector', // Configuración de Flowbite
   theme: {
