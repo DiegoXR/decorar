@@ -8,6 +8,7 @@
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
+    import FB_CustomButtonGroup from "./FB_CustomButtonGroup.svelte";
 
     /**
      * @type {boolean}
@@ -81,7 +82,9 @@
     });
 
     onDestroy(() => {});
-////////////////////////////////////////////////////////////////////
+
+
+    ////////////////////////////////////////////////////////////////////
     function InitialFrameConfigurationSubscription() {
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
@@ -268,6 +271,9 @@
     }
 </script>
 
+
+
+<FB_CustomButtonGroup></FB_CustomButtonGroup>
 
 <p>--------------------</p>
 <p>IMAGE SIZE</p>
