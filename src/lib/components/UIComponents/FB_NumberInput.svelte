@@ -3,17 +3,24 @@
     const min = 1;   // Minimum value for the counter
     const max = 5;   // Maximum value for the counter
 
-    function increment() {
+    function increment(event) {
+        event.preventDefault(); // Prevent Safari zoom behavior
         if (counter < max) counter++;
     }
 
-    function decrement() {
+    function decrement(event) {
+        event.preventDefault(); // Prevent Safari zoom behavior
         if (counter > min) counter--;
     }
 </script>
 
+<style>
+    button {
+        touch-action: manipulation; /* Prevents Safari zooming */
+    }
+</style>
+
 <form class="max-w-xs mx-auto">
-    <!-- <label for="bedrooms-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Choose quantity:</label> -->
     <div class="relative flex items-center max-w-[11rem]">
         <button
             type="button"
@@ -35,6 +42,7 @@
             id="bedrooms-input"
             class="bg-gray-50 border-x-0 border-gray-300 h-11 font-medium text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pb-6 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={counter}
+            readonly
         />
         <div class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
             <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -58,5 +66,4 @@
             </svg>
         </button>
     </div>
-    <!-- <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Please select the number of bedrooms.</p> -->
 </form>
