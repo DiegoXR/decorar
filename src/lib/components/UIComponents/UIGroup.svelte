@@ -11,8 +11,11 @@
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
     import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
     import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
+    import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
+
+
 
     /**
      * @type {boolean}
@@ -280,34 +283,57 @@
 <FB_CustomButtonGroup></FB_CustomButtonGroup>
 
 
-<div class="flex justify-evenly items-center content-between  mt-4" >
-    <Label for="textarea-id" class="mb-2">Image Size</Label>
-    
+<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
+    <Toast dismissable={false}>
+        
+        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
+         <div class="flex items-center content-between justify-evenly">
+            <div class="flex flex-col justify-evenly items-center content-between ">
+                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <p>Image</p>
+            </div>         
+            <FB_NumberInput></FB_NumberInput>
+         </div>
+    </Toast>    
 </div>
 
+<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
+    <Toast dismissable={false}>
+        
+        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
+         <div class="flex items-center content-between justify-evenly">
+            <div class="flex flex-col justify-evenly items-center content-between ">
+                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <p>Frame</p>
+            </div>
+            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
+                <FB_Toggle></FB_Toggle> 
+                <FB_NumberInput></FB_NumberInput>
+                <FB_NumberInput></FB_NumberInput>
+            </div>           
+         </div>
+    </Toast>    
+</div>
 
-<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
-    <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
-    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
-    <!-- <FB_Dropdown></FB_Dropdown> -->
-     <FB_NumberInput></FB_NumberInput>
-</Toast>
-
-<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
-    <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
-    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
-    <!-- <FB_Dropdown></FB_Dropdown> -->
-     <FB_NumberInput></FB_NumberInput>
-</Toast>
-
-<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
-    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
-    <!-- <FB_Dropdown></FB_Dropdown> -->
-     <FB_NumberInput></FB_NumberInput>
-     <FB_NumberInput></FB_NumberInput>
-</Toast>
-
-
+<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
+    <Toast dismissable={false}>
+        
+        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
+         <div class="flex items-center content-between justify-evenly">
+            <div class="flex flex-col justify-evenly items-center content-between ">
+                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <p>Pass</p>
+            </div>
+            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
+                <FB_Toggle></FB_Toggle> 
+                <FB_NumberInput></FB_NumberInput>
+            </div>           
+         </div>
+    </Toast>    
+</div>
 
 <p>--------------------</p>
 
