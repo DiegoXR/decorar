@@ -20,7 +20,7 @@
     }
 </style>
 
-<form class="max-w-xs mx-auto">
+<form class="max-w-xs">
     <div class="relative flex items-center max-w-[11rem]">
         <button
             type="button"
@@ -45,10 +45,10 @@
             readonly
         />
         <div class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
-            <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+            <!-- <svg class="w-2.5 h-2.5 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8v10a1 1 0 0 0 1 1h4v-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5h4a1 1 0 0 0 1-1V8M1 10l9-9 9 9"/>
-            </svg>
-            <span>Image</span>
+            </svg> -->
+            <span>Size</span>
         </div>
         <button
             type="button"
