@@ -7,13 +7,14 @@
       alert('Clicked on: ' + e.target);
     };
   </script>
-  
-  <Button>Dropdown button<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" /></Button>
-  <Dropdown>
-    <!-- <DropdownItem href="/link" on:click={handleClick}>Rendered as link</DropdownItem>
-    <DropdownItem on:click={handleClick}>Rendered as button</DropdownItem> -->
-    <DropdownItem>30 cm X  40 cm</DropdownItem>
-    <DropdownItem>30 cm X  40 cm</DropdownItem>
-    <DropdownItem>30 cm X  40 cm</DropdownItem>
-    <DropdownItem>30 cm X  40 cm</DropdownItem>
-  </Dropdown>
+
+    <Button class="sizes" size="xs">
+      Image Size<ChevronDownOutline class="w-6 h-6 ms-2 text-white dark:text-white" />
+    </Button>
+    <Dropdown triggeredBy=".sizes">
+      <DropdownItem>30 cm X  40 cm</DropdownItem>
+      <DropdownItem>30 cm X  40 cm</DropdownItem>
+      <DropdownItem>30 cm X  40 cm</DropdownItem>
+      <DropdownItem>30 cm X  40 cm</DropdownItem>
+    </Dropdown>
+
