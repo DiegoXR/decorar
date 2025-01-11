@@ -10,6 +10,7 @@
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
     import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
+    import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
@@ -288,8 +289,25 @@
 <Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
     <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
     <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
-    <FB_Dropdown></FB_Dropdown>
+    <!-- <FB_Dropdown></FB_Dropdown> -->
+     <FB_NumberInput></FB_NumberInput>
 </Toast>
+
+<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
+    <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
+    <!-- <FB_Dropdown></FB_Dropdown> -->
+     <FB_NumberInput></FB_NumberInput>
+</Toast>
+
+<Toast dismissable={false} contentClass="flex space-x-10 rtl:space-x-reverse divide-x rtl:divide-x-reverse divide-gray-200 dark:divide-gray-700">
+    <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->
+    <!-- <FB_Dropdown></FB_Dropdown> -->
+     <FB_NumberInput></FB_NumberInput>
+     <FB_NumberInput></FB_NumberInput>
+</Toast>
+
+
 
 <p>--------------------</p>
 
