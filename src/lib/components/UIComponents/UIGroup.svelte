@@ -294,7 +294,6 @@
                 <p>Image</p>
             </div> 
             <FB_Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></FB_Dropdown>                   
-            <!-- <FB_NumberInput></FB_NumberInput> -->
          </div>
     </Toast>    
 </div>
@@ -312,8 +311,8 @@
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
                 
-                <FB_NumberInput></FB_NumberInput>
-                <FB_NumberInput></FB_NumberInput>
+                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></FB_NumberInput>
+                <!-- <FB_NumberInput></FB_NumberInput> -->
             </div>           
          </div>
     </Toast>    
@@ -337,10 +336,10 @@
     </Toast>    
 </div>
 
-<p>--------------------</p>
+<!-- <p>--------------------</p>
 
 <DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
-/>
+/> -->
 
 <br>
 

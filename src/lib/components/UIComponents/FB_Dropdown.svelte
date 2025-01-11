@@ -32,14 +32,6 @@
       selectOptionInitial(defaultSize);
       // console.log("Mounting DropDown");
     });
-  
-  
-  //   const selectOption = (/** @type {MouseEvent} */ e, /** @type {string} */ value) => {
-  //   e.preventDefault(); // Prevent default behavior
-  //   selectedText = value; // Update the button text with the selected value
-  //   dropdownOpen = false; // Close the dropdown
-  //   console.log(value);
-  // };
 
   /**
      * @param {number[]} option
