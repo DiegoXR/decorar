@@ -292,8 +292,9 @@
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Image</p>
-            </div>         
-            <FB_NumberInput></FB_NumberInput>
+            </div> 
+            <FB_Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></FB_Dropdown>                   
+            <!-- <FB_NumberInput></FB_NumberInput> -->
          </div>
     </Toast>    
 </div>
@@ -307,9 +308,10 @@
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Frame</p>
+                <FB_Toggle></FB_Toggle> 
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
-                <FB_Toggle></FB_Toggle> 
+                
                 <FB_NumberInput></FB_NumberInput>
                 <FB_NumberInput></FB_NumberInput>
             </div>           
@@ -326,10 +328,10 @@
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Pass</p>
-            </div>
-            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
                 <FB_Toggle></FB_Toggle> 
-                <FB_NumberInput></FB_NumberInput>
+            </div>
+            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
+                <!-- <FB_Dropdown></FB_Dropdown>   -->
             </div>           
          </div>
     </Toast>    
