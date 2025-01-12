@@ -283,7 +283,7 @@
 <FB_CustomButtonGroup></FB_CustomButtonGroup>
 
 
-<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+<div class="flex flex-col justify-evenly items-center content-between mt-4" >
     <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
     <Toast dismissable={false}>
         
@@ -307,13 +307,12 @@
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Frame</p>
-                <FB_Toggle></FB_Toggle> 
+                <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible}></FB_Toggle>
             </div>
-            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
-                
-                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></FB_NumberInput>
-                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></FB_NumberInput>
-                <!-- <FB_NumberInput></FB_NumberInput> -->
+            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
+                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()} label = {"Width"}></FB_NumberInput>
+                <FB_NumberInput bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()} label = {"Depth"}></FB_NumberInput>
+
             </div>           
          </div>
     </Toast>    
@@ -328,7 +327,7 @@
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Pass</p>
-                <FB_Toggle></FB_Toggle> 
+                <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible}></FB_Toggle>
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
                 <!-- <FB_Dropdown></FB_Dropdown>   -->
@@ -336,35 +335,6 @@
          </div>
     </Toast>    
 </div>
-
-<!-- <p>--------------------</p>
-
-<DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
-/> -->
-
-<br>
-
-<p>--------------------</p>
-<ToggleInitializable
-    bind:isChecked={isFrameVisible}
-    initialStatus={localFrameConfiguration.FrameIsVisible}
-    title="ENABLE FRAME"
-/>
-
-<p>FRAME BORDER WIDTH (cm)</p>
-<SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></SelectorNumberInitializable>
-
-<p>FRAME DEPTH (cm)</p>
-<SelectorNumberInitializable bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()}></SelectorNumberInitializable>
-
-<br>
-
-<p>--------------------</p>
-<ToggleInitializable
-    bind:isChecked={isPasspartoutVisible}
-    initialStatus={localFrameConfiguration.PasspartoutIsVisible}
-    title="ENABLE PASSPARTOUT"
-/>
 
 <!-- <p>PASSPARTOUT TYPE</p> -->
 <!-- <DropdownStringInitializable bind:selectedOption={selectedPasspartoutType} availableOptions = {ExtractOptionsFromEnum(THREEJsConfiguration.PasspartoutType)} defaultOption={localFrameConfiguration.PasspartoutType}/> -->
