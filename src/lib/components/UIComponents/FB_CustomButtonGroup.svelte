@@ -8,7 +8,6 @@
   
     const handleClick = (/** @type {string} */ button) => {
       selectedButton = button;
-      console.log('Selected Button:', selectedButton); // For debugging
     };
   </script>
 

@@ -312,6 +312,7 @@
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">
                 
                 <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></FB_NumberInput>
+                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></FB_NumberInput>
                 <!-- <FB_NumberInput></FB_NumberInput> -->
             </div>           
          </div>
