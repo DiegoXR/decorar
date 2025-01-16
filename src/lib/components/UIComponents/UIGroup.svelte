@@ -287,8 +287,8 @@
 
 <div class="flex flex-col justify-evenly items-center content-between mt-4" >
     <Toast dismissable={false}>    
-         <div class="flex content-between justify-start ml-5 gap-14">
-            <div class="flex flex-col justify-evenly items-center content-between">
+         <div class="flex content-between justify-start ml-5 gap-16">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Image</p>
             </div> 
@@ -301,7 +301,7 @@
     <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
     <Toast dismissable={false}>           
          <div class="flex content-between justify-start ml-5 gap-4">
-            <div class="flex flex-col justify-evenly items-center content-between ">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Frame</p>
                 <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible}></FB_Toggle>
@@ -315,12 +315,13 @@
     </Toast>    
 </div>
 
+{#if isFrameVisible}
 <div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
     <Toast dismissable={false}>    
-         <div class="flex content-between justify-start ml-5 gap-20">
-            <div class="flex flex-col justify-evenly items-center content-between ">
+         <div class="flex content-between justify-start ml-1 gap-16">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
-                <p>Pass</p>
+                <p>Passepartout</p>
                 <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible}></FB_Toggle>
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
@@ -329,3 +330,4 @@
          </div>
     </Toast>    
 </div>
+{/if}

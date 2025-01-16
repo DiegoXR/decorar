@@ -56,7 +56,7 @@
 <div
     class="flex flex-wrap bg-white h-[100vh] w-[100vw]"
 >
-    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-100">
+    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-white">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>
