@@ -14,13 +14,13 @@
   <div class="flex justify-center items-center">
 
     <ButtonGroup>
-      <Button outline color="dark" on:click={() => handleClick('A')}  checked = {selectedButton === 'A' }>
+      <Button  outline color="dark" on:click={() => handleClick('A')}  checked = {selectedButton === 'A' }>
         Poster
       </Button>
-      <Button outline color="dark" on:click={() => handleClick('B')} checked = {selectedButton === 'B' }>
+      <Button disabled  outline color="dark" checked = {true}>
         Canvas
       </Button>
-      <Button outline color="dark" on:click={() => handleClick('C')} checked = {selectedButton === 'C' }>
+      <Button disabled  outline color="dark" checked = {true}>
         Glass
       </Button>
     </ButtonGroup>

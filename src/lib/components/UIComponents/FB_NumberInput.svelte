@@ -79,12 +79,16 @@
     button {
         touch-action: manipulation; /* Prevents Safari zooming */
     }
+
+    input {
+      font-size: 16px; /* Ensure the font size is at least 16px to prevent Safari zooming */
+    }
 </style>
 
 <div class="flex items-center content-between justify-evenly  gap-2">
     <span>{label}</span>
     <form class="max-w-xs">
-        <div class="relative flex items-center max-w-[8rem]">
+        <div class="relative flex items-center max-w-[9rem]">
             <button
                 type="button"
                 on:click={decrement}
@@ -132,7 +136,7 @@
         </div>      
     </form>
     
-</div>   
+</div>  
 
 
 
