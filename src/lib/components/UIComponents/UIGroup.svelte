@@ -12,6 +12,8 @@
     import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
     import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
     import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
+    import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
+  
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
 
@@ -284,12 +286,9 @@
 
 
 <div class="flex flex-col justify-evenly items-center content-between mt-4" >
-    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
-    <Toast dismissable={false}>
-        
-        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
-         <div class="flex items-center content-between justify-evenly">
-            <div class="flex flex-col justify-evenly items-center content-between ">
+    <Toast dismissable={false}>    
+         <div class="flex content-between justify-start ml-5 gap-14">
+            <div class="flex flex-col justify-evenly items-center content-between">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Image</p>
             </div> 
@@ -300,16 +299,14 @@
 
 <div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
     <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
-    <Toast dismissable={false}>
-        
-        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
-         <div class="flex items-center content-between justify-evenly">
+    <Toast dismissable={false}>           
+         <div class="flex content-between justify-start ml-5 gap-4">
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Frame</p>
                 <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible}></FB_Toggle>
             </div>
-            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
+            <div class=" flex flex-col items-center content-between justify-evenly gap-1">              
                 <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()} label = {"Width"}></FB_NumberInput>
                 <FB_NumberInput bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()} label = {"Depth"}></FB_NumberInput>
 
@@ -319,25 +316,16 @@
 </div>
 
 <div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
-    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
-    <Toast dismissable={false}>
-        
-        <!-- <div class="ps-4 text-sm font-normal">Image Size.</div> -->     
-         <div class="flex items-center content-between justify-evenly">
+    <Toast dismissable={false}>    
+         <div class="flex content-between justify-start ml-5 gap-20">
             <div class="flex flex-col justify-evenly items-center content-between ">
                 <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
                 <p>Pass</p>
                 <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible}></FB_Toggle>
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
-                <!-- <FB_Dropdown></FB_Dropdown>   -->
+                 <FB_PasspartoutDropdown isActive = {isPasspartoutVisible}  bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}></FB_PasspartoutDropdown>
             </div>           
          </div>
     </Toast>    
 </div>
-
-<!-- <p>PASSPARTOUT TYPE</p> -->
-<!-- <DropdownStringInitializable bind:selectedOption={selectedPasspartoutType} availableOptions = {ExtractOptionsFromEnum(THREEJsConfiguration.PasspartoutType)} defaultOption={localFrameConfiguration.PasspartoutType}/> -->
-<br>
-<p>PASSPARTOUT SIZE</p>
-<DropdownStringInitializable bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}/>
