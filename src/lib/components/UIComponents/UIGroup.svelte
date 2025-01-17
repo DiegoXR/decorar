@@ -98,6 +98,8 @@
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
+
+                console.log( "mira Diego" +  localFrameConfiguration.PasspartoutIsVisible);
                 // console.log(
                 //     `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
                 // );
@@ -200,7 +202,7 @@
      */
     function handlePassPartoutVisibilityChange(isPasspartoutVisible) {
         
-        localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
+        
         
         // If passPartout is enabled and the frame is not visible, the frame will become visible by default
         // if (isPasspartoutVisible && !isFrameVisible){
@@ -208,9 +210,13 @@
         //     //frameConfigurationStore.set(localFrameConfiguration);
         //     return;
         // }
+        if (isPasspartoutVisible != undefined){
+
+            localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
+            console.log("Passpartout is :" + isPasspartoutVisible)
+            frameConfigurationStore.set(localFrameConfiguration);
+        }
         
-        console.log("Passpartout is :" + isFrameVisible)
-        frameConfigurationStore.set(localFrameConfiguration);
     }
 
      ///////////////////////////////////// UPDATE PASSPARTOUT CUTOUT SIZE
@@ -292,7 +298,7 @@
             <div class="flex flex-col justify-evenly items-center content-between gap-2">
                 <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
                 <p>Frame</p>
-                <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible}></FB_Toggle>
+                <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible} id = a></FB_Toggle>
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-1">              
                 <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()} label = {"Width"}></FB_NumberInput>
@@ -310,7 +316,7 @@
             <div class="flex flex-col justify-evenly items-center content-between gap-2">
                 <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
                 <p>Passepartout</p>
-                <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible}></FB_Toggle>
+                <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible} id = b></FB_Toggle>
             </div>
             <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
                  <FB_PasspartoutDropdown isActive = {isPasspartoutVisible}  bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}></FB_PasspartoutDropdown>
