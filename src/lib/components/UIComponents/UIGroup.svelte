@@ -13,9 +13,9 @@
     import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
     import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
     import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
-  
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
+    import FrameIcon from "../IconComponents/FrameIcon.svelte";
 
 
 
@@ -133,6 +133,7 @@
         if (!isFrameVisible)
          isPasspartoutVisible = false;
 
+        
         frameConfigurationStore.set(localFrameConfiguration);       
         // console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
@@ -198,31 +199,18 @@
      * @param {boolean} isPasspartoutVisible
      */
     function handlePassPartoutVisibilityChange(isPasspartoutVisible) {
+        
         localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
         
         // If passPartout is enabled and the frame is not visible, the frame will become visible by default
-        if (isPasspartoutVisible && !isFrameVisible){
-            isPasspartoutVisible = false;
-            return;
-        }
+        // if (isPasspartoutVisible && !isFrameVisible){
+        //     isPasspartoutVisible = false;
+        //     //frameConfigurationStore.set(localFrameConfiguration);
+        //     return;
+        // }
         
+        console.log("Passpartout is :" + isFrameVisible)
         frameConfigurationStore.set(localFrameConfiguration);
-    }
-
-     ///////////////////////////////////// UPDATE PASSPARTOUT TYPE
-
-     $: if (isInitialized) {
-        handlePasspartoutTypeChange(selectedPasspartoutType);
-  }
-
-    /**
-     * @param {string} selectedType
-     */
-    function handlePasspartoutTypeChange(selectedType) {
-        if (selectedType != null) {
-            localFrameConfiguration.PasspartoutType = selectedType;
-            frameConfigurationStore.set(localFrameConfiguration);
-        }
     }
 
      ///////////////////////////////////// UPDATE PASSPARTOUT CUTOUT SIZE
@@ -289,7 +277,7 @@
     <Toast dismissable={false}>    
          <div class="flex content-between justify-start ml-5 gap-16">
             <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
                 <p>Image</p>
             </div> 
             <FB_Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></FB_Dropdown>                   
@@ -302,7 +290,7 @@
     <Toast dismissable={false}>           
          <div class="flex content-between justify-start ml-5 gap-4">
             <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
                 <p>Frame</p>
                 <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible}></FB_Toggle>
             </div>
@@ -320,7 +308,7 @@
     <Toast dismissable={false}>    
          <div class="flex content-between justify-start ml-1 gap-16">
             <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <PaperPlaneOutline class="w-5 h-5 text-primary-600 dark:text-primary-500 rotate-45" />
+                <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
                 <p>Passepartout</p>
                 <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible}></FB_Toggle>
             </div>
