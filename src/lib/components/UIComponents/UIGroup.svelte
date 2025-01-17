@@ -98,11 +98,6 @@
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-
-                console.log( "mira Diego" +  localFrameConfiguration.PasspartoutIsVisible);
-                // console.log(
-                //     `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
-                // );
              },
         );
 
@@ -213,7 +208,6 @@
         if (isPasspartoutVisible != undefined){
 
             localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
-            console.log("Passpartout is :" + isPasspartoutVisible)
             frameConfigurationStore.set(localFrameConfiguration);
         }
         
