@@ -8,6 +8,16 @@
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
+    import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
+    import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
+    import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
+    import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
+    import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
+    import {Label, Toast} from 'flowbite-svelte';
+    import { PaperPlaneOutline } from 'flowbite-svelte-icons';
+    import FrameIcon from "../IconComponents/FrameIcon.svelte";
+
+
 
     /**
      * @type {boolean}
@@ -81,14 +91,13 @@
     });
 
     onDestroy(() => {});
-////////////////////////////////////////////////////////////////////
+
+
+    ////////////////////////////////////////////////////////////////////
     function InitialFrameConfigurationSubscription() {
         FrameConfigurationUnsubscription = frameConfigurationStore.subscribe(
             (value) => {
                 localFrameConfiguration = value;
-                // console.log(
-                //     `UI Group says that the current Depth  : ${localFrameConfiguration.FrameDepth}`
-                // );
              },
         );
 
@@ -121,6 +130,7 @@
         if (!isFrameVisible)
          isPasspartoutVisible = false;
 
+        
         frameConfigurationStore.set(localFrameConfiguration);       
         // console.log(`Frame Depyh is : ${localFrameConfiguration.FrameDepth}`);
     }
@@ -186,31 +196,21 @@
      * @param {boolean} isPasspartoutVisible
      */
     function handlePassPartoutVisibilityChange(isPasspartoutVisible) {
-        localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
+        
+        
         
         // If passPartout is enabled and the frame is not visible, the frame will become visible by default
-        if (isPasspartoutVisible && !isFrameVisible){
-            isPasspartoutVisible = false;
-            return;
-        }
-        
-        frameConfigurationStore.set(localFrameConfiguration);
-    }
+        // if (isPasspartoutVisible && !isFrameVisible){
+        //     isPasspartoutVisible = false;
+        //     //frameConfigurationStore.set(localFrameConfiguration);
+        //     return;
+        // }
+        if (isPasspartoutVisible != undefined){
 
-     ///////////////////////////////////// UPDATE PASSPARTOUT TYPE
-
-     $: if (isInitialized) {
-        handlePasspartoutTypeChange(selectedPasspartoutType);
-  }
-
-    /**
-     * @param {string} selectedType
-     */
-    function handlePasspartoutTypeChange(selectedType) {
-        if (selectedType != null) {
-            localFrameConfiguration.PasspartoutType = selectedType;
+            localFrameConfiguration.PasspartoutIsVisible = isPasspartoutVisible;
             frameConfigurationStore.set(localFrameConfiguration);
         }
+        
     }
 
      ///////////////////////////////////// UPDATE PASSPARTOUT CUTOUT SIZE
@@ -269,37 +269,53 @@
 </script>
 
 
-<p>--------------------</p>
-<p>IMAGE SIZE</p>
-<DropdownInitializable bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()}
-/>
 
-<br>
+<FB_CustomButtonGroup></FB_CustomButtonGroup>
 
-<p>--------------------</p>
-<ToggleInitializable
-    bind:isChecked={isFrameVisible}
-    initialStatus={localFrameConfiguration.FrameIsVisible}
-    title="ENABLE FRAME"
-/>
 
-<p>FRAME BORDER WIDTH (cm)</p>
-<SelectorNumberInitializable bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()}></SelectorNumberInitializable>
+<div class="flex flex-col justify-evenly items-center content-between mt-4" >
+    <Toast dismissable={false}>    
+         <div class="flex content-between justify-start ml-5 gap-16">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
+                <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+                <p>Image</p>
+            </div> 
+            <FB_Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></FB_Dropdown>                   
+         </div>
+    </Toast>    
+</div>
 
-<p>FRAME DEPTH (cm)</p>
-<SelectorNumberInitializable bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()}></SelectorNumberInitializable>
+<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
+    <Toast dismissable={false}>           
+         <div class="flex content-between justify-start ml-5 gap-4">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
+                <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
+                <p>Frame</p>
+                <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible} id = a></FB_Toggle>
+            </div>
+            <div class=" flex flex-col items-center content-between justify-evenly gap-1">              
+                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()} label = {"Width"}></FB_NumberInput>
+                <FB_NumberInput bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()} label = {"Depth"}></FB_NumberInput>
 
-<br>
+            </div>           
+         </div>
+    </Toast>    
+</div>
 
-<p>--------------------</p>
-<ToggleInitializable
-    bind:isChecked={isPasspartoutVisible}
-    initialStatus={localFrameConfiguration.PasspartoutIsVisible}
-    title="ENABLE PASSPARTOUT"
-/>
-
-<!-- <p>PASSPARTOUT TYPE</p> -->
-<!-- <DropdownStringInitializable bind:selectedOption={selectedPasspartoutType} availableOptions = {ExtractOptionsFromEnum(THREEJsConfiguration.PasspartoutType)} defaultOption={localFrameConfiguration.PasspartoutType}/> -->
-<br>
-<p>PASSPARTOUT SIZE</p>
-<DropdownStringInitializable bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}/>
+{#if isFrameVisible}
+<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
+    <Toast dismissable={false}>    
+         <div class="flex content-between justify-start ml-1 gap-16">
+            <div class="flex flex-col justify-evenly items-center content-between gap-2">
+                <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
+                <p>Passepartout</p>
+                <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible} id = b></FB_Toggle>
+            </div>
+            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
+                 <FB_PasspartoutDropdown isActive = {isPasspartoutVisible}  bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}></FB_PasspartoutDropdown>
+            </div>           
+         </div>
+    </Toast>    
+</div>
+{/if}

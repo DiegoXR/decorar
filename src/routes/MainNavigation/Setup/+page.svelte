@@ -36,15 +36,6 @@
         window.addEventListener("resize", UpdateWidth);
     }
 
-    // function GetInitialWidth(){
-    //     // canvasWidthStore.set(window.innerWidth);
-        
-    //     if (parentElement != null) {
-    //         canvasWidthStore.set(parentElement.clientWidth);
-    //         console.log("width sent to store FIRST TIME");
-    //    }
-    // }
-
     function UpdateWidth() {
         if (parentElement != null) {
             canvasWidthStore.set(parentElement.clientWidth);
@@ -56,7 +47,7 @@
 <div
     class="flex flex-wrap bg-white h-[100vh] w-[100vw]"
 >
-    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col bg-gray-100">
+    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col h-1/2">
         <!-- {console.log('HTML Parent section rendered')} -->
         <SetupView></SetupView>
     </div>

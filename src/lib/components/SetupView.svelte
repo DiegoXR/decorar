@@ -150,21 +150,6 @@ function CanvasWidthChangeSubscription(){
             
     localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
 
-    // imageRatio = localFrameConfiguration.ImageSize[0]/localFrameConfiguration.ImageSize[1];
-                                        
-    // // Based on the image ratio, we determinate the default space of the canvas that will occupy the image html element.
-    // let selectedPercentageOfCanvasOccupacy= SetupUtilities.GetPercentageOfCanvasOccupacy(imageRatio);
-
-    // // We calculate a converion factor meter to pixel
-    // if (localFrameConfiguration.FrameIsVisible){
-    //     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /((localFrameConfiguration.ImageSize[0] + (2 * localFrameConfiguration.FrameBorderWidth)));
-    //     // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
-    // }                
-    // else{
-    //     meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) /localFrameConfiguration.ImageSize[0];
-    //     // console.log(`MY CONVERSION IS : ${meterToPixelconversionFactor}:`);
-    // }
-
     meterToPixelconversionFactor = SetupUtilities.meterToPixelConversion(canvasWidth, 
     localFrameConfiguration.ImageSize[0], 
     localFrameConfiguration.ImageSize[1],
@@ -282,7 +267,7 @@ function ConvertToString(numberToConvert){
     </div> -->
 
     <!-- Declaring Image Element -->
-    <div bind:this={imageElement} class="bg-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
+    <div bind:this={imageElement} class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
         <img src={currentImageProperties.src} alt="Description of the image" class="w-full h-full object-cover">
     </div>
 
