@@ -8,17 +8,26 @@
 </script>
 
 <div
-    class=" fixed w-full flex flex-row items-center justify-center bg-white h-[10vh] z-10"
+    class=" fixed w-full flex flex-row items-center justify-around bg-white h-[10vh] z-10"
 >
+
+    <div>decorar.space</div>
+
     <div class="h-[35px] w-[35px]">
         <button class=" h-auto w-auto" on:click={GotoHomePage}>
             <img
-                src="/CompanyLogoV2.svg"
+                src="/CompanyLogo_V3.webp"
                 alt="CompanyLogo"
                 class="h-auto w-auto"
             />
         </button>
     </div>
+
+    <a href="/MainNavigation/AboutUs" class="rounded  py-3 px-2 text-black">About Us</a>
+
+    <h1 class="font-poppins font-medium">Poppins</h1>
+    <h1 class="font-poppins font-regular text-sm">Poppins</h1>
+
     <!-- <div class="h-[30px] w-[50px]">V3.7 July 7</div> -->
 
     <!-- <div class="h-[24px] w-[24px] mr-5">
