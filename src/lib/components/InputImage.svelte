@@ -129,7 +129,7 @@
 <div class="bg-white w-full flex flex-row items-center justify-center">
   <label
     for="input-file"
-    class="text-white font-bold py-2 px-4 rounded-full bg-gray-900 ml-auto mr-auto"
+    class="text-white font-poppins font-regular text-xs py-2 px-4 rounded-full bg-black ml-auto mr-auto"
     >Upload your Image</label
   >
   <input
@@ -139,4 +139,8 @@
     class="hidden"
     on:change={handleFileChange}
   />
+
+  <!-- <h1 class="text-black font-poppins font-regular text-sm">Upload your image</h1>
+  <h1 class="text-black font-poppins font-regular text-xs">Upload your image</h1>
+  <h1 class="text-black font-poppins font-medium text-sm">Upload your image</h1> -->
 </div>
