@@ -17,7 +17,18 @@
                 [0.6096, 0.762],
             ],
             defaultSize: [0.6096, 0.762],
-        },
+        }
+        ,
+        {
+            author : "Sinddy",
+            src: "/referenceImages/Minimalism.webp",
+            alt: "alt text",
+            description: "x",
+            availableSizes: [
+            ],
+            defaultSize: [, ],
+        }
+        ,
         {
             author : "Puxet",
             src: "/referenceImages/Puxet.webp",

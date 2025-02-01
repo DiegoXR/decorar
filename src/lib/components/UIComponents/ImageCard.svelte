@@ -5,6 +5,7 @@
     import { currentSelectedImageStore } from '../../CurrentSelectedImageStore.js';
     import { goto } from "$app/navigation";
     import HeartIcon from "../IconComponents/HeartIcon.svelte";
+    import { getSupportedSizes } from "../../FrameSizesDataSet.js";
    
      /**
      * @type {{ 
@@ -21,6 +22,8 @@
     export let image;
     let browserWidth;
     let targetImageContainerHeight;
+    let imageWidth;
+    let imageHeight;
 
     onMount(() => {
         browserWidth = window.innerWidth;
@@ -30,8 +33,24 @@
     });
 
     function goToCustomize() {
+
         currentSelectedImageStore.set(image);
+
         goto("/MainNavigation/Setup");
+    }
+
+    function handleImageLoad(event) {
+        const img = event.target;
+        imageWidth = img.naturalWidth;
+        imageHeight = img.naturalHeight;
+        // console.log(`Image Size: ${imageWidth} x ${imageHeight}`);      
+        
+        // If the image predefined in the gallery does not have available sizes, we calculate the supported sizes
+        // automatically the same way we do it by the image provided by the user from its personal phone gallery
+        if (image.availableSizes.length === 0){
+            image.availableSizes = getSupportedSizes(imageWidth / imageHeight);
+            image.defaultSize = image.availableSizes[0];  
+        }            
     }
 
 </script>
@@ -42,6 +61,7 @@
             class="hover:grow hover:shadow-lg"
             src={image.src}
             alt={image.alt}
+            on:load={handleImageLoad}
         />
         </div>
 
