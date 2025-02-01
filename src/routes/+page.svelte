@@ -33,23 +33,23 @@
 
 <GoogleAnalytics></GoogleAnalytics>
 
-<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-row">
-  <img src="/CompanyLogoV2.svg" alt="CompanyLogo" class="mx-2 h-10 w-10" />
-  <!-- <p class="mx-2 font-bold text-black font-roboto">Decorar.io</p> -->
+<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-col">
+  <img src="/CompanyLogo_V3.webp" alt="CompanyLogo" class="mx-2 h-7 w-7" />
+  <h1 class="text-black font-poppins font-medium text-sm">decorar.space</h1>
 </div> 
 
 <div
   class="parentContainer w-screen h-screen flex flex-col md:flex-row p-1"
 >
   <!-- BRAND SECTION -->
-  <div class=" flex-[6]  text-white h-full p-1">
+  <div class=" flex-[6]  text-white h-[80vh] p-1">
     <!-- BRAND SECTION - HEADER -->
       
-    <div class="flex flex-col  items-center justify-center h-full p-1">
+    <div class="h-full p-1">
       
        <!-- BRAND SECTION - IMG -->
       <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->
-       <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center   h-4/5 w-full">
+       <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center h-full w-full">
         <!-- <img src="/landingPage/BG_1080.webp" alt = "Backgroung Image" class="w-100% h-100%"> -->
       </div>
 
@@ -100,19 +100,18 @@
 </div> -->
 
 <div class="flex-[4]  text-white p-[5%]">
-  <div class="flex flex-col items-center justify-center  w-full h-full">
-    <h2 class="mb-5 text-xl font-bold text-gray-900">Artwork in Augmented Reality</h2>
-    <h2 class="mb-5 text-xxl font-bold text-gray-900">Turn your walls into a showcase of living art</h2>
+  <div class="flex flex-col items-center   w-full h-full">
+    <h1 class="text-black font-poppins font-normal text-m mb-2">Artwork in Augmented Reality</h1>
+    <h1 class="text-black font-poppins font-normal text-sm mb-4">Turn your walls into a showcase of living art</h1>
     
-
     {#if isVisible}
     <LoginForm />
     {/if}
 
-    <button class="inline-block text-white font-bold py-2 px-4 rounded-full bg-gray-900 border border-transparent transform hover:scale-110 hover: transition-transform duration-1000 ease-in-out" on:click={navigateToPage}>
+    <button class="inline-block text-white  py-2 px-4 rounded-full bg-black border  font-poppins font-normal text-xs" on:click={navigateToPage}>
       Continue
     </button>
-    <p class=" mt-3 text-center text-[14px] text-gray-900">
+    <p class=" mt-3 font-poppins font-normal text-xs text-center text-black">
       This experience is optimized on high-end phones with LiDAR technology.
       <!-- <a href="/signup" class="text-gray-900">Create one</a> -->
     </p>
