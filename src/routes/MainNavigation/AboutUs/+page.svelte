@@ -19,7 +19,7 @@
                 class="text-white underline"
                 href="https://docs.google.com/forms/d/1P0QBoPYELeXC6hH52x_1zsc0PnK-AWTPqOnHwu9nNjg/edit">Feedback Form</a
             >
-            <!-- <br />
+            <br />
             <a
                 class="text-white underline hover:text-gray-900"
                 href="https://www.linkedin.com/in/diegomillanxr"
@@ -31,15 +31,10 @@
                 href="https://www.linkedin.com/in/sinddy-carreno/"
                 target="_blank">Sinddy Profile</a
             >
-            <br/> -->
+            <br/>
             
         </p>
-        <p class=" text-white">Page version V1.0 (07 July 2024) </p>
+        <!-- <p class=" text-white">Page version V1.0 (07 July 2024) </p> -->
     </div>
     <!-- <Feedback></Feedback> -->
-    <Alert>
-      <span class="font-medium">Info alert!</span>
-      Change a few things up and try submitting again.
-    </Alert>
-    <Button>Default</Button>
   </section>

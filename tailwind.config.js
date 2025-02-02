@@ -44,7 +44,10 @@ export default {
       '2xl': '1536px',
     },
     fontFamily: {
-      'roboto': ['Roboto', 'sans-serif'] // Tu fuente personalizada
+
+        roboto: ['Roboto', 'sans-serif'],     // Existing Roboto font
+        poppins: ['Poppins', 'sans-serif'],   // Add Poppins font
+        // sans: ['Poppins', 'sans-serif'],      // Optional: Set Poppins as the default `font-sans`
     }
   },
   plugins: [
