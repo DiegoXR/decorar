@@ -11,8 +11,6 @@
     class=" fixed w-full flex flex-row items-center justify-around bg-white h-[10vh] z-10"
 >
 
-    
-
     <div class="h-[35px] w-[35px]">
         <button class=" h-auto w-auto" on:click={GotoHomePage}>
             <img
@@ -25,9 +23,6 @@
     </div>
 
     <!-- <a href="/MainNavigation/AboutUs" class="rounded  py-3 px-2 font-poppins font-regular text-sm">About Us</a> -->
-
-    <!-- <h1 class="font-poppins font-medium">Poppins</h1> -->
-    <!-- <h1 class="font-poppins font-regular text-sm">About Us</h1> -->
 
     <!-- <div class="h-[30px] w-[50px]">V3.7 July 7</div> -->
 
