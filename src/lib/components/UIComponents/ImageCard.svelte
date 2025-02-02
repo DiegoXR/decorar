@@ -20,16 +20,16 @@
      */
   
     export let image;
-    let browserWidth;
-    let targetImageContainerHeight;
+    // let browserWidth;
+    // let targetImageContainerHeight;
 
     onMount(() => {
-        browserWidth = window.innerWidth;
-        targetImageContainerHeight = Math.round(
-            (image.defaultSize[1] / image.defaultSize[0]) * browserWidth,
-        );
+        // browserWidth = window.innerWidth;
+        // targetImageContainerHeight = Math.round(
+        //     (image.defaultSize[1] / image.defaultSize[0]) * browserWidth,
+        // );
 
-        console.log(targetImageContainerHeight);
+        // console.log(targetImageContainerHeight);
     });
 
     function goToCustomize() {
@@ -39,16 +39,18 @@
 
 </script>
 
-<div class="child-container on:click={goToCustomize}">
+<div class="child-container">
     <div class="flex flex-row items-start justify-start w-full pl-4 gap-2">
         <Avatar src="/referenceImages/steven-diaz-9lqOuSQhNCM-unsplash.webp" />
-        <div>
+        <div >
             <h1 class="font-poppins font-medium text-sm">{image.author}</h1>
             <h1 class="font-poppins font-normal text-xs text-gray-500">Unsplash</h1>
         </div>            
     </div>
+    <div on:click={goToCustomize} >
+        <img src={image.src} alt={image.name} /> 
+    </div>
     
-    <img src={image.src} alt={image.name} /> 
 </div>
   
   <style>
