@@ -305,12 +305,38 @@
 
 </script>
 <InputImage></InputImage>
-<section class="bg-white py-8">
-    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+<!-- <section class="bg-yellow-500 py-8 w-full">
+    <div class="mx-auto flex items-center flex-col pt-4 pb-12">
+       {#each images.slice(0, 2) as image}
+            <ImageCard {image}/> 
+        {/each}
+    </div>
+</section> -->
+<section class=" py-8 w-full">
+    <div class="parent-container">
        {#each images as image}
             <ImageCard {image}/> 
         {/each}
     </div>
 </section>
+
+<style>
+    .parent-container {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  
+    @media (min-width: 768px) {
+      .parent-container {
+        flex-direction: row;
+        justify-content: space-around;
+      }
+  
+      .child-container {
+        flex: 1;
+      }
+    }
+  </style>
 
 
