@@ -2,15 +2,16 @@
   import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
   import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
-  // import { onMount } from "svelte";
+  import { onMount } from "svelte";
   // import {GA4_ID} from "../projectConstants.js"
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
+  import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
 
   let isVisible = false; // Initial visibility is set to false
+  let isInstagramBrowser = false;
 
-
-  // onMount(() => {
+  onMount(() => {
   //       // Add Google Analytics script
   //       const script = document.createElement('script');
   //       script.async = true;
@@ -23,13 +24,22 @@
   //           window.dataLayer.push(arguments);
   //       }
   //       gtag('js', new Date());
-  //       gtag('config', `${GA4_ID}`);       
-  //   });
+  //       gtag('config', `${GA4_ID}`);   
+
+    // Check if the user is using Instagram
+    if (window.navigator.userAgent.includes('Instagram')) {
+      isInstagramBrowser = true;
+    }
+  });
 
   function navigateToPage() {
     goto("MainNavigation/Explore");
   }
 </script>
+
+{#if isInstagramBrowser}
+  <InstagramBrowserPopup />
+{/if}
 
 <GoogleAnalytics></GoogleAnalytics>
 
