@@ -36,7 +36,7 @@
     goto("MainNavigation/Explore");
   }
 </script>
-<InstagramBrowserPopup />
+
 {#if isInstagramBrowser}
   <InstagramBrowserPopup />
 {/if}
