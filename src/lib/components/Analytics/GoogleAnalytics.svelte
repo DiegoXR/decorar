@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
     import { onMount } from "svelte";
     //import {GA4_ID} from "../../../projectConstants.js"
     import {afterNavigate} from '$app/navigation';
@@ -84,4 +84,4 @@
     });
 
     
-</script>
+</script> -->
