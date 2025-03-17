@@ -19,7 +19,7 @@ import { derived } from 'svelte/store';
                 </a>
                 <a href="/MainNavigation/Setup" class="rounded py-3 px-2 text-gray-200" class:active={$page.route.id?.includes("Setup")}> 2. Customize</a>
                 <a href="/MainNavigation/3DPage" class="rounded  py-3  px-2 text-gray-200" class:active={$page.route.id?.includes("3DPage")}>3. 3D View</a>
-                <a href="https://www.eltiempo.com" target="_blank" rel="noopener noreferrer" class="rounded px-3 py-3">El Tiempo</a>
+                <a href="https://www.eltiempo.com" target="_blank" rel="noopener noreferrer" class="rounded px-3 py-3">El Tiempo v2</a>
                 <!-- <a href="/MainNavigation/AboutUs" class="rounded  py-3 px-2 text-gray-200" class:active={$page.route.id?.includes("AboutUs")}>About Us</a> -->
                 <!-- <a href="/MainNavigation/Customize" class="rounded px-3 py-3">Customize</a> -->
                 <!-- <a href="/MainNavigation/ARSet" class="rounded px-3 py-3">AR</a> -->
