@@ -18,16 +18,16 @@
             ],
             defaultSize: [0.6096, 0.762],
         }
-        ,
-        {
-            author : "Sinddy",
-            src: "/referenceImages/Minimalism.webp",
-            alt: "alt text",
-            description: "x",
-            availableSizes: [
-            ],
-            defaultSize: [, ],
-        }
+        // ,
+        // {
+        //     author : "Sinddy",
+        //     src: "/referenceImages/Minimalism.webp",
+        //     alt: "alt text",
+        //     description: "x",
+        //     availableSizes: [
+        //     ],
+        //     defaultSize: [1,1 ],
+        // }
         ,
         {
             author : "Puxet",
