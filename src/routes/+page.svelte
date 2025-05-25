@@ -1,15 +1,15 @@
 <script>
-  import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
-  import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  // import {GA4_ID} from "../projectConstants.js"
+  import { fade } from 'svelte/transition';
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
+  import DesignerCard from "$lib/components/UIComponents/DesignerCard.svelte";
+  import ImageGallery from "$lib/components/UIComponents/ImageGallery.svelte";
 
-  let isVisible = false; // Initial visibility is set to false
   let isInstagramBrowser = false;
+  let email = '';
 
   onMount(() => {
   //       // Add Google Analytics script
@@ -35,6 +35,11 @@
   function navigateToPage() {
     goto("MainNavigation/Explore");
   }
+
+  function handleSubmit() {
+    // Store email if needed or proceed directly
+    navigateToPage();
+  }
 </script>
 
 {#if isInstagramBrowser}
@@ -43,100 +48,152 @@
 
 <GoogleAnalytics></GoogleAnalytics>
 
-<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-col">
-  <img src="/CompanyLogo_V3.webp" alt="CompanyLogo" class="mx-2 h-7 w-7" />
-  <h1 class="text-black font-poppins font-medium text-sm">decorar.space</h1>
-</div> 
-
-<div
-  class="parentContainer w-screen h-screen flex flex-col md:flex-row p-1"
->
-  <!-- BRAND SECTION -->
-  <div class=" flex-[6]  text-white h-[80vh] p-1">
-    <!-- BRAND SECTION - HEADER -->
-      
-    <div class="h-full p-1">
-      
-       <!-- BRAND SECTION - IMG -->
-      <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->
-       <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center h-full w-full">
-        <!-- <img src="/landingPage/BG_1080.webp" alt = "Backgroung Image" class="w-100% h-100%"> -->
-      </div>
-
+<main class="min-h-screen flex flex-col" in:fade={{ duration: 800 }}>
+  <!-- Header with logo and hamburger menu -->
+  <header class="pt-8 pb-4 px-6 flex items-center justify-between">
+    <div class="flex items-center">
+      <img src="/CompanyLogo_V3.webp" alt="Decorar Logo" class="h-8 w-8" />
+      <h1 class="text-black font-poppins font-semibold text-lg ml-2">decorar.space</h1>
     </div>
-      
-  </div>
-
-  <!-- LOGIN SECTION -->
-  <!-- <div class="flex-[4]  text-white h-full p-[5%]">
-    <div class="flex flex-col items-center justify-center bg-slate-600 w-full h-full">
-      <h2 class="mb-5 text-xl font-bold text-gray-900">Login With</h2>
-      <div class="flex flex-row">
-        <button
-          class="delay-50 mx-2 mb-2 flex items-center justify-center space-x-2 rounded border border-slate-600 bg-white px-3 py-2.5 transition ease-in-out hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 focus:ring-offset-2"
-        >
-          <img src="GoogleLogo.svg" alt="googleLogo" class="h-6 w-6" />
-        </button>
-        <button
-          class="delay-50 mx-2 mb-2 flex items-center justify-center space-x-2 rounded border border-slate-600 bg-white px-3 py-2.5 transition ease-in-out hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 focus:ring-offset-2"
-          on:click={() => (isVisible = !isVisible)}
-        >
-          <EmailIcon></EmailIcon>
-        </button>
-      </div>
-
-      {#if isVisible}
-      <LoginForm />
-      {/if}
-
-      <div class="w-full mt-2 flex justify-end">
-        <button class="text-primary font-bold mx-3" on:click={navigateToPage}
-          >Skip</button
-        >
-      </div>
-      <p class=" mt-3 text-center text-[14px]">
-        Don&#x27;t have an account?
-        <a href="/signup" class="text-gray-900">Create one</a>
-      </p>
-
-      <p class="mt-3 text-center text-[13px]">
-        By continuing, you agree to our <a href="/terms" class="text-gray-900"
-          >Terms of Service</a
-        >
-        and <a href="/privacy" class="text-gray-600">Privacy Policy</a>.
-      </p>
-    </div>
-  </div>
-</div> -->
-
-<div class="flex-[4]  text-white p-[5%]">
-  <div class="flex flex-col items-center   w-full h-full">
-    <h1 class="text-black font-poppins font-normal text-m mb-2">Artwork in Augmented Reality</h1>
-    <h1 class="text-black font-poppins font-normal text-sm mb-4">Turn your walls into a showcase of living art</h1>
-    
-    {#if isVisible}
-    <LoginForm />
-    {/if}
-
-    <button class="inline-block text-white  py-2 px-4 rounded-full bg-black border  font-poppins font-normal text-xs" on:click={navigateToPage}>
-      Continue
+    <button class="p-2" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
     </button>
-    <p class=" mt-3 font-poppins font-normal text-xs text-center text-black">
-      This experience is optimized on high-end phones with LiDAR technology.
-      <!-- <a href="/signup" class="text-gray-900">Create one</a> -->
+  </header>
+
+  <!-- Hero section -->
+  <section class="flex-grow flex flex-col px-6 py-12 md:py-16 text-center justify-center">
+    <h2 class="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-center">
+      Beautiful frames for your artwork
+    </h2>
+    
+    <p class="text-xl mb-10 text-gray-700 max-w-lg mx-auto">
+      Visualize how your art will look in different frames and environments with augmented reality.
     </p>
-  </div>
-</div>
-</div>
+    
+    <!-- Hero image with overlay -->
+    <!-- <div class="relative rounded-xl overflow-hidden shadow-xl mx-auto w-full max-w-md mb-12">
+      <img 
+        src="/landingPage/BG_1080.webp" 
+        alt="Framed artwork example" 
+        class="w-full h-auto"
+      />
+      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
+      </div>
+    </div>
+      -->
+   <div class="flex flex-col items-center">
+  <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
+    <div class="relative">
+      <input
+        type="email"
+        bind:value={email}
+        placeholder="Enter your email"
+        class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+        aria-label="Email address"
+      />
+      <button 
+        type="submit"
+        class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
+      >
+        Get started
+      </button>
+    </div>
+  </form>
+  </div> 
+    <!-- Featured Designers section -->
+    <div class="w-full px-0 mt-6 mb-6">
+      <h3 class="text-center font-medium text-lg tracking-widest mb-4">FEATURED DESIGNERS</h3>
+      
+      <div class="flex overflow-x-auto pb-4 px-4 gap-4 snap-x no-scrollbar">
+        <div class="flex-none w-56 snap-start">
+          <DesignerCard 
+            image="/referenceImages/jorge-bermudez-9u7Xv3veu4c-unsplash.webp"
+            title="HOMMEBOYS INTERIORS"
+            subtitle="Made with Programa"
+            location="CALIFORNIA, USA"
+            flagCode="us"
+            tag="MULTIDISCIPLINARY"
+          />
+        </div>
+        
+        <div class="flex-none w-56 snap-start">
+          <DesignerCard 
+            image="/referenceImages/laura-chouette-g6Ny4dvHlE0-unsplash_0.67.webp"
+            title="STUDIO ALEXANDRA"
+            subtitle="Curated Spaces"
+            location="PARIS, FRANCE"
+            flagCode="fr"
+            tag="RESIDENTIAL"
+          />
+        </div>
+        
+        <div class="flex-none w-56 snap-start">
+          <DesignerCard 
+            image="/referenceImages/oladimeji-odunsi-br7vCg8693o-unsplash_0.8.webp"
+            title="ODUNSI DESIGN"
+            subtitle="Contemporary Art Spaces"
+            location="LAGOS, NIGERIA"
+            flagCode="ng"
+            tag="CONTEMPORARY"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pt-2 pb-4 px-6 text-center">
+  <p class="text-xs text-gray-600 mb-4">
+    By continuing, you agree to our <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
+    and <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>.
+  </p>
+  
+  <p class="text-xs text-gray-500">
+    This experience is optimized for mobile devices with AR capabilities.
+  </p>
+</footer>
+
 <CloudfareAnalytics></CloudfareAnalytics>
 
-<!-- YourComponent.svelte -->
 <style>
-  .bg-custom {
-    /* Assuming your static folder is at the root and the image is named 'background.jpg' */
-    background-image: url("/LivingRoomIntro.gif");
-    background-size: cover; /* Cover the entire screen */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat;
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari and Opera */
   }
 </style>
+
+ <!-- Call to action section with embedded button -->
+ <!-- <div class="flex flex-col items-center">
+  <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
+    <div class="relative">
+      <input
+        type="email"
+        bind:value={email}
+        placeholder="Enter your email"
+        class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+        aria-label="Email address"
+      />
+      <button 
+        type="submit"
+        class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
+      >
+        Get started
+      </button>
+    </div>
+  </form>
+  
+  <p class="text-sm text-gray-600 mb-2">No account needed. Try it out first!</p>
+  
+  <button 
+    class="underline text-primary font-medium text-base mb-8"
+    on:click={navigateToPage}
+  >
+    Skip & explore now
+  </button>
+</div> -->
