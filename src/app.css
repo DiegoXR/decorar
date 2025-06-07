@@ -2,18 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ==== Font Face Definitions for Inter ==== */
 @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url('/fonts/poppins/Poppins-Medium.woff2') format('woff2');
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-ExtraLight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter/Inter-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==== Base Layer ==== */
+@layer base {
+  html {
+    font-family: 'Poppins', 'Inter', system-ui, sans-serif;
   }
 
-  @font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url('/fonts/poppins/Poppins-Regular.woff2') format('woff2');
+  /* Reset para encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    @apply m-0 font-normal leading-normal tracking-normal text-inherit;
   }
+}
+
+/* ==== Custom Utility Classes ==== */
+@layer components {
+  /* Escala tipográfica basada en Inter */
+  .header-h1 {
+    @apply text-[36px] md:text-[60px] lg:text-[96px] font-semibold font-[Inter];
+  }
+
+  .header-h2 {
+    @apply text-[30px] md:text-[48px] lg:text-[60px] font-semibold font-[Inter];
+  }
+
+  .header-h3 {
+    @apply text-[24px] md:text-[36px] lg:text-[48px] font-semibold font-[Inter];
+  }
+
+  .subtitle-1 {
+    @apply text-[16px] md:text-[18px] font-semibold font-[Inter];
+  }
+
+  .subtitle-2 {
+    @apply text-[14px] md:text-[16px] font-semibold font-[Inter];
+  }
+
+  .body-1 {
+    @apply text-[14px] md:text-[16px] font-normal font-[Inter];
+  }
+
+  .body-2 {
+    @apply text-[12px] md:text-[14px] font-normal font-[Inter];
+  }
+
+  .button-1 {
+    @apply text-[14px] uppercase tracking-wide font-normal font-[Inter];
+  }
+
+  .button-2 {
+    @apply text-[12px] uppercase tracking-wide font-normal font-[Inter];
+  }
+}

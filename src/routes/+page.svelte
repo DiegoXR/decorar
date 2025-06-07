@@ -7,6 +7,7 @@
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
   import DesignerCard from "$lib/components/UIComponents/DesignerCard.svelte";
   import ImageGallery from "$lib/components/UIComponents/ImageGallery.svelte";
+  import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
 
   let isInstagramBrowser = false;
   let email = '';
@@ -64,6 +65,52 @@
 
   <!-- Hero section -->
   <section class="flex-grow flex flex-col px-6 py-12 md:py-16 text-center justify-center">
+   
+    
+    <!-- Hero image with rounded corners - responsive for desktop and mobile -->
+    <div class="w-full  mx-auto mb-12 mx-2 md:px-20">
+      <div class="h-[50vh] md:h-[75vh] overflow-hidden rounded-3xl">
+        <img 
+          src="/landingPage/ImageBackground.webp" 
+          alt="Framed artwork example" 
+          class="w-full h-full object-cover object-center"
+        />
+      </div>
+    </div>
+
+    <!-- Title and Action Buttons Section -->
+    <div class="mt-8 mb-12 text-center px-4">
+      <h3 class="text-xl sm:text-2xl font-semibold mb-6 max-w-xl mx-auto">
+        Specify in real-time meaning no double handling data or version control.
+      </h3>
+      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <BaseButton 
+          label="Get started" 
+          variant="BasePrimary" 
+          on:click={() => goto('/get-started')} 
+        />
+        <BaseButton 
+          label="Book a demo" 
+          variant="BaseSecondary" 
+          on:click={() => goto('/book-demo')}
+        />
+      </div>
+    </div>
+
+    <h1 class="header-h1">Switch Programa</h1>
+    <h2 class="header-h2">Switch Programa</h2>
+    <h3 class="header-h3">Switch Programa</h3>
+    <br/>
+    <p class="subtitle-1">Switch Programa</p>
+    <p class="body-1">Switch Programa</p>
+    <br/>
+    <p class="subtitle-2">Switch Programa</p>  
+    <p class="body-2">Switch Programa</p>
+    <br/>
+    <p class="button-1">Switch Programa</p>
+    <p class="button-2">Switch Programa</p>
+    <br/>
+
     <h2 class="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-center">
       Beautiful frames for your artwork
     </h2>
@@ -71,36 +118,7 @@
     <p class="text-xl mb-10 text-gray-700 max-w-lg mx-auto">
       Visualize how your art will look in different frames and environments with augmented reality.
     </p>
-    
-    <!-- Hero image with overlay -->
-    <!-- <div class="relative rounded-xl overflow-hidden shadow-xl mx-auto w-full max-w-md mb-12">
-      <img 
-        src="/landingPage/BG_1080.webp" 
-        alt="Framed artwork example" 
-        class="w-full h-auto"
-      />
-      <div class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-      </div>
-    </div>
-      -->
    <div class="flex flex-col items-center">
-  <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
-    <div class="relative">
-      <input
-        type="email"
-        bind:value={email}
-        placeholder="Enter your email"
-        class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-        aria-label="Email address"
-      />
-      <button 
-        type="submit"
-        class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
-      >
-        Get started
-      </button>
-    </div>
-  </form>
   </div> 
     <!-- Featured Designers section -->
     <div class="w-full px-0 mt-6 mb-6">
@@ -143,6 +161,24 @@
     </div>
   </section>
 </main>
+
+<form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
+  <div class="relative">
+    <input
+      type="email"
+      bind:value={email}
+      placeholder="Enter your email"
+      class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
+      aria-label="Email address"
+    />
+    <button 
+      type="submit"
+      class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
+    >
+      Get started
+    </button>
+  </div>
+</form>
 
 <footer class="pt-2 pb-4 px-6 text-center">
   <p class="text-xs text-gray-600 mb-4">
