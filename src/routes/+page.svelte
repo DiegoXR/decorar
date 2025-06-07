@@ -64,42 +64,48 @@
   </header>
 
   <!-- Hero section -->
-  <section class="flex-grow flex flex-col px-6 py-12 md:py-16 text-center justify-center">
+  <section class="flex-grow flex flex-col px-6 sm:px-1 lg:px-6 2xl:px-28 text-center justify-center">
    
     
-    <!-- Hero image with rounded corners - responsive for desktop and mobile -->
-    <div class="w-full  mx-auto mb-12 mx-2 md:px-20">
-      <div class="h-[50vh] md:h-[75vh] overflow-hidden rounded-3xl">
+    <!-- Hero image -->
+    <div class="w-full  mx-auto mb-5 mx-2">
+      <div class="relative h-[50vh] sm:h-[70vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
         <img 
           src="/landingPage/ImageBackground.webp" 
           alt="Framed artwork example" 
-          class="w-full h-full object-cover object-center"
+          class="absolute inset-0 w-full h-full object-cover object-center"
         />
+        <h1 class="relative z-10 text-white header-h1 text-center p-4">Art with Augmented Reality</h1>
       </div>
     </div>
 
     <!-- Title and Action Buttons Section -->
-    <div class="mt-8 mb-12 text-center px-4">
-      <h3 class="text-xl sm:text-2xl font-semibold mb-6 max-w-xl mx-auto">
-        Specify in real-time meaning no double handling data or version control.
-      </h3>
-      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+    <div class="mt-8 mb-2 text-center px-2">
+      <p class=" subtitle-1 mb-6  mx-auto">
+        We bring Augmented Reality to your art design process.
+      </p>
+      <div class="flex flex-row justify-center items-center space-x-3 px-8">
         <BaseButton 
           label="Get started" 
           variant="BasePrimary" 
+          class="button-1"
           on:click={() => goto('/get-started')} 
         />
         <BaseButton 
           label="Book a demo" 
           variant="BaseSecondary" 
+          class="button-1"
           on:click={() => goto('/book-demo')}
         />
       </div>
     </div>
-
-    <h1 class="header-h1">Switch Programa</h1>
+  </section>
+    <!-- <h1 class="header-h1">Switch Programa</h1>
     <h2 class="header-h2">Switch Programa</h2>
     <h3 class="header-h3">Switch Programa</h3>
+
+    <br/>
+    <br/>
     <br/>
     <p class="subtitle-1">Switch Programa</p>
     <p class="body-1">Switch Programa</p>
@@ -107,19 +113,39 @@
     <p class="subtitle-2">Switch Programa</p>  
     <p class="body-2">Switch Programa</p>
     <br/>
+    <p class="subtitle-3">Switch Programa</p>  
+    <p class="body-3">Switch Programa</p>
+    <br/>
+    <p class="subtitle-4">Switch Programa</p>  
+    <p class="body-4">Switch Programa</p>
+    <br/>
     <p class="button-1">Switch Programa</p>
     <p class="button-2">Switch Programa</p>
-    <br/>
-
-    <h2 class="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-center">
-      Beautiful frames for your artwork
-    </h2>
+    <br/> -->
+    <hr class="my-10 border-gray-200 border-t-2" />
+ 
+    <section class="px-4 lg:px-6 2xl:px-28">
+      <p class="subtitle-1 text-gray-800">Made with Programa</p>
+      <p class="body-1 text-gray-800 mt-1">See how top designers are using Programa</p> 
+    </section>
     
-    <p class="text-xl mb-10 text-gray-700 max-w-lg mx-auto">
-      Visualize how your art will look in different frames and environments with augmented reality.
-    </p>
-   <div class="flex flex-col items-center">
-  </div> 
+    
+
+     
+        <!-- <BaseButton label="See all" variant="BaseSecondary" class="mt-3 text-xs md:text-sm !border-none !bg-transparent !p-0 !text-gray-700 hover:!text-black" />
+        <div class="flex space-x-1 md:space-x-2">
+          <button aria-label="Previous" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 text-gray-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
+          </button>
+          <button aria-label="Next" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 text-gray-700 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+            </svg>
+          </button>
+        </div>  -->
+
     <!-- Featured Designers section -->
     <div class="w-full px-0 mt-6 mb-6">
       <h3 class="text-center font-medium text-lg tracking-widest mb-4">FEATURED DESIGNERS</h3>
@@ -131,7 +157,6 @@
             title="HOMMEBOYS INTERIORS"
             subtitle="Made with Programa"
             location="CALIFORNIA, USA"
-            flagCode="us"
             tag="MULTIDISCIPLINARY"
           />
         </div>
@@ -142,7 +167,6 @@
             title="STUDIO ALEXANDRA"
             subtitle="Curated Spaces"
             location="PARIS, FRANCE"
-            flagCode="fr"
             tag="RESIDENTIAL"
           />
         </div>
@@ -153,13 +177,11 @@
             title="ODUNSI DESIGN"
             subtitle="Contemporary Art Spaces"
             location="LAGOS, NIGERIA"
-            flagCode="ng"
             tag="CONTEMPORARY"
           />
         </div>
       </div>
     </div>
-  </section>
 </main>
 
 <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>

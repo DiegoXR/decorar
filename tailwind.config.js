@@ -36,12 +36,11 @@ export default {
     },
     // Tus breakpoints personalizados
     screens: {
-      'xs': '390px',
-      'sm': '640px',
-      'md': '768px',
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
+      'sm': '640px',      // Mobile Portrait
+      'md': '745px',      // Mobile Landscape. 750px instead of 768px becase iphone Landscape is 750px
+      'lg': '1024px',      // Tablet Portrait
+      'xl': '1280px',     // Tablet Landscape
+      '2xl': '1536px',    // Desktop
     },
     fontFamily: {
 

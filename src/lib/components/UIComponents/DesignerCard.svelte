@@ -3,8 +3,6 @@
   export let title = '';
   export let subtitle = '';
   export let location = '';
-  export let country = '';
-  export let flagCode = 'us';
   export let tag = '';
 </script>
 
@@ -32,14 +30,6 @@
     <!-- Location and category aligned left -->
     <div class="flex flex-col space-y-0.5 items-start">
       <div class="flex items-center space-x-1">
-        {#if flagCode}
-          <img 
-            src={`/flags/${flagCode}.svg`} 
-            alt={country} 
-            class="w-5 h-4 object-cover"
-            on:error={() => { /* Handle missing flag image */ }}
-          />
-        {/if}
         <span class="text-xs text-gray-600 uppercase">{location}</span>
       </div>
       

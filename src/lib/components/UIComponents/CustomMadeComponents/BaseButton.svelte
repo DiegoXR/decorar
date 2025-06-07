@@ -3,7 +3,7 @@
   export let variant = 'BasePrimary'; // BasePrimary, BaseSecondary, BaseHighlighted, BaseDisabled
   export let disabled = false;
 
-  let baseClasses = 'font-medium py-3 px-8 rounded-lg transition-colors w-full sm:w-auto text-sm sm:text-base';
+  let baseClasses = 'py-3 px-3 rounded-xl transition-colors w-full sm:w-auto';
   let variantClasses = '';
 
   $: {
@@ -31,7 +31,7 @@
 </script>
 
 <button 
-  class="{baseClasses} {variantClasses}" 
+  class="{baseClasses} {variantClasses} {$$props.class || ''}" 
   {disabled}
   on:click
 >
