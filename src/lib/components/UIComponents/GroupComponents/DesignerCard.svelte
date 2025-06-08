@@ -18,23 +18,23 @@
   </div>
   
   <!-- Card info section - more compact -->
-  <div class="pt-2 pb-1 px-2 text-left">
+  <div class="pt-2 pb-1 text-left">
     <!-- Title - more compact -->
-    <h2 class="text-black text-base font-semibold tracking-wide uppercase mb-0.5 text-left">
+    <h4 class="subtitle-1 uppercase text-left">
       {title}
-    </h2>
+    </h4>
     
     <!-- Subtitle on second line -->
-    <p class="text-xs text-gray-700 mb-1.5 text-left">{subtitle}</p>
+    <p class="body-1 text-left">{subtitle}</p>
     
     <!-- Location and category aligned left -->
-    <div class="flex flex-col space-y-0.5 items-start">
-      <div class="flex items-center space-x-1">
-        <span class="text-xs text-gray-600 uppercase">{location}</span>
+    <div class="mt-3 flex flex-col space-y-0.5 items-start">
+      <div class="flex items-center">
+        <span class="subtitle-4 text-gray-600 uppercase">{location}</span>
       </div>
       
       {#if tag}
-        <span class="text-xs text-gray-500 uppercase">{tag}</span>
+        <!-- <span class="body-4 text-gray-500 uppercase">{tag}</span> -->
       {/if}
     </div>
   </div>

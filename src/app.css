@@ -116,11 +116,11 @@
   }
 
   .body-4 {
-    @apply text-[12px] md:text-[14px] lg:text-[16px] font-normal font-[Inter];
+    @apply text-[12px] md:text-[12px] lg:text-[12px] xl:text-[14px] font-normal font-[Inter];
   }
 
   .button-1 {
-    @apply text-[16px] md:text-[16px] lg:text-[18px] tracking-wide font-normal font-[Inter];
+    @apply text-[14px] md:text-[16px] lg:text-[18px] tracking-wide font-normal font-[Inter];
   }
 
   .button-2 {

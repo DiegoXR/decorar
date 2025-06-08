@@ -5,9 +5,8 @@
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
-  import DesignerCard from "$lib/components/UIComponents/DesignerCard.svelte";
-  import ImageGallery from "$lib/components/UIComponents/ImageGallery.svelte";
   import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
+  import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
 
   let isInstagramBrowser = false;
   let email = '';
@@ -84,7 +83,7 @@
       <p class=" subtitle-1 mb-6  mx-auto">
         We bring Augmented Reality to your art design process.
       </p>
-      <div class="flex flex-row justify-center items-center space-x-3 px-8">
+      <div class="flex flex-row justify-center items-center space-x-3 px-10">
         <BaseButton 
           label="Get started" 
           variant="BasePrimary" 
@@ -122,11 +121,13 @@
     <p class="button-1">Switch Programa</p>
     <p class="button-2">Switch Programa</p>
     <br/> -->
-    <hr class="my-10 border-gray-200 border-t-2" />
+    <hr class="my-10 2xl:my-20  border-gray-200 border-t-2" />
  
-    <section class="px-4 lg:px-6 2xl:px-28">
+    <section class="px-4 lg:px-6 2xl:pl-96">
       <p class="subtitle-1 text-gray-800">Made with Programa</p>
-      <p class="body-1 text-gray-800 mt-1">See how top designers are using Programa</p> 
+      <p class="body-1 text-gray-800">See how top designers are using Programa</p> 
+
+      <ProjectCarousel />
     </section>
     
     
@@ -147,41 +148,7 @@
         </div>  -->
 
     <!-- Featured Designers section -->
-    <div class="w-full px-0 mt-6 mb-6">
-      <h3 class="text-center font-medium text-lg tracking-widest mb-4">FEATURED DESIGNERS</h3>
-      
-      <div class="flex overflow-x-auto pb-4 px-4 gap-4 snap-x no-scrollbar">
-        <div class="flex-none w-56 snap-start">
-          <DesignerCard 
-            image="/referenceImages/jorge-bermudez-9u7Xv3veu4c-unsplash.webp"
-            title="HOMMEBOYS INTERIORS"
-            subtitle="Made with Programa"
-            location="CALIFORNIA, USA"
-            tag="MULTIDISCIPLINARY"
-          />
-        </div>
-        
-        <div class="flex-none w-56 snap-start">
-          <DesignerCard 
-            image="/referenceImages/laura-chouette-g6Ny4dvHlE0-unsplash_0.67.webp"
-            title="STUDIO ALEXANDRA"
-            subtitle="Curated Spaces"
-            location="PARIS, FRANCE"
-            tag="RESIDENTIAL"
-          />
-        </div>
-        
-        <div class="flex-none w-56 snap-start">
-          <DesignerCard 
-            image="/referenceImages/oladimeji-odunsi-br7vCg8693o-unsplash_0.8.webp"
-            title="ODUNSI DESIGN"
-            subtitle="Contemporary Art Spaces"
-            location="LAGOS, NIGERIA"
-            tag="CONTEMPORARY"
-          />
-        </div>
-      </div>
-    </div>
+    
 </main>
 
 <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
