@@ -7,6 +7,7 @@
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
   import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
+  import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
 
   let isInstagramBrowser = false;
   let email = '';
@@ -65,7 +66,7 @@
   <!-- Hero section -->
   <section class="flex-grow flex flex-col px-6 sm:px-1 lg:px-6 2xl:px-28 text-center justify-center">
    
-    
+   
     <!-- Hero image -->
     <div class="w-full  mx-auto mb-5 mx-2">
       <div class="relative h-[50vh] sm:h-[70vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
@@ -78,11 +79,11 @@
       </div>
     </div>
 
-    <!-- Title and Action Buttons Section -->
-    <div class="mt-8 mb-2 text-center px-2">
-      <p class=" subtitle-1 mb-6  mx-auto">
-        We bring Augmented Reality to your art design process.
-      </p>
+  <!-- Title and Action Buttons Section -->
+  <div class="mt-8 mb-2 text-center px-2">
+    <p class=" subtitle-1 mb-6  mx-auto">
+      We bring Augmented Reality to your art design process.
+    </p>
       <div class="flex flex-row justify-center items-center space-x-3 px-10">
         <BaseButton 
           label="Get started" 
@@ -99,29 +100,8 @@
       </div>
     </div>
   </section>
-    <!-- <h1 class="header-h1">Switch Programa</h1>
-    <h2 class="header-h2">Switch Programa</h2>
-    <h3 class="header-h3">Switch Programa</h3>
-
-    <br/>
-    <br/>
-    <br/>
-    <p class="subtitle-1">Switch Programa</p>
-    <p class="body-1">Switch Programa</p>
-    <br/>
-    <p class="subtitle-2">Switch Programa</p>  
-    <p class="body-2">Switch Programa</p>
-    <br/>
-    <p class="subtitle-3">Switch Programa</p>  
-    <p class="body-3">Switch Programa</p>
-    <br/>
-    <p class="subtitle-4">Switch Programa</p>  
-    <p class="body-4">Switch Programa</p>
-    <br/>
-    <p class="button-1">Switch Programa</p>
-    <p class="button-2">Switch Programa</p>
-    <br/> -->
-    <hr class="my-10 2xl:my-20  border-gray-200 border-t-2" />
+   
+    <hr class="my-10 2xl:my-20  border-gray-200 border-t-1" />
  
     <section class="px-4 lg:px-6 2xl:pl-96">
       <p class="subtitle-1 text-gray-800">Made with Programa</p>
@@ -129,56 +109,10 @@
 
       <ProjectCarousel />
     </section>
-    
-    
-
-     
-        <!-- <BaseButton label="See all" variant="BaseSecondary" class="mt-3 text-xs md:text-sm !border-none !bg-transparent !p-0 !text-gray-700 hover:!text-black" />
-        <div class="flex space-x-1 md:space-x-2">
-          <button aria-label="Previous" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 text-gray-700 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-          <button aria-label="Next" class="p-2 bg-gray-100 rounded-md hover:bg-gray-200 text-gray-700 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 md:w-5 md:h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
-        </div>  -->
-
-    <!-- Featured Designers section -->
-    
+  
 </main>
 
-<form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
-  <div class="relative">
-    <input
-      type="email"
-      bind:value={email}
-      placeholder="Enter your email"
-      class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-      aria-label="Email address"
-    />
-    <button 
-      type="submit"
-      class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
-    >
-      Get started
-    </button>
-  </div>
-</form>
-
-<footer class="pt-2 pb-4 px-6 text-center">
-  <p class="text-xs text-gray-600 mb-4">
-    By continuing, you agree to our <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
-    and <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>.
-  </p>
-  
-  <p class="text-xs text-gray-500">
-    This experience is optimized for mobile devices with AR capabilities.
-  </p>
-</footer>
+<Footer />
 
 <CloudfareAnalytics></CloudfareAnalytics>
 
@@ -222,3 +156,26 @@
     Skip & explore now
   </button>
 </div> -->
+
+ <!-- <h1 class="header-h1">Switch Programa</h1>
+    <h2 class="header-h2">Switch Programa</h2>
+    <h3 class="header-h3">Switch Programa</h3>
+
+    <br/>
+    <br/>
+    <br/>
+    <p class="subtitle-1">Switch Programa</p>
+    <p class="body-1">Switch Programa</p>
+    <br/>
+    <p class="subtitle-2">Switch Programa</p>  
+    <p class="body-2">Switch Programa</p>
+    <br/>
+    <p class="subtitle-3">Switch Programa</p>  
+    <p class="body-3">Switch Programa</p>
+    <br/>
+    <p class="subtitle-4">Switch Programa</p>  
+    <p class="body-4">Switch Programa</p>
+    <br/>
+    <p class="button-1">Switch Programa</p>
+    <p class="button-2">Switch Programa</p>
+    <br/> -->
