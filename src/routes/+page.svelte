@@ -37,10 +37,6 @@
     goto("MainNavigation/Explore");
   }
 
-  function handleSubmit() {
-    // Store email if needed or proceed directly
-    navigateToPage();
-  }
 </script>
 
 {#if isInstagramBrowser}
@@ -82,21 +78,21 @@
   <!-- Title and Action Buttons Section -->
   <div class="mt-8 mb-2 text-center px-2">
     <p class=" subtitle-1 mb-6  mx-auto">
-      We bring Augmented Reality to your art design process.
+      We help you visualize your decorative ideas with Augmented Reality. 
     </p>
       <div class="flex flex-row justify-center items-center space-x-3 px-10">
         <BaseButton 
           label="Get started" 
           variant="BasePrimary" 
           class="button-1"
-          on:click={() => goto('/get-started')} 
+          on:click={() => goto('/MainNavigation/Explore')} 
         />
-        <BaseButton 
+        <!-- <BaseButton 
           label="Book a demo" 
           variant="BaseSecondary" 
           class="button-1"
           on:click={() => goto('/book-demo')}
-        />
+        /> -->
       </div>
     </div>
   </section>
@@ -104,8 +100,8 @@
     <hr class="my-10 2xl:my-20  border-gray-200 border-t-1" />
  
     <section class="px-4 lg:px-6 2xl:pl-96">
-      <p class="subtitle-1 text-gray-800">Made with Programa</p>
-      <p class="body-1 text-gray-800">See how top designers are using Programa</p> 
+      <p class="subtitle-1 text-gray-800">Made with decorar.space</p>
+      <p class="body-1 text-gray-800">See the use cases of our platform</p> 
 
       <ProjectCarousel />
     </section>
@@ -126,36 +122,6 @@
     display: none;             /* Chrome, Safari and Opera */
   }
 </style>
-
- <!-- Call to action section with embedded button -->
- <!-- <div class="flex flex-col items-center">
-  <form class="w-full max-w-md mb-6" on:submit|preventDefault={handleSubmit}>
-    <div class="relative">
-      <input
-        type="email"
-        bind:value={email}
-        placeholder="Enter your email"
-        class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary"
-        aria-label="Email address"
-      />
-      <button 
-        type="submit"
-        class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-yellow-400 text-black py-2 px-4 rounded-md font-medium hover:bg-yellow-500 transition-colors text-sm"
-      >
-        Get started
-      </button>
-    </div>
-  </form>
-  
-  <p class="text-sm text-gray-600 mb-2">No account needed. Try it out first!</p>
-  
-  <button 
-    class="underline text-primary font-medium text-base mb-8"
-    on:click={navigateToPage}
-  >
-    Skip & explore now
-  </button>
-</div> -->
 
  <!-- <h1 class="header-h1">Switch Programa</h1>
     <h2 class="header-h2">Switch Programa</h2>
