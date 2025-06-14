@@ -62,7 +62,7 @@
 <!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
 <div class="h-[100vh] w-full bg-white">           
     <!-- SPACER BEHIND THE HEADER  -->
-   <div class="w-full h-[10vh] bg-slate-600">
+   <div class="w-full h-[10vh]">
    </div >
     <!-- SLOT FOR OTHER PAGES  -->
    <div class="w-full h-[80vh]">
