@@ -1,15 +1,16 @@
 <script>
-  import LoginForm from "$lib/components/UIComponents/LoginForm.svelte";
-  import EmailIcon from "$lib/components/IconComponents/EmailIcon.svelte";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  // import {GA4_ID} from "../projectConstants.js"
+  import { fade } from 'svelte/transition';
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
+  import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
+  import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
+  import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
 
-  let isVisible = false; // Initial visibility is set to false
   let isInstagramBrowser = false;
+  let email = '';
 
   onMount(() => {
   //       // Add Google Analytics script
@@ -35,6 +36,7 @@
   function navigateToPage() {
     goto("MainNavigation/Explore");
   }
+
 </script>
 
 {#if isInstagramBrowser}
@@ -43,100 +45,103 @@
 
 <GoogleAnalytics></GoogleAnalytics>
 
-<div class=" items-center justify-center h-2/5 w-full p-5 flex flex-col">
-  <img src="/CompanyLogo_V3.webp" alt="CompanyLogo" class="mx-2 h-7 w-7" />
-  <h1 class="text-black font-poppins font-medium text-sm">decorar.space</h1>
-</div> 
-
-<div
-  class="parentContainer w-screen h-screen flex flex-col md:flex-row p-1"
->
-  <!-- BRAND SECTION -->
-  <div class=" flex-[6]  text-white h-[80vh] p-1">
-    <!-- BRAND SECTION - HEADER -->
-      
-    <div class="h-full p-1">
-      
-       <!-- BRAND SECTION - IMG -->
-      <!-- <div class=" bg-custom bg-orange-300 h-4/5 w-full"> -->
-       <div class=" bg-[url('/landingPage/BG_1080.webp')]  bg-cover bg-center h-full w-full">
-        <!-- <img src="/landingPage/BG_1080.webp" alt = "Backgroung Image" class="w-100% h-100%"> -->
-      </div>
-
+<main class="min-h-screen flex flex-col" in:fade={{ duration: 800 }}>
+  <!-- Header with logo and hamburger menu -->
+  <header class="pt-8 pb-4 px-6 flex items-center justify-between">
+    <div class="flex items-center">
+      <img src="/CompanyLogo_V3.webp" alt="Decorar Logo" class="h-8 w-8" />
+      <h1 class="text-black font-poppins font-semibold text-lg ml-2">decorar.space</h1>
     </div>
-      
-  </div>
-
-  <!-- LOGIN SECTION -->
-  <!-- <div class="flex-[4]  text-white h-full p-[5%]">
-    <div class="flex flex-col items-center justify-center bg-slate-600 w-full h-full">
-      <h2 class="mb-5 text-xl font-bold text-gray-900">Login With</h2>
-      <div class="flex flex-row">
-        <button
-          class="delay-50 mx-2 mb-2 flex items-center justify-center space-x-2 rounded border border-slate-600 bg-white px-3 py-2.5 transition ease-in-out hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 focus:ring-offset-2"
-        >
-          <img src="GoogleLogo.svg" alt="googleLogo" class="h-6 w-6" />
-        </button>
-        <button
-          class="delay-50 mx-2 mb-2 flex items-center justify-center space-x-2 rounded border border-slate-600 bg-white px-3 py-2.5 transition ease-in-out hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50 focus:ring-offset-2"
-          on:click={() => (isVisible = !isVisible)}
-        >
-          <EmailIcon></EmailIcon>
-        </button>
-      </div>
-
-      {#if isVisible}
-      <LoginForm />
-      {/if}
-
-      <div class="w-full mt-2 flex justify-end">
-        <button class="text-primary font-bold mx-3" on:click={navigateToPage}
-          >Skip</button
-        >
-      </div>
-      <p class=" mt-3 text-center text-[14px]">
-        Don&#x27;t have an account?
-        <a href="/signup" class="text-gray-900">Create one</a>
-      </p>
-
-      <p class="mt-3 text-center text-[13px]">
-        By continuing, you agree to our <a href="/terms" class="text-gray-900"
-          >Terms of Service</a
-        >
-        and <a href="/privacy" class="text-gray-600">Privacy Policy</a>.
-      </p>
-    </div>
-  </div>
-</div> -->
-
-<div class="flex-[4]  text-white p-[5%]">
-  <div class="flex flex-col items-center   w-full h-full">
-    <h1 class="text-black font-poppins font-normal text-m mb-2">Artwork in Augmented Reality</h1>
-    <h1 class="text-black font-poppins font-normal text-sm mb-4">Turn your walls into a showcase of living art</h1>
-    
-    {#if isVisible}
-    <LoginForm />
-    {/if}
-
-    <button class="inline-block text-white  py-2 px-4 rounded-full bg-black border  font-poppins font-normal text-xs" on:click={navigateToPage}>
-      Continue
+    <button class="p-2" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
     </button>
-    <p class=" mt-3 font-poppins font-normal text-xs text-center text-black">
-      This experience is optimized on high-end phones with LiDAR technology.
-      <!-- <a href="/signup" class="text-gray-900">Create one</a> -->
+  </header>
+
+  <!-- Hero section -->
+  <section class="flex-grow flex flex-col px-6 sm:px-1 lg:px-6 2xl:px-28 text-center justify-center">
+   
+   
+    <!-- Hero image -->
+    <div class="w-full  mx-auto mb-5 mx-2">
+      <div class="relative h-[50vh] sm:h-[70vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
+        <img 
+          src="/landingPage/ImageBackground.webp" 
+          alt="Framed artwork example" 
+          class="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        <h1 class="relative z-10 text-white header-h1 text-center p-4">Art with Augmented Reality</h1>
+      </div>
+    </div>
+
+  <!-- Title and Action Buttons Section -->
+  <div class="mt-8 mb-2 text-center px-2">
+    <p class=" subtitle-1 mb-6  mx-auto">
+      We help you visualize your decorative ideas with Augmented Reality. 
     </p>
-  </div>
-</div>
-</div>
+      <div class="flex flex-row justify-center items-center space-x-3 px-10">
+        <BaseButton 
+          label="Get started" 
+          variant="BasePrimary" 
+          class="button-1"
+          on:click={() => goto('/MainNavigation/Explore')} 
+        />
+        <!-- <BaseButton 
+          label="Book a demo" 
+          variant="BaseSecondary" 
+          class="button-1"
+          on:click={() => goto('/book-demo')}
+        /> -->
+      </div>
+    </div>
+  </section>
+   
+    <hr class="my-10 2xl:my-20  border-gray-200 border-t-1" />
+ 
+    <section class="px-4 lg:px-6 2xl:pl-96">
+      <p class="subtitle-1 text-gray-800">Made with decorar.space</p>
+      <p class="body-1 text-gray-800">See the use cases of our platform</p> 
+
+      <ProjectCarousel />
+    </section>
+  
+</main>
+
+<Footer />
+
 <CloudfareAnalytics></CloudfareAnalytics>
 
-<!-- YourComponent.svelte -->
 <style>
-  .bg-custom {
-    /* Assuming your static folder is at the root and the image is named 'background.jpg' */
-    background-image: url("/LivingRoomIntro.gif");
-    background-size: cover; /* Cover the entire screen */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat;
+  /* Hide scrollbar but keep functionality */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;             /* Chrome, Safari and Opera */
   }
 </style>
+
+ <!-- <h1 class="header-h1">Switch Programa</h1>
+    <h2 class="header-h2">Switch Programa</h2>
+    <h3 class="header-h3">Switch Programa</h3>
+
+    <br/>
+    <br/>
+    <br/>
+    <p class="subtitle-1">Switch Programa</p>
+    <p class="body-1">Switch Programa</p>
+    <br/>
+    <p class="subtitle-2">Switch Programa</p>  
+    <p class="body-2">Switch Programa</p>
+    <br/>
+    <p class="subtitle-3">Switch Programa</p>  
+    <p class="body-3">Switch Programa</p>
+    <br/>
+    <p class="subtitle-4">Switch Programa</p>  
+    <p class="body-4">Switch Programa</p>
+    <br/>
+    <p class="button-1">Switch Programa</p>
+    <p class="button-2">Switch Programa</p>
+    <br/> -->
