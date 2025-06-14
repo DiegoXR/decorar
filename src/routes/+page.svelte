@@ -8,7 +8,7 @@
   import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
   import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
-
+  import PageHeader from '$lib/components/UIComponents/GroupComponents/PageHeader.svelte';
   let isInstagramBrowser = false;
   let email = '';
 
@@ -48,15 +48,7 @@
 <main class="min-h-screen flex flex-col" in:fade={{ duration: 800 }}>
   <!-- Header with logo and hamburger menu -->
   <header class="pt-8 pb-4 px-6 flex items-center justify-between">
-    <div class="flex items-center">
-      <img src="/CompanyLogo_V3.webp" alt="Decorar Logo" class="h-8 w-8" />
-      <h1 class="text-black font-poppins font-semibold text-lg ml-2">decorar.space</h1>
-    </div>
-    <button class="p-2" aria-label="Menu">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+    <PageHeader />
   </header>
 
   <!-- Hero section -->
@@ -84,7 +76,7 @@
         <BaseButton 
           label="Get started" 
           variant="BasePrimary" 
-          class="button-1"
+          class="button-4"
           on:click={() => goto('/MainNavigation/Explore')} 
         />
         <!-- <BaseButton 
@@ -107,8 +99,6 @@
     </section>
   
 </main>
-
-<Footer />
 
 <CloudfareAnalytics></CloudfareAnalytics>
 

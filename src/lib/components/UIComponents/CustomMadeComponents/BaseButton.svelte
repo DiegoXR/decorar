@@ -16,7 +16,7 @@
         variantClasses = 'bg-white text-black border border-gray-300 hover:bg-gray-100';
         break;
       case 'BaseHighlighted': // Example: Yellow button, similar to the original form button
-        variantClasses = 'bg-yellow-400 text-black hover:bg-yellow-500';
+        variantClasses = 'bg-[#FBFF2B] text-black hover:bg-[#FBFF2B]';
         break;
       case 'BaseDisabled':
         variantClasses = 'bg-gray-300 text-gray-500 cursor-not-allowed';

@@ -1,5 +1,5 @@
 <script lang="js">
-    import PageHeader from "$lib/components/UIComponents/PageHeader.svelte";
+    import PageHeader from "$lib/components/UIComponents/GroupComponents/PageHeader.svelte";
     import NavigationBar from "$lib/components/UIComponents/NavigationBar.svelte";
     import { onMount } from "svelte";
     import * as THREE from "three";
