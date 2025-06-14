@@ -61,7 +61,8 @@
   }
 </script>
 
-<footer class="mt-1 border-t border-gray-200 bg-white">
+<footer class="footer-container border-t border-gray-200 bg-white">
+  <div class="footer-spacer"></div>
   <!-- Main Footer Content -->
   <div class="container mx-auto px-4 lg:px-20 py-10 lg:py-12">
     <div class="grid grid-cols-1 lg:grid-cols-[55%_45%] xl:grid-cols-[70%_30%] gap-y-8 lg:gap-x-4">
@@ -177,4 +178,19 @@
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-container {
+    position: relative;
+    width: 100%;
+    clear: both;
+    z-index: 10;
+  }
+
+  .footer-spacer {
+    height: 2rem;
+    width: 100%;
+    clear: both;
+  }
+</style>
         

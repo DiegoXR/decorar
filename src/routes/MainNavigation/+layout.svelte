@@ -10,6 +10,7 @@
     import {GA4_ID} from "../../projectConstants.js"
     import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
     import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
+    import Footer from "$lib/components/UIComponents/GroupComponents/Footer.svelte";
 
 
 
@@ -60,17 +61,36 @@
 <GoogleAnalytics></GoogleAnalytics>
 <PageHeader></PageHeader>
 <!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
-<div class="h-[100vh] w-full bg-white">           
+<div class="main-content-wrapper w-full bg-white">           
     <!-- SPACER BEHIND THE HEADER  -->
-   <div class="w-full h-[10vh]">
-   </div >
+    <div class="header-spacer w-full">
+    </div>
     <!-- SLOT FOR OTHER PAGES  -->
-   <div class="w-full h-[80vh]">
-    <slot />
-   </div> 
-   
-</div> 
+    <div class="page-content w-full">
+        <slot />
+    </div>
+</div>
 
 <NavigationBar></NavigationBar>
+<Footer />
 <CloudfareAnalytics></CloudfareAnalytics>
 
+<style>
+    .main-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        position: relative;
+    }
+
+    .header-spacer {
+        height: 10vh;
+        flex-shrink: 0;
+    }
+
+    .page-content {
+        flex: 1 0 auto;
+        position: relative;
+        padding-bottom: 2rem;
+    }
+</style>
