@@ -11,6 +11,7 @@
     import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
     import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
     import Footer from "$lib/components/UIComponents/GroupComponents/Footer.svelte";
+    import FakePageHeader from "$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte";
 
 
 
@@ -60,13 +61,11 @@
 
 <GoogleAnalytics></GoogleAnalytics>
 <PageHeader></PageHeader>
-<!-- <div class="bg-red-700 w-full h-[10vh] bottom-0 fixed">hola</div>  -->
-<div class="main-content-wrapper w-full bg-white">           
+<div class="main-content-wrapper w-full">           
     <!-- SPACER BEHIND THE HEADER  -->
-    <div class="header-spacer w-full">
-    </div>
+    <FakePageHeader />
     <!-- SLOT FOR OTHER PAGES  -->
-    <div class="page-content w-full">
+    <div class="w-full">
         <slot />
     </div>
 </div>
@@ -82,15 +81,5 @@
         min-height: 100vh;
         position: relative;
     }
-
-    .header-spacer {
-        height: 10vh;
-        flex-shrink: 0;
-    }
-
-    .page-content {
-        flex: 1 0 auto;
-        position: relative;
-        padding-bottom: 2rem;
-    }
+    
 </style>

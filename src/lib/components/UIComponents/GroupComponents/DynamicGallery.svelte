@@ -1,46 +1,11 @@
 <script>
     // @ts-nocheck
     import ImageCard from "$lib/components/UIComponents/ImageCard.svelte";
-    import BaseButton from "$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte";
     import { onMount } from "svelte";
     import { currentSelectedImageStore } from '$lib/CurrentSelectedImageStore';
     
     // Props
     export let images = [];
-    export let imagesPerPage = 10; // Default to 10 images per page for mobile
-    
-    // Pagination state
-    let currentPage = 1;
-    let totalPages = Math.ceil(images.length / imagesPerPage);
-    
-    // Reactive statement to get current page images
-    $: paginatedImages = images.slice(
-        (currentPage - 1) * imagesPerPage,
-        currentPage * imagesPerPage
-    );
-    
-    // Update total pages when images or imagesPerPage changes
-    $: totalPages = Math.ceil(images.length / imagesPerPage);
-    
-    // Navigation functions
-    function goToPage(page) {
-        if (page >= 1 && page <= totalPages) {
-            currentPage = page;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    }
-    
-    function nextPage() {
-        if (currentPage < totalPages) {
-            goToPage(currentPage + 1);
-        }
-    }
-    
-    function prevPage() {
-        if (currentPage > 1) {
-            goToPage(currentPage - 1);
-        }
-    }
 
     onMount(() => {
         // Preselect the first image if there are images
@@ -54,48 +19,15 @@
     <div class="dynamic-gallery">
         <div class="gallery-content">
             <div class="parent-container">
-                {#each paginatedImages as image}
+                {#each images as image}
                     <div class="image-card-wrapper">
                         <ImageCard {image}/>
                     </div>
                 {/each}
             </div>
-            
-            <!-- Pagination Controls -->
-            {#if totalPages > 1}
-                <div class="pagination-controls flex justify-center items-center gap-4 py-8 border-t border-gray-100 mt-8 mb-16">
-                    <BaseButton 
-                        label="Previous"
-                        variant={currentPage === 1 ? 'BaseDisabled' : 'BaseSecondary'}
-                        disabled={currentPage === 1}
-                        on:click={prevPage}
-                        class="pagination-button"
-                    />
-                    
-                    <div class="flex gap-2 flex-wrap justify-center max-w-xs">
-                        {#each Array(totalPages) as _, i}
-                            <button 
-                                on:click={() => goToPage(i + 1)}
-                                class="w-10 h-10 flex items-center justify-center rounded-lg transition-colors
-                                    {currentPage === i + 1 ? 'bg-black text-white' : 'hover:bg-gray-100'}"
-                            >
-                                {i + 1}
-                            </button>
-                        {/each}
-                    </div>
-                    
-                    <BaseButton 
-                        label="Next"
-                        variant={currentPage === totalPages ? 'BaseDisabled' : 'BaseSecondary'}
-                        disabled={currentPage === totalPages}
-                        on:click={nextPage}
-                        class="pagination-button"
-                    />
-                </div>
-            {/if}
         </div>
     </div>
-    <div class="gallery-footer-spacer"></div>
+    <!-- <div class="gallery-footer-spacer"></div> -->
 </div>
 
 <style>
@@ -155,20 +87,5 @@
         -webkit-column-break-inside: avoid; /* WebKit-specific */
         page-break-inside: avoid;
     }
-  
-    /* Pagination controls styling */
-    .pagination-controls {
-        position: relative;
-        clear: both;
-        width: 100%;
-        display: block;
-    }
 
-    /* Add a spacer at the bottom to ensure footer doesn't overlap */
-    .gallery-footer-spacer {
-        height: 5rem;
-        width: 100%;
-        clear: both;
-        display: block;
-    }
 </style>

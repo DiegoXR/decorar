@@ -13,8 +13,6 @@
         ></div>
     {/if}
 
-    <PageHeader />
-
     <main 
         in:fade={{ duration: 150, delay: 150 }}
         out:fade={{ duration: 150 }}
@@ -39,25 +37,6 @@
         min-height: 100vh;
         width: 100%;
         position: relative;
-    }
-    
-    .site-content {
-        flex: 1 0 auto;
-        width: 100%;
-        position: relative;
-        padding-top: 5vh;
-    }
-    
-    @media (min-width: 768px) {
-        .site-content {
-            padding-top: 10vh;
-        }
-    }
-    
-    @media (min-width: 1024px) {
-        .site-content {
-            padding-top: 8vh;
-        }
     }
     
     :global(footer) {
