@@ -44,14 +44,14 @@
     }
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-4 bg-white w-full">
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[60%_40%] lg:grid-cols-1 xl:grid-cols-[60%_40%] 2xl:grid-cols-[60%_40%] gap-4 bg-white w-full h-full">
     <!-- 3D VIEW -->
-    <div bind:this={parentElement} class="p-4 lg:p-6 bg-red-100">
+    <div bind:this={parentElement} class="p-4 lg:p-6 bg-red-100 h-[50vh] md:h-auto lg:h-[50vh] xl:h-auto">
         <SetupView></SetupView>
     </div>
        
     <!-- UI GROUP -->
-    <div>
+    <div class="h-[50vh] md:h-auto lg:h-[50vh] xl:h-auto">
         <div class="bg-green-100 w-full h-full p-4"> 
             <UiGroup></UiGroup> 
         </div>       
