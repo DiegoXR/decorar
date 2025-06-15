@@ -44,19 +44,16 @@
     }
 </script>
 
-<div
-    class="flex flex-wrap bg-white h-[100vh] w-[100vw]"
->
-    <div bind:this={parentElement} class=" w-full md:w-1/2 p-6 flex flex-col h-1/2">
-        <!-- {console.log('HTML Parent section rendered')} -->
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-4 bg-white w-full">
+    <!-- 3D VIEW -->
+    <div bind:this={parentElement} class="p-4 lg:p-6 bg-red-100">
         <SetupView></SetupView>
     </div>
        
-     <div class="bg-white w-full md:w-1/2 p-4 flex flex-col">      
-        <div class="bg-white w-full h-full"> 
-             <UiGroup></UiGroup> 
-         </div>       
-     </div> 
-     <div class=" w-full h-[150px]">
-     </div>        
+    <!-- UI GROUP -->
+    <div>
+        <div class="bg-green-100 w-full h-full p-4"> 
+            <UiGroup></UiGroup> 
+        </div>       
+    </div>
 </div>
