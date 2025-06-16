@@ -83,7 +83,7 @@
     variant="BaseSecondary"
     label="{selectedText}"
     isOpen={dropdownOpen}
-    class="flex items-center justify-between"
+    class="flex items-center justify-between w-full whitespace-nowrap"
     on:click={toggleDropdown}
   >
   </BaseButtonDropdown>
@@ -109,11 +109,15 @@
 
 <style>
   .custom-dropdown-container {
-    min-width: 180px;
+    min-width: 200px;
+    width: auto;
+    display: inline-block;
   }
   
   .custom-dropdown-menu {
     max-height: 200px;
     overflow-y: auto;
+    min-width: 100%;
+    width: auto;
   }
 </style>

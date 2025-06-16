@@ -271,50 +271,65 @@
 
 <FB_CustomButtonGroup></FB_CustomButtonGroup>
 
-
-<div class="flex flex-col justify-evenly items-center content-between mt-4" >
-    <Toast dismissable={false}>    
-         <div class="flex content-between justify-start ml-5 gap-16">
-            <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
-                <p>Image</p>
-            </div> 
-            <Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></Dropdown>                   
-         </div>
-    </Toast>    
+<!-- Unified UI Group with vertical alignment -->
+<div class="flex flex-col justify-start items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 ">
+  <!-- Two-column layout for all UI controls -->
+  <div class="grid grid-cols-2 w-full gap-x-6 gap-y-8 bg-red-500">
+    <!-- Row 1: Image Size -->
+    <div class="flex flex-col items-center justify-between gap-2 bg-green-500">
+      <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+      <p class="text-center">Image</p>
+    </div>
+    <div class="flex items-center justify-center bg-blue-500">
+      <Dropdown 
+        bind:selectedOption={selectedImageSize} 
+        availableSizes={localImageProperties.availableSizes} 
+        defaultSize={DefineDropdownDefaultImageSize()} 
+      />
+    </div>
+    
+    <!-- Row 2: Frame -->
+    <div class="flex flex-col items-center justify-center gap-2">
+      <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
+      <p class="text-center">Frame</p>
+      <FB_Toggle 
+        bind:isChecked={isFrameVisible} 
+        initialStatus={localFrameConfiguration.FrameIsVisible} 
+        id="frame-toggle"
+      />
+    </div>
+    <div class="flex flex-col gap-2 bg-blue-500">
+      <FB_NumberInput 
+        bind:selectedOption={selectedFrameWidth} 
+        defaultValue={DefineFrameBorderWidthInitialSize()} 
+        label={"W"}
+      />
+      <FB_NumberInput 
+        bind:selectedOption={selectedFrameDepth} 
+        defaultValue={DefineFrameBorderDepthInitialSize()} 
+        label={"D"}
+      />
+    </div>
+    
+    <!-- Row 3: Passepartout (conditionally rendered) -->
+    {#if isFrameVisible}
+    <div class="flex flex-col items-center justify-between gap-2">
+      <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
+      <p class="text-center">Passepartout</p>
+      <FB_Toggle 
+        bind:isChecked={isPasspartoutVisible} 
+        initialStatus={localFrameConfiguration.PasspartoutIsVisible} 
+        id="passepartout-toggle"
+      />
+    </div>
+    <div class="flex items-center justify-center bg-blue-500">
+      <FB_PasspartoutDropdown 
+        isActive={isPasspartoutVisible} 
+        bind:selectedOption={selectedPasspartoutCutoutSizeType} 
+        availableOptions={ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} 
+        defaultOption={localFrameConfiguration.PasspartoutCutoutSize}
+      />
+    </div>
+    {/if}
+  </div>
 </div>
-
-<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
-    <!-- <Label for="textarea-id" class="mb-2">Image Size</Label> -->
-    <Toast dismissable={false}>           
-         <div class="flex content-between justify-start ml-5 gap-4">
-            <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
-                <p>Frame</p>
-                <FB_Toggle bind:isChecked={isFrameVisible} initialStatus={localFrameConfiguration.FrameIsVisible} id = a></FB_Toggle>
-            </div>
-            <div class=" flex flex-col items-center content-between justify-evenly gap-1">              
-                <FB_NumberInput bind:selectedOption={selectedFrameWidth} defaultValue = {DefineFrameBorderWidthInitialSize()} label = {"Width"}></FB_NumberInput>
-                <FB_NumberInput bind:selectedOption={selectedFrameDepth} defaultValue = {DefineFrameBorderDepthInitialSize()} label = {"Depth"}></FB_NumberInput>
-
-            </div>           
-         </div>
-    </Toast>    
-</div>
-
-{#if isFrameVisible}
-<div class="flex flex-col justify-evenly items-center content-between  mt-4  gap-[10px]" >
-    <Toast dismissable={false}>    
-         <div class="flex content-between justify-start ml-1 gap-16">
-            <div class="flex flex-col justify-evenly items-center content-between gap-2">
-                <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
-                <p>Passepartout</p>
-                <FB_Toggle bind:isChecked={isPasspartoutVisible} initialStatus={localFrameConfiguration.PasspartoutIsVisible} id = b></FB_Toggle>
-            </div>
-            <div class=" flex flex-col items-center content-between justify-evenly gap-[10px]">              
-                 <FB_PasspartoutDropdown isActive = {isPasspartoutVisible}  bind:selectedOption={selectedPasspartoutCutoutSizeType} availableOptions = {ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} defaultOption={localFrameConfiguration.PasspartoutCutoutSize}></FB_PasspartoutDropdown>
-            </div>           
-         </div>
-    </Toast>    
-</div>
-{/if}
