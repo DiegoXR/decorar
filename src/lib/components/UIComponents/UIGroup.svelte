@@ -15,6 +15,7 @@
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
     import FrameIcon from "../IconComponents/FrameIcon.svelte";
+    import ScreenSizeDebugger from "./CustomMadeComponents/ScreenSizeDebugger.svelte";
 
 
 
@@ -331,5 +332,20 @@
       />
     </div>
     {/if}
+     <!-- Row 4: Image Size -->
+     <div class="flex flex-col items-center justify-between gap-2 bg-green-500">
+        <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+        <p class="text-center">Image</p>
+      </div>
+      <div class="flex items-center justify-center bg-blue-500">
+        <Dropdown 
+          bind:selectedOption={selectedImageSize} 
+          availableSizes={localImageProperties.availableSizes} 
+          defaultSize={DefineDropdownDefaultImageSize()} 
+        />
+      </div>
+
+      <ScreenSizeDebugger />
+      
   </div>
 </div>

@@ -51,7 +51,7 @@
     </div>
        
     <!-- UI GROUP -->
-    <div class="h-[50vh] md:h-auto lg:h-[50vh] xl:h-auto">
+    <div class="h-min-[50vh] md:h-min-[50vh] lg:h-min-[50vh] xl:h-min-[50vh]">
         <div class="bg-green-100 w-full h-full p-4"> 
             <UiGroup></UiGroup> 
         </div>       
