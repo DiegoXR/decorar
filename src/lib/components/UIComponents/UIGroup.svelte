@@ -1,6 +1,6 @@
 <script>
     import ToggleInitializable from "$lib/components/UIComponents/ToggleInitializable.svelte";
-    import DropdownInitializable from "$lib/components/UIComponents/DropdownInitializable.svelte";
+    import Dropdown from "$lib/components/UIComponents/CustomMadeComponents/Dropdown.svelte";
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
     import * as THREEJsConfiguration from "../../../lib/SceneConstants.js";
@@ -9,7 +9,6 @@
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
-    import FB_Dropdown from "$lib/components/UIComponents/FB_Dropdown.svelte";
     import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
     import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
     import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
@@ -280,7 +279,7 @@
                 <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
                 <p>Image</p>
             </div> 
-            <FB_Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></FB_Dropdown>                   
+            <Dropdown bind:selectedOption={selectedImageSize} availableSizes = {localImageProperties.availableSizes} defaultSize={DefineDropdownDefaultImageSize()} ></Dropdown>                   
          </div>
     </Toast>    
 </div>

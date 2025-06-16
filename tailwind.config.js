@@ -14,7 +14,7 @@ export default {
       colors: {
         primary: '#302d2e', // Tu color primario
         secondary: '#059669', // Tu color secundario
-        iconColor: '#302d2e', // Tu color de iconos
+        iconColor: '#000000', // Tu color de iconos
         // Colores adicionales de Flowbite
         primary: {
           50: '#FFF5F2',
