@@ -78,7 +78,7 @@
   }
 </script>
 
-<div class="custom-dropdown-container relative" use:clickOutside on:outclick={handleClickOutside}>
+<div class="custom-dropdown-container relative mx-auto w-full max-w-[200px]" use:clickOutside on:outclick={handleClickOutside}>
   <BaseButtonDropdown
     variant="BaseSecondary"
     label="{selectedText}"
@@ -108,16 +108,9 @@
 </div>
 
 <style>
-  .custom-dropdown-container {
-    min-width: 200px;
-    width: auto;
-    display: inline-block;
-  }
-  
   .custom-dropdown-menu {
     max-height: 200px;
     overflow-y: auto;
-    min-width: 100%;
-    width: auto;
+    width: 100%;
   }
 </style>

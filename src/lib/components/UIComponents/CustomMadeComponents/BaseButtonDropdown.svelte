@@ -7,7 +7,7 @@
   export let disabled = false;
   export let isOpen = false;
 
-  let baseClasses = 'py-3 px-3 rounded-none transition-colors w-full sm:w-auto';
+  let baseClasses = 'py-3 px-3 rounded-none transition-colors w-full';
   let variantClasses = '';
 
   $: {
