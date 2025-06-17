@@ -9,7 +9,7 @@
     import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
     import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
-    import FB_NumberInput from "$lib/components/UIComponents/FB_NumberInput.svelte";
+    import NumberInput from "$lib/components/UIComponents/GroupComponents/NumberInput.svelte";
     import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
     import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
     import {Label, Toast} from 'flowbite-svelte';
@@ -299,13 +299,13 @@
         id="frame-toggle"
       />
     </div>
-    <div class="flex flex-col gap-2 bg-blue-500">
-      <FB_NumberInput 
+    <div class="flex flex-col gap-2 bg-blue-500 items-center justify-center">
+      <NumberInput 
         bind:selectedOption={selectedFrameWidth} 
         defaultValue={DefineFrameBorderWidthInitialSize()} 
         label={"W"}
       />
-      <FB_NumberInput 
+      <NumberInput 
         bind:selectedOption={selectedFrameDepth} 
         defaultValue={DefineFrameBorderDepthInitialSize()} 
         label={"D"}
