@@ -46,13 +46,13 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[60%_40%] lg:grid-cols-1 xl:grid-cols-[60%_40%] 2xl:grid-cols-[60%_40%] gap-4 bg-white w-full h-full">
     <!-- 3D VIEW -->
-    <div bind:this={parentElement} class="p-4 lg:p-6 bg-red-100 h-[50vh] md:h-auto lg:h-[50vh] xl:h-auto">
+    <div bind:this={parentElement} class="p-4 lg:p-6 bg-white h-[50vh] md:h-auto lg:h-auto xl:h-auto">
         <SetupView></SetupView>
     </div>
        
     <!-- UI GROUP -->
-    <div class="h-min-[50vh] md:h-min-[50vh] lg:h-min-[50vh] xl:h-min-[50vh]">
-        <div class="bg-green-100 w-full h-full p-4"> 
+    <div class="flex items-start justify-center h-min-[50vh] md:h-auto lg:h-auto xl:h-auto">
+        <div class="w-full p-5"> 
             <UiGroup></UiGroup> 
         </div>       
     </div>

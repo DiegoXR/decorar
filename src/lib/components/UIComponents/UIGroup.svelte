@@ -271,16 +271,16 @@
 <FB_CustomButtonGroup></FB_CustomButtonGroup>
 
 <!-- Unified UI Group with vertical alignment -->
-<div class="flex flex-col justify-start items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 ">
+<div class="flex flex-col justify-center items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 ">
   <!-- Two-column layout for all UI controls -->
-  <div class="grid grid-cols-2 w-full gap-x-6 gap-y-2 bg-red-500">
+  <div class="grid grid-cols-2 w-full gap-x-6 gap-y-2">
     
     <!-- Row 1: Image Size -->
-    <div class="flex flex-col items-center justify-between gap-2 bg-green-500">
+    <div class="flex flex-col items-center justify-between gap-2">
       <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
-      <p class="text-center">Image</p>
+      <p class="text-center body-3">Image</p>
     </div>
-    <div class="flex items-center justify-center bg-blue-500">
+    <div class="flex items-center justify-center">
       <Dropdown 
         bind:selectedOption={selectedImageSize} 
         availableSizes={localImageProperties.availableSizes} 
@@ -291,7 +291,7 @@
     <!-- Row 2: Frame -->
     <div class="flex flex-col items-center justify-center gap-2">
       <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
-      <p class="text-center">Frame</p>
+      <p class="text-center body-3">Frame</p>
       <Toggle 
         bind:isChecked={isFrameVisible} 
         initialStatus={localFrameConfiguration.FrameIsVisible} 
@@ -320,7 +320,7 @@
     {#if isFrameVisible}
     <div class="flex flex-col items-center justify-between gap-2">
       <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
-      <p class="text-center">Passepartout</p>
+      <p class="text-center body-3">Passepartout</p>
       <Toggle 
         bind:isChecked={isPasspartoutVisible} 
         initialStatus={localFrameConfiguration.PasspartoutIsVisible} 
