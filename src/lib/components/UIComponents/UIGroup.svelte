@@ -8,7 +8,7 @@
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
     import NumberInput from "$lib/components/UIComponents/GroupComponents/NumberInput.svelte";
-    import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
+    import Toggle from "$lib/components/UIComponents/GroupComponents/Toggle.svelte";
     import TextSelector from "$lib/components/UIComponents/GroupComponents/TextSelector.svelte";
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
@@ -292,10 +292,11 @@
     <div class="flex flex-col items-center justify-center gap-2">
       <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
       <p class="text-center">Frame</p>
-      <FB_Toggle 
+      <Toggle 
         bind:isChecked={isFrameVisible} 
         initialStatus={localFrameConfiguration.FrameIsVisible} 
         id="frame-toggle"
+        variant="primary"
       />
     </div>
     <div class="flex flex-col gap-1 bg-white items-center justify-center w-full">
@@ -320,10 +321,11 @@
     <div class="flex flex-col items-center justify-between gap-2">
       <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
       <p class="text-center">Passepartout</p>
-      <FB_Toggle 
+      <Toggle 
         bind:isChecked={isPasspartoutVisible} 
         initialStatus={localFrameConfiguration.PasspartoutIsVisible} 
         id="passepartout-toggle"
+        variant="primary"
       />
     </div>
     <div class="flex items-center justify-center bg-white">
