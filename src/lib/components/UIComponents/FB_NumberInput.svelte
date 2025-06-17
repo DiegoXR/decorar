@@ -85,8 +85,7 @@
     }
 </style>
 
-<div class="flex items-center content-between justify-evenly  gap-2">
-    <span>{label}</span>
+<div class="flex items-center content-between justify-evenly">
     <form class="max-w-xs">
         <div class="relative flex items-center max-w-[9rem]">
             <button
@@ -107,7 +106,7 @@
             <input
                 type="text"
                 id="number-input"
-                class="bg-gray-50 border-gray-300 h-10 font-medium text-center text-gray-900 text-sm  block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                class="bg-gray-50 border-gray-300 h-10 text-center text-black body-3 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                 value={displayValue}
                 step="1"
                 bind:this={inputElement}

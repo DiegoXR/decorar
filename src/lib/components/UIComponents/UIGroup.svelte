@@ -6,12 +6,10 @@
     import * as THREEJsConfiguration from "../../../lib/SceneConstants.js";
     import * as SetupUtilities from "../../../lib/SetupUtilities.js"
     import { currentSelectedImageStore } from "../../../lib/CurrentSelectedImageStore.js";
-    import SelectorNumberInitializable from "$lib/components/UIComponents/SelectorNumberInitializable.svelte";
-    import DropdownStringInitializable from "./DropdownStringInitializable.svelte";
     import FB_CustomButtonGroup from "$lib/components/UIComponents/FB_CustomButtonGroup.svelte";
     import NumberInput from "$lib/components/UIComponents/GroupComponents/NumberInput.svelte";
     import FB_Toggle from "$lib/components/UIComponents/FB_Toggle.svelte";
-    import FB_PasspartoutDropdown from "$lib/components/UIComponents/FB_PasspartoutDropdown.svelte";
+    import TextSelector from "$lib/components/UIComponents/GroupComponents/TextSelector.svelte";
     import {Label, Toast} from 'flowbite-svelte';
     import { PaperPlaneOutline } from 'flowbite-svelte-icons';
     import FrameIcon from "../IconComponents/FrameIcon.svelte";
@@ -275,7 +273,8 @@
 <!-- Unified UI Group with vertical alignment -->
 <div class="flex flex-col justify-start items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 ">
   <!-- Two-column layout for all UI controls -->
-  <div class="grid grid-cols-2 w-full gap-x-6 gap-y-8 bg-red-500">
+  <div class="grid grid-cols-2 w-full gap-x-6 gap-y-2 bg-red-500">
+    
     <!-- Row 1: Image Size -->
     <div class="flex flex-col items-center justify-between gap-2 bg-green-500">
       <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
@@ -299,17 +298,21 @@
         id="frame-toggle"
       />
     </div>
-    <div class="flex flex-col gap-2 bg-white items-center justify-center">
-      <NumberInput 
-        bind:selectedOption={selectedFrameWidth} 
-        defaultValue={DefineFrameBorderWidthInitialSize()} 
-        label={"W"}
-      />
-      <NumberInput 
-        bind:selectedOption={selectedFrameDepth} 
-        defaultValue={DefineFrameBorderDepthInitialSize()} 
-        label={"D"}
-      />
+    <div class="flex flex-col gap-1 bg-white items-center justify-center w-full">
+      <div class="flex justify-center w-full">
+        <NumberInput 
+          bind:selectedOption={selectedFrameWidth} 
+          defaultValue={DefineFrameBorderWidthInitialSize()} 
+          label={""}
+        />
+      </div>
+      <div class="flex justify-center w-full">
+        <NumberInput 
+          bind:selectedOption={selectedFrameDepth} 
+          defaultValue={DefineFrameBorderDepthInitialSize()} 
+          label={""}
+        />
+      </div>
     </div>
     
     <!-- Row 3: Passepartout (conditionally rendered) -->
@@ -323,8 +326,8 @@
         id="passepartout-toggle"
       />
     </div>
-    <div class="flex items-center justify-center bg-blue-500">
-      <FB_PasspartoutDropdown 
+    <div class="flex items-center justify-center bg-white">
+      <TextSelector 
         isActive={isPasspartoutVisible} 
         bind:selectedOption={selectedPasspartoutCutoutSizeType} 
         availableOptions={ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} 
@@ -332,19 +335,6 @@
       />
     </div>
     {/if}
-     <!-- Row 4: Image Size -->
-     <div class="flex flex-col items-center justify-between gap-2 bg-green-500">
-        <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
-        <p class="text-center">Image</p>
-      </div>
-      <div class="flex items-center justify-center bg-blue-500">
-        <Dropdown 
-          bind:selectedOption={selectedImageSize} 
-          availableSizes={localImageProperties.availableSizes} 
-          defaultSize={DefineDropdownDefaultImageSize()} 
-        />
-      </div>
-
       <ScreenSizeDebugger />
       
   </div>

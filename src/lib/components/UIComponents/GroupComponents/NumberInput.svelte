@@ -85,9 +85,8 @@
     }
 </style>
 
-<div class="flex items-center justify-between gap-2">
-    <span class="text-sm font-medium">{label}</span>
-    <div class="relative flex items-center max-w-[9rem]">
+<div class="flex items-center justify-between w-[200px]">
+    <div class="relative flex items-center w-full">
         <!-- Decrement button -->
         <BaseIconButton 
             on:click={decrement}
@@ -102,7 +101,7 @@
         <!-- Input field -->
         <input
             type="text"
-            class="body-4 h-10 text-center text-black block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
+            class="body-3 h-10 text-center text-black block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
             value={displayValue}
             bind:this={inputElement}
             aria-label="Number input"
