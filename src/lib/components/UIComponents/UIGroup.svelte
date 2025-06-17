@@ -299,7 +299,7 @@
         id="frame-toggle"
       />
     </div>
-    <div class="flex flex-col gap-2 bg-blue-500 items-center justify-center">
+    <div class="flex flex-col gap-2 bg-white items-center justify-center">
       <NumberInput 
         bind:selectedOption={selectedFrameWidth} 
         defaultValue={DefineFrameBorderWidthInitialSize()} 

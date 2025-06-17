@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import ArrowLeft from "$lib/components/IconComponents/ArrowLeft.svelte";
     import ArrowRight from "$lib/components/IconComponents/ArrowRight.svelte";
+    import BaseIconButton from "$lib/components/UIComponents/CustomMadeComponents/BaseIconButton.svelte";
     
     // Default values and constraints
     const min = 1;   // Minimum value
@@ -78,11 +79,6 @@
 </script>
 
 <style>
-    /* Prevent Safari zooming */
-    button {
-        touch-action: manipulation;
-    }
-
     /* Ensure font size is at least 16px to prevent Safari zooming */
     input {
         font-size: 16px;
@@ -93,32 +89,34 @@
     <span class="text-sm font-medium">{label}</span>
     <div class="relative flex items-center max-w-[9rem]">
         <!-- Decrement button -->
-        <button
-            type="button"
+        <BaseIconButton 
             on:click={decrement}
-            class="bg-gray-800 hover:bg-gray-700 text-white rounded-l-lg p-2 h-10 flex items-center justify-center transition-colors"
-            aria-label="Decrease value"
+            variant="BaseSecondary"
+            rounded="none"
+            size="medium"
+            ariaLabel="Decrease value"
         >
             <ArrowLeft />
-        </button>
+        </BaseIconButton>
         
         <!-- Input field -->
         <input
             type="text"
-            class="body-4 bg-gray-50 border border-gray-300 h-10 text-center text-gray-900 block w-full focus:ring-primary-500 focus:border-primary-500"
+            class="body-4 h-10 text-center text-black block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
             value={displayValue}
             bind:this={inputElement}
             aria-label="Number input"
         />
         
         <!-- Increment button -->
-        <button
-            type="button"
+        <BaseIconButton 
             on:click={increment}
-            class="bg-gray-800 hover:bg-gray-700 text-white rounded-r-lg p-2 h-10 flex items-center justify-center transition-colors"
-            aria-label="Increase value"
+            variant="BaseSecondary"
+            rounded="none"
+            size="medium"
+            ariaLabel="Increase value"
         >
             <ArrowRight />
-        </button>
+        </BaseIconButton>
     </div>
 </div>
