@@ -1,6 +1,5 @@
 <script>
   import Feedback from "$lib/components/Analytics/Feedback.svelte";
-  import PdfViewer from "$lib/components/UIComponents/PDFViewer.svelte";
   import { Alert } from 'flowbite-svelte';
   import { Button } from 'flowbite-svelte';
 </script>
@@ -40,4 +39,3 @@
     <!-- <Feedback></Feedback> -->
   </section>
 
-  <PdfViewer></PdfViewer>
