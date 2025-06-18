@@ -38,8 +38,8 @@ export default {
     screens: {
       'sm': '380px',      // Mobile Portrait (iPhone)
       'md': '745px',      // Mobile Landscape. 750px instead of 768px becase iphone Landscape is 750px
-      'lg': '1024px',      // Tablet Portrait
-      'xl': '1280px',     // Tablet Landscape
+      'lg': '830px',      // Tablet Portrait
+      'xl': '1190px',     // Tablet Landscape
       '2xl': '1536px',    // Desktop
     },
     fontFamily: {

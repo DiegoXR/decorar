@@ -276,9 +276,14 @@
   <div class="grid grid-cols-2 w-full gap-x-6 gap-y-2">
     
     <!-- Row 1: Image Size -->
-    <div class="flex flex-col items-center justify-between gap-2">
-      <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
-      <p class="text-center body-3">Image</p>
+    <div class="grid grid-cols-[20%_60%_20%] items-center">
+      <div class="flex justify-center">
+        <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+      </div>
+      <div class="flex justify-start">
+        <p class="text-center body-3">Image</p>
+      </div>
+      <div></div>
     </div>
     <div class="flex items-center justify-center">
       <Dropdown 
@@ -289,15 +294,21 @@
     </div>
     
     <!-- Row 2: Frame -->
-    <div class="flex flex-col items-center justify-center gap-2">
-      <FrameIcon imageColor="#d3d3d3" frameColor="#000000" passpartoutColor="#d3d3d3"/>
-      <p class="text-center body-3">Frame</p>
-      <Toggle 
-        bind:isChecked={isFrameVisible} 
-        initialStatus={localFrameConfiguration.FrameIsVisible} 
-        id="frame-toggle"
-        variant="primary"
-      />
+    <div class="grid grid-cols-[20%_60%_20%] items-center">
+      <div class="flex justify-center">
+          <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+      </div>
+        <div class="flex justify-start">
+          <p class="text-center body-3">Frame</p>
+        </div>
+        <div class="flex justify-center">
+          <Toggle 
+            bind:isChecked={isFrameVisible} 
+            initialStatus={localFrameConfiguration.FrameIsVisible} 
+            id="frame-toggle"
+            variant="primary"
+          />
+        </div>      
     </div>
     <div class="flex flex-col gap-1 bg-white items-center justify-center w-full">
       <div class="flex justify-center w-full">
@@ -318,15 +329,21 @@
     
     <!-- Row 3: Passepartout (conditionally rendered) -->
     {#if isFrameVisible}
-    <div class="flex flex-col items-center justify-between gap-2">
-      <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
-      <p class="text-center body-3">Passepartout</p>
-      <Toggle 
-        bind:isChecked={isPasspartoutVisible} 
-        initialStatus={localFrameConfiguration.PasspartoutIsVisible} 
-        id="passepartout-toggle"
-        variant="primary"
-      />
+    <div class="grid grid-cols-[20%_60%_20%] items-center">
+      <div class="flex justify-center">
+        <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
+      </div>
+      <div class="flex justify-start">
+        <p class="text-center body-3">Passepartout</p>
+      </div>
+      <div class="flex justify-center">
+        <Toggle 
+          bind:isChecked={isPasspartoutVisible} 
+          initialStatus={localFrameConfiguration.PasspartoutIsVisible} 
+          id="passepartout-toggle"
+          variant="primary"
+        />
+      </div>
     </div>
     <div class="flex items-center justify-center bg-white">
       <TextSelector 
