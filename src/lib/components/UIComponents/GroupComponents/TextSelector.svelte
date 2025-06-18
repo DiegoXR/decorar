@@ -84,6 +84,13 @@
   }
 </script>
 
+<style>
+  /* Prevent double-tap zoom on mobile devices */
+  :global(.text-selector-button) {
+    touch-action: manipulation;
+  }
+</style>
+
 <div class="flex items-center justify-between w-[200px]">
   <div class="relative flex items-center w-full">
     <!-- Previous button -->
@@ -94,6 +101,7 @@
       size="medium"
       disabled={!isActive}
       ariaLabel="Previous option"
+      class="text-selector-button"
     >
       <ArrowLeft />
     </BaseIconButton>
@@ -113,6 +121,7 @@
       size="medium"
       disabled={!isActive}
       ariaLabel="Next option"
+      class="text-selector-button"
     >
       <ArrowRight />
     </BaseIconButton>

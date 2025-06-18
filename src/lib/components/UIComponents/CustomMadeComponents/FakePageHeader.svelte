@@ -3,5 +3,5 @@
   // It ensures content doesn't appear behind the fixed header
 </script>
 
-<div class="w-full bg-red-100 h-[8vh] lg:h-[6vh] xl:h-[8vh]"></div>
+<div class="w-full h-[8vh] lg:h-[6vh] xl:h-[8vh]"></div>
 

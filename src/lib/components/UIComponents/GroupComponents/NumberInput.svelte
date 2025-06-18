@@ -83,6 +83,11 @@
     input {
         font-size: 16px;
     }
+    
+    /* Prevent double-tap zoom on mobile devices */
+    :global(.number-input-button) {
+        touch-action: manipulation;
+    }
 </style>
 
 <div class="flex items-center justify-between w-[200px]">
@@ -94,6 +99,7 @@
             rounded="none"
             size="medium"
             ariaLabel="Decrease value"
+            class="number-input-button"
         >
             <ArrowLeft />
         </BaseIconButton>
@@ -114,6 +120,7 @@
             rounded="none"
             size="medium"
             ariaLabel="Increase value"
+            class="number-input-button"
         >
             <ArrowRight />
         </BaseIconButton>

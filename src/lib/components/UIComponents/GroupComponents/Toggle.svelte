@@ -57,7 +57,7 @@
   <label for={id} class="hidden"></label>
   <div 
     class="
-      relative h-6 w-11 rounded-full border transition-colors duration-200 ease-in-out
+      relative h-6 w-11 rounded-full border transition-colors duration-250 ease-linear flex items-center
       {isChecked 
         ? variant === 'disabled' 
           ? 'bg-gray-400' 
@@ -68,9 +68,9 @@
   >
     <span 
       class="
-        absolute top-0.5 h-5 w-5 rounded-full border border-gray-300 bg-white
-        transition-all duration-200 ease-in-out
-        {isChecked ? 'left-[calc(100%-22px)]' : 'left-[2px]'}
+        absolute left-[2px] h-5 w-5 rounded-full border border-gray-300 bg-white
+        transition-transform duration-250 ease-linear will-change-transform
+        {isChecked ? 'translate-x-[19px]' : 'translate-x-0'}
       "
     ></span>
   </div>

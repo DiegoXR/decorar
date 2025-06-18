@@ -6,6 +6,7 @@
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
   import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
+  import Separator from "$lib/components/UIComponents/CustomMadeComponents/Separator.svelte";
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
   import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
   import PageHeader from '$lib/components/UIComponents/GroupComponents/PageHeader.svelte';
@@ -89,7 +90,7 @@
     </div>
   </section>
    
-    <hr class="my-10 2xl:my-20  border-gray-200 border-t-1" />
+  <Separator width="full" margin="my-10 2xl:my-20" />
  
   <section class="px-4 lg:px-6 2xl:pl-96">
     <p class="subtitle-1 text-gray-800">Made with decorar.space</p>

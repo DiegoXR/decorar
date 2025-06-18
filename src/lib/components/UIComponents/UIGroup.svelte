@@ -1,5 +1,4 @@
 <script>
-    import ToggleInitializable from "$lib/components/UIComponents/ToggleInitializable.svelte";
     import Dropdown from "$lib/components/UIComponents/CustomMadeComponents/Dropdown.svelte";
     import { onMount, onDestroy } from "svelte";
     import { frameConfigurationStore } from "../../../lib/FrameConfigurationStore.js";
@@ -10,12 +9,9 @@
     import NumberInput from "$lib/components/UIComponents/GroupComponents/NumberInput.svelte";
     import Toggle from "$lib/components/UIComponents/GroupComponents/Toggle.svelte";
     import TextSelector from "$lib/components/UIComponents/GroupComponents/TextSelector.svelte";
-    import {Label, Toast} from 'flowbite-svelte';
-    import { PaperPlaneOutline } from 'flowbite-svelte-icons';
     import FrameIcon from "../IconComponents/FrameIcon.svelte";
     import ScreenSizeDebugger from "./CustomMadeComponents/ScreenSizeDebugger.svelte";
-
-
+    import Separator from "./CustomMadeComponents/Separator.svelte";
 
     /**
      * @type {boolean}
@@ -293,6 +289,11 @@
       />
     </div>
     
+    <!-- Separator that spans both columns -->
+    <div class="col-span-2">
+      <Separator width="full" margin="my-0" />
+    </div>
+    
     <!-- Row 2: Frame -->
     <div class="grid grid-cols-[20%_60%_20%] items-center">
       <div class="flex justify-center">
@@ -327,6 +328,11 @@
       </div>
     </div>
     
+    <!-- Separator that spans both columns -->
+    <div class="col-span-2">
+      <Separator width="full" margin="my-0" />
+    </div>
+    
     <!-- Row 3: Passepartout (conditionally rendered) -->
     {#if isFrameVisible}
     <div class="grid grid-cols-[20%_60%_20%] items-center">
@@ -345,14 +351,16 @@
         />
       </div>
     </div>
+    {#if isPasspartoutVisible}
     <div class="flex items-center justify-center bg-white">
       <TextSelector 
-        isActive={isPasspartoutVisible} 
+        isActive={true} 
         bind:selectedOption={selectedPasspartoutCutoutSizeType} 
         availableOptions={ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)} 
         defaultOption={localFrameConfiguration.PasspartoutCutoutSize}
       />
     </div>
+    {/if}
     {/if}
       <ScreenSizeDebugger />
       

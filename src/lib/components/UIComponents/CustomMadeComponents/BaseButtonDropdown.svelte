@@ -34,6 +34,13 @@
   }
 </script>
 
+<style>
+  /* Prevent double-tap zoom on mobile devices */
+  button {
+    touch-action: manipulation;
+  }
+</style>
+
 <button 
   class="{baseClasses} {variantClasses} {$$props.class || ''}" 
   {disabled}
