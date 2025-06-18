@@ -21,8 +21,9 @@
 
     /**
      * @type {string}
+     * Label text to display below the input
      */
-    export let label;
+    export let label = "";
 
     /**
      * @type {HTMLInputElement}
@@ -90,7 +91,7 @@
     }
 </style>
 
-<div class="flex items-center justify-between w-[200px]">
+<div class="flex flex-col items-center justify-between w-[200px]">
     <div class="relative flex items-center w-full">
         <!-- Decrement button -->
         <BaseIconButton 
@@ -125,4 +126,11 @@
             <ArrowRight />
         </BaseIconButton>
     </div>
+    
+    <!-- Label below input -->
+    {#if label}
+        <div class="w-full text-center">
+            <p class="body-4 text-gray-600">{label}</p>
+        </div>
+    {/if}
 </div>

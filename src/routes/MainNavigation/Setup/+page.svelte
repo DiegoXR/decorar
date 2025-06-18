@@ -51,8 +51,8 @@
     </div>
        
     <!-- UI GROUP -->
-    <div class="flex items-start justify-center h-min-[50vh] md:h-auto lg:h-auto xl:h-auto">
-        <div class="w-full p-5"> 
+    <div class="flex items-start lg:items-center justify-center h-min-[50vh] md:h-auto lg:h-auto xl:h-auto">
+        <div class="w-full p-5 mb-10"> 
             <UiGroup></UiGroup> 
         </div>       
     </div>

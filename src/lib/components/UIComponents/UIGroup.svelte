@@ -12,6 +12,9 @@
     import FrameIcon from "../IconComponents/FrameIcon.svelte";
     import ScreenSizeDebugger from "./CustomMadeComponents/ScreenSizeDebugger.svelte";
     import Separator from "./CustomMadeComponents/Separator.svelte";
+    import ImageSize from "../IconComponents/ImageSize.svelte";
+    import Frame from "../IconComponents/Frame.svelte";
+    import Passpartout from "../IconComponents/Passpartout.svelte";
 
     /**
      * @type {boolean}
@@ -264,7 +267,7 @@
 
 
 
-<FB_CustomButtonGroup></FB_CustomButtonGroup>
+<!-- <FB_CustomButtonGroup></FB_CustomButtonGroup> -->
 
 <!-- Unified UI Group with vertical alignment -->
 <div class="flex flex-col justify-center items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 ">
@@ -274,7 +277,7 @@
     <!-- Row 1: Image Size -->
     <div class="grid grid-cols-[20%_60%_20%] items-center">
       <div class="flex justify-center">
-        <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+       <ImageSize/>
       </div>
       <div class="flex justify-start">
         <p class="text-center body-3">Image</p>
@@ -297,7 +300,7 @@
     <!-- Row 2: Frame -->
     <div class="grid grid-cols-[20%_60%_20%] items-center">
       <div class="flex justify-center">
-          <FrameIcon imageColor="#000000" frameColor="#d3d3d3" passpartoutColor="#d3d3d3"/>
+          <Frame/>
       </div>
         <div class="flex justify-start">
           <p class="text-center body-3">Frame</p>
@@ -316,14 +319,14 @@
         <NumberInput 
           bind:selectedOption={selectedFrameWidth} 
           defaultValue={DefineFrameBorderWidthInitialSize()} 
-          label={""}
+          label="Width"
         />
       </div>
       <div class="flex justify-center w-full">
         <NumberInput 
           bind:selectedOption={selectedFrameDepth} 
           defaultValue={DefineFrameBorderDepthInitialSize()} 
-          label={""}
+          label="Thickness"
         />
       </div>
     </div>
@@ -337,7 +340,7 @@
     {#if isFrameVisible}
     <div class="grid grid-cols-[20%_60%_20%] items-center">
       <div class="flex justify-center">
-        <FrameIcon imageColor="#d3d3d3" frameColor="#d3d3d3" passpartoutColor="#000000"/>
+        <Passpartout/>
       </div>
       <div class="flex justify-start">
         <p class="text-center body-3">Passepartout</p>
