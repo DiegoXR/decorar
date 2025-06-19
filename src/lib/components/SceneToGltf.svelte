@@ -87,10 +87,12 @@
                     const blob = new Blob([gltf], {
                         type: "model/gltf-binary",
                     });
+                    // Create URL without appending extension - use proper MIME type instead
                     const url = URL.createObjectURL(blob);
                     // Now you can use this URL with <model-viewer>
-                    modelUrl = url; // Assuming `modelUrl` is a reactive variable in Svelte
+                    modelUrl = url;
                     gltfIsReady = true;
+                    console.log('Model URL created:', modelUrl);
 
                     // Example: Download the file
                     // const link = document.createElement('a');
@@ -159,7 +161,7 @@
 </button> -->
 
 {#if gltfIsReady}
-<div class="h-[100%] w-[100%] m-auto bg-slate-400 modelViewerSpace">
+<div class="h-[100vh] w-[100vw] modelViewerSpace">
     <model-viewer
     src={modelUrl}
     ar
@@ -179,6 +181,10 @@ on:click={handleButtonClick}
 </button>
 
 </model-viewer>
+</div>
+{:else}
+<div class="h-[100vh] w-[100vw] bg-white flex items-center justify-center">
+    <h3 class="text-black header-3">Model not ready</h3>
 </div>
 {/if}
 

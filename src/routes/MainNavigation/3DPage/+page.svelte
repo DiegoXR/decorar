@@ -38,7 +38,7 @@
 </script>
 {#if enable3DGeneration}
     <SceneMaker></SceneMaker>
-    <div class="w-full h-full bg-white">
+    <div class="w-full h-full bg-red-500">
     {#if isSceneMakerLoaded}
     <SceneToGltf></SceneToGltf>
     {/if} 
