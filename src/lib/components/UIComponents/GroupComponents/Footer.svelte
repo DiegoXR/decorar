@@ -12,25 +12,22 @@
     {
       title: 'Product',
       links: [
-        { href: '/tools/specification', label: 'Specifications' },
-        { href: '/tools/management', label: 'Best Practices' },
-        { href: '/tools/creative', label: 'Our Roadmap' }
+        { href: '/SecondaryNavigation/Product/UserGuide', label: 'User Guide' },
+        { href: '/SecondaryNavigation/Product/Roadmap', label: 'Roadmap' }
       ]
     },
     {
       title: 'Resources',
       links: [
-        { href: '/resources/blog', label: 'Blog' },
-        { href: '/resources/made-with-programa', label: 'Made with Decorar' },
-        { href: '/resources/testimonials', label: 'Testimonials' }
+        { href: '/SecondaryNavigation/Resources/Blog', label: 'Blog' },
+        { href: '/SecondaryNavigation/Resources/Testimonials', label: 'Testimonials' }
       ]
     },
     {
       title: 'About',
       links: [
-        { href: '/about/company', label: 'Company' },
-        { href: '/about/contact', label: 'Contact' },
-        { href: '/about/privacy', label: 'Instagram', external: true }
+        { href: '/SecondaryNavigation/About/Company', label: 'Company' },
+        { href: '/SecondaryNavigation/About/Contact', label: 'Contact' }
       ]
     }
   ];

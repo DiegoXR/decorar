@@ -1,8 +1,3 @@
-<script>
-  import Feedback from "$lib/components/Analytics/Feedback.svelte";
-  import { Alert } from 'flowbite-svelte';
-  import { Button } from 'flowbite-svelte';
-</script>
 <section class="bg-gray-900 h-full">
     <div class="container py-8 px-6 mx-auto">
         <p
@@ -38,4 +33,3 @@
     </div>
     <!-- <Feedback></Feedback> -->
   </section>
-
