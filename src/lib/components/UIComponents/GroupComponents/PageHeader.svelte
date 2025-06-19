@@ -17,7 +17,7 @@
     }
 </script>
 
-<header class="fixed top-0 left-0 w-full flex flex-row items-center justify-between px-4  lg:px-8 xl:px-16 bg-white h-[8vh] md:h-[12vh] lg:h-[6vh] xl:h-[8vh] z-20 shadow-sm">
+<header class="fixed top-0 left-0 w-full flex flex-row items-center justify-between px-4 lg:px-8 xl:px-16 bg-white h-[8vh] md:h-[12vh] lg:h-[6vh] xl:h-[8vh] z-20 shadow-sm">
     <!-- Child 1: Logo and Text -->
     <div class="flex items-center">
         <button class="flex items-center" on:click={GotoHomePage}>

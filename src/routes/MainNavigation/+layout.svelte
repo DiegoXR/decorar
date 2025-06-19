@@ -64,13 +64,14 @@
 <div class="main-content-wrapper w-full">           
     <!-- SPACER BEHIND THE HEADER  -->
     <FakePageHeader />
+    <NavigationBar></NavigationBar>
     <!-- SLOT FOR OTHER PAGES  -->
     <div class="w-full">
         <slot />
     </div>
 </div>
 
-<NavigationBar></NavigationBar>
+
 <Footer />
 <CloudfareAnalytics></CloudfareAnalytics>
 

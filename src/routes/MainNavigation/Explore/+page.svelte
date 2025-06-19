@@ -5,7 +5,7 @@
     import DynamicGallery from "$lib/components/UIComponents/GroupComponents/DynamicGallery.svelte";
 </script>
 
-<div class="relative w-full min-h-[50vh] mt-5">
+<div class="relative w-full min-h-[50vh] mt-16">
     <InputImage />    
     <section class="py-8 w-full">
         <div class="container-fluid mx-auto px-4 lg:px-8">

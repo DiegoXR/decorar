@@ -2,27 +2,30 @@
 import { page } from '$app/stores';
 import { derived } from 'svelte/store';
 
+const navLinkClass = 'body-4 text-gray-600 hover:text-black transition-colors';
 
 </script>
 
 
 
-<nav class=" text-black   bg-white w-full h-[10vh] bottom-0 fixed z-10">
-    <div class="mx-auto bg-gray-800">
+<nav class="fixed top-[8vh] left-0 w-full h-[6vh] bg-white z-10 md:top-[12vh] lg:top-[6vh] xl:top-[8vh]">
+    <div class="h-full">
         <div class="flex justify-center items-center">
-            <div class="flex items-center justify-around">
+            <div class="flex items-center justify-around h-full">
                 <!-- Navigation Links -->
-                <a href="/MainNavigation/Explore" class="rounded  py-3 px-2 text-gray-200" class:active={$page.route.id?.includes("Explore")}>1. Explore
-                <!-- <div class=" w-full h-[2px] bg-red-500" class:activeLine={$page.route.id?.includes("Explore")}> -->
-                <!-- </div> -->
-                
+                <a href="/MainNavigation/Explore" class="{navLinkClass} py-3 px-2" class:active={$page.route.id?.includes("Explore")}>
+                    Explore
                 </a>
-                <a href="/MainNavigation/Setup" class="rounded py-3 px-2 text-gray-200" class:active={$page.route.id?.includes("Setup")}> 2. Customize</a>
-                <a href="/MainNavigation/3DPage" class="rounded  py-3  px-2 text-gray-200" class:active={$page.route.id?.includes("3DPage")}>3. 3D View</a>
+                <a href="/MainNavigation/Setup" class="{navLinkClass} py-3 px-2" class:active={$page.route.id?.includes("Setup")}>
+                    Customize
+                </a>
+                <a href="/MainNavigation/3DPage" class="{navLinkClass} py-3 px-2" class:active={$page.route.id?.includes("3DPage")}>
+                    3D View
+                </a>
                 <!-- <a href="/MainNavigation/AboutUs" class="rounded  py-3 px-2 text-gray-200" class:active={$page.route.id?.includes("AboutUs")}>About Us</a> -->
                 <!-- <a href="/MainNavigation/Customize" class="rounded px-3 py-3">Customize</a> -->
                 <!-- <a href="/MainNavigation/ARSet" class="rounded px-3 py-3">AR</a> -->
-                <a href="/MainNavigation/Playground" class="rounded px-3 py-3"class:active={$page.route.id?.includes("Playground")}>Playground</a>
+                <!-- <a href="/MainNavigation/Playground" class="rounded px-3 py-3"class:active={$page.route.id?.includes("Playground")}>Playground</a> -->
             </div>
         </div>
     </div>
@@ -31,7 +34,7 @@ import { derived } from 'svelte/store';
 <style>
     .active {
       font-weight: bold;
-      color: white;
+      color: black;
     }
 
     .activeLine {
