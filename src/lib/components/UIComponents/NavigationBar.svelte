@@ -33,8 +33,8 @@ const navLinkClass = 'body-4 text-gray-600 hover:text-black transition-colors';
 
 <style>
     .active {
-      font-weight: bold;
       color: black;
+      font-weight: bold;
     }
 
     .activeLine {
