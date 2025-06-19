@@ -1,9 +1,12 @@
 <script>
     import { goto } from "$app/navigation";
+    import { page } from '$app/stores';
     import BaseButton from "$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte";
 
     const navLinkClass = 'body-4 text-gray-600 hover:text-black transition-colors';
     
+    // Check if current page is the homepage
+    $: isHomepage = $page.url.pathname === '/';
 
     function GotoHomePage() {
         goto("/");
@@ -14,7 +17,7 @@
     }
 </script>
 
-<header class="fixed top-0 left-0 w-full flex flex-row items-center justify-between px-4  lg:px-8 xl:px-16 bg-white h-[8vh]  lg:h-[6vh] xl:h-[8vh] z-20 shadow-sm">
+<header class="fixed top-0 left-0 w-full flex flex-row items-center justify-between px-4  lg:px-8 xl:px-16 bg-white h-[8vh] md:h-[12vh] lg:h-[6vh] xl:h-[8vh] z-20 shadow-sm">
     <!-- Child 1: Logo and Text -->
     <div class="flex items-center">
         <button class="flex items-center" on:click={GotoHomePage}>
@@ -38,14 +41,16 @@
         <a href="/blog" class={navLinkClass}>Blog</a>
     </nav>
 
-    <!-- Child 3: Get Started Button -->
+    <!-- Child 3: Get Started Button and Mobile Menu -->
     <div>
-        <BaseButton
-            label="Get Started"
-            variant="BaseHighlighted"
-            class="button-4 hidden sm:block"
-            on:click={GetStarted}
-        />
+        {#if isHomepage}
+            <BaseButton
+                label="Get Started"
+                variant="BaseHighlighted"
+                class="button-4 hidden sm:block"
+                on:click={GetStarted}
+            />
+        {/if}
         
         <!-- Mobile menu button -->
         <button class="p-2 sm:hidden" aria-label="Menu">

@@ -174,7 +174,7 @@
 >
 <button
 slot="ar-button"
-class="text-white font-bold py-2 px-4 rounded-full bg-gray-900 position : absolute left-1/2 bottom-20 transform -translate-x-1/2 "
+class="bg-[#FBFF2B] text-black hover:bg-[#FBFF2B] button-4 py-3 px-3 rounded-xl transition-colors absolute left-1/2 bottom-20 transform -translate-x-1/2"
 on:click={handleButtonClick}
 >
  Activate AR

@@ -9,12 +9,12 @@
     import NumberInput from "$lib/components/UIComponents/GroupComponents/NumberInput.svelte";
     import Toggle from "$lib/components/UIComponents/GroupComponents/Toggle.svelte";
     import TextSelector from "$lib/components/UIComponents/GroupComponents/TextSelector.svelte";
-    import FrameIcon from "../IconComponents/FrameIcon.svelte";
     import ScreenSizeDebugger from "./CustomMadeComponents/ScreenSizeDebugger.svelte";
     import Separator from "./CustomMadeComponents/Separator.svelte";
     import ImageSize from "../IconComponents/ImageSize.svelte";
     import Frame from "../IconComponents/Frame.svelte";
     import Passpartout from "../IconComponents/Passpartout.svelte";
+    import BaseButton from "$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte";
 
     /**
      * @type {boolean}
@@ -365,7 +365,25 @@
     </div>
     {/if}
     {/if}
-      <ScreenSizeDebugger />
+    
+    <!-- <div class="col-span-2 mt-4">
+      <Separator width="full" margin="my-2" />
+    </div> -->
+    
+    <!-- Generate 3D Button -->
+    <div class="col-span-2 flex justify-center mt-10">
+      <BaseButton 
+        label="Generate 3D"
+        variant="BaseHighlighted"
+        class="button-4 hidden sm:block"
+        on:click={async () => {
+          const { goto } = await import('$app/navigation');
+          await goto('/MainNavigation/3DPage');
+        }}
+      />
+    </div>
+    
+    <ScreenSizeDebugger />
       
   </div>
 </div>
