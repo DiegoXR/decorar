@@ -10,6 +10,7 @@
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
   import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
   import PageHeader from '$lib/components/UIComponents/GroupComponents/PageHeader.svelte';
+  import FakePageHeader from '$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte';
   let isInstagramBrowser = false;
   let email = '';
 
@@ -48,17 +49,17 @@
 
 <main class="min-h-screen flex flex-col" in:fade={{ duration: 800 }}>
   <!-- Header with logo and hamburger menu -->
-  <header class="pt-8 pb-4 px-6 flex items-center justify-between">
+  <header class="pt-8 pb-1 px-6 flex items-center justify-between">
     <PageHeader />
   </header>
-
+  <FakePageHeader />
   <!-- Hero section -->
   <section class="flex-grow flex flex-col px-6 sm:px-1 lg:px-6 2xl:px-28 text-center justify-center">
    
    
     <!-- Hero image -->
     <div class="w-full  mx-auto mb-5 mx-2">
-      <div class="relative h-[50vh] sm:h-[70vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
+      <div class="relative h-[50vh] sm:h-[50vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
         <img 
           src="/landingPage/ImageBackground.webp" 
           alt="Framed artwork example" 

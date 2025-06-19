@@ -1,34 +1,41 @@
 <script>
   import DesignerCard from "$lib/components/UIComponents/GroupComponents/DesignerCard.svelte";
-  // Designer data for easier management
+  // Project data for carousel display
   const designers = [
     {
-      image: "/referenceImages/jorge-bermudez-9u7Xv3veu4c-unsplash.webp",
+      image: "/landingPage/Paintings.webp",
       title: "Paintings",
-      subtitle: "Made with Programa",
-      location: "CALIFORNIA, USA",
-      tag: "MULTIDISCIPLINARY"
+      subtitle: "Custom Framed Art",
+      location: "GALLERY COLLECTION",
+      tag: "FINE ART"
     },
     {
-      image: "/referenceImages/laura-chouette-g6Ny4dvHlE0-unsplash_0.67.webp",
-      title: "Wall papers",
-      subtitle: "Curated Spaces",
-      location: "PARIS, FRANCE",
-      tag: "RESIDENTIAL"
+      image: "/landingPage/Wallpapers.webp",
+      title: "Wallpapers",
+      subtitle: "Decorative Wall Art",
+      location: "INTERIOR DESIGN",
+      tag: "DECORATIVE"
     },
     {
-      image: "/referenceImages/oladimeji-odunsi-br7vCg8693o-unsplash_0.8.webp",
+      image: "/landingPage/StreetArt.webp",
       title: "Street Art",
-      subtitle: "Contemporary Art Spaces",
-      location: "LAGOS, NIGERIA",
-      tag: "CONTEMPORARY"
+      subtitle: "Urban Expression",
+      location: "CONTEMPORARY",
+      tag: "URBAN"
     },
     {
-      image: "/referenceImages/oladimeji-odunsi-br7vCg8693o-unsplash_0.8.webp",
+      image: "/landingPage/Carpets.webp",
       title: "Carpets",
-      subtitle: "Contemporary Art Spaces",
-      location: "LAGOS, NIGERIA",
-      tag: "CONTEMPORARY"
+      subtitle: "Floor Decoration",
+      location: "HOME DECOR",
+      tag: "TEXTILE"
+    },
+    {
+      image: "/landingPage/Pillows.webp",
+      title: "Pillows",
+      subtitle: "Accent Pieces",
+      location: "HOME ACCESSORIES",
+      tag: "SOFT FURNISHING"
     }
   ];
 </script>
