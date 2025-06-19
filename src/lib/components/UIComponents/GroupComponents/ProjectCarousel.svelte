@@ -5,38 +5,39 @@
     {
       image: "/landingPage/Paintings.webp",
       title: "Paintings",
-      subtitle: "Custom Framed Art",
-      location: "GALLERY COLLECTION",
+      subtitle: "Any paint anywhere",
+      location: "LIVE NOW",
       tag: "FINE ART"
     },
     {
       image: "/landingPage/Wallpapers.webp",
       title: "Wallpapers",
-      subtitle: "Decorative Wall Art",
-      location: "INTERIOR DESIGN",
+      subtitle: "Test wallpapers before buying",
+      location: "JULY 2025",
       tag: "DECORATIVE"
     },
     {
       image: "/landingPage/StreetArt.webp",
       title: "Street Art",
-      subtitle: "Urban Expression",
-      location: "CONTEMPORARY",
+      subtitle: "AR for urban art planning",
+      location: "JULY 2025",
       tag: "URBAN"
     },
     {
       image: "/landingPage/Carpets.webp",
       title: "Carpets",
-      subtitle: "Floor Decoration",
-      location: "HOME DECOR",
+      subtitle: "Carpets and rugs visualization",
+      location: "AUGUST 2025",
       tag: "TEXTILE"
-    },
-    {
-      image: "/landingPage/Pillows.webp",
-      title: "Pillows",
-      subtitle: "Accent Pieces",
-      location: "HOME ACCESSORIES",
-      tag: "SOFT FURNISHING"
-    }
+     }
+     //,
+    // {
+    //   image: "/landingPage/Pillows.webp",
+    //   title: "Pillows",
+    //   subtitle: "Accent Pieces",
+    //   location: "HOME ACCESSORIES",
+    //   tag: "SOFT FURNISHING"
+    // }
   ];
 </script>
 
