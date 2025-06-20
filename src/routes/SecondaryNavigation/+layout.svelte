@@ -26,7 +26,7 @@
     .main-content-wrapper {
         display: flex;
         flex-direction: column;
-        min-height: 100vh;
+        min-height: calc(100vh - 300px);
         position: relative;
     }
 

@@ -26,7 +26,7 @@
     {
       title: 'About',
       links: [
-        { href: '/SecondaryNavigation/About/Company', label: 'Company' },
+        { href: '/SecondaryNavigation/About/Company', label: 'Our Story' },
         { href: '/SecondaryNavigation/About/Contact', label: 'Contact' }
       ]
     }
