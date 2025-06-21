@@ -3,6 +3,20 @@
     import { fade } from 'svelte/transition';
     import { navigating } from '$app/stores';
     import PageHeader from "$lib/components/UIComponents/GroupComponents/PageHeader.svelte";
+
+    import { afterNavigate } from '$app/navigation';
+
+    afterNavigate(({ from, to }) => {
+        console.log("after navigate", { from: from?.url.pathname, to: to?.url.pathname });
+        
+        // Force immediate scroll to top without smooth behavior
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }, 0);
+    });
+
 </script>
 
 <div class="site-wrapper">
