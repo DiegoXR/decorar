@@ -8,8 +8,8 @@
         <div class="body-3 text-black leading-relaxed">
             Welcome!
             <br/>
-            This web tool was created to help you visualize how artwork and other decorative works will look in your real space at real size before you buy, hang, or paint anything.
-            Whether you're an art lover, an interior designer, or a mural artist, this tool helps you make confident and creative decisions with ease.
+            This web tool was created to help you visualize how artwork and other decorative items will look in your real space at real size before you buy, hang, or paint anything.
+            Whether you're an art lover, an interior designer, or a mural artist, this site helps you make confident and creative decisions with ease.
         </div>
     </div>
 </section>
@@ -21,7 +21,7 @@
             <strong>What You'll Need:</strong>
             <br/>
             <br/>
-            • A smartphone or tablet with a LiDAR sensor (Apple Pro models iPhone and iPad) or ToF sensor (Android  Ultra models).
+            • A smartphone or tablet with a LiDAR sensor (iPhone Pro or iPad Pro models) or ToF sensor (Android  Ultra models).
             <br/>
             • A stable internet connection.
             <br/>
@@ -114,7 +114,7 @@
         <div class="body-3 text-black leading-relaxed">
             <strong>Q: What devices are supported?</strong>
             <br/>
-            A: Devices with LiDAR or ToF sensors. (e.g., iPhone and iPadPro models, high-end Android devices)
+            A: Devices with LiDAR or ToF sensors. (iPhone Pro and iPad Pro models, high-end Android devices)
             <br/>
             <br/>
             <strong>Q: Why can't I see the artwork on my wall?</strong>
@@ -129,7 +129,7 @@
             <br/>
             <strong>Q: Is this app free to use?</strong>
             <br/>
-            A: Yes. There's no login or payment required.
+            A: Yes. There's no login or payment required for this phase of the project.
         </div>
     </div>
 </section>

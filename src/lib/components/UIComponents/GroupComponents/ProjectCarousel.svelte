@@ -5,7 +5,7 @@
     {
       image: "/landingPage/Paintings.webp",
       title: "Paintings",
-      subtitle: "Any paint anywhere",
+      subtitle: "Any artwork anywhere",
       location: "LIVE NOW",
       tag: "FINE ART"
     },
@@ -25,9 +25,9 @@
     },
     {
       image: "/landingPage/Carpets.webp",
-      title: "Carpets",
-      subtitle: "Carpets and rugs visualization",
-      location: "AUGUST 2025",
+      title: "Rugs",
+      subtitle: "Rugs visualization",
+      location: "OCTOBER 2025",
       tag: "TEXTILE"
      }
      //,

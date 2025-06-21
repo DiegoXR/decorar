@@ -6,7 +6,7 @@
 
 <section class="bg-white mt-5 sm:mx-6 md:mx-10 lg:mx-16 xl:mx-28 2xl:mx-60">
     <div class="md:p-8">
-        <h2 class="subtitle-1 text-black mb-4">How this happened</h2>     
+        <h2 class="subtitle-1 text-black mb-4">How this happened?</h2>     
         <div class="body-3 text-black leading-relaxed">
             It all started with a blank wall, and the desire to finally feel at home.
             During the pandemic, like so many others, we set out to redesign our apartment, the place where we suddenly had to spend every hour of the day. 
