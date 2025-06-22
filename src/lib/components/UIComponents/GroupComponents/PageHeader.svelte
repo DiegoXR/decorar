@@ -32,7 +32,7 @@
                         height="32"
                         loading="lazy"
                     />
-                    <h1 class="text-black subtitle-3 ml-2 hidden sm:block">decorar.space</h1>
+                    <h1 class="text-black font-poppins font-semibold ml-2 hidden sm:block">decorar.space</h1>
                 </button>
             </div>
         </div>

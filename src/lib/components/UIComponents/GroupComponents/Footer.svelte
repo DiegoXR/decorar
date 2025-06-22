@@ -61,8 +61,8 @@
 <footer class="footer-container border-t border-gray-200 bg-white">
   <div class="footer-spacer"></div>
   <!-- Main Footer Content -->
-  <div class="container mx-auto px-4 lg:px-4 xl:px-40 py-10 lg:py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-[50%_50%] xl:grid-cols-[70%_30%] gap-y-8 lg:gap-x-4">
+  <div class="container mx-auto px-4 lg:px-4 xl:px-20 py-10 lg:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-[50%_50%] xl:grid-cols-[60%_40%] gap-y-8 lg:gap-x-4">
       <!-- First column: Navigation sections -->
       <div class="px-4 sm:px-6 mb-8 lg:mb-0">
         <div class="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">

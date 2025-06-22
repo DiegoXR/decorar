@@ -93,7 +93,7 @@
    
   <Separator width="full" margin="my-10 2xl:my-20" />
  
-  <section class="px-4 lg:px-6 2xl:pl-96">
+  <section class="px-4 lg:px-6 xl:px-20 2xl:pl-96">
     <p class="subtitle-1 text-gray-800">Made with decorar.space</p>
     <p class="body-1 text-gray-800">See the use cases of our platform</p> 
 

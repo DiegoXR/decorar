@@ -6,6 +6,7 @@
     import { goto } from "$app/navigation";
     import HeartIcon from "../IconComponents/HeartIcon.svelte";
     import { Avatar} from 'flowbite-svelte';
+    import GradientBadge from "./CustomMadeComponents/GradientBadge.svelte";
    
      /**
      * @type {{ 
@@ -89,8 +90,9 @@
 </script>
 
 <div class="child-container mb-10">
-    <div class="flex flex-row items-start justify-start w-full pl-4 gap-2 mb-2">
-        <Avatar src="/referenceImages/steven-diaz-9lqOuSQhNCM-unsplash.webp" />
+    <div class="flex flex-row items-center justify-start w-full pl-4 gap-2 mb-2 py-2">
+        <!-- <Avatar src="/referenceImages/steven-diaz-9lqOuSQhNCM-unsplash.webp" /> -->
+        <GradientBadge size="30px" />
         <div>
             <h1 class="body-3">{image.author}</h1>
             <h1 class="body-4 text-gray-500">Unsplash</h1>
