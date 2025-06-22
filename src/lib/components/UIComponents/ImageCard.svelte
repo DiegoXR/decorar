@@ -92,8 +92,8 @@
     <div class="flex flex-row items-start justify-start w-full pl-4 gap-2 mb-2">
         <Avatar src="/referenceImages/steven-diaz-9lqOuSQhNCM-unsplash.webp" />
         <div>
-            <h1 class="font-poppins font-medium text-sm">{image.author}</h1>
-            <h1 class="font-poppins font-normal text-xs text-gray-500">Unsplash</h1>
+            <h1 class="body-3">{image.author}</h1>
+            <h1 class="body-4 text-gray-500">Unsplash</h1>
         </div>            
     </div>
     <button 

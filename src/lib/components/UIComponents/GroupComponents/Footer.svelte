@@ -61,8 +61,8 @@
 <footer class="footer-container border-t border-gray-200 bg-white">
   <div class="footer-spacer"></div>
   <!-- Main Footer Content -->
-  <div class="container mx-auto px-4 lg:px-20 py-10 lg:py-12">
-    <div class="grid grid-cols-1 lg:grid-cols-[55%_45%] xl:grid-cols-[70%_30%] gap-y-8 lg:gap-x-4">
+  <div class="container mx-auto px-4 lg:px-4 xl:px-40 py-10 lg:py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-[50%_50%] xl:grid-cols-[70%_30%] gap-y-8 lg:gap-x-4">
       <!-- First column: Navigation sections -->
       <div class="px-4 sm:px-6 mb-8 lg:mb-0">
         <div class="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -105,7 +105,7 @@
             <input 
               type="email" 
               placeholder="Enter your email" 
-              class="w-full py-3 px-4 pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400"
+              class="w-full py-3 px-4 pr-4 lg:pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400"
               aria-label="Email for newsletter"
               bind:value={email}
               aria-invalid={formMessage.type === 'error'}
@@ -116,9 +116,9 @@
             <div class="hidden lg:block absolute right-1.5 top-1/2 -translate-y-1/2">
               <BaseButton 
                 type="submit"
-                label={isSubmitting ? 'Sending...' : 'Get started'}
-                variant="BasePrimary"
-                class="py-1.5 px-4 text-sm rounded-md"
+                label={isSubmitting ? 'Sending...' : 'Subscribe'}
+                variant="BaseHighlighted"
+                class="button-4"
                 disabled={isSubmitting}
               />
             </div>
@@ -128,9 +128,9 @@
           <div class="lg:hidden w-full">
             <BaseButton 
               type="submit"
-              label={isSubmitting ? 'Sending...' : 'Get started'}
-              variant="BasePrimary"
-              class="w-full py-2.5 px-4"
+              label={isSubmitting ? 'Sending...' : 'Subscribe'}
+              variant="BaseHighlighted"
+              class="w-full button-4"
               disabled={isSubmitting}
             />
           </div>
@@ -169,7 +169,7 @@
         <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
           <a href="/SecondaryNavigation/Legal/TermsAndConditions" class={`${footerLinkClass} whitespace-nowrap`}>Terms of Service</a>
           <a href="/SecondaryNavigation/Legal/PrivacyPolicy" class={`${footerLinkClass} whitespace-nowrap`}>Privacy Policy</a>
-          <a href="/SecondaryNavigation/Legal/CookiePolicy" class={`${footerLinkClass} whitespace-nowrap`}>Cookie Policy</a>
+          <!-- <a href="/SecondaryNavigation/Legal/CookiePolicy" class={`${footerLinkClass} whitespace-nowrap`}>Cookie Policy</a> -->
         </div>
       </div>
     </div>
