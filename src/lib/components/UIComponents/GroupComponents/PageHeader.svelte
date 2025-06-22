@@ -21,20 +21,18 @@
     <!-- Three-column grid layout with fixed positioning -->
     <div class="grid grid-cols-3 w-full">
         <!-- Child 1: Logo and Text (Left aligned) -->
-        <div class="col-start-1 col-end-2">
-            <div class="flex items-center">
-                <button class="flex items-center" on:click={GotoHomePage}>
-                    <img
-                        src="/CompanyLogo_V3.webp"
-                        alt="Decorar Logo"
-                        class="h-8 w-8"
-                        width="32"
-                        height="32"
-                        loading="lazy"
-                    />
-                    <h1 class="text-black font-poppins font-semibold ml-2 hidden sm:block">decorar.space</h1>
-                </button>
-            </div>
+        <div class="col-start-1 col-end-2 flex items-center justify-start">
+            <button class="flex items-center" on:click={GotoHomePage}>
+                <img
+                    src="/CompanyLogo_V3.webp"
+                    alt="Decorar Logo"
+                    class="h-8 w-8"
+                    width="32"
+                    height="32"
+                    loading="lazy"
+                />
+                <h1 class="text-black font-poppins font-semibold ml-2 hidden sm:block">decorar.space</h1>
+            </button>
         </div>
 
         <!-- Child 2: Navigation Links (Center aligned) -->

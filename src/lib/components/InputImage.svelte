@@ -130,7 +130,7 @@
 <div class="bg-white w-full flex flex-row items-center justify-center">
   <div class="relative">
     <BaseButton 
-      label="Upload your Image"
+      label="Upload Image"
       variant="BasePrimary"
       class = "button-4"
       on:click={() => {

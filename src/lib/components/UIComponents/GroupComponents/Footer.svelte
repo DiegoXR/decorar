@@ -12,8 +12,10 @@
     {
       title: 'Product',
       links: [
-        { href: '/SecondaryNavigation/Product/UserGuide', label: 'User Guide' },
-        { href: '/SecondaryNavigation/Product/Roadmap', label: 'Roadmap' }
+        { href: '/SecondaryNavigation/Product/OurProduct', label: 'What is decorar.space' },  
+       { href: '/SecondaryNavigation/Product/UserGuide', label: 'User Guide' },
+        { href: '/SecondaryNavigation/Product/Roadmap', label: 'Roadmap' },
+        
       ]
     },
     {
@@ -152,9 +154,8 @@
   <div class="border-t border-gray-200 bg-gray-50">
     <div class="container mx-auto px-4 sm:px-6 py-6">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-        <!-- Logo and Copyright -->
-        <div class="flex items-center justify-center sm:justify-start mb-4 sm:mb-0">
-          <img 
+       <!-- <div>
+         <img 
             src="/CompanyLogo_V3.webp" 
             alt="Decorar Logo" 
             class="h-8 w-8" 
@@ -162,7 +163,20 @@
             height="32"
             loading="lazy"
           />
-          <span class="ml-2 text-sm text-gray-600">© {currentYear} decorar.space. All rights reserved.</span>
+       </div>         -->
+        <!--Copyright -->
+        <div class="flex items-center justify-center sm:justify-start mb-4 sm:mb-0">        
+          <span class="ml-2 body-4 text-gray-600">© {currentYear} decorar.space. <br/>All rights reserved.</span>
+        </div>
+        
+        <!-- Social Media Links -->
+        <div class="flex flex-col md:flex-row justify-center items-center gap-y-2 gap-x-6">
+          <a href="https://www.instagram.com/decorar.space?igsh=MXkwY3ZwbHpkZ2Y2aw%3D%3D" target="_blank" rel="noopener noreferrer" class="body-4 text-gray-600 hover:text-black transition-colors">
+            Instagram
+          </a>
+          <a href="https://www.tiktok.com/@decorarspace?_t=ZS-8xQLr6tIkxc&_r=1" target="_blank" rel="noopener noreferrer" class="body-4 text-gray-600 hover:text-black transition-colors">
+            TikTok
+          </a>
         </div>
         
         <!-- Legal Links -->

@@ -28,7 +28,7 @@
     <p class="body-2 text-left">{subtitle}</p>
     
     <!-- Location and category aligned left -->
-    <div class="mt-3 flex flex-col space-y-0.5 items-start">
+    <div class="mt-0 flex flex-col space-y-0.5 items-start">
       <div class="flex items-center">
         <span class="body-4 text-gray-600 uppercase">{location}</span>
       </div>

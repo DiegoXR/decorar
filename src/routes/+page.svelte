@@ -65,14 +65,14 @@
           alt="Framed artwork example" 
           class="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <h1 class="relative z-10 text-white font-poppins text-semibold text-6xl text-center p-4">Decor with Augmented Reality</h1>
+        <h1 class="relative z-10 text-white header-h1 text-center p-4">Art & Decor with Augmented Reality</h1>
       </div>
     </div>
 
   <!-- Title and Action Buttons Section -->
   <div class="mt-8 mb-2 text-center px-2">
     <p class=" subtitle-1 mb-6  mx-auto">
-      We help you visualize your decorative ideas with Augmented Reality. 
+      We help you visualize your decorative ideas with AR. 
     </p>
       <div class="flex flex-row justify-center items-center space-x-3 px-10">
         <BaseButton 
@@ -93,7 +93,7 @@
    
   <Separator width="full" margin="my-10 2xl:my-20" />
  
-  <section class="px-4 lg:px-6 xl:px-20 2xl:pl-96">
+  <section class="px-4 lg:px-6 xl:px-20 2xl:pl-60">
     <p class="subtitle-1 text-gray-800">Made with decorar.space</p>
     <p class="body-1 text-gray-800">See the use cases of our platform</p> 
 
