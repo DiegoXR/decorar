@@ -65,7 +65,7 @@
           alt="Framed artwork example" 
           class="absolute inset-0 w-full h-full object-cover object-center"
         />
-        <h1 class="relative z-10 text-white header-h1 text-center p-4">Art with Augmented Reality</h1>
+        <h1 class="relative z-10 text-white font-poppins text-semibold text-6xl text-center p-4">Decor with Augmented Reality</h1>
       </div>
     </div>
 

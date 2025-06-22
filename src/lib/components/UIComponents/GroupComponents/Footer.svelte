@@ -105,7 +105,7 @@
             <input 
               type="email" 
               placeholder="Enter your email" 
-              class="w-full py-3 px-4 pr-4 lg:pr-32 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400"
+              class="w-full py-3 px-2 lg:pr-32 rounded-[14px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400"
               aria-label="Email for newsletter"
               bind:value={email}
               aria-invalid={formMessage.type === 'error'}
@@ -113,7 +113,7 @@
             />
             
             <!-- Desktop button -->
-            <div class="hidden lg:block absolute right-1.5 top-1/2 -translate-y-1/2">
+            <div class="hidden lg:block absolute right-[0.2rem] top-1/2 -translate-y-1/2">
               <BaseButton 
                 type="submit"
                 label={isSubmitting ? 'Sending...' : 'Subscribe'}
