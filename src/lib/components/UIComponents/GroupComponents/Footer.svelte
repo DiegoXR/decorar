@@ -12,24 +12,24 @@
     {
       title: 'Product',
       links: [
-        { href: '/SecondaryNavigation/Product/OurProduct', label: 'What is decorar.space' },  
-       { href: '/SecondaryNavigation/Product/UserGuide', label: 'User Guide' },
-        { href: '/SecondaryNavigation/Product/Roadmap', label: 'Roadmap' },
+        { href: '/SecondaryNavigation/Product/OurProduct', label: 'What is decorar.space', external: false },  
+        { href: '/SecondaryNavigation/Product/UserGuide', label: 'User Guide', external: false },
+        { href: '/SecondaryNavigation/Product/Roadmap', label: 'Roadmap', external: false },
         
       ]
     },
     {
       title: 'Resources',
       links: [
-        { href: '/SecondaryNavigation/Resources/Blog', label: 'Blog' },
-        { href: '/SecondaryNavigation/Resources/Testimonials', label: 'Testimonials' }
+        { href: '/SecondaryNavigation/Resources/Blog', label: 'Blog', external: false },
+        { href: '/SecondaryNavigation/Resources/Testimonials', label: 'Testimonials', external: false }
       ]
     },
     {
       title: 'About',
       links: [
-        { href: '/SecondaryNavigation/About/Company', label: 'Our Story' },
-        { href: '/SecondaryNavigation/About/Contact', label: 'Contact' }
+        { href: '/SecondaryNavigation/About/Company', label: 'Our Story', external: false },
+        { href: '/SecondaryNavigation/About/Contact', label: 'Contact', external: false }
       ]
     }
   ];
