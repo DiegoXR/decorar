@@ -167,9 +167,9 @@
         
         <!-- Legal Links -->
         <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
-          <a href="/terms" class={`${footerLinkClass} whitespace-nowrap`}>Terms of Service</a>
-          <a href="/privacy" class={`${footerLinkClass} whitespace-nowrap`}>Privacy Policy</a>
-          <a href="/cookies" class={`${footerLinkClass} whitespace-nowrap`}>Cookie Policy</a>
+          <a href="/SecondaryNavigation/Legal/TermsAndConditions" class={`${footerLinkClass} whitespace-nowrap`}>Terms of Service</a>
+          <a href="/SecondaryNavigation/Legal/PrivacyPolicy" class={`${footerLinkClass} whitespace-nowrap`}>Privacy Policy</a>
+          <a href="/SecondaryNavigation/Legal/CookiePolicy" class={`${footerLinkClass} whitespace-nowrap`}>Cookie Policy</a>
         </div>
       </div>
     </div>
