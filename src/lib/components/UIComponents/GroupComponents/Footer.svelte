@@ -34,30 +34,8 @@
     }
   ];
   
-  // Newsletter form state
-  let email = '';
-  let isSubmitting = false;
-  let formMessage = { type: '', text: '' };
-  
-  // Handle newsletter form submission
-  function handleSubscribe(e: Event) {
-    e.preventDefault();
-    
-    // Basic email validation
-    if (!email || !email.includes('@')) {
-      formMessage = { type: 'error', text: 'Please enter a valid email address' };
-      return;
-    }
-    
-    isSubmitting = true;
-    
-    // Simulate API call (replace with actual implementation)
-    setTimeout(() => {
-      formMessage = { type: 'success', text: 'Thank you for subscribing!' };
-      email = '';
-      isSubmitting = false;
-    }, 1000);
-  }
+  // Import Newsletter component
+  import Newsletter from '$lib/components/Newsletter.svelte';
 </script>
 
 <footer class="footer-container border-t border-gray-200 bg-white">
@@ -95,57 +73,7 @@
       
       <!-- Second column: Newsletter -->
       <div class="flex flex-col items-start w-full px-4 sm:px-6 lg:px-0">
-        <h3 id="newsletter-heading" class="subtitle-3 mb-2 text-left w-full">Subscribe to our newsletter</h3>
-        <p class="body-4 text-gray-600 mb-4 text-left">Stay updated with our latest features and design tips.</p>
-        
-        <form 
-          class="w-[90%] sm:w-full max-w-md space-y-3" 
-          aria-labelledby="newsletter-heading"
-          on:submit={handleSubscribe}
-        >
-          <div class="relative">
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              class="w-full py-3 px-2 lg:pr-32 rounded-[14px] border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400"
-              aria-label="Email for newsletter"
-              bind:value={email}
-              aria-invalid={formMessage.type === 'error'}
-              aria-describedby={formMessage.text ? 'newsletter-message' : undefined}
-            />
-            
-            <!-- Desktop button -->
-            <div class="hidden lg:block absolute right-[0.2rem] top-1/2 -translate-y-1/2">
-              <BaseButton 
-                type="submit"
-                label={isSubmitting ? 'Sending...' : 'Subscribe'}
-                variant="BaseHighlighted"
-                class="button-4"
-                disabled={isSubmitting}
-              />
-            </div>
-          </div>
-          
-          <!-- Mobile button -->
-          <div class="lg:hidden w-full">
-            <BaseButton 
-              type="submit"
-              label={isSubmitting ? 'Sending...' : 'Subscribe'}
-              variant="BaseHighlighted"
-              class="w-full button-4"
-              disabled={isSubmitting}
-            />
-          </div>
-          
-          {#if formMessage.text}
-            <p 
-              id="newsletter-message" 
-              class={`text-sm ${formMessage.type === 'error' ? 'text-red-600' : 'text-green-600'}`}
-            >
-              {formMessage.text}
-            </p>
-          {/if}
-        </form>
+        <Newsletter />
       </div>
     </div>
   </div>
