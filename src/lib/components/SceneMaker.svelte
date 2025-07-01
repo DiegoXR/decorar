@@ -30,7 +30,7 @@
     /**
      * @type {THREE.TextureLoader}
      */
-    let textureLoader;
+    let textureLoader = new THREE.TextureLoader();
 
     /**
      * @type {THREE.Mesh}
@@ -41,6 +41,12 @@
      * @type {THREE.Material[]}
      */
     let materials = [];
+    
+    /**
+     * Variable para almacenar el ratio de la textura del plano
+     * @type {number}
+     */
+    let planeTextureRatio = 1;
 
     onMount(() => {    
         // window.addEventListener('beforeunload', handleBeforeUnload);
@@ -98,6 +104,24 @@
             const planeTexture = textureLoader.load(
             imagePath, // URL of the texture
             () => {
+                // Configurar wrapping para permitir repetición
+                planeTexture.wrapS = THREE.RepeatWrapping;
+                planeTexture.wrapT = THREE.RepeatWrapping;
+                
+                // Ajustar la repetición basada en la proporción de la textura
+                const textureWidth = planeTexture.image.width;
+                const textureHeight = planeTexture.image.height;
+                const textureRatio = textureWidth / textureHeight;
+                
+                // Guardar el ratio de la textura en una variable para usarlo en el frame
+                planeTextureRatio = textureRatio;
+                               
+                // Mejorar calidad de la textura
+                planeTexture.minFilter = THREE.LinearFilter;
+                planeTexture.magFilter = THREE.LinearFilter;
+                planeTexture.anisotropy = 4; // Aumentar filtrado anisotrópico
+                planeTexture.generateMipmaps = true;
+                
                 let material = new THREE.MeshPhysicalMaterial({
                     map: planeTexture,
                     side: THREE.FrontSide,
@@ -169,13 +193,8 @@
     //});
        
             const frameTexture = textureLoader.load(
-            "/referenceTextures/Checker_256.png", // URL of the texture
+            "/referenceTextures/Oak_512.png", // URL of the texture
             () => {
-               
-
-                // materials.push(frameMaterial);
-
-
             let imageWidth = localFrameConfiguration.ImageSize[0];
             let imageHeight = localFrameConfiguration.ImageSize[1];
 
@@ -192,8 +211,7 @@
                     frameTargetWidth,
                     frameTargetHeight,
                     localFrameConfiguration.FrameBorderWidth,
-                    localFrameConfiguration.FrameDepth,
-                    materials,
+                    localFrameConfiguration.FrameDepth                   
                 );
                 
                 // Apply box projection UVs to improve texture mapping
@@ -202,7 +220,21 @@
                 // Improve texture quality and mapping
                 frameTexture.wrapS = THREE.RepeatWrapping;
                 frameTexture.wrapT = THREE.RepeatWrapping;
-                frameTexture.repeat.set(1, 2);
+                
+                // Usar directamente el ratio de la textura del plano para el frame
+                console.log('Usando ratio de textura del plano:', planeTextureRatio);
+                
+                // Aplicar el ratio de la textura del plano al frame
+                if (planeTextureRatio > 1) {
+                    // Textura más ancha que alta
+                    frameTexture.repeat.set(planeTextureRatio * 1, 1);
+                } else if (planeTextureRatio < 1) {
+                    // Textura más alta que ancha
+                    frameTexture.repeat.set(1, (1/planeTextureRatio) * 1);
+                } else {
+                    // Textura cuadrada
+                    frameTexture.repeat.set(1, 1);
+                }
                 
                 // Improve texture filtering
                 frameTexture.minFilter = THREE.LinearFilter;
@@ -293,10 +325,10 @@
     });       
     }
 
+    // Ya no es necesario inicializar textureLoader aquí
+    
     function createScenePromise() {
 
-    textureLoader = new THREE.TextureLoader();
-    
     Promise.all([CreateFrame(), CreatePlaneAsynchronously(), createPasspartout()])
     .then(([isFrameReady, isPlaneReady, isPassPartoutReady]) => {
        //   console.log('Both Objects created succesfully');

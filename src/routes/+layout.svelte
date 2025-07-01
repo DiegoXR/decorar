@@ -7,7 +7,7 @@
     import { afterNavigate } from '$app/navigation';
 
     afterNavigate(({ from, to }) => {
-        console.log("after navigate", { from: from?.url.pathname, to: to?.url.pathname });
+        // console.log("after navigate", { from: from?.url.pathname, to: to?.url.pathname });
         
         // Force immediate scroll to top without smooth behavior
         setTimeout(() => {

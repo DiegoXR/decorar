@@ -176,9 +176,8 @@ export function CalculateCoordinatesInQuadrant(center, radius, quadrant) {
  * @param {number} innerHeight
  * @param {number} frameWidth
  * @param {number} frameDepth
- * @param {any[]} materials
  */
-  export function CreateFrameSquare(innerWidth, innerHeight, frameWidth, frameDepth , materials){
+  export function CreateFrameSquare(innerWidth, innerHeight, frameWidth, frameDepth){
 
   //The profile shape is the internal cut of the frame. 
   // It is actually a shape in the ZX plane when viewed from above
@@ -191,8 +190,8 @@ export function CalculateCoordinatesInQuadrant(center, radius, quadrant) {
     const contourx = CreateSquareContourCoordinatesWithIntermediatePoints(innerWidth + frameWidth,innerHeight + frameWidth,2,2);
 
     // @ts-ignore
-    const frame4 = ProfiledContourUVFM(profileShapex, contourx, materials, false, true);
-
+    const frame4 = ProfiledContourUVFM(profileShapex, contourx, false, true);
+    
     return frame4;
 
   }

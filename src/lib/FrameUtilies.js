@@ -3,11 +3,10 @@ import * as THREE from "three";
 /**
  * @param {any[]} profileShape
  * @param {any[]} contour
- * @param {any[]} materials
  * @param {boolean} matPerSquare
  * @param {boolean} contourClosed
  */
-export function ProfiledContourUVFM( profileShape, contour, materials, matPerSquare, contourClosed ) {
+export function ProfiledContourUVFM( profileShape, contour, matPerSquare, contourClosed ) {
 	
 	// creates group of frame strips, non indexed BufferGeometry
 	
@@ -325,7 +324,8 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
 	combinedGeometry.setAttribute('normal', new THREE.BufferAttribute(combinedNormals, 3));
 	
 	// Create a single mesh with the combined geometry
-	const singleFrameMesh = new THREE.Mesh(combinedGeometry, materials[0]);
+	// No material is applied here, it will be set externally
+	const singleFrameMesh = new THREE.Mesh(combinedGeometry);
 	
 	return singleFrameMesh; // Return a single mesh instead of a group
 	
