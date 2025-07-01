@@ -5,8 +5,9 @@ import * as SetupUtilities from "../lib/SetupUtilities.js"
 
 export const frameInnerOffset = 0.005; // 5cm
 export const frameWallOffset = 0.004; // 4cm
-export const frameDepthMinimalSize = 0.02 // 1cm
+export const frameDepthMinimalSize = 0.02 // 2cm
 export const frameBorderWidthMinimalSize = 0.01 // 1cm
+export const frameDepthOffset = 0.01; // 1cm
 
 export let startingFrameConfiguration = {
     ImageSrc: "",

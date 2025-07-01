@@ -36,11 +36,6 @@
      * @type {THREE.Mesh}
      */
     let frame;
-
-    /**
-     * @type {THREE.Material[]}
-     */
-    let materials = [];
     
     /**
      * Variable para almacenar el ratio de la textura del plano
@@ -162,36 +157,7 @@
             resolve(true);
             return;
         }
-            
-            
-    // var loader = new THREE.CubeTextureLoader();
-    // var textureCube = loader.load([
-    //     "/referenceTextures/Oak_512.png", // Right
-    //     "/referenceTextures/Oak_512.png", // Left
-    //     "/referenceTextures/Oak_512.png", // Top
-    //     "/referenceTextures/Oak_512.png", // Bottom
-    //     "/referenceTextures/Oak_512.png", // Front
-    //     "/referenceTextures/Oak_512.png", // Back
-    // ]);
-
-    // const m0 = new THREE.MeshStandardMaterial({
-    //     side: THREE.FrontSide,
-    //     transparent: false,
-    //     opacity: 1,
-    //     color: 0xff0000,
-    //     map: texture,
-    // });
-
-    //const pbrMaterial = new THREE.MeshPhysicalMaterial({
-        //map: texture,
-        // normalMap: normalTexture,
-        // roughnessMap: roughnessTexture,
-        // metalnessMap: metalnessTexture,
-        // clearcoat: 1,
-        // clearcoatRoughness: 0.1,
-        // reflectivity: 1
-    //});
-       
+                  
             const frameTexture = textureLoader.load(
             "/referenceTextures/Oak_512.png", // URL of the texture
             () => {
@@ -256,7 +222,7 @@
                 // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
                 frame = THREEJsUtilities.repositionMesh(
                     frame,
-                    localFrameConfiguration.FrameDepth / 2,
+                    localFrameConfiguration.FrameDepth / 2 - THREEJsConfiguration.frameDepthOffset,
                 );
                 scene.add(frame);
                 resolve(true);
@@ -291,7 +257,7 @@
             let planeWidth = passPartoutContribution + imageWidth;
             let planeHeight = passPartoutContribution + imageHeight;   
 
-        // TESTING EXTRUDE
+              // TESTING EXTRUDE
               const shape = new THREE.Shape();
               shape.moveTo(-planeWidth/2, -planeHeight/2);
               shape.lineTo(-planeWidth/2, planeHeight/2);
@@ -319,7 +285,14 @@
 
               const extrudedGeometery = new THREE.ExtrudeGeometry(shape, extrudeSettings);
               extrudedGeometery.center();
-              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xffffff, side: THREE.DoubleSide}));
+              //White alternatives
+            //   0xffffff
+            //   0xf5f5f5
+            //   0xf8f8ff
+            //   0xefefef
+
+              
+              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xf5f5f5, side: THREE.DoubleSide}));
               scene.add( passPartoutPlane );
               resolve(true);
     });       
@@ -353,5 +326,33 @@
 //     frameConfigurationStore.set(localFrameConfiguration);
 //   }; 
 
+            
+    // var loader = new THREE.CubeTextureLoader();
+    // var textureCube = loader.load([
+    //     "/referenceTextures/Oak_512.png", // Right
+    //     "/referenceTextures/Oak_512.png", // Left
+    //     "/referenceTextures/Oak_512.png", // Top
+    //     "/referenceTextures/Oak_512.png", // Bottom
+    //     "/referenceTextures/Oak_512.png", // Front
+    //     "/referenceTextures/Oak_512.png", // Back
+    // ]);
+
+    // const m0 = new THREE.MeshStandardMaterial({
+    //     side: THREE.FrontSide,
+    //     transparent: false,
+    //     opacity: 1,
+    //     color: 0xff0000,
+    //     map: texture,
+    // });
+
+    //const pbrMaterial = new THREE.MeshPhysicalMaterial({
+        //map: texture,
+        // normalMap: normalTexture,
+        // roughnessMap: roughnessTexture,
+        // metalnessMap: metalnessTexture,
+        // clearcoat: 1,
+        // clearcoatRoughness: 0.1,
+        // reflectivity: 1
+    //});
 
 </script>
