@@ -26,6 +26,7 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
 	
 	let	vtx = [];    // rs1 many vertex colums
 	let	frmpos = []; // hs many geometries and meshes
+	/** @type {number[][]} */
 	let	frmuvs = []; // hs many uv's' 
 	
 	for ( let j = 0; j < rs; j ++ ) {
@@ -229,111 +230,104 @@ export function ProfiledContourUVFM( profileShape, contour, materials, matPerSqu
 			y4 = vtx[ j ][ i6 + 1 ];
 			z4 = vtx[ j ][ i6 + 2 ];
 			
+			// Solo añadir las posiciones de los vértices, sin calcular UVs
 			frmpos[ j ].push( x1, y1, z1, x2, y2, z2, x4, y4, z4, x2, y2, z2, x3, y3, z3, x4, y4, z4 );
 			
-			a = len( x4 - x1, y4 - y1, z4 - z1 );
-			
-			d2 = dot( x4 - x1, y4 - y1, z4 - z1, x2 - x1, y2 - y1, z2 - z1 ) / a;
-			d3 = dot( x1 - x4, y1 - y4, z1 - z4, x3 - x4, y3 - y4, z3 - z4, ) / a;
-			
-			if ( d2 >= 0 && d3 >= 0 ) {
-				
-				u1 = 0;
-				u2 = d2 / a;
-				u3 = 1 - d3 / a;
-				u4 = 1;
-				
-			}
-			
-			if ( d2 >= 0 && d3 < 0 ) {
-				
-				u1 = 0;
-				u2 = d2 / ( a - d3 );
-				u3 = 1;
-				u4 = 1 + d3 / ( a - d3 ); 
-				
-			}
-			
-			if ( d2 < 0 && d3 < 0 ) {
-				
-				u1 = -d2 / ( a - d2 - d3 );
-				u2 = 0;
-				u3 = 1;
-				u4 = 1 + d3 / ( a - d2 - d3  );
-				
-			}
-			
-			if ( d2 < 0 && d3 >= 0 ) {
-				
-				u1 = -d2 / ( a - d2  );
-				u2 = 0;
-				u3 = 1 - d3 / ( a - d2  );
-				u4 = 1;
-				
-			}
-			
-			// @ts-ignore
-			frmuvs[ j ].push( u1, 1, u2, 0, u4, 1, u2, 0, u3, 0, u4, 1 );
+			// Crear UVs por defecto (0,0) para todos los vértices
+			// Estas UVs serán reemplazadas posteriormente por otra función
+			// Cada triángulo tiene 3 vértices, cada vértice tiene 2 coordenadas UV (u,v)
+			// Necesitamos 12 valores para 6 vértices (2 triángulos)
+			frmuvs[ j ].push( 
+				0.0, 0.0,  // v1
+				0.0, 0.0,  // v2
+				0.0, 0.0,  // v4
+				0.0, 0.0,  // v2
+				0.0, 0.0,  // v3
+				0.0, 0.0   // v4
+			);
 			
 		}
 		
 	}
 	
+	// Create geometries for each frame strip
 	for ( let j = 0; j < rs; j ++ ) {
-		
 		gFrame[ j ] = new THREE.BufferGeometry( );
 		gFrame[ j ].setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( frmpos[ j ] ), 3 ) );
 		gFrame[ j ].setAttribute( 'uv', new THREE.BufferAttribute( new Float32Array( frmuvs[ j ] ), 2 ) );
-		
-/////////////////////////////////////////////
-		// if (gFrame[ j ].index) {
-		// 	const index = gFrame[ j ].index;
-		// 	console.log(index);
-		// 	// @ts-ignore			
-		// 	const array = index.array;
-		// 	for (let i = 0; i < array.length; i += 3) {
-		// 		// Swap the indices for the first and last vertex in each face
-		// 		[array[i], array[i + 2]] = [array[i + 2], array[i]];
-		// 	}
-
-		// 	// @ts-ignore
-		// 	index.needsUpdate = true;
-		// 	gFrame[ j ].computeVertexNormals( );			
-		// 	gFrame[ j ].attributes.position.needsUpdate = true;
-		// 	gFrame[ j ].attributes.normal.needsUpdate = true;
-			
-		// }
-					   
-///////////////////////////////////////
-		if ( matPerSquare ) { // MultiMaterial support (for each square)
-			
-			for ( let i = 0; i < hs; i ++ ) {
-				
-				gFrame[ j ].addGroup( i * 6, 6, j * hs + i ); 
-				
-			}
-			
-			frame[ j ] = new THREE.Mesh( gFrame[ j ], materials );
-			
-		} else { // material per frame strip
-			
-			// frame[ j ] = new THREE.Mesh( gFrame[ j ], materials[ j ] );
-      // Modified by Diego 
-      frame[ j ] = new THREE.Mesh( gFrame[ j ], materials[ 0 ] );
-			
-		}
-	
-		gFrame[ j ].computeVertexNormals( );
-		
-		fGroup.add( frame[ j ] );
-		
+		gFrame[ j ].computeVertexNormals();
 	}
 	
-	return fGroup; // group of frame strips
+	// Instead of creating multiple meshes, we'll combine all geometries into one
+	// Calculate total vertex count
+	let totalVertexCount = 0;
+	for (let j = 0; j < rs; j++) {
+		totalVertexCount += gFrame[j].attributes.position.count;
+	}
+	
+	// Create arrays for the combined geometry
+	const combinedPositions = new Float32Array(totalVertexCount * 3);
+	const combinedUvs = new Float32Array(totalVertexCount * 2);
+	const combinedNormals = new Float32Array(totalVertexCount * 3);
+	
+	// Copy data from individual geometries to combined arrays
+	let vertexOffset = 0;
+	for (let j = 0; j < rs; j++) {
+		const posAttr = gFrame[j].attributes.position;
+		const uvAttr = gFrame[j].attributes.uv;
+		const normalAttr = gFrame[j].attributes.normal;
+		const vertexCount = posAttr.count;
+		
+		// Copy positions
+		for (let i = 0; i < vertexCount; i++) {
+			const srcIdx = i * 3;
+			const destIdx = (vertexOffset + i) * 3;
+			const x = posAttr.array[srcIdx];
+			const y = posAttr.array[srcIdx + 1];
+			const z = posAttr.array[srcIdx + 2];
+			
+			combinedPositions[destIdx] = x;
+			combinedPositions[destIdx + 1] = y;
+			combinedPositions[destIdx + 2] = z;
+		}
+		
+		// Copy UVs
+		for (let i = 0; i < vertexCount; i++) {
+			const srcIdx = i * 2;
+			const destIdx = (vertexOffset + i) * 2;
+			const u = uvAttr.array[srcIdx];
+			const v = uvAttr.array[srcIdx + 1];
+			
+			combinedUvs[destIdx] = u;
+			combinedUvs[destIdx + 1] = v;
+		}
+		
+		// Copy normals
+		for (let i = 0; i < vertexCount; i++) {
+			const srcIdx = i * 3;
+			const destIdx = (vertexOffset + i) * 3;
+			const nx = normalAttr.array[srcIdx];
+			const ny = normalAttr.array[srcIdx + 1];
+			const nz = normalAttr.array[srcIdx + 2];
+			
+			combinedNormals[destIdx] = nx;
+			combinedNormals[destIdx + 1] = ny;
+			combinedNormals[destIdx + 2] = nz;
+		}
+		
+		vertexOffset += vertexCount;
+	}
+	
+	// Create combined geometry
+	const combinedGeometry = new THREE.BufferGeometry();
+	combinedGeometry.setAttribute('position', new THREE.BufferAttribute(combinedPositions, 3));
+	combinedGeometry.setAttribute('uv', new THREE.BufferAttribute(combinedUvs, 2));
+	combinedGeometry.setAttribute('normal', new THREE.BufferAttribute(combinedNormals, 3));
+	
+	// Create a single mesh with the combined geometry
+	const singleFrameMesh = new THREE.Mesh(combinedGeometry, materials[0]);
+	
+	return singleFrameMesh; // Return a single mesh instead of a group
 	
 }
-
-
-
-
 

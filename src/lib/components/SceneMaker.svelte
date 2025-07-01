@@ -5,8 +5,9 @@
     import * as SetupUtilities from "../../lib/SetupUtilities.js";
     import { sceneIsReady, sceneStore } from "../SceneStatusStore.js";
     import * as THREEJsConfiguration from "../../lib/SceneConstants.js";
-    import * as SQUAREFRAME from "../../lib/FrameUtilitiesSquare.js";
     import * as THREE from "three";
+    import * as FrameUtilitiesSquare from "../../lib/FrameUtilitiesSquare.js";
+    import * as UVProjectionUtils from "../../lib/UVProjectionUtils.js";
 
 
     let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
@@ -168,18 +169,11 @@
     //});
        
             const frameTexture = textureLoader.load(
-            "/referenceTextures/Oak_512.png", // URL of the texture
+            "/referenceTextures/Checker_256.png", // URL of the texture
             () => {
-                frameTexture.wrapS = THREE.RepeatWrapping;
-                frameTexture.wrapT = THREE.RepeatWrapping;
-                frameTexture.repeat.set(4, 1);
+               
 
-                let frameMaterial = new THREE.MeshPhysicalMaterial({
-                    map: frameTexture,
-                    side: THREE.FrontSide,
-                });
-
-                materials.push(frameMaterial);
+                // materials.push(frameMaterial);
 
 
             let imageWidth = localFrameConfiguration.ImageSize[0];
@@ -193,14 +187,39 @@
             let frameTargetWidth = passPartoutContribution + imageWidth -  THREEJsConfiguration.frameInnerOffset;
             let frameTargetHeight = passPartoutContribution + imageHeight - THREEJsConfiguration.frameInnerOffset; 
 
-                // @ts-ignore
-                frame = SQUAREFRAME.CreateFrameSquare(
+                // Create the frame mesh
+                frame = FrameUtilitiesSquare.CreateFrameSquare(
                     frameTargetWidth,
                     frameTargetHeight,
                     localFrameConfiguration.FrameBorderWidth,
                     localFrameConfiguration.FrameDepth,
                     materials,
                 );
+                
+                // Apply box projection UVs to improve texture mapping
+                UVProjectionUtils.applyProjectionUVs(frame, 'planar', { scale: 4 });
+
+                // Improve texture quality and mapping
+                frameTexture.wrapS = THREE.RepeatWrapping;
+                frameTexture.wrapT = THREE.RepeatWrapping;
+                frameTexture.repeat.set(1, 2);
+                
+                // Improve texture filtering
+                frameTexture.minFilter = THREE.LinearFilter;
+                frameTexture.magFilter = THREE.LinearFilter;
+                frameTexture.anisotropy = 4; // Increase anisotropic filtering
+                
+                // Prevent texture bleeding
+                frameTexture.generateMipmaps = true;
+
+                let frameMaterial = new THREE.MeshPhysicalMaterial({
+                    map: frameTexture,
+                    side: THREE.FrontSide,
+                    roughness: 0.7, // Adjust for better material appearance
+                    metalness: 0.2,
+                });
+
+                frame.material = frameMaterial;  
 
                 // Frame goes closer to the camera so its back face touches the wall instead of being across the wall
                 frame = THREEJsUtilities.repositionMesh(
