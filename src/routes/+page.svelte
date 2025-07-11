@@ -2,15 +2,19 @@
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { fade } from 'svelte/transition';
+  // Importaciones críticas para el hero section primero
+  import PageHeader from '$lib/components/UIComponents/GroupComponents/PageHeader.svelte';
+  import FakePageHeader from '$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte';
+  import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
+  
+  // Importaciones no críticas después
   import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
   import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
-  import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
   import Separator from "$lib/components/UIComponents/CustomMadeComponents/Separator.svelte";
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
   import Footer from '$lib/components/UIComponents/GroupComponents/Footer.svelte';
-  import PageHeader from '$lib/components/UIComponents/GroupComponents/PageHeader.svelte';
-  import FakePageHeader from '$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte';
+  
   let isInstagramBrowser = false;
   let email = '';
 
@@ -47,18 +51,18 @@
 
 <GoogleAnalytics></GoogleAnalytics>
 
-<main class="min-h-screen flex flex-col" in:fade={{ duration: 800 }}>
-  <!-- Header with logo and hamburger menu -->
+<!-- Reducir la duración de la animación de entrada para mejorar el rendimiento inicial -->
+<main class="min-h-screen flex flex-col" in:fade={{ duration: 300 }}>
+  <!-- Header with logo y hamburger menu - optimizado para no bloquear el renderizado -->
   <header class="pt-8 pb-1 px-6 flex items-center justify-between">
     <PageHeader />
   </header>
   <FakePageHeader />
-  <!-- Hero section -->
+  
+  <!-- Hero section - optimizado para carga rápida -->
   <section class="flex-grow flex flex-col px-6 sm:px-1 lg:px-6 2xl:px-28 text-center justify-center">
-   
-   
     <!-- Hero image -->
-    <div class="w-full  mx-auto mb-5 mx-2">
+    <div class="w-full mx-auto mb-5">
       <div class="relative h-[50vh] sm:h-[50vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
         <img 
           src="/landingPage/ImageBackground_1536.webp"
@@ -71,6 +75,8 @@
           alt="Framed artwork example" 
           class="absolute inset-0 w-full h-full object-cover object-center"
           fetchpriority="high"
+          loading="eager"
+          decoding="async"
         />
         <h1 class="relative z-10 text-white header-h1 text-center p-4">Art & Decor with Augmented Reality</h1>
       </div>

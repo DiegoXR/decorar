@@ -5,6 +5,12 @@
 		<!-- <link rel="icon" href="%sveltekit.assets%/favicon.png" /> -->
 		<link rel="icon" href="/CompanyLogo_V3.webp" rel="apple-touch-icon" href="/CompanyLogo_V3.webp"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Precargar la fuente principal para el hero -->
+		<link rel="preload" href="/fonts/Inter/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+		<!-- Precargar la imagen del hero basado en el tamaño de pantalla más común -->
+		<link rel="preload" href="/landingPage/ImageBackground _720.webp" as="image" media="(max-width: 720px)" />
+		<link rel="preload" href="/landingPage/ImageBackground _1280.webp" as="image" media="(min-width: 721px) and (max-width: 1280px)" />
+		<link rel="preload" href="/landingPage/ImageBackground_1536.webp" as="image" media="(min-width: 1281px)" />
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
