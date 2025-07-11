@@ -14,6 +14,8 @@
       src={image} 
       alt={title} 
       class="w-full h-full object-cover"
+      loading="lazy"
+      decoding="auto"
     />
   </div>
   

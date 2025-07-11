@@ -61,9 +61,16 @@
     <div class="w-full  mx-auto mb-5 mx-2">
       <div class="relative h-[50vh] sm:h-[50vh] md:h-[60vh] lg:h-[40vh] xl:h-[80vh] 2xl:h-[70vh] overflow-hidden rounded-3xl flex items-center justify-center">
         <img 
-          src="/landingPage/ImageBackground.webp" 
+          src="/landingPage/ImageBackground_1536.webp"
+          srcset="
+            /landingPage/ImageBackground _720.webp 720w,
+            /landingPage/ImageBackground _1280.webp 1280w,
+            /landingPage/ImageBackground_1536.webp 1536w
+          " 
+          sizes="(max-width: 720px) 720px, (max-width: 1280px) 1280px, 1536px"
           alt="Framed artwork example" 
           class="absolute inset-0 w-full h-full object-cover object-center"
+          fetchpriority="high"
         />
         <h1 class="relative z-10 text-white header-h1 text-center p-4">Art & Decor with Augmented Reality</h1>
       </div>
