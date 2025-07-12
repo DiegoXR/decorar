@@ -45,14 +45,6 @@
 
 </script>
 
-<svelte:head>
-  <title>Decorar.space - Art & Decor with Augmented Reality</title>
-  <meta name="description" content="Visualize your decorative ideas with augmented reality. Upload images and see them in a simulated painting frame." />
-  <meta property="og:title" content="Decorar.space - Art & Decor with AR" />
-  <meta property="og:description" content="Visualize your decorative ideas with augmented reality" />
-  <meta property="og:type" content="website" />
-</svelte:head>
-
 {#if isInstagramBrowser}
   <InstagramBrowserPopup />
 {/if}

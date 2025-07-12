@@ -1,10 +1,28 @@
 <script>
     import "../app.css";
     import { fade } from 'svelte/transition';
-    import { navigating } from '$app/stores';
+    import { navigating, page } from '$app/stores';
     import PageHeader from "$lib/components/UIComponents/GroupComponents/PageHeader.svelte";
+    import SEO from "$lib/components/SEO/SEO.svelte";
 
     import { afterNavigate } from '$app/navigation';
+
+    // Extraer información de la ruta actual para SEO
+    $: path = $page.url.pathname;
+    $: title = '';
+    $: description = '';
+
+    // Configurar títulos y descripciones específicos según la ruta
+    $: {
+        if (path === '/') {
+            title = 'Art & Decor with Augmented Reality';
+            description = 'Visualize your decorative ideas with augmented reality. Upload images and see them in a simulated painting frame.';
+        } else if (path.includes('/MainNavigation/Explore')) {
+            title = 'Explore';
+            description = 'Explore our collection of art and decorative items for your space.';
+        }
+        // Añadir más rutas según sea necesario
+    }
 
     afterNavigate(({ from, to }) => {
         // console.log("after navigate", { from: from?.url.pathname, to: to?.url.pathname });
@@ -18,6 +36,8 @@
     });
 
 </script>
+
+<SEO {title} {description} />
 
 <div class="site-wrapper">
     {#if $navigating}
