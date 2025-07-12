@@ -1,8 +1,10 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import ArrowLeft from "$lib/components/IconComponents/ArrowLeft.svelte";
   import ArrowRight from "$lib/components/IconComponents/ArrowRight.svelte";
   import BaseIconButton from "$lib/components/UIComponents/CustomMadeComponents/BaseIconButton.svelte";
+  
+  const dispatch = createEventDispatcher();
 
   /**
    * @type {string[]}
@@ -81,6 +83,10 @@
   function updateSelection() {
     selectedOption = availableOptions[currentIndex];
     displayValue = selectedOption;
+    
+    // Dispatch change event with the new selected option
+    dispatch('change', selectedOption);
+
   }
 </script>
 

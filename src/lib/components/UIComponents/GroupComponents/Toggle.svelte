@@ -34,6 +34,9 @@
     disabled = variant === "disabled";
   }
 
+  import { createEventDispatcher } from 'svelte';
+  const dispatch = createEventDispatcher();
+  
   /**
    * @param {Event} event
    */
@@ -42,6 +45,8 @@
       event.preventDefault();
       return;
     }
+    // Dispatch the change event with the current value
+    dispatch('change', isChecked);
   }
 </script>
 
