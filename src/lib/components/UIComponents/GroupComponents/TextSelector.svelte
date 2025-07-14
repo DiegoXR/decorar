@@ -102,7 +102,7 @@
     <!-- Previous button -->
     <BaseIconButton 
       on:click={previous}
-      variant={isActive ? "BaseSecondary" : "BaseDisabled"}
+      variant={isActive ? "BaseGray" : "BaseDisabled"}
       rounded="none"
       size="medium"
       disabled={!isActive}
@@ -114,7 +114,7 @@
     
     <!-- Text display field -->
     <div 
-      class="body-3 h-10 text-center text-black flex items-center justify-center w-full {isActive ? '' : 'opacity-50'}"
+      class="body-3 h-10 bg-ui-background text-center text-black flex items-center justify-center w-full {isActive ? '' : 'opacity-50'}"
     >
       {displayValue}
     </div>
@@ -122,7 +122,7 @@
     <!-- Next button -->
     <BaseIconButton 
       on:click={next}
-      variant={isActive ? "BaseSecondary" : "BaseDisabled"}
+      variant={isActive ? "BasePrimary" : "BaseDisabled"}
       rounded="none"
       size="medium"
       disabled={!isActive}

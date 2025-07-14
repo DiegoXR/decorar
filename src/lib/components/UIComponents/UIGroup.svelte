@@ -7,7 +7,8 @@
 </script>
 
 <!-- Unified UI Group with vertical alignment -->
-<div class="flex flex-col justify-center items-center mt-4 gap-6 w-full lg:px-40 xl:px-10 2xl:px-10">
+<div class="flex flex-col justify-center items-center gap-6 w-full lg:px-40 xl:px-10 2xl:px-10 bg-ui-background p-4 rounded-2xl">
+  
   <!-- Two-column layout for all UI controls -->
   <div class="grid grid-cols-2 w-full gap-x-6 gap-y-2">
     

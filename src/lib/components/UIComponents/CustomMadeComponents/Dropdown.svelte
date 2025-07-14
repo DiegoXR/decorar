@@ -80,7 +80,7 @@
 
 <div class="custom-dropdown-container relative mx-auto w-full max-w-[200px]" use:clickOutside on:outclick={handleClickOutside}>
   <BaseButtonDropdown
-    variant="BaseSecondary"
+    variant="BaseGray"
     label="{selectedText}"
     isOpen={dropdownOpen}
     class="flex items-center justify-between w-full whitespace-nowrap"
@@ -89,7 +89,7 @@
   </BaseButtonDropdown>
   
   {#if dropdownOpen}
-    <div class="custom-dropdown-menu absolute z-10 w-full mt-1 bg-white rounded-none shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <div class="custom-dropdown-menu absolute z-10 w-full mt-1 bg-ui-background rounded-none shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
       <div class="py-1 body-4 text-black px-4 pt-2">
         Width x Height
       </div>

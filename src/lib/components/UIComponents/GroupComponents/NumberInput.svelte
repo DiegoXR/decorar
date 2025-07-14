@@ -96,7 +96,7 @@
         <!-- Decrement button -->
         <BaseIconButton 
             on:click={decrement}
-            variant="BaseSecondary"
+            variant="BaseGray"
             rounded="none"
             size="medium"
             ariaLabel="Decrease value"
@@ -108,7 +108,7 @@
         <!-- Input field -->
         <input
             type="text"
-            class="body-3 h-10 text-center text-black block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
+            class="body-3 h-10 text-center text-black bg-ui-background block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
             value={displayValue}
             bind:this={inputElement}
             aria-label="Number input"
@@ -117,7 +117,7 @@
         <!-- Increment button -->
         <BaseIconButton 
             on:click={increment}
-            variant="BaseSecondary"
+            variant="BaseGray"
             rounded="none"
             size="medium"
             ariaLabel="Increase value"

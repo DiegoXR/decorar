@@ -120,7 +120,7 @@
         />
     </div>      
 </div>
-<div class="flex flex-col gap-1 bg-white items-center justify-center w-full">
+<div class="flex flex-col gap-1 items-center justify-center w-full">
     <div class="flex justify-center w-full">
         <NumberInput 
             bind:selectedOption={selectedFrameWidth} 

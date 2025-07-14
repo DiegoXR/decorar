@@ -259,7 +259,7 @@ function ConvertToString(numberToConvert){
 
 </script>    
 
-<div class="relative h-full w-full ">
+<div class="relative h-full w-full">
 
     <!-- Declaring Frame Element -->
     <!-- <div bind:this={testBox} class="bg-red-500 testBox">
