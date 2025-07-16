@@ -91,7 +91,7 @@
     }
 </style>
 
-<div class="flex flex-col items-center justify-between w-[200px]">
+<div class="flex flex-col items-center justify-between w-full max-w-[200px]">
     <div class="relative flex items-center w-full">
         <!-- Decrement button -->
         <BaseIconButton 

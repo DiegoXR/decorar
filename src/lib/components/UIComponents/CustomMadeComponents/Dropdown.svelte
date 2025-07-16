@@ -78,7 +78,7 @@
   }
 </script>
 
-<div class="custom-dropdown-container relative mx-auto w-full max-w-[200px]" use:clickOutside on:outclick={handleClickOutside}>
+<div class="custom-dropdown-container relative w-full max-w-[200px]" use:clickOutside on:outclick={handleClickOutside}>
   <BaseButtonDropdown
     variant="BaseGray"
     label="{selectedText}"

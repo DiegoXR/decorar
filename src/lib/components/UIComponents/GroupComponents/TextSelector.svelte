@@ -97,7 +97,7 @@
   }
 </style>
 
-<div class="flex items-center justify-between w-[200px]">
+<div class="flex items-center justify-between w-full max-w-[200px]">
   <div class="relative flex items-center w-full">
     <!-- Previous button -->
     <BaseIconButton 
@@ -122,7 +122,7 @@
     <!-- Next button -->
     <BaseIconButton 
       on:click={next}
-      variant={isActive ? "BasePrimary" : "BaseDisabled"}
+      variant={isActive ? "BaseGray" : "BaseDisabled"}
       rounded="none"
       size="medium"
       disabled={!isActive}

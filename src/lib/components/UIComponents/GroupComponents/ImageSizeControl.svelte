@@ -79,19 +79,26 @@
     }
 </script>
 
-<div class="grid grid-cols-[20%_60%_20%] items-center">
-    <div class="flex justify-center">
+<!-- Control Layout -->
+<div class="grid grid-cols-[10%_20%_70%] items-center w-full">
+    
+    <!-- Icon -->
+    <div class="flex justify-start">
         <ImageSize/>
     </div>
+    
+    <!-- Label -->
     <div class="flex justify-start">
-        <p class="text-center body-3">Image</p>
+        <p class="text-center body-3">Image Size</p>
     </div>
-    <div></div>
+    
+    <!-- Control Type -->
+    <div class="flex justify-end">
+        <Dropdown 
+            bind:selectedOption={selectedImageSize} 
+            availableSizes={localImageProperties.availableSizes} 
+            defaultSize={DefineDropdownDefaultImageSize()} 
+        />
+    </div>
 </div>
-<div class="flex items-center justify-center">
-    <Dropdown 
-        bind:selectedOption={selectedImageSize} 
-        availableSizes={localImageProperties.availableSizes} 
-        defaultSize={DefineDropdownDefaultImageSize()} 
-    />
-</div>
+
