@@ -63,7 +63,7 @@
     
     <!-- Label -->
     <div class="flex justify-start">
-        <p class="text-center body-3">Frame Type</p>
+        <p class="text-center body-3">Type</p>
     </div>
     
     <!-- Control Type -->

@@ -13,7 +13,7 @@
     const totalSlides = 3;
     
     // Section titles
-    const sectionTitles = ['Image Controls', 'Frame Controls', 'Passepartout'];
+    const sectionTitles = ['Image', 'Frame', 'Passepartout'];
     
     // Navigation functions
     function nextSlide() {
@@ -30,9 +30,9 @@
 </script>
 
 <!-- Unified UI Group with carousel navigation -->
-<div class="flex flex-col justify-center items-center gap-4 w-full bg-ui-background p-4 rounded-2xl">
+<div class="flex flex-col justify-center items-center gap-4 w-full max-w-md mx-auto bg-ui-background p-4 rounded-2xl">
   <!-- Section navigation -->
-  <div class="flex justify-between items-center w-full mb-2">
+  <div class="flex justify-between items-center w-full mb-0">
     <button 
       class="p-2 rounded-full hover:bg-gray-200 transition-colors" 
       on:click={prevSlide}
@@ -59,7 +59,7 @@
   </div>
   
   <!-- Indicator dots -->
-  <div class="flex justify-center gap-2 mb-4">
+  <div class="flex justify-center gap-2 mb-0">
     {#each Array(totalSlides) as _, i}
       <button 
         class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-blue-500' : 'bg-gray-300'}"
@@ -70,15 +70,15 @@
   </div>
   
   <!-- Carousel container -->
-  <div class="w-full overflow-hidden">
+  <div class="relative w-full overflow-hidden" style="min-height: 350px;">
     <!-- Slide container with transform for sliding effect -->
     <div 
       class="flex transition-transform duration-300 ease-in-out w-full"
       style="transform: translateX(-{currentSlide * 100}%);"
     >
       <!-- Slide 1: Image Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
-        <div class="flex flex-col w-full gap-4">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
+        <div class="flex flex-col w-full gap-1">
           <!-- Row 1: Image Size -->
           <ImageSizeControl />
           
@@ -88,8 +88,8 @@
       </div>
       
       <!-- Slide 2: Frame Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
-        <div class="flex flex-col w-full gap-4">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
+        <div class="flex flex-col w-full gap-1">
           <!-- Frame Type Control -->
           <FrameTypeControl />
           
@@ -112,34 +112,14 @@
       </div>
       
       <!-- Slide 3: Passepartout Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
         <div class="flex flex-col w-full gap-4">
           <!-- Passepartout Control -->
           <PasspartoutControl />
           
           <!-- Separator -->
           <Separator width="full" margin="my-0" />
-          
-          <!-- Additional Passepartout Options -->
-          <div class="p-4 bg-gray-100 rounded-lg">
-            <h3 class="font-medium mb-2">Passepartout Presets</h3>
-            
-            <!-- Preset options -->
-            <div class="grid grid-cols-3 gap-3 mt-4">
-              <div class="p-3 border border-gray-300 rounded-lg bg-white hover:border-blue-500 cursor-pointer">
-                <div class="h-16 bg-gray-200 rounded mb-2"></div>
-                <p class="text-sm font-medium">Classic</p>
-              </div>
-              <div class="p-3 border border-gray-300 rounded-lg bg-white hover:border-blue-500 cursor-pointer">
-                <div class="h-16 bg-gray-200 rounded mb-2"></div>
-                <p class="text-sm font-medium">Modern</p>
-              </div>
-              <div class="p-3 border border-gray-300 rounded-lg bg-white hover:border-blue-500 cursor-pointer">
-                <div class="h-16 bg-gray-200 rounded mb-2"></div>
-                <p class="text-sm font-medium">Minimal</p>
-              </div>
-            </div>
-          </div>
+        
         </div>
       </div>
     </div>

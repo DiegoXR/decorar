@@ -66,7 +66,7 @@
     
     <!-- Label -->
     <div class="flex justify-start">
-        <p class="text-center body-3">Frame Width</p>
+        <p class="text-center body-3">Width</p>
     </div>
     
     <!-- Control Type -->

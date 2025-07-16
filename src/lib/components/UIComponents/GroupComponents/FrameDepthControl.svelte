@@ -66,7 +66,7 @@
     
     <!-- Label -->
     <div class="flex justify-start">
-        <p class="text-center body-3">Frame Depth</p>
+        <p class="text-center body-3">Thickness</p>
     </div>
     
     <!-- Control Type -->
