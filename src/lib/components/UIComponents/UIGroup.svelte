@@ -5,8 +5,11 @@
     import FrameTypeControl from "./GroupComponents/FrameTypeControl.svelte";
     import FrameWidthControl from "./GroupComponents/FrameWidthControl.svelte";
     import FrameDepthControl from "./GroupComponents/FrameDepthControl.svelte";
-    import PasspartoutControl from "./GroupComponents/PasspartoutControl.svelte";
+    import PasspartoutVisibilityControl from "./GroupComponents/PasspartoutVisibilityControl.svelte";
+    import PasspartoutSizeControl from "./GroupComponents/PasspartoutSizeControl.svelte";
     import Generate3DButton from "./GroupComponents/Generate3DButton.svelte";
+    import ArrowLeft from "../IconComponents/ArrowLeft.svelte";
+    import ArrowRight from "../IconComponents/ArrowRight.svelte";
     
     // Carousel state
     let currentSlide = 0;
@@ -30,7 +33,7 @@
 </script>
 
 <!-- Unified UI Group with carousel navigation -->
-<div class="flex flex-col justify-center items-center gap-4 w-full max-w-md mx-auto bg-ui-background p-4 rounded-2xl">
+<div class="flex flex-col justify-center items-center gap-4 w-full max-w-md mx-auto bg-lightgray p-4 rounded-2xl">
   <!-- Section navigation -->
   <div class="flex justify-between items-center w-full mb-0">
     <button 
@@ -38,9 +41,7 @@
       on:click={prevSlide}
       aria-label="Previous section"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-      </svg>
+      <ArrowLeft />
     </button>
     
     <div class="text-center font-medium">
@@ -52,9 +53,7 @@
       on:click={nextSlide}
       aria-label="Next section"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-      </svg>
+      <ArrowRight />
     </button>
   </div>
   
@@ -62,7 +61,7 @@
   <div class="flex justify-center gap-2 mb-0">
     {#each Array(totalSlides) as _, i}
       <button 
-        class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-blue-500' : 'bg-gray-300'}"
+        class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-highlight' : 'bg-darkgray'}"
         on:click={() => goToSlide(i)}
         aria-label="Go to section {i+1}"
       ></button>
@@ -114,8 +113,11 @@
       <!-- Slide 3: Passepartout Controls -->
       <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
         <div class="flex flex-col w-full gap-4">
-          <!-- Passepartout Control -->
-          <PasspartoutControl />
+          <!-- Passepartout Visibility Control -->
+          <PasspartoutVisibilityControl />
+          
+          <!-- Passepartout Size Control -->
+          <PasspartoutSizeControl />
           
           <!-- Separator -->
           <Separator width="full" margin="my-0" />

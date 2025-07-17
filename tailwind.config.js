@@ -15,8 +15,9 @@ export default {
         primary: '#302d2e', // Tu color primario
         secondary: '#059669', // Tu color secundario
         iconColor: '#000000', // Tu color de iconos
-        // Color personalizado para fondos de UI
-        'ui-background': '#f3f4f6', // Equivalente a gray-100
+        highlight: '#FBFF2B', // Color destacado para botones
+        lightgray: '#f3f4f6', // Equivalente a gray-100
+        darkgray: '#d1d5db', // Equivalente a gray-300
         // Colores adicionales de Flowbite
         primary: {
           50: '#FFF5F2',

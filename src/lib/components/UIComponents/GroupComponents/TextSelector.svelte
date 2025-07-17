@@ -114,7 +114,7 @@
     
     <!-- Text display field -->
     <div 
-      class="body-3 h-10 bg-ui-background text-center text-black flex items-center justify-center w-full {isActive ? '' : 'opacity-50'}"
+      class="body-3 h-10 bg-lightgray text-center text-black flex items-center justify-center w-full {isActive ? '' : 'opacity-50'}"
     >
       {displayValue}
     </div>

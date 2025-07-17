@@ -89,7 +89,7 @@
   </BaseButtonDropdown>
   
   {#if dropdownOpen}
-    <div class="custom-dropdown-menu absolute z-10 w-full mt-1 bg-ui-background rounded-none shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+    <div class="custom-dropdown-menu absolute z-10 w-full mt-1 bg-lightgray rounded-none shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
       <div class="py-1 body-4 text-black px-4 pt-2">
         Width x Height
       </div>

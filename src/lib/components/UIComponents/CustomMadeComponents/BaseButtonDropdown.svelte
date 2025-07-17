@@ -20,7 +20,7 @@
         variantClasses = 'bg-white text-black border-none';
         break;
       case 'BaseGray':
-        variantClasses = 'bg-ui-background text-black';
+        variantClasses = 'bg-lightgray text-black';
         break;
       case 'BaseHighlighted': // Example: Yellow button, similar to the original form button
         variantClasses = 'bg-[#FBFF2B] text-black hover:bg-[#FBFF2B]';

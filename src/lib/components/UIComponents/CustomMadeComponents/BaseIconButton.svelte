@@ -24,7 +24,7 @@
     // Set variant classes
     switch (variant) {
       case 'BasePrimary':
-        variantClasses = 'bg-ui-background text-black hover:bg-gray-700';
+        variantClasses = 'bg-lightgray text-black hover:bg-gray-700';
         break;
       case 'BaseSecondary':
         variantClasses = 'bg-white text-black border-none hover:bg-gray-100';
@@ -36,7 +36,7 @@
         variantClasses = 'bg-gray-300 text-gray-500 cursor-not-allowed';
         break;
       case 'BaseGray':
-        variantClasses = 'bg-ui-background text-black';
+        variantClasses = 'bg-lightgray text-black';
         break;
       default:
         variantClasses = 'bg-gray-800 text-white hover:bg-gray-700'; // Default to primary
