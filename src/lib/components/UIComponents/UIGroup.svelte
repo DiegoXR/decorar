@@ -5,7 +5,7 @@
     import FrameTypeControl from "./GroupComponents/FrameTypeControl.svelte";
     import FrameWidthControl from "./GroupComponents/FrameWidthControl.svelte";
     import FrameDepthControl from "./GroupComponents/FrameDepthControl.svelte";
-    import PasspartoutVisibilityControl from "./GroupComponents/PasspartoutVisibilityControl.svelte";
+    import PasspartoutTypeControl from "./GroupComponents/PasspartoutTypeControl.svelte";
     import PasspartoutSizeControl from "./GroupComponents/PasspartoutSizeControl.svelte";
     import Generate3DButton from "./GroupComponents/Generate3DButton.svelte";
     import ArrowLeft from "../IconComponents/ArrowLeft.svelte";
@@ -113,8 +113,8 @@
       <!-- Slide 3: Passepartout Controls -->
       <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
         <div class="flex flex-col w-full gap-4">
-          <!-- Passepartout Visibility Control -->
-          <PasspartoutVisibilityControl />
+          <!-- Passepartout Type Control -->
+          <PasspartoutTypeControl />
           
           <!-- Passepartout Size Control -->
           <PasspartoutSizeControl />
