@@ -19,7 +19,7 @@ export const FrameMaterial = {
 };
 
 export const FrameColor = {
-    YELLOW: { name: "Yellow", hex: "FFFF00" },
+    YELLOW: { name: "Oak", hex: "eed09d" },
     GREEN: { name: "Green", hex: "00FF00" },
     BLUE: { name: "Blue", hex: "0000FF" },
 };
@@ -182,4 +182,35 @@ export function CalculatePasspartoutBorders(passpartoutSizeType, imageWidth){
     }
 
     return 2 * ((selectedPasspartoutPercentage)/(1 - 2*(selectedPasspartoutPercentage)) * imageWidth);
+}
+
+/**
+ * Converts a hex color string to an RGB object
+ * @param {string} hex - Hex color string (with or without #)
+ * @param {boolean} useOakDefault - If true, uses oak color as default; otherwise uses yellow
+ * @returns {{ r: number, g: number, b: number }} RGB color object
+ */
+export function hexToRgb(hex, useOakDefault = false) {
+    const defaultColor = useOakDefault 
+        ? { r: 238, g: 208, b: 157 } // Oak color as fallback
+        : { r: 255, g: 255, b: 0 };  // Yellow as fallback
+    
+    if (!hex) {
+        return defaultColor;
+    }
+    
+    // Remove the # if present
+    hex = hex.replace(/^#/, '');
+    
+    // Ensure we have a valid 6-digit hex
+    if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
+        return defaultColor;
+    }
+    
+    // Parse the hex values
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    
+    return { r, g, b };
 }

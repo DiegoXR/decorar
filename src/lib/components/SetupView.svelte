@@ -233,37 +233,8 @@ function CanvasWidthChangeSubscription(){
     const tintedImage = document.getElementById('tintedImage');
     const canvas = document.createElement('canvas');
     
-    // Convert hex color from FrameColor to RGB
-    /**
-     * @param {string} hex - Hex color string (with or without #)
-     * @returns {{ r: number, g: number, b: number }} RGB color object
-     */
-    function hexToRgb(hex) {
-        if (!hex) {
-            console.error('Invalid hex color provided:', hex);
-            return { r: 255, g: 255, b: 0 }; // Default yellow as fallback
-        }
-        
-        // Remove the # if present
-        hex = hex.replace(/^#/, '');
-        
-        // Ensure we have a valid 6-digit hex
-        if (!/^[0-9A-Fa-f]{6}$/.test(hex)) {
-            console.error('Invalid hex format:', hex);
-            return { r: 255, g: 255, b: 0 }; // Default yellow as fallback
-        }
-        
-        // Parse the hex values
-        const r = parseInt(hex.substring(0, 2), 16);
-        const g = parseInt(hex.substring(2, 4), 16);
-        const b = parseInt(hex.substring(4, 6), 16);
-        
-        return { r, g, b };
-    }
-    
     // Color to be applied over the image - from frame configuration
-    //const tint = { r: 238, g: 208, b: 157 };
-    const tint = hexToRgb(localFrameConfiguration.FrameColor?.hex);
+    const tint = SetupUtilities.hexToRgb(localFrameConfiguration.FrameColor?.hex);
 
     // Fallback color if image fails to load
     frameElement.style.border= `${borderWidthPx} solid rgba(${tint.r}, ${tint.g}, ${tint.b}, 1)`;

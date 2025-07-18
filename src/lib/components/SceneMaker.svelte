@@ -159,7 +159,7 @@
         }
                   
             const frameTexture = textureLoader.load(
-            "/referenceTextures/Oak_512.png", // URL of the texture
+            "/referenceTextures/WoodReference.png", // URL of the texture
             () => {
             let imageWidth = localFrameConfiguration.ImageSize[0];
             let imageHeight = localFrameConfiguration.ImageSize[1];
@@ -210,11 +210,23 @@
                 // Prevent texture bleeding
                 frameTexture.generateMipmaps = true;
 
+                // Get the color from the frame configuration
+                const frameColorHex = localFrameConfiguration.FrameColor.hex;
+                const frameColorRgb = SetupUtilities.hexToRgb(frameColorHex, true); // Use oak as default
+                
+                // Convert RGB to THREE.js color format (0-1 range)
+                const frameColor = new THREE.Color(
+                    frameColorRgb.r / 255,
+                    frameColorRgb.g / 255,
+                    frameColorRgb.b / 255
+                );
+                
                 let frameMaterial = new THREE.MeshPhysicalMaterial({
                     map: frameTexture,
                     side: THREE.FrontSide,
                     roughness: 0.7, // Adjust for better material appearance
                     metalness: 0.2,
+                    color: frameColor // Apply the color from the configuration
                 });
 
                 frame.material = frameMaterial;  
