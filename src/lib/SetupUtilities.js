@@ -13,6 +13,17 @@ export const PasspartoutCutoutSize = {
     WIDE: "Wide",
 };
 
+export const FrameMaterial = {
+    METALLIC: "Metallic",
+    WOOD: "Wood",
+};
+
+export const FrameColor = {
+    YELLOW: "Yellow",
+    GREEN: "Green",
+    BLUE: "Blue",
+};
+
 /**
 * @type {number[]}
 */

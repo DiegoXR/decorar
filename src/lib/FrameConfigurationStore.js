@@ -14,7 +14,9 @@ const FrameConfiguration = {
     ],
     PasspartoutIsVisible: false,
     PasspartoutType: SetupUtilities.PasspartoutType.OUTTER, 
-    PasspartoutCutoutSize : SetupUtilities.PasspartoutCutoutSize.MEDIUM,  
+    PasspartoutCutoutSize : SetupUtilities.PasspartoutCutoutSize.MEDIUM,
+    FrameMaterial: SetupUtilities.FrameMaterial.WOOD,
+    FrameColor: SetupUtilities.FrameColor.YELLOW  
 }
 
 export const frameConfigurationStore = writable(FrameConfiguration);

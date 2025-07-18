@@ -5,6 +5,8 @@
     import FrameTypeControl from "./GroupComponents/FrameTypeControl.svelte";
     import FrameWidthControl from "./GroupComponents/FrameWidthControl.svelte";
     import FrameDepthControl from "./GroupComponents/FrameDepthControl.svelte";
+    import FrameMaterialControl from "./GroupComponents/FrameMaterialControl.svelte";
+    import FrameColorControl from "./GroupComponents/FrameColorControl.svelte";
     import PasspartoutTypeControl from "./GroupComponents/PasspartoutTypeControl.svelte";
     import PasspartoutSizeControl from "./GroupComponents/PasspartoutSizeControl.svelte";
     import Generate3DButton from "./GroupComponents/Generate3DButton.svelte";
@@ -103,6 +105,18 @@
           
           <!-- Frame Depth Control -->
           <FrameDepthControl />
+          
+          <!-- Separator -->
+          <Separator width="full" margin="my-0" />
+          
+          <!-- Frame Material Control -->
+          <FrameMaterialControl />
+          
+          <!-- Separator -->
+          <Separator width="full" margin="my-0" />
+          
+          <!-- Frame Color Control -->
+          <FrameColorControl />
           
           <!-- Separator -->
           <Separator width="full" margin="my-0" />
