@@ -6,44 +6,60 @@
 
     /** @type {boolean} */
     let isInitialized = false;
-    /** @type {string} */
+    /** 
+     * @type {{ name: string, hex: string } | undefined}
+     */
     let selectedColor;
     /** @type {typeof import("../../../../lib/SceneConstants.js").startingFrameConfiguration} */
     let localFrameConfiguration;
 
-    // Available color options
-    const colorOptions = Object.values(SetupUtilities.FrameColor);
+    // Extract color names for the dropdown
+    const colorOptions = Object.values(SetupUtilities.FrameColor).map(color => color.name);
 
     // Subscribe to store
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
         selectedColor = value.FrameColor;
+
     });
 
     onMount(() => {
         isInitialized = true;
+        
+        // Initialize the selected color name from the store
+        if (localFrameConfiguration && localFrameConfiguration.FrameColor) {
+            selectedColorName = localFrameConfiguration.FrameColor.name;
+        }
+        
         return () => {
             unsubscribe();
         };
     });
 
-    // Track previous state of color
-    /** @type {string | undefined} */
-    let previousColor;
+    // Selected color name from the dropdown
+    /** @type {string} */
+    let selectedColorName = "";
     
-    // Watch for changes to selectedColor and update the store
-    $: if (isInitialized && selectedColor && previousColor !== selectedColor) {
-        previousColor = selectedColor;
-        handleColorChange(selectedColor);
+    // When selectedColor changes from the store, update the name for the dropdown
+    $: if (selectedColor && selectedColor.name !== selectedColorName) {
+
+        selectedColorName = selectedColor.name;
     }
 
     /**
-     * @param {string} color
+     * @param {string} colorName - The display name of the color
      */
-    function handleColorChange(color) {
-        // Create a new object to ensure reactivity
-        const updatedConfig = { ...localFrameConfiguration, FrameColor: color };
-        frameConfigurationStore.set(updatedConfig);
+    function handleColorChange(colorName) {
+        
+
+        
+        // Find the color object that matches the selected name
+        const colorObject = Object.values(SetupUtilities.FrameColor).find(c => c.name === colorName);
+        if (colorObject) {
+            // Create a new object to ensure reactivity
+            const updatedConfig = { ...localFrameConfiguration, FrameColor: colorObject };
+            frameConfigurationStore.set(updatedConfig);
+        }
     }
 </script>
 
@@ -53,7 +69,7 @@
     <!-- Icon -->
     <div class="flex justify-start">
         <div class="w-6 h-6 flex items-center justify-center">
-            <div class="w-4 h-4 rounded-full" style="background-color: {selectedColor.toLowerCase()};"></div>
+            <div class="w-4 h-4 rounded-full" style="background-color: #{selectedColor?.hex || 'FFFF00'};"></div>
         </div>
     </div>
     
@@ -66,9 +82,13 @@
     <div class="flex justify-end">
         <TextSelector 
             availableOptions={colorOptions}
-            defaultOption={localFrameConfiguration?.FrameColor || "Yellow"}
-            bind:selectedOption={selectedColor}
+            defaultOption={selectedColor?.name || "Blue"}
+            bind:selectedOption={selectedColorName}
             isActive={true}
+            on:change={(event) => {
+
+                handleColorChange(event.detail);
+            }}
         />
     </div>
 </div>

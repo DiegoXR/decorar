@@ -86,7 +86,6 @@
     
     // Dispatch change event with the new selected option
     dispatch('change', selectedOption);
-
   }
 </script>
 

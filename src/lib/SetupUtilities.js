@@ -19,9 +19,9 @@ export const FrameMaterial = {
 };
 
 export const FrameColor = {
-    YELLOW: "Yellow",
-    GREEN: "Green",
-    BLUE: "Blue",
+    YELLOW: { name: "Yellow", hex: "FFFF00" },
+    GREEN: { name: "Green", hex: "00FF00" },
+    BLUE: { name: "Blue", hex: "0000FF" },
 };
 
 /**
