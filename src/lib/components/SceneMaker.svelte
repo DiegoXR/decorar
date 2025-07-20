@@ -210,22 +210,19 @@
                 // Prevent texture bleeding
                 frameTexture.generateMipmaps = true;
 
-                // Get the color from the frame configuration
-                const frameColorHex = localFrameConfiguration.FrameColor.hex;
-                const frameColorRgb = SetupUtilities.hexToRgb(frameColorHex, true); // Use oak as default
+                // frameTexture.colorSpace = THREE.SRGBColorSpace;
+
+                // Get the color from the frame configuration - use hexModel for Three.js
+                const frameColorHex = localFrameConfiguration.FrameColor.hexModel;
                 
-                // Convert RGB to THREE.js color format (0-1 range)
-                const frameColor = new THREE.Color(
-                    frameColorRgb.r / 255,
-                    frameColorRgb.g / 255,
-                    frameColorRgb.b / 255
-                );
-                
-                let frameMaterial = new THREE.MeshPhysicalMaterial({
+                const frameColor = new THREE.Color('#' + frameColorHex); // red
+                console.log('Applied fuchinf final color:', frameColorHex);
+
+                let frameMaterial = new THREE.MeshStandardMaterial({
                     map: frameTexture,
                     side: THREE.FrontSide,
-                    roughness: 0.7, // Adjust for better material appearance
-                    metalness: 0.2,
+                    metalness: 0,
+                    roughness: 1,
                     color: frameColor // Apply the color from the configuration
                 });
 

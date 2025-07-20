@@ -19,10 +19,11 @@ export const FrameMaterial = {
 };
 
 export const FrameColor = {
-    YELLOW: { name: "Oak", hex: "eed09d" },
-    GREEN: { name: "Green", hex: "00FF00" },
-    BLUE: { name: "Blue", hex: "0000FF" },
+    YELLOW: { name: "Oak", hex: "eed09d", hexModel: "eed09d" },
+    GREEN: { name: "Green", hex: "00FF00", hexModel: "00CC00" },
+    BLUE: { name: "Blue", hex: "0000FF", hexModel: "0000CC" },
 };
+
 
 /**
 * @type {number[]}

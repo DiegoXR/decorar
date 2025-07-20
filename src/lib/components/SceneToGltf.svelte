@@ -170,7 +170,12 @@
     touch-action="pan-y"
     alt="A 3D model of some wall art"
     min-camera-orbit="-90deg 0deg auto"
-    max-camera-orbit="90deg 180deg auto"
+    max-camera-orbit="90deg 180deg auto"   
+    exposure="1"
+    shadow-intensity="1"
+    shadow-softness="1"
+    tone-mapping="neutral"
+    environment-image="neutral"
 >
 <button
 slot="ar-button"

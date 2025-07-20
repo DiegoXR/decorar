@@ -51,8 +51,5 @@ export default {
         poppins: ['Poppins', 'sans-serif'],   // Add Poppins font
         // sans: ['Poppins', 'sans-serif'],      // Optional: Set Poppins as the default `font-sans`
     }
-  },
-  plugins: [
-    flowbitePlugin // Plugin de Flowbite
-  ]
+  }
 };

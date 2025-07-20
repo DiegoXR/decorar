@@ -5,7 +5,6 @@
     import { currentSelectedImageStore } from '../../CurrentSelectedImageStore.js';
     import { goto } from "$app/navigation";
     import HeartIcon from "../IconComponents/HeartIcon.svelte";
-    import { Avatar} from 'flowbite-svelte';
     import GradientBadge from "./CustomMadeComponents/GradientBadge.svelte";
    
      /**
