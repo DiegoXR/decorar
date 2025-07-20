@@ -3,7 +3,7 @@
     import { frameConfigurationStore } from "../../../../lib/FrameConfigurationStore.js";
     import * as SetupUtilities from "../../../../lib/SetupUtilities.js";
     import TextSelector from "$lib/components/UIComponents/GroupComponents/TextSelector.svelte";
-    import FrameIcon from "../../IconComponents/FrameIcon.svelte";
+    import MaterialIcon from "../../IconComponents/MaterialIcon.svelte";
 
     /** @type {boolean} */
     let isInitialized = false;
@@ -53,7 +53,7 @@
     
     <!-- Icon -->
     <div class="flex justify-start">
-        <FrameIcon/>
+        <MaterialIcon/>
     </div>
     
     <!-- Label -->

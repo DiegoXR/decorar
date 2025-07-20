@@ -3,7 +3,7 @@
     import { frameConfigurationStore } from "../../../../lib/FrameConfigurationStore.js";
     import * as THREEJsConfiguration from "../../../../lib/SceneConstants.js";
     import NumberInput from "./NumberInput.svelte";
-    import FrameIcon from "../../IconComponents/FrameIcon.svelte";
+    import MeasureIcon from "../../IconComponents/MeasureIcon.svelte";
 
     /** @type {boolean} */
     let isInitialized = false;
@@ -61,7 +61,7 @@
     
     <!-- Icon -->
     <div class="flex justify-start">
-        <FrameIcon/>
+        <MeasureIcon/>
     </div>
     
     <!-- Label -->
