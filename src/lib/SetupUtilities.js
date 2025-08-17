@@ -14,15 +14,48 @@ export const PasspartoutCutoutSize = {
 };
 
 export const FrameMaterial = {
-    METALLIC: "Metallic",
-    WOOD: "Wood",
+    // METALLIC: "Metallic"
+    WOOD: "Wood"
 };
 
+export const ColorNameWallnut = "Walnut";
+export const ColorNameHoney = "Oak Honey";
+export const ColorNameRef = "Oak Ref";
+
 export const FrameColor = {
-    YELLOW: { name: "Oak", hex: "eed09d", hexModel: "eed09d" },
-    GREEN: { name: "Green", hex: "00FF00", hexModel: "00CC00" },
-    BLUE: { name: "Blue", hex: "0000FF", hexModel: "0000CC" },
+    WALNUT: { name: ColorNameWallnut, hex: "FFFFFF", hexModel: "FFFFFF" },
+    HONEY: { name: ColorNameHoney, hex: "FFFFFF", hexModel: "FFFFFF" },
+    REF: { name: ColorNameRef, hex: "FFFFFF", hexModel: "FFFFFF" },
 };
+
+
+
+
+// white wood finish #d7d7d7 approved
+// beech wood finish #d4c9a7 approved
+// white oak finish #c1ae93 approved
+// oak wood finish #c3aa78
+// oak wood alternative #d2aa75
+// oak wood honey #d1a46c approved
+
+
+
+
+// black  finish 2a2727
+// white  finish e7e7e7
+
+
+
+
+ // Old finieshes
+//  export const FrameColor = {
+//     YELLOW: { name: "Oak", hex: "eed09d", hexModel: "eed09d" },
+//     BEECH: { name: "Beech", hex: "F1DFAD", hexModel: "F1DFAD" },
+//     GREEN: { name: "OakOfficial", hex: "C3AA78", hexModel: "C3AA78" },
+//     BLUE: { name: "Blue", hex: "0000FF", hexModel: "0000CC" },
+//     REF: { name: "Ref", hex: "FFFFFF", hexModel: "FFFFFF" },
+// };
+
 
 
 /**

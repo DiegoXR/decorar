@@ -218,18 +218,28 @@ function CanvasWidthChangeSubscription(){
         frameElement.style.padding = "0px";
         }   
 
-    // Code Below is for flat color to be applied in the frame
-    
-    // let color = "#ff00ff";
-    // let lightColor = SetupUtilities.lightenColor(color, 20);
-    // frameElement.style.border= `${borderWidthPx} solid ${color}`;
-    // frameElement.style.borderBottomColor = lightColor;
-    // frameElement.style.borderTopColor = lightColor;
-
 
     //Code Below is for a Wooden Texture to be applied in the frame
-
-    const imageUrl = "/referenceTextures/BorderTexture.jpg"; 
+  let imageUrl = "/referenceTextures/2D/BaseOak.png"; // Default fallback
+  
+  switch(localFrameConfiguration.FrameMaterial){
+    case SetupUtilities.FrameMaterial.WOOD:
+        if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameWallnut){
+            imageUrl = "/referenceTextures/2D/Walnut.png";
+        }else if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameHoney){
+            imageUrl = "/referenceTextures/2D/HoneyOak.png";
+        }else if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameRef){
+            imageUrl = "/referenceTextures/2D/BaseOak.png";
+        }
+      break;
+    // case SetupUtilities.FrameMaterial.METALLIC:
+    //   imageUrl = "/referenceTextures/BorderTexture.jpg";
+    //   break;
+    default:
+       imageUrl = "/referenceTextures/2D/BaseOak.png";
+      break;
+  }
+ 
     const tintedImage = document.getElementById('tintedImage');
     const canvas = document.createElement('canvas');
     
