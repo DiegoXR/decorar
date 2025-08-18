@@ -1,11 +1,12 @@
 <!-- <div class="bg-blue-100 w- h-[50vh]" -->
 <script>
-import { onMount, onDestroy,tick  } from "svelte";
+import { onMount, onDestroy, tick } from "svelte";
 import { currentSelectedImageStore } from "../CurrentSelectedImageStore.js";
 import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
 import * as THREEJsConfiguration from  "../SceneConstants.js";
-import * as SetupUtilities from "../SetupUtilities.js"
+import * as SetupUtilities from '$lib/SetupUtilities.js';
+import { preloadTextures } from '$lib/TextureLoaderUtilities.js';
 
 /**
 * @type {import("svelte/store").Unsubscriber}
@@ -90,13 +91,26 @@ let imageElementHeightPx;
 
 let targetPasspartout;
 
- /**
-     * @type {number}
-     */
+/**
+ * @type {number}
+ */
 let selectedPasspartoutPercentage;
 
-onMount(async () => {
+// Cache for preloaded textures
+/** @type {Record<string, HTMLImageElement>} */
+let preloadedTextures = {};
 
+// List of textures to preload
+const textureUrls = [
+    "/referenceTextures/2D/Walnut.png",
+    "/referenceTextures/2D/HoneyOak.png",
+    "/referenceTextures/2D/BaseOak.png"
+];
+
+onMount(async () => {
+    // Preload all textures
+    preloadedTextures = await preloadTextures(textureUrls);
+    
     isInitialized = true;
     CanvasWidthChangeSubscription();
     InitializeImageSubscription();
@@ -142,7 +156,8 @@ function CanvasWidthChangeSubscription(){
   });
 }
 
- function updateHTMLElements(){
+
+function updateHTMLElements(){
     
    if (!isInitialized)   return;
  
@@ -232,32 +247,43 @@ function CanvasWidthChangeSubscription(){
             imageUrl = "/referenceTextures/2D/BaseOak.png";
         }
       break;
-    // case SetupUtilities.FrameMaterial.METALLIC:
-    //   imageUrl = "/referenceTextures/BorderTexture.jpg";
-    //   break;
     default:
        imageUrl = "/referenceTextures/2D/BaseOak.png";
       break;
   }
  
+    // Get hidden image element (if needed for debugging)
     const tintedImage = document.getElementById('tintedImage');
-    const canvas = document.createElement('canvas');
     
-    // Color to be applied over the image - from frame configuration
-    const tint = SetupUtilities.hexToRgb(localFrameConfiguration.FrameColor?.hex);
-
-    // Fallback color if image fails to load
-    frameElement.style.border= `${borderWidthPx} solid rgba(${tint.r}, ${tint.g}, ${tint.b}, 1)`;
-
-    SetupUtilities.tintImage(imageUrl, tint, canvas).then((tintedImageUrl) => {
-        // @ts-ignore
-        tintedImage.src = tintedImageUrl;
-        frameElement.style.borderImageSource = `url("${tintedImageUrl}")`;
-        frameElement.style.borderImageSlice = "200 200";                                 
+    // Set solid color as immediate fallback using the wood color
+    // This provides an instant color while the texture loads
+    const woodColor = getWoodColorForName(localFrameConfiguration.FrameColor?.name);
+    frameElement.style.border = `${borderWidthPx} solid ${woodColor}`;
     
-    }).catch((err) => {
-        console.error(err);
-    });
+    // Use preloaded texture if available
+    if (preloadedTextures[imageUrl]) {
+        // Use preloaded image directly - no need for URL.createObjectURL
+        frameElement.style.borderImageSource = `url("${imageUrl}")`;
+        frameElement.style.borderImageSlice = "200 200";
+        
+        // Update hidden image for debugging if needed
+        if (tintedImage instanceof HTMLImageElement) {
+            tintedImage.src = imageUrl;
+        }
+    } else {
+        console.warn(`Texture ${imageUrl} not preloaded, loading on demand`);
+        // Fallback to loading on demand if preloading failed
+        const img = new Image();
+        img.onload = () => {
+            const imageUrlToUse = imageUrl;
+            frameElement.style.borderImageSource = `url("${imageUrlToUse}")`;
+            frameElement.style.borderImageSlice = "200 200";
+        };
+        img.onerror = (err) => {
+            console.error('Failed to load texture on demand:', err);
+        };
+        img.src = imageUrl;
+    }
  }
 
 /**
@@ -267,7 +293,22 @@ function ConvertToString(numberToConvert){
     return  numberToConvert.toString() +"px";
 }
 
-
+/**
+ * Returns a suitable color for the selected wood type
+ * @param {string | undefined} woodName - The name of the wood type
+ * @returns {string} - CSS color value
+ */
+function getWoodColorForName(woodName) {
+    if (woodName === SetupUtilities.ColorNameWallnut) {
+        return '#5d4037'; // Dark brown for walnut
+    } else if (woodName === SetupUtilities.ColorNameHoney) {
+        return '#d7a45e'; // Honey color for oak honey
+    } else if (woodName === SetupUtilities.ColorNameRef) {
+        return '#c0a080'; // Light brown for base oak
+    } else {
+        return '#c0a080'; // Default oak color
+    }
+}
 
 
 </script>    
@@ -281,7 +322,7 @@ function ConvertToString(numberToConvert){
 
     <!-- Declaring Image Element -->
     <div bind:this={imageElement} class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
-        <img src={currentImageProperties.src} alt="Description of the image" class="w-full h-full object-cover">
+        <img src={currentImageProperties.src} alt={currentImageProperties.alt || "Framed artwork"} class="w-full h-full object-cover">
     </div>
 
      <!-- Declaring Frame Element -->
@@ -292,7 +333,7 @@ function ConvertToString(numberToConvert){
      <div bind:this={innerPasspartout} class="innerPasspartout">
     </div>
 
-    <img id="tintedImage" style="visibility:hidden">
+    <img id="tintedImage" alt="Debug texture for frame" style="visibility:hidden">
 
 </div>
 
