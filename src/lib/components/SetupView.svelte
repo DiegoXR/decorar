@@ -31,16 +31,6 @@ let canvasWidth;
 /**
 * @type {number}
 */
-let imageWidth = 10;
-
-/**
-* @type {number}
-*/
-let imageRatio = 0;
-
-/**
-* @type {number}
-*/
 let meterToPixelconversionFactor;
 
  /**
@@ -57,16 +47,6 @@ let frameElement;
      * @type {HTMLDivElement}
      */
 let innerPasspartout;
-
- /**
-     * @type {HTMLDivElement}
-     */
-let frameImageElement;
-
- /**
-     * @type {HTMLDivElement}
-     */
-     let testBox;
 
 
 let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
@@ -100,16 +80,42 @@ let selectedPasspartoutPercentage;
 /** @type {Record<string, HTMLImageElement>} */
 let preloadedTextures = {};
 
-// List of textures to preload
-const textureUrls = [
-    "/referenceTextures/2D/Walnut.png",
-    "/referenceTextures/2D/HoneyOak.png",
-    "/referenceTextures/2D/BaseOak.png"
-];
+// Cache for pre-tinted textures
+/** @type {Record<string, string>} */
+let tintedTextureCache = {};
+
+// Extract unique texture URLs from FrameColor definition
+const getUniqueTextureUrls = () => {
+    const urls = Object.values(SetupUtilities.FrameColor).map(color => color.imageUrl);
+    return [...new Set(urls)]; // Remove duplicates
+};
+
+// Pre-generate tinted textures for all frame colors
+const preGenerateTintedTextures = async () => {
+    const canvas = document.createElement('canvas');
+    
+    for (const [colorKey, colorData] of Object.entries(SetupUtilities.FrameColor)) {
+        if (colorData.hex !== "transparent") {
+            const tint = SetupUtilities.hexToRgb(colorData.hex);
+            const cacheKey = `${colorData.imageUrl}_${colorData.hex}`;
+            
+            try {
+                const tintedImageUrl = await SetupUtilities.tintImage(colorData.imageUrl, tint, canvas);
+                tintedTextureCache[cacheKey] = tintedImageUrl;
+            } catch (err) {
+                console.error(`Failed to pre-generate tinted texture for ${colorKey}:`, err);
+            }
+        }
+    }
+};
 
 onMount(async () => {
-    // Preload all textures
-    preloadedTextures = await preloadTextures(textureUrls);
+    // Preload all unique textures from FrameColor definition
+    const uniqueTextureUrls = getUniqueTextureUrls();
+    preloadedTextures = await preloadTextures(uniqueTextureUrls);
+    
+    // Pre-generate all tinted textures
+    await preGenerateTintedTextures();
     
     isInitialized = true;
     CanvasWidthChangeSubscription();
@@ -234,56 +240,23 @@ function updateHTMLElements(){
         }   
 
 
-    //Code Below is for a Wooden Texture to be applied in the frame
-  let imageUrl = "/referenceTextures/2D/BaseOak.png"; // Default fallback
-  
-  switch(localFrameConfiguration.FrameMaterial){
-    case SetupUtilities.FrameMaterial.WOOD:
-        if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameWallnut){
-            imageUrl = "/referenceTextures/2D/Walnut.png";
-        }else if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameHoney){
-            imageUrl = "/referenceTextures/2D/HoneyOak.png";
-        }else if (localFrameConfiguration.FrameColor?.name == SetupUtilities.ColorNameRef){
-            imageUrl = "/referenceTextures/2D/BaseOak.png";
-        }
-      break;
-    default:
-       imageUrl = "/referenceTextures/2D/BaseOak.png";
-      break;
-  }
+  // Get the image URL directly from the frame color configuration
+  const imageUrl = localFrameConfiguration.FrameColor?.imageUrl || "/referenceTextures/2D/BaseOak.png";
  
-    // Get hidden image element (if needed for debugging)
-    const tintedImage = document.getElementById('tintedImage');
+    console.log("the selected url is", imageUrl);
+    console.log("the selected color is", localFrameConfiguration.FrameColor?.hex);
     
-    // Set solid color as immediate fallback using the wood color
-    // This provides an instant color while the texture loads
-    const woodColor = getWoodColorForName(localFrameConfiguration.FrameColor?.name);
-    frameElement.style.border = `${borderWidthPx} solid ${woodColor}`;
+    // Use pre-generated tinted texture if available
+    const cacheKey = `${imageUrl}_${localFrameConfiguration.FrameColor?.hex}`;
+    let finalImageUrl = imageUrl;
     
-    // Use preloaded texture if available
-    if (preloadedTextures[imageUrl]) {
-        // Use preloaded image directly - no need for URL.createObjectURL
-        frameElement.style.borderImageSource = `url("${imageUrl}")`;
-        frameElement.style.borderImageSlice = "200 200";
-        
-        // Update hidden image for debugging if needed
-        if (tintedImage instanceof HTMLImageElement) {
-            tintedImage.src = imageUrl;
-        }
-    } else {
-        console.warn(`Texture ${imageUrl} not preloaded, loading on demand`);
-        // Fallback to loading on demand if preloading failed
-        const img = new Image();
-        img.onload = () => {
-            const imageUrlToUse = imageUrl;
-            frameElement.style.borderImageSource = `url("${imageUrlToUse}")`;
-            frameElement.style.borderImageSlice = "200 200";
-        };
-        img.onerror = (err) => {
-            console.error('Failed to load texture on demand:', err);
-        };
-        img.src = imageUrl;
+    if (localFrameConfiguration.FrameColor?.hex !== "transparent" && tintedTextureCache[cacheKey]) {
+        finalImageUrl = tintedTextureCache[cacheKey];
     }
+    
+    // Apply the texture (either original or pre-tinted)
+    frameElement.style.borderImageSource = `url("${finalImageUrl}")`;
+    frameElement.style.borderImageSlice = "200 200";
  }
 
 /**
@@ -292,24 +265,6 @@ function updateHTMLElements(){
 function ConvertToString(numberToConvert){
     return  numberToConvert.toString() +"px";
 }
-
-/**
- * Returns a suitable color for the selected wood type
- * @param {string | undefined} woodName - The name of the wood type
- * @returns {string} - CSS color value
- */
-function getWoodColorForName(woodName) {
-    if (woodName === SetupUtilities.ColorNameWallnut) {
-        return '#5d4037'; // Dark brown for walnut
-    } else if (woodName === SetupUtilities.ColorNameHoney) {
-        return '#d7a45e'; // Honey color for oak honey
-    } else if (woodName === SetupUtilities.ColorNameRef) {
-        return '#c0a080'; // Light brown for base oak
-    } else {
-        return '#c0a080'; // Default oak color
-    }
-}
-
 
 </script>    
 
@@ -332,9 +287,6 @@ function getWoodColorForName(woodName) {
      <!-- Declaring Inner Passpartout -->
      <div bind:this={innerPasspartout} class="innerPasspartout">
     </div>
-
-    <img id="tintedImage" alt="Debug texture for frame" style="visibility:hidden">
-
 </div>
 
 

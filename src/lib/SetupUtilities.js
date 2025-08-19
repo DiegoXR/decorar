@@ -20,15 +20,27 @@ export const FrameMaterial = {
 
 export const ColorNameWallnut = "Walnut";
 export const ColorNameHoney = "Oak Honey";
-export const ColorNameRef = "Oak Ref";
+export const ColorNameRef = "Oak white";
+export const ColorNameYellow = "Oak Yellow";
+export const ColorNameBlue = "Oak Blue";
+export const ColorNameRed= "Oak Red";
 
 export const FrameColor = {
-    WALNUT: { name: ColorNameWallnut, hex: "FFFFFF", hexModel: "FFFFFF" },
-    HONEY: { name: ColorNameHoney, hex: "FFFFFF", hexModel: "FFFFFF" },
-    REF: { name: ColorNameRef, hex: "FFFFFF", hexModel: "FFFFFF" },
+    WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/Walnut.png" },
+    HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/HoneyOak.png" },
+    REF: { name: ColorNameRef, hex: "FFFFFF", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/BaseOak.png" },
+    YELLOW: { name: ColorNameYellow, hex: "FFFF00", hexModel: "FFFF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
+    BLUE: { name: ColorNameBlue, hex: "00FF00", hexModel: "00FF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
+    RED: { name: ColorNameRed, hex: "FF0000", hexModel: "FF0000", imageUrl: "/referenceTextures/2D/BaseOak.png" },
 };
 
 
+// List of textures to preload
+const textureUrls = [
+    "/referenceTextures/2D/Walnut.png",
+    "/referenceTextures/2D/HoneyOak.png",
+    "/referenceTextures/2D/BaseOak.png"
+];
 
 
 // white wood finish #d7d7d7 approved

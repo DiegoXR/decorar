@@ -22,7 +22,7 @@ export let startingFrameConfiguration = {
     PasspartoutType: SetupUtilities.PasspartoutType.OUTTER, 
     PasspartoutCutoutSize : SetupUtilities.PasspartoutCutoutSize.MEDIUM,
     FrameMaterial: SetupUtilities.FrameMaterial.WOOD,
-    FrameColor: SetupUtilities.FrameColor.YELLOW
+    FrameColor: SetupUtilities.FrameColor.REF
 }
 
 export let startingSelectedImage = {

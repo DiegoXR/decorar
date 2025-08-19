@@ -28,7 +28,7 @@ export async function preloadTextures(textureUrls) {
     for (const url of textureUrls) {
         try {
             preloadedTextures[url] = await loadImage(url);
-            console.log(`Preloaded texture: ${url}`);
+            //console.log(`Preloaded texture: ${url}`);
         } catch (err) {
             console.error(`Failed to preload texture ${url}:`, err);
         }
