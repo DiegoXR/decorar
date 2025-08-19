@@ -31,6 +31,11 @@ let canvasWidth;
 /**
 * @type {number}
 */
+let canvasHeight;
+
+/**
+* @type {number}
+*/
 let meterToPixelconversionFactor;
 
  /**
@@ -121,6 +126,9 @@ onMount(async () => {
     CanvasWidthChangeSubscription();
     InitializeImageSubscription();
     InitialFrameConfigurationSubscription();
+    
+    // Update HTML elements on initial load to ensure proper sizing
+    updateHTMLElements();
 });
 
 onDestroy(() => {
@@ -157,8 +165,10 @@ function InitialFrameConfigurationSubscription(){
 function CanvasWidthChangeSubscription(){
     currentCanvasWidthSubscription = canvasWidthStore.subscribe((value) => {
     canvasWidth = value;
+    // Get canvas height from the parent element
+    canvasHeight = document.querySelector('.relative.h-full.w-full')?.clientHeight || window.innerHeight * 0.5;
     updateHTMLElements();
-    // console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
+    console.log(`from parent width subscription the current parent width is: ${canvasWidth}`);
   });
 }
 
@@ -172,6 +182,7 @@ function updateHTMLElements(){
     localFrameConfiguration.availableSizes = currentImageProperties.availableSizes;
 
     meterToPixelconversionFactor = SetupUtilities.meterToPixelConversion(canvasWidth, 
+    canvasHeight,
     localFrameConfiguration.ImageSize[0], 
     localFrameConfiguration.ImageSize[1],
     localFrameConfiguration.FrameIsVisible, 

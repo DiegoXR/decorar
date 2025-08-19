@@ -1,6 +1,5 @@
 <script>
     import SetupView from "$lib/components/SetupView.svelte";
-    import TestingComponent from "$lib/components/UIComponents/TestingComponent.svelte";
     import { setContext } from "svelte";
     import { onMount, onDestroy } from "svelte";
     import { writable } from "svelte/store";
@@ -44,10 +43,11 @@
     }
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[60%_40%] lg:grid-cols-1 xl:grid-cols-[60%_40%] 2xl:grid-cols-[60%_40%] bg-white w-full h-full">
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-[60%_40%] lg:grid-cols-1 xl:grid-cols-[60%_40%] 2xl:grid-cols-[60%_40%] w-full h-full">
     <!-- 3D VIEW -->
-    <div bind:this={parentElement} class="bg-white h-[50vh] md:h-auto lg:h-auto xl:h-auto">
+    <div bind:this={parentElement} class="h-[50vh] md:h-auto lg:h-[50vh] xl:h-auto">
         <SetupView></SetupView>
+        <!-- <div class="bg-blue-100">2d view</div> -->
     </div>
        
     <!-- UI GROUP -->

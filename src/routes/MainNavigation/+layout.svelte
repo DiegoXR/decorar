@@ -66,7 +66,7 @@
     <FakePageHeader />
     <NavigationBar></NavigationBar>
     <!-- SLOT FOR OTHER PAGES  -->
-    <div class="w-full">
+    <div class="w-full pt-[6vh] md:pt-[6vh] lg:pt-[6vh] xl:pt-[6vh]">
         <slot />
     </div>
 </div>

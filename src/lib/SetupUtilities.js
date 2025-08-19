@@ -75,35 +75,6 @@ const textureUrls = [
 */
 let imageScreenSpaceRatios = [0.5, 0.5, 0.7]; // Square, Portrait, Landscape
 
-// /**
-//  * @param {string} hex
-//  * @param {number} percent
-//  */
-// export function lightenColor(hex, percent) {
-//     // Convert hex to RGB
-//     let r = parseInt(hex.slice(1, 3), 16);
-//     let g = parseInt(hex.slice(3, 5), 16);
-//     let b = parseInt(hex.slice(5, 7), 16);
-
-//     // Increase each component by the given percentage
-//     r = Math.min(255, Math.floor(r + (255 - r) * percent / 100));
-//     g = Math.min(255, Math.floor(g + (255 - g) * percent / 100));
-//     b = Math.min(255, Math.floor(b + (255 - b) * percent / 100));
-
-//     // Convert back to hex
-//     const newHex = "#" + 
-//         r.toString(16).padStart(2, '0') + 
-//         g.toString(16).padStart(2, '0') + 
-//         b.toString(16).padStart(2, '0');
-
-//     return newHex;
-// }
-
-// Example usage:
-// let originalHex = "#3498db"; // Example hex color
-// let lighterHex = lightenColor(originalHex, 10); // Lighten by 10%
-// console.log(lighterHex); // Output the new lighter color
-
 
 /**
  * @param {any} image
@@ -158,6 +129,7 @@ export function tintImage(imageUrl , tint, canvas){
 
 /**
  * @param {number} canvasWidth 
+ * @param {number} canvasHeight
  * @param {number} imageWidth
  * @param {number} imageHeight
  * @param {number} frameBorderWidth
@@ -165,12 +137,13 @@ export function tintImage(imageUrl , tint, canvas){
  * @param {boolean} isPasspartoutEnabled
  * @param {string} passpartoutSizeType
  */
-export function meterToPixelConversion(canvasWidth, imageWidth, imageHeight ,isFrameEnabled, frameBorderWidth, isPasspartoutEnabled, passpartoutSizeType ){
+export function meterToPixelConversion(canvasWidth, canvasHeight, imageWidth, imageHeight ,isFrameEnabled, frameBorderWidth, isPasspartoutEnabled, passpartoutSizeType ){
  
     let frameContribution = 0;
     let passPartoutContribution = 0;
     let meterToPixelconversionFactor;
     let totalElementWidthInMeters;
+    let totalElementHeightInMeters;
     let selectedPercentageOfCanvasOccupacy;
     
 
@@ -185,8 +158,16 @@ export function meterToPixelConversion(canvasWidth, imageWidth, imageHeight ,isF
     }
 
     totalElementWidthInMeters = imageWidth + frameContribution + passPartoutContribution;
+    totalElementHeightInMeters = imageHeight + frameContribution + (isPasspartoutEnabled ? passPartoutContribution : 0);
 
-    meterToPixelconversionFactor =  (canvasWidth * selectedPercentageOfCanvasOccupacy) / totalElementWidthInMeters;
+    // Calculate conversion factor based on width constraint
+    const widthBasedFactor = (canvasWidth * selectedPercentageOfCanvasOccupacy) / totalElementWidthInMeters;
+    
+    // Calculate conversion factor based on height constraint (use 80% of canvas height to leave some margin)
+    const heightBasedFactor = (canvasHeight * 0.8) / totalElementHeightInMeters;
+    
+    // Use the smaller factor to ensure the image fits within both width and height constraints
+    meterToPixelconversionFactor = Math.min(widthBasedFactor, heightBasedFactor);
 
     return meterToPixelconversionFactor;
 
