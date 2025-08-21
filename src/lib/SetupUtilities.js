@@ -24,9 +24,9 @@ export const ColorNameYellow = "Oak Yellow";
 
 
 export const FrameColor = {
-    WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "734522", imageUrl: "/referenceTextures/2D/Walnut.png" },
-    HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "cf9e67", imageUrl: "/referenceTextures/2D/HoneyOak.png" },
-    YELLOW: { name: ColorNameYellow, hex: "FFFF00", hexModel: "FFFF00", hexIndicator: "FFFF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
+    WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "734522", imageUrl: "/referenceTextures/2D/Walnut.webp" },
+    HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "cf9e67", imageUrl: "/referenceTextures/2D/HoneyOak.webp" },
+    YELLOW: { name: ColorNameYellow, hex: "FFFF00", hexModel: "FFFF00", hexIndicator: "FFFF00", imageUrl: "/referenceTextures/2D/BaseOak.webp" },
 };
 
 // white wood finish #d7d7d7 approved

@@ -132,9 +132,7 @@ function InitializeImageSubscription() {
                 } catch (error) {
                     console.warn(`Failed to cache user image: ${value.src}`, error);
                 }
-            }
-            
-            // console.log("CANVAS/ I got the Image Update");
+            }          
         },
     );
 
@@ -256,7 +254,14 @@ function updateHTMLElements(){
     
     // Apply the texture (either original or pre-tinted)
     frameElement.style.borderImageSource = `url("${finalImageUrl}")`;
-    frameElement.style.borderImageSlice = "200 200";
+    
+//     const borderWidthPxx = localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor;
+// const sliceValue = Math.round(borderWidthPxx * 100); // Factor 8 como ejemplo
+frameElement.style.borderImageSlice = `${10} ${100}`;
+
+// 15+  100
+// 10-14  50
+
  }
 
 /**
@@ -318,26 +323,6 @@ function ConvertToString(numberToConvert){
     border-color: rgb(255, 255, 255);
     /* box-sizing: content-box; */
 }
-
-/* .testBox{
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    z-index: 40;
-    padding:0px;
-    width: 208px;
-    height: 208px;
-    visibility: hidden;
-    opacity: 50%;
-    background-image: url('/referenceTextures/Oak_512.png');
-} */
-
-/* .frameImage{
-    visibility: hidden;
-    width: 995px;
-    height: 995px;
-} */
 </style>
 
 <!-- <button on:click={printHello}>Click me</button> -->
