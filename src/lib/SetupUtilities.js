@@ -20,28 +20,14 @@ export const FrameMaterial = {
 
 export const ColorNameWallnut = "Walnut";
 export const ColorNameHoney = "Oak Honey";
-export const ColorNameRef = "Oak white";
 export const ColorNameYellow = "Oak Yellow";
-export const ColorNameBlue = "Oak Blue";
-export const ColorNameRed= "Oak Red";
+
 
 export const FrameColor = {
-    WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/Walnut.png" },
-    HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/HoneyOak.png" },
-    REF: { name: ColorNameRef, hex: "FFFFFF", hexModel: "FFFFFF", imageUrl: "/referenceTextures/2D/BaseOak.png" },
-    YELLOW: { name: ColorNameYellow, hex: "FFFF00", hexModel: "FFFF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
-    BLUE: { name: ColorNameBlue, hex: "00FF00", hexModel: "00FF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
-    RED: { name: ColorNameRed, hex: "FF0000", hexModel: "FF0000", imageUrl: "/referenceTextures/2D/BaseOak.png" },
+    WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "734522", imageUrl: "/referenceTextures/2D/Walnut.png" },
+    HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "cf9e67", imageUrl: "/referenceTextures/2D/HoneyOak.png" },
+    YELLOW: { name: ColorNameYellow, hex: "FFFF00", hexModel: "FFFF00", hexIndicator: "FFFF00", imageUrl: "/referenceTextures/2D/BaseOak.png" },
 };
-
-
-// List of textures to preload
-const textureUrls = [
-    "/referenceTextures/2D/Walnut.png",
-    "/referenceTextures/2D/HoneyOak.png",
-    "/referenceTextures/2D/BaseOak.png"
-];
-
 
 // white wood finish #d7d7d7 approved
 // beech wood finish #d4c9a7 approved
@@ -51,24 +37,8 @@ const textureUrls = [
 // oak wood honey #d1a46c approved
 
 
-
-
 // black  finish 2a2727
 // white  finish e7e7e7
-
-
-
-
- // Old finieshes
-//  export const FrameColor = {
-//     YELLOW: { name: "Oak", hex: "eed09d", hexModel: "eed09d" },
-//     BEECH: { name: "Beech", hex: "F1DFAD", hexModel: "F1DFAD" },
-//     GREEN: { name: "OakOfficial", hex: "C3AA78", hexModel: "C3AA78" },
-//     BLUE: { name: "Blue", hex: "0000FF", hexModel: "0000CC" },
-//     REF: { name: "Ref", hex: "FFFFFF", hexModel: "FFFFFF" },
-// };
-
-
 
 /**
 * @type {number[]}

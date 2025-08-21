@@ -7,7 +7,7 @@
     /** @type {boolean} */
     let isInitialized = false;
     /** 
-     * @type {{ name: string, hex: string } | undefined}
+     * @type {{ name: string, hex: string, hexIndicator: string } | undefined}
      */
     let selectedColor;
     /** @type {typeof import("../../../../lib/SceneConstants.js").startingFrameConfiguration} */
@@ -69,7 +69,7 @@
     <!-- Icon -->
     <div class="flex justify-start">
         <div class="w-6 h-6 flex items-center justify-center">
-            <div class="w-4 h-4 rounded-full" style="background-color: #{selectedColor?.hex || 'FFFF00'};"></div>
+            <div class="w-4 h-4 rounded-full" style="background-color: #{selectedColor?.hexIndicator || 'FFFF00'};"></div>
         </div>
     </div>
     
