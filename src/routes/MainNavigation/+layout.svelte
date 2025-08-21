@@ -12,6 +12,7 @@
     import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
     import Footer from "$lib/components/UIComponents/GroupComponents/Footer.svelte";
     import FakePageHeader from "$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte";
+    import { initializeTextureCaches } from "$lib/TextureCacheStore.js";
 
 
 
@@ -25,7 +26,10 @@
     return {};
   }
 
-    onMount(() => {
+    onMount(async () => {
+        
+      // Initialize texture caches early in the application lifecycle
+      await initializeTextureCaches();
         
       // // Add Google Analytics script
       // const script = document.createElement('script');

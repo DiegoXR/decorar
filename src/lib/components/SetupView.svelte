@@ -6,7 +6,11 @@ import { frameConfigurationStore } from "../FrameConfigurationStore.js";
 import { getContext } from 'svelte';
 import * as THREEJsConfiguration from  "../SceneConstants.js";
 import * as SetupUtilities from '$lib/SetupUtilities.js';
-import { preloadTextures } from '$lib/TextureLoaderUtilities.js';
+import { 
+    initializeTextureCaches, 
+    getTintedTexture, 
+    texturesInitializedStore 
+} from '$lib/TextureCacheStore.js';
 
 /**
 * @type {import("svelte/store").Unsubscriber}
@@ -81,46 +85,20 @@ let targetPasspartout;
  */
 let selectedPasspartoutPercentage;
 
-// Cache for preloaded textures
-/** @type {Record<string, HTMLImageElement>} */
-let preloadedTextures = {};
-
-// Cache for pre-tinted textures
-/** @type {Record<string, string>} */
-let tintedTextureCache = {};
-
-// Extract unique texture URLs from FrameColor definition
-const getUniqueTextureUrls = () => {
-    const urls = Object.values(SetupUtilities.FrameColor).map(color => color.imageUrl);
-    return [...new Set(urls)]; // Remove duplicates
-};
-
-// Pre-generate tinted textures for all frame colors
-const preGenerateTintedTextures = async () => {
-    const canvas = document.createElement('canvas');
-    
-    for (const [colorKey, colorData] of Object.entries(SetupUtilities.FrameColor)) {
-        if (colorData.hex !== "transparent") {
-            const tint = SetupUtilities.hexToRgb(colorData.hex);
-            const cacheKey = `${colorData.imageUrl}_${colorData.hex}`;
-            
-            try {
-                const tintedImageUrl = await SetupUtilities.tintImage(colorData.imageUrl, tint, canvas);
-                tintedTextureCache[cacheKey] = tintedImageUrl;
-            } catch (err) {
-                console.error(`Failed to pre-generate tinted texture for ${colorKey}:`, err);
-            }
-        }
-    }
-};
+// Track if textures are ready
+let texturesReady = false;
 
 onMount(async () => {
-    // Preload all unique textures from FrameColor definition
-    const uniqueTextureUrls = getUniqueTextureUrls();
-    preloadedTextures = await preloadTextures(uniqueTextureUrls);
+    // Initialize global texture caches if not already done
+    await initializeTextureCaches();
     
-    // Pre-generate all tinted textures
-    await preGenerateTintedTextures();
+    // Subscribe to texture initialization status
+    texturesInitializedStore.subscribe(ready => {
+        texturesReady = ready;
+        if (ready && isInitialized) {
+            updateHTMLElements();
+        }
+    });
     
     isInitialized = true;
     CanvasWidthChangeSubscription();
@@ -257,12 +235,11 @@ function updateHTMLElements(){
     console.log("the selected url is", imageUrl);
     console.log("the selected color is", localFrameConfiguration.FrameColor?.hex);
     
-    // Use pre-generated tinted texture if available
-    const cacheKey = `${imageUrl}_${localFrameConfiguration.FrameColor?.hex}`;
+    // Use pre-generated tinted texture from global cache
     let finalImageUrl = imageUrl;
     
-    if (localFrameConfiguration.FrameColor?.hex !== "transparent" && tintedTextureCache[cacheKey]) {
-        finalImageUrl = tintedTextureCache[cacheKey];
+    if (localFrameConfiguration.FrameColor?.hex !== "transparent" && texturesReady) {
+        finalImageUrl = getTintedTexture(imageUrl, localFrameConfiguration.FrameColor.hex);
     }
     
     // Apply the texture (either original or pre-tinted)
@@ -280,12 +257,6 @@ function ConvertToString(numberToConvert){
 </script>    
 
 <div class="relative h-full w-full">
-
-    <!-- Declaring Frame Element -->
-    <!-- <div bind:this={testBox} class="bg-red-500 testBox">
-        <p>hola</p>
-    </div> -->
-
     <!-- Declaring Image Element -->
     <div bind:this={imageElement} class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 imageElement">
         <img src={currentImageProperties.src} alt={currentImageProperties.alt || "Framed artwork"} class="w-full h-full object-cover">
