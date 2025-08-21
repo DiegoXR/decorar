@@ -1,6 +1,6 @@
 // Global texture cache store to persist preloaded textures and tinted versions across route changes
 import { writable } from 'svelte/store';
-import { preloadTextures } from './TextureLoaderUtilities.js';
+import { preloadTextures, loadImage } from './TextureLoaderUtilities.js';
 import * as SetupUtilities from './SetupUtilities.js';
 
 // Cache for preloaded base textures
@@ -10,6 +10,10 @@ export const preloadedTexturesStore = writable({});
 // Cache for pre-tinted textures
 /** @type {import('svelte/store').Writable<Record<string, string>>} */
 export const tintedTextureCacheStore = writable({});
+
+// Cache for user-selected images
+/** @type {import('svelte/store').Writable<Record<string, HTMLImageElement>>} */
+export const userImageCacheStore = writable({});
 
 // Flag to track if initialization is complete
 /** @type {import('svelte/store').Writable<boolean>} */
@@ -80,6 +84,54 @@ export const initializeTextureCaches = async () => {
     } catch (error) {
         console.error('Failed to initialize texture caches:', error);
     }
+};
+
+// Preload and cache a user image
+/**
+ * @param {string} imageUrl
+ * @returns {Promise<HTMLImageElement>}
+ */
+export const preloadUserImage = async (imageUrl) => {
+    // Check if already cached
+    /** @type {Record<string, HTMLImageElement>} */
+    let userCache = {};
+    userImageCacheStore.subscribe(value => {
+        userCache = value;
+    })();
+    
+    if (userCache[imageUrl]) {
+        return userCache[imageUrl];
+    }
+    
+    try {
+        const img = await loadImage(imageUrl);
+        
+        // Update cache
+        userImageCacheStore.update(cache => ({
+            ...cache,
+            [imageUrl]: img
+        }));
+        
+        return img;
+    } catch (error) {
+        console.error(`Failed to preload user image ${imageUrl}:`, error);
+        throw error;
+    }
+};
+
+// Get user image from cache
+/**
+ * @param {string} imageUrl
+ * @returns {HTMLImageElement | null}
+ */
+export const getUserImageFromCache = (imageUrl) => {
+    /** @type {Record<string, HTMLImageElement>} */
+    let userCache = {};
+    userImageCacheStore.subscribe(value => {
+        userCache = value;
+    })();
+    
+    return userCache[imageUrl] || null;
 };
 
 // Get tinted texture from cache

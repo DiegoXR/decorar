@@ -9,7 +9,9 @@ import * as SetupUtilities from '$lib/SetupUtilities.js';
 import { 
     initializeTextureCaches, 
     getTintedTexture, 
-    texturesInitializedStore 
+    texturesInitializedStore,
+    preloadUserImage,
+    getUserImageFromCache
 } from '$lib/TextureCacheStore.js';
 
 /**
@@ -119,9 +121,19 @@ onDestroy(() => {
 
 function InitializeImageSubscription() {
     currentImageSubscription = currentSelectedImageStore.subscribe(
-        (value) => {
+        async (value) => {
+            currentImageProperties = value;
             
-            currentImageProperties = value;        
+            // Preload the user image when it changes
+            if (value.src && value.src !== "") {
+                try {
+                    await preloadUserImage(value.src);
+                    console.log(`User image cached: ${value.src}`);
+                } catch (error) {
+                    console.warn(`Failed to cache user image: ${value.src}`, error);
+                }
+            }
+            
             // console.log("CANVAS/ I got the Image Update");
         },
     );

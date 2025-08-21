@@ -8,6 +8,7 @@
     import * as THREE from "three";
     import * as FrameUtilitiesSquare from "../../lib/FrameUtilitiesSquare.js";
     import * as UVProjectionUtils from "../../lib/UVProjectionUtils.js";
+    import { getUserImageFromCache } from "../../lib/TextureCacheStore.js";
 
 
     let localFrameConfiguration = THREEJsConfiguration.startingFrameConfiguration;
@@ -86,70 +87,76 @@
         sceneUnsubscription();
     }
 
+    // Helper function to process plane texture and create mesh
+    function processPlaneTexture(planeTexture, width, height, resolve) {
+        // Configure wrapping for repetition
+        planeTexture.wrapS = THREE.RepeatWrapping;
+        planeTexture.wrapT = THREE.RepeatWrapping;
+        
+        // Adjust repetition based on texture proportion
+        const textureWidth = planeTexture.image ? planeTexture.image.width : planeTexture.source.data.width;
+        const textureHeight = planeTexture.image ? planeTexture.image.height : planeTexture.source.data.height;
+        const textureRatio = textureWidth / textureHeight;
+        
+        // Save texture ratio for frame usage
+        planeTextureRatio = textureRatio;
+                       
+        // Improve texture quality
+        planeTexture.minFilter = THREE.LinearFilter;
+        planeTexture.magFilter = THREE.LinearFilter;
+        planeTexture.anisotropy = 4;
+        planeTexture.generateMipmaps = true;
+        
+        // Create material and geometry
+        const material = new THREE.MeshPhysicalMaterial({
+            map: planeTexture,
+            side: THREE.FrontSide,
+        });
+
+        const geometry = new THREE.PlaneGeometry(width, height);
+        const plane = new THREE.Mesh(geometry, material);
+        
+        scene.add(plane);
+        resolve(true);
+    }
+
     function CreatePlaneAsynchronously() {
-             
-        let imagePath = localFrameConfiguration.ImageSrc;
-        let width = localFrameConfiguration.ImageSize[0];
-        let height = localFrameConfiguration.ImageSize[1]
+        const imagePath = localFrameConfiguration.ImageSrc;
+        const width = localFrameConfiguration.ImageSize[0];
+        const height = localFrameConfiguration.ImageSize[1];
         
         if (imagePath == null) return null;
 
         return new Promise((resolve, reject) => {
-
-            const planeTexture = textureLoader.load(
-            imagePath, // URL of the texture
-            () => {
-                // Configurar wrapping para permitir repetición
-                planeTexture.wrapS = THREE.RepeatWrapping;
-                planeTexture.wrapT = THREE.RepeatWrapping;
+            // Try to get cached image first
+            const cachedImage = getUserImageFromCache(imagePath);
+            
+            if (cachedImage) {
+                // Use cached image - create texture directly from HTMLImageElement
+                console.log(`Using cached image for plane: ${imagePath}`);
                 
-                // Ajustar la repetición basada en la proporción de la textura
-                const textureWidth = planeTexture.image.width;
-                const textureHeight = planeTexture.image.height;
-                const textureRatio = textureWidth / textureHeight;
+                const planeTexture = new THREE.Texture(cachedImage);
+                planeTexture.needsUpdate = true;
                 
-                // Guardar el ratio de la textura en una variable para usarlo en el frame
-                planeTextureRatio = textureRatio;
-                               
-                // Mejorar calidad de la textura
-                planeTexture.minFilter = THREE.LinearFilter;
-                planeTexture.magFilter = THREE.LinearFilter;
-                planeTexture.anisotropy = 4; // Aumentar filtrado anisotrópico
-                planeTexture.generateMipmaps = true;
+                processPlaneTexture(planeTexture, width, height, resolve);
+            } else {
+                // Fallback to traditional loading method
+                console.log(`Loading image traditionally (not in cache): ${imagePath}`);
                 
-                let material = new THREE.MeshPhysicalMaterial({
-                    map: planeTexture,
-                    side: THREE.FrontSide,
-                });
-
-                let geometry = new THREE.PlaneGeometry(width, height);
-                const plane = new THREE.Mesh(geometry, material);
-                // console.log(
-                //     `Succesfully loaded texture ${imagePath} in the Scene Maker`,
-                // );
-                scene.add(plane);
-                resolve(true);
-            },
-            undefined,
-            (error) => {
-                console.error(
-                    `An error happened while loading the texture in the following path ${imagePath}`,
-                    error,
-                );
-
-                reject(error);
-            },
-        );    
-  });
+                const planeTexture = textureLoader.load(
+                    imagePath,
+                    () => processPlaneTexture(planeTexture, width, height, resolve),
+                    undefined,
+                    (error) => {
+                        console.error(`Error loading texture: ${imagePath}`, error);
+                        reject(error);
+                    }
+                );    
+            }
+        });
     }
 
     function CreateFrame() {
-        // console.log(
-        //     `Frame will be created with the following params : Width :${localFrameConfiguration.ImageSize[0]}- Height : ${localFrameConfiguration.ImageSize[1]} `,
-        // );
-        // console.log(
-        //     `Frame will be created with the following params : BorderWidth :${localFrameConfiguration.FrameBorderWidth}- Depth : ${localFrameConfiguration.FrameDepth} `,
-        // );
 
         return new Promise((resolve, reject) => {
 
@@ -158,8 +165,11 @@
             return;
         }
                   
+            // Use traditional texture loading for frames (no cache)
+            const frameTextureUrl = localFrameConfiguration.FrameColor?.imageUrl || "/referenceTextures/WoodReference.png";
+            
             const frameTexture = textureLoader.load(
-            "/referenceTextures/WoodReference.png", // URL of the texture
+            frameTextureUrl,
             () => {
             let imageWidth = localFrameConfiguration.ImageSize[0];
             let imageHeight = localFrameConfiguration.ImageSize[1];
@@ -215,8 +225,8 @@
                 // Get the color from the frame configuration - use hexModel for Three.js
                 const frameColorHex = localFrameConfiguration.FrameColor.hexModel;
                 
-                const frameColor = new THREE.Color('#' + frameColorHex); // red
-                console.log('Applied fuchinf final color:', frameColorHex);
+                const frameColor = new THREE.Color('#' + frameColorHex);
+                console.log('Applied frame final color:', frameColorHex);
 
                 let frameMaterial = new THREE.MeshStandardMaterial({
                     map: frameTexture,
@@ -238,12 +248,9 @@
             },
             undefined,
             (error) => {
-                console.error(
-                    `An error happened while loading the frame texture in the following path`,
-                    error,
-                );
+                console.error('Error loading frame texture:', error);
                 reject(error);
-            },
+            }
         );
 
       });
@@ -294,13 +301,7 @@
 
               const extrudedGeometery = new THREE.ExtrudeGeometry(shape, extrudeSettings);
               extrudedGeometery.center();
-              //White alternatives
-            //   0xffffff
-            //   0xf5f5f5
-            //   0xf8f8ff
-            //   0xefefef
 
-              
               const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xf5f5f5, side: THREE.DoubleSide}));
               scene.add( passPartoutPlane );
               resolve(true);
@@ -327,41 +328,5 @@
     });
     }
 
-    // Code to run before the user leaves or refreshes the page
-    // @ts-ignore
-//     const handleBeforeUnload = (event) => {
-//     // Perform your action here
-//     console.log('User is refreshing or leaving the page');
-//     frameConfigurationStore.set(localFrameConfiguration);
-//   }; 
-
-            
-    // var loader = new THREE.CubeTextureLoader();
-    // var textureCube = loader.load([
-    //     "/referenceTextures/Oak_512.png", // Right
-    //     "/referenceTextures/Oak_512.png", // Left
-    //     "/referenceTextures/Oak_512.png", // Top
-    //     "/referenceTextures/Oak_512.png", // Bottom
-    //     "/referenceTextures/Oak_512.png", // Front
-    //     "/referenceTextures/Oak_512.png", // Back
-    // ]);
-
-    // const m0 = new THREE.MeshStandardMaterial({
-    //     side: THREE.FrontSide,
-    //     transparent: false,
-    //     opacity: 1,
-    //     color: 0xff0000,
-    //     map: texture,
-    // });
-
-    //const pbrMaterial = new THREE.MeshPhysicalMaterial({
-        //map: texture,
-        // normalMap: normalTexture,
-        // roughnessMap: roughnessTexture,
-        // metalnessMap: metalnessTexture,
-        // clearcoat: 1,
-        // clearcoatRoughness: 0.1,
-        // reflectivity: 1
-    //});
 
 </script>

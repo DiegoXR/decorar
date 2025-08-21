@@ -75,49 +75,6 @@ export function DisposeThreeJsScene(scene, renderer, container) {
 }
 
 /**
-* @param {THREE.Scene} scene
-*/
-export function CleanScene(scene) {
-    // Dispose of resources
-    
-    /**
-     * @type {THREE.Mesh[]}
-     */
-    const objectsToRemove = [];
-    
-    scene.traverse((object) => {
-        if (object instanceof THREE.Mesh) {
-            if (object.geometry) {
-                object.geometry.dispose();
-                console.log("An object has been disposed");
-            }
-
-            if (object.material) {
-                if (Array.isArray(object.material)) {
-                    object.material.forEach((material) => {
-                        if (material.map) 
-                            material.map.dispose();
-                        material.dispose();
-                        console.log("A Material has been disposed");
-                    });
-                } else {
-                    if (object.material.map) object.material.map.dispose();
-                    object.material.dispose();
-                }
-            }
-
-            objectsToRemove.push(object);
-        }
-    });
-
-    // Remove the objects from the scene
-    objectsToRemove.forEach((object) => {
-        scene.remove(object);
-        console.log("Objects have been removed from the scene");
-    });
-}
-
-/**
  * @param {THREE.Material} material
  */
 function disposeMaterialAndTexture(material) {
@@ -185,21 +142,25 @@ function disposeMesh(mesh) {
 * @param {THREE.Material} material
 */
 function disposeMaterial(material) {
-    
-    if (material instanceof THREE.MeshBasicMaterial){
-        if (material.map) material.map.dispose();
-        if (material.lightMap) material.lightMap.dispose();
-        if (material.aoMap) material.aoMap.dispose();
-        // if (material.emissiveMap) material.emissiveMap.dispose();
-        // if (material.bumpMap) material.bumpMap.dispose();
-        // if (material.normalMap) material.normalMap.dispose();
-        // if (material.displacementMap) material.displacementMap.dispose();
-        // if (material.roughnessMap) material.roughnessMap.dispose();
-        // if (material.metalnessMap) material.metalnessMap.dispose();
-        if (material.alphaMap) material.alphaMap.dispose();
-        if (material.envMap) material.envMap.dispose();
-    }
+    // Dispose all possible texture maps for any material type
+    const textureProperties = [
+        'map', 'lightMap', 'aoMap', 'emissiveMap', 'bumpMap', 
+        'normalMap', 'displacementMap', 'roughnessMap', 'metalnessMap',
+        'alphaMap', 'envMap', 'clearcoatMap', 'clearcoatNormalMap',
+        'clearcoatRoughnessMap', 'transmissionMap', 'thicknessMap',
+        'sheenColorMap', 'sheenRoughnessMap', 'specularIntensityMap',
+        'specularColorMap', 'iridescenceMap', 'iridescenceThicknessMap'
+    ];
 
+    textureProperties.forEach(prop => {
+        // @ts-ignore - Dynamic property access for texture disposal
+        if (material[prop]) {
+            // @ts-ignore
+            material[prop].dispose();
+        }
+    });
+
+    // Dispose the material itself
     material.dispose();
 }
 
