@@ -4,7 +4,7 @@
   const designers = [
     {
       image: "/landingPage/Paintings.webp",
-      title: "Paintings",
+      title: "Prints",
       subtitle: "Any artwork anywhere",
       location: "LIVE NOW",
       tag: "FINE ART"
@@ -13,14 +13,14 @@
       image: "/landingPage/Wallpapers.webp",
       title: "Wallpapers",
       subtitle: "Test wallpapers before buying",
-      location: "JULY 2025",
+      location: "SEPTEMBER 2025",
       tag: "DECORATIVE"
     },
     {
       image: "/landingPage/StreetArt.webp",
       title: "Street Art",
       subtitle: "AR for urban art planning",
-      location: "JULY 2025",
+      location: "SEPTEMBER 2025",
       tag: "URBAN"
     },
     {

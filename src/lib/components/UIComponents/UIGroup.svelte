@@ -55,9 +55,10 @@
   <!-- Section navigation -->
   <div class="flex justify-between items-center w-full mb-0">
     <button 
-      class="p-2 rounded-full hover:bg-gray-200 transition-colors" 
+      class="p-2 rounded-full hover:bg-gray-200 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" 
       on:click={prevSlide}
       aria-label="Previous section"
+      style="touch-action: manipulation;"
     >
       <ArrowLeft />
     </button>
@@ -67,9 +68,10 @@
     </div>
     
     <button 
-      class="p-2 rounded-full hover:bg-gray-200 transition-colors" 
+      class="p-2 rounded-full hover:bg-gray-200 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center" 
       on:click={nextSlide}
       aria-label="Next section"
+      style="touch-action: manipulation;"
     >
       <ArrowRight />
     </button>
@@ -82,19 +84,20 @@
         class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-highlight' : 'bg-darkgray'}"
         on:click={() => goToSlide(i)}
         aria-label="Go to section {i+1}"
+        style="touch-action: manipulation;"
       ></button>
     {/each}
   </div>
   
   <!-- Carousel container -->
-  <div class="relative w-full overflow-hidden" style="min-height: 350px;">
+  <div class="relative w-full overflow-hidden min-h-[200px] portrait:max-sm:min-h-[100px]">
     <!-- Slide container with transform for sliding effect -->
     <div 
       class="flex transition-transform duration-300 ease-in-out w-full"
       style="transform: translateX(-{currentSlide * 100}%);"
     >
       <!-- Slide 1: Image Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
         <div class="flex flex-col w-full gap-1">
           <!-- Row 1: Image Size -->
           <ImageSizeControl />
@@ -105,7 +108,7 @@
       </div>
       
       <!-- Slide 2: Frame Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
         <div class="flex flex-col w-full gap-1">
           <!-- Frame Type Control -->
           <FrameTypeControl />
@@ -141,7 +144,7 @@
       </div>
       
       <!-- Slide 3: Passepartout Controls -->
-      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden" style="min-height: 350px;">
+      <div class="min-w-full flex-shrink-0 px-1 overflow-hidden">
         <div class="flex flex-col w-full gap-4">
           <!-- Passepartout Type Control -->
           <PasspartoutTypeControl />
@@ -155,16 +158,21 @@
         </div>
       </div>
     </div>
+    <!-- Generate 3D Button (moved outside carousel) -->
+    <div class="w-full">
+    <Generate3DButton />
+    </div>
+
   </div>
   
   <!-- Generate 3D Button (moved outside carousel) -->
-  <div class="w-full mt-4">
+  <!-- <div class="w-full mt-2">
     <Generate3DButton />
-  </div>
+  </div> -->
 </div>
 
 <style>
-  /* Add any additional styles here if needed */
+  /* Any additional styles if needed */
 </style>
 
 
