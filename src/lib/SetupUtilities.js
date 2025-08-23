@@ -29,14 +29,9 @@ export const FrameColor = {
     WALNUT: { name: ColorNameWallnut, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "734522", imageUrl: "/referenceTextures/2D/Walnut.webp" },
     HONEY: { name: ColorNameHoney, hex: "transparent", hexModel: "FFFFFF", hexIndicator: "cf9e67", imageUrl: "/referenceTextures/2D/HoneyOak.webp" },
     BEECH: { name: ColorNameBeech, hex: "d4c9a7", hexModel: "d4c9a7", hexIndicator: "d4c9a7", imageUrl: "/referenceTextures/2D/BaseOak.webp" },
-    WHITE: { name: ColorNameWhite, hex: "transparent", hexModel: "e7e7e7", hexIndicator: "e7e7e7", imageUrl: "/referenceTextures/2D/BaseOak.webp" },
+    WHITE: { name: ColorNameWhite, hex: "transparent", hexModel: "FCFCFC", hexIndicator: "FCFCFC", imageUrl: "" },
     BLACK: { name: ColorNameBlack, hex: "transparent", hexModel: "2a2727", hexIndicator: "2a2727", imageUrl: "/referenceTextures/2D/BaseOak.webp" },
 };
-
-// white oak finish #c1ae93 approved
-// oak wood finish #c3aa78
-// oak wood alternative #d2aa75
-// oak wood honey #d1a46c approved
 
 /**
 * @type {number[]}

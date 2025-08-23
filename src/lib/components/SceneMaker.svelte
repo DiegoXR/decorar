@@ -228,13 +228,29 @@
                 const frameColor = new THREE.Color('#' + frameColorHex);
                 console.log('Applied frame final color:', frameColorHex);
 
-                let frameMaterial = new THREE.MeshStandardMaterial({
-                    map: frameTexture,
-                    side: THREE.FrontSide,
-                    metalness: 0,
-                    roughness: 1,
-                    color: frameColor // Apply the color from the configuration
-                });
+                // Check if we should use texture based on imageUrl availability
+                const hasNoTexture = !localFrameConfiguration.FrameColor.imageUrl;
+                
+                let frameMaterial;
+                
+                if (hasNoTexture) {
+                    // When there's no texture URL defined, use a simple material without texture
+                    frameMaterial = new THREE.MeshStandardMaterial({
+                        side: THREE.FrontSide,
+                        metalness: 0.1,
+                        roughness: 0.8,
+                        color: frameColor
+                    });
+                } else {
+                    // For other colors, use the texture with color tint
+                    frameMaterial = new THREE.MeshStandardMaterial({
+                        map: frameTexture,
+                        side: THREE.FrontSide,
+                        metalness: 0,
+                        roughness: 1,
+                        color: frameColor // Apply the color from the configuration
+                    });
+                }
 
                 frame.material = frameMaterial;  
 
@@ -302,7 +318,7 @@
               const extrudedGeometery = new THREE.ExtrudeGeometry(shape, extrudeSettings);
               extrudedGeometery.center();
 
-              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xf5f5f5, side: THREE.DoubleSide}));
+              const passPartoutPlane = new THREE.Mesh(extrudedGeometery, new THREE.MeshPhysicalMaterial({color: 0xf0f0f6, side: THREE.DoubleSide}));
               scene.add( passPartoutPlane );
               resolve(true);
     });       
