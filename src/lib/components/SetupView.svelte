@@ -239,12 +239,18 @@ function updateHTMLElements(){
         }   
 
 
-  // Get the image URL directly from the frame color configuration
-  const imageUrl = localFrameConfiguration.FrameColor?.imageUrl || "/referenceTextures/2D/BaseOak.png";
- 
-    console.log("the selected url is", imageUrl);
-    console.log("the selected color is", localFrameConfiguration.FrameColor?.hex);
+    // Simplified frame styling - using flat colors instead of textures
+    // Get the hexIndicator color from the frame color configuration
+    const frameColor = localFrameConfiguration.FrameColor?.hexIndicator || "734522"; // Default to walnut color
     
+    // Apply flat color to the frame border
+    frameElement.style.border = `${borderWidthPx} solid #${frameColor}`;
+    
+    // Comment out texture-related code
+    /*
+    // Get the image URL directly from the frame color configuration
+    const imageUrl = localFrameConfiguration.FrameColor?.imageUrl || "/referenceTextures/2D/BaseOak.png";
+   
     // Use pre-generated tinted texture from global cache
     let finalImageUrl = imageUrl;
     
@@ -254,13 +260,8 @@ function updateHTMLElements(){
     
     // Apply the texture (either original or pre-tinted)
     frameElement.style.borderImageSource = `url("${finalImageUrl}")`;
-    
-//     const borderWidthPxx = localFrameConfiguration.FrameBorderWidth * meterToPixelconversionFactor;
-// const sliceValue = Math.round(borderWidthPxx * 100); // Factor 8 como ejemplo
-frameElement.style.borderImageSlice = `${10} ${100}`;
-
-// 15+  100
-// 10-14  50
+    frameElement.style.borderImageSlice = `${10} ${100}`;
+    */
 
  }
 
