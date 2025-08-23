@@ -12,25 +12,41 @@
     import Generate3DButton from "./GroupComponents/Generate3DButton.svelte";
     import ArrowLeft from "../IconComponents/ArrowLeft.svelte";
     import ArrowRight from "../IconComponents/ArrowRight.svelte";
+    import { uiGroupSlideStore } from "../../PageConfigurationStore.js";
     
-    // Carousel state
+    // Carousel state - initialize from store to prevent flash
     let currentSlide = 0;
     const totalSlides = 3;
+    
+    // Initialize currentSlide from store immediately to prevent flash
+    const unsubscribe = uiGroupSlideStore.subscribe(value => {
+        currentSlide = value;
+    });
     
     // Section titles
     const sectionTitles = ['Image', 'Frame', 'Passepartout'];
     
-    // Navigation functions
+    // Clean up subscription on destroy
+    onMount(() => {
+        return unsubscribe;
+    });
+    
+    // Navigation functions - now update both local state and store
     function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
+        const newSlide = (currentSlide + 1) % totalSlides;
+        currentSlide = newSlide;
+        uiGroupSlideStore.set(newSlide);
     }
     
     function prevSlide() {
-        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        const newSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+        currentSlide = newSlide;
+        uiGroupSlideStore.set(newSlide);
     }
     
     function goToSlide(index: number) {
         currentSlide = index;
+        uiGroupSlideStore.set(index);
     }
 </script>
 
