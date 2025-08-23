@@ -176,16 +176,23 @@
     shadow-softness="1"
     tone-mapping="neutral"
     environment-image="neutral"
->
-<button
-slot="ar-button"
-class="bg-[#FBFF2B] text-black hover:bg-[#FBFF2B] button-4 py-3 px-3 rounded-xl transition-colors absolute left-1/2 top-16 transform -translate-x-1/2"
-on:click={handleButtonClick}
->
- Activate AR
-</button>
+    >
+    <button
+    slot="ar-button"
+    class="bg-[#FBFF2B] text-black hover:bg-[#FBFF2B] button-4 py-3 px-3 rounded-xl transition-colors absolute left-1/2 top-16 transform -translate-x-1/2"
+    on:click={handleButtonClick}
+    >
+    Activate AR
+    </button>
 
-</model-viewer>
+    <div class="w-full h-10 m-auto text-center bg-white">
+        <p class="body-4 text-gray-600">For precise object positioning, use a device with LiDAR or ToF</p>
+        <p class="body-4 text-gray-600">iPhone Pro, iPad Pro and Android Ultra series</p>
+    </div>
+
+    </model-viewer>
+
+    
 </div>
 {:else}
 <div class="h-[100vh] w-[100vw] bg-white flex items-center justify-center">
