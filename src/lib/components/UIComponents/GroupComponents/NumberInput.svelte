@@ -35,7 +35,8 @@
 
     onMount(() => { 
         inputElement.addEventListener('change', handleInputChange);
-        selectedOption = defaultValue;
+        // Round defaultValue to ensure integer display
+        selectedOption = Math.round(defaultValue);
         counter = selectedOption;
     });
 
