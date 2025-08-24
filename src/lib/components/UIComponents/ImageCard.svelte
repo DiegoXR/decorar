@@ -94,7 +94,7 @@
         <GradientBadge size="30px" />
         <div>
             <h1 class="body-3">{image.author}</h1>
-            <h1 class="body-4 text-gray-500">Unsplash</h1>
+            <h1 class="body-4 text-gray-500">MonoDigitalKK</h1>
         </div>            
     </div>
     <button 
