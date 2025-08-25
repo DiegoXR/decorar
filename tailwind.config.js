@@ -17,7 +17,8 @@ export default {
         iconColor: '#000000', // Tu color de iconos
         highlight: '#FBFF2B', // Color destacado para botones
         lightgray: '#f3f4f6', // Equivalente a gray-100
-        darkgray: '#d1d5db', // Equivalente a gray-300
+        disabled: '#d1d5db', // Equivalente a gray-300
+  
         // Colores adicionales de Flowbite
         primary: {
           50: '#FFF5F2',

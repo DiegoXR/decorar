@@ -11,6 +11,8 @@
     let selectedFrameMaterial;
     /** @type {typeof import("../../../../lib/SceneConstants.js").startingFrameConfiguration} */
     let localFrameConfiguration;
+    /** @type {boolean} */
+    let isFrameActive = false;
 
     // Available frame material options
     const frameMaterialOptions = Object.values(SetupUtilities.FrameMaterial);
@@ -19,6 +21,7 @@
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
         selectedFrameMaterial = value.FrameMaterial;
+        isFrameActive = value.FrameIsVisible;
     });
 
     onMount(() => {
@@ -67,7 +70,7 @@
             availableOptions={frameMaterialOptions}
             defaultOption={localFrameConfiguration?.FrameMaterial || "Wood"}
             bind:selectedOption={selectedFrameMaterial}
-            isActive={true}
+            isActive={isFrameActive}
         />
     </div>
 </div>

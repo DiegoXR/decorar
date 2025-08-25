@@ -101,19 +101,19 @@
     <!-- Previous button -->
     <BaseIconButton 
       on:click={previous}
-      variant={isActive ? "BaseGray" : "BaseDisabled"}
+      variant="BaseGray"
       rounded="none"
       size="medium"
       disabled={!isActive}
       ariaLabel="Previous option"
       class="text-selector-button"
     >
-      <ArrowLeft />
+      <ArrowLeft disabled={!isActive} />
     </BaseIconButton>
     
     <!-- Text display field -->
     <div 
-      class="body-3 h-10 bg-lightgray text-center text-black flex items-center justify-center w-full {isActive ? '' : 'opacity-50'}"
+      class="body-3 h-10 bg-lightgray text-center text-black flex items-center justify-center w-full {isActive ? '' : 'text-disabled'}"
     >
       {displayValue}
     </div>
@@ -121,14 +121,14 @@
     <!-- Next button -->
     <BaseIconButton 
       on:click={next}
-      variant={isActive ? "BaseGray" : "BaseDisabled"}
+      variant="BaseGray"
       rounded="none"
       size="medium"
       disabled={!isActive}
       ariaLabel="Next option"
       class="text-selector-button"
     >
-      <ArrowRight />
+      <ArrowRight disabled={!isActive} />
     </BaseIconButton>
   </div>
 </div>

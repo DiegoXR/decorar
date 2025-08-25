@@ -12,14 +12,14 @@
     /** @type {typeof import("../../../../lib/SceneConstants.js").startingFrameConfiguration} */
     let localFrameConfiguration;
     /** @type {boolean} */
-    let shouldRender = false;
+    let isActive = false;
 
     // Subscribe to store
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
         
-        // Determine if this component should be rendered based on frame and passpartout visibility
-        shouldRender = value.FrameIsVisible && value.PasspartoutIsVisible;
+        // Determine if this component should be active based on frame and passpartout visibility
+        isActive = value.FrameIsVisible && value.PasspartoutIsVisible;
         
         // Set the initial passpartout cutout size
         selectedPasspartoutCutoutSizeType = value.PasspartoutCutoutSize;
@@ -66,7 +66,6 @@
     }
 </script>
 
-{#if shouldRender}
 <!-- Control Layout -->
 <div class="grid grid-cols-[10%_20%_70%] items-center w-full">
     
@@ -86,11 +85,10 @@
             bind:selectedOption={selectedPasspartoutCutoutSizeType}
             availableOptions={ExtractOptionsFromEnum(SetupUtilities.PasspartoutCutoutSize)}
             defaultOption={localFrameConfiguration.PasspartoutCutoutSize}
-            isActive={true}
+            isActive={isActive}
             on:change={() => {
                 handlePasspartoutCutoutSizeChange(selectedPasspartoutCutoutSizeType);
             }}
         />
     </div>
 </div>
-{/if}

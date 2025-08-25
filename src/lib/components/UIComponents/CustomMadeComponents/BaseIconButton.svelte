@@ -42,8 +42,8 @@
         variantClasses = 'bg-gray-800 text-white hover:bg-gray-700'; // Default to primary
     }
     
-    // Override classes if disabled
-    if (disabled && variant !== 'BaseDisabled') {
+    // Override classes if disabled (only for BaseDisabled variant)
+    if (disabled && variant === 'BaseDisabled') {
       variantClasses = 'bg-gray-300 text-gray-500 cursor-not-allowed';
     }
     

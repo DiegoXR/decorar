@@ -12,6 +12,8 @@
     let selectedColor;
     /** @type {typeof import("../../../../lib/SceneConstants.js").startingFrameConfiguration} */
     let localFrameConfiguration;
+    /** @type {boolean} */
+    let isFrameActive = false;
 
     // Extract color names for the dropdown
     const colorOptions = Object.values(SetupUtilities.FrameColor).map(color => color.name);
@@ -20,7 +22,7 @@
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
         selectedColor = value.FrameColor;
-
+        isFrameActive = value.FrameIsVisible;
     });
 
     onMount(() => {
@@ -84,7 +86,7 @@
             availableOptions={colorOptions}
             defaultOption={selectedColor?.name || "Blue"}
             bind:selectedOption={selectedColorName}
-            isActive={true}
+            isActive={isFrameActive}
             on:change={(event) => {
 
                 handleColorChange(event.detail);

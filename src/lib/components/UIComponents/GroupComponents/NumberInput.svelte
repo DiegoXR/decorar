@@ -26,6 +26,12 @@
     export let label = "";
 
     /**
+     * @type {boolean}
+     * Controls whether the component is interactive
+     */
+    export let isActive = true;
+
+    /**
      * @type {HTMLInputElement}
      */
     let inputElement;
@@ -45,6 +51,7 @@
      */
     function increment(event) {
         event.preventDefault(); // Prevent default behavior
+        if (!isActive) return; // Don't allow interaction when inactive
         if (counter < max) {
             counter++;
             selectedOption = counter;
@@ -56,6 +63,7 @@
      */
     function decrement(event) {
         event.preventDefault(); // Prevent default behavior
+        if (!isActive) return; // Don't allow interaction when inactive
         if (counter > min) {
             counter--;
             selectedOption = counter;
@@ -66,6 +74,7 @@
      * Handle manual input changes
      */
     function handleInputChange() {
+        if (!isActive) return; // Don't allow interaction when inactive
         // Convert from String to Number
         const inputValue = parseInt(inputElement.value, 10);
         
@@ -102,17 +111,19 @@
             size="medium"
             ariaLabel="Decrease value"
             class="number-input-button"
+            disabled={!isActive}
         >
-            <ArrowLeft />
+            <ArrowLeft disabled={!isActive} />
         </BaseIconButton>
         
         <!-- Input field -->
         <input
             type="text"
-            class="body-3 h-10 text-center text-black bg-lightgray block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none"
+            class="body-3 h-10 text-center {isActive ? 'text-black' : 'text-disabled'} bg-lightgray block w-full border-0 focus:ring-0 focus:border-0 focus:outline-none {!isActive ? 'cursor-not-allowed' : ''}"
             value={displayValue}
             bind:this={inputElement}
             aria-label="Number input"
+            disabled={!isActive}
         />
         
         <!-- Increment button -->
@@ -123,8 +134,9 @@
             size="medium"
             ariaLabel="Increase value"
             class="number-input-button"
+            disabled={!isActive}
         >
-            <ArrowRight />
+            <ArrowRight disabled={!isActive} />
         </BaseIconButton>
     </div>
     

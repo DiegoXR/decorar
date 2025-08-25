@@ -11,10 +11,13 @@
     let selectedFrameDepth = 0;
     /** @type {typeof THREEJsConfiguration.startingFrameConfiguration} */
     let localFrameConfiguration;
+    /** @type {boolean} */
+    let isFrameActive = false;
 
     // Subscribe to store
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
+        isFrameActive = value.FrameIsVisible;
     });
 
     onMount(() => {
@@ -75,17 +78,7 @@
             bind:selectedOption={selectedFrameDepth} 
             defaultValue={DefineFrameBorderDepthInitialSize()} 
             label=""
+            isActive={isFrameActive}
         />
     </div>
 </div>
-
-
-<!-- <div class="flex justify-center">
-    <Toggle 
-        bind:isChecked={isFrameVisible} 
-        initialStatus={localFrameConfiguration.FrameIsVisible} 
-        id="frame-toggle"
-        variant="primary"
-        on:change
-    />
-</div>      -->

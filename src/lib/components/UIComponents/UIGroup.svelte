@@ -81,7 +81,7 @@
   <div class="flex justify-center gap-2 mb-0">
     {#each Array(totalSlides) as _, i}
       <button 
-        class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-highlight' : 'bg-darkgray'}"
+        class="w-2 h-2 rounded-full transition-colors {currentSlide === i ? 'bg-highlight' : 'bg-disabled'}"
         on:click={() => goToSlide(i)}
         aria-label="Go to section {i+1}"
         style="touch-action: manipulation;"

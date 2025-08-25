@@ -5,7 +5,7 @@
     import TextSelector from "./TextSelector.svelte";
     
     /** @type {boolean} */
-    let shouldRender = false;
+    let isFrameActive = false;
 
     /** @type {boolean} */
     let isInitialized = false;
@@ -21,17 +21,15 @@
     const unsubscribe = frameConfigurationStore.subscribe(value => {
         localFrameConfiguration = value;
         
-        // Determine if this component should be rendered based on frame visibility
-        shouldRender = value.FrameIsVisible;
+        // Set whether frame is active
+        isFrameActive = value.FrameIsVisible;
         
-        // If the frame is not visible, passpartout should be hidden
-        if (!value.FrameIsVisible) {
+        // If the frame is not visible, passpartout should be disabled
+        if (!value.FrameIsVisible && value.PasspartoutIsVisible) {
             // Update the store to maintain consistency
-            if (value.PasspartoutIsVisible) {
-                const updatedConfig = { ...value, PasspartoutIsVisible: false };
-                frameConfigurationStore.set(updatedConfig);
-                return; // Avoid an infinite loop by exiting here
-            }
+            const updatedConfig = { ...value, PasspartoutIsVisible: false };
+            frameConfigurationStore.set(updatedConfig);
+            return; // Avoid an infinite loop by exiting here
         }
         
         // Set the initial passpartout type based on PasspartoutIsVisible
@@ -68,7 +66,6 @@
     }
 </script>
 
-{#if shouldRender}
 <!-- Control Layout -->
 <div class="grid grid-cols-[10%_20%_70%] items-center w-full">
     
@@ -88,12 +85,11 @@
             bind:selectedOption={selectedPasspartoutType}
             availableOptions={passpartoutTypeOptions}
             defaultOption={selectedPasspartoutType}
-            isActive={true}
+            isActive={isFrameActive}
             on:change
         />
     </div>
 </div>
-{/if}
 
 
 
