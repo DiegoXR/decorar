@@ -1,12 +1,18 @@
 <script>
+  import { goto } from '$app/navigation';
+  
   export let image = '';
   export let title = '';
   export let subtitle = '';
   export let location = '';
   export let tag = '';
+  
+  function handleClick() {
+    goto('/MainNavigation/Explore');
+  }
 </script>
 
-<div class="designer-card relative">
+<button class="designer-card relative cursor-pointer w-full text-left" on:click={handleClick} aria-label="Navigate to explore page">
   <!-- Image container with rounded corners and shadow - made less tall -->
   <div class="relative aspect-[8/10] rounded-xl overflow-hidden shadow-md">
     <!-- Main image -->
@@ -40,8 +46,5 @@
       {/if}
     </div>
   </div>
-</div>
+</button>
 
-<style>
-  /* Component-specific styles can be added here */
-</style>
