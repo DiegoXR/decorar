@@ -8,7 +8,7 @@
 <div class="relative w-full min-h-[50vh] mt-16">
     <InputImage />    
     <section class="py-8 w-full">
-        <div class="container-fluid mx-auto px-4 lg:px-8">
+        <div class="w-full mx-auto px-4 lg:px-8">
             <DynamicGallery images={galleryImages} imagesPerPage={10} />
         </div>
     </section>

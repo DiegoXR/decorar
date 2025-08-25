@@ -15,77 +15,45 @@
     });
 </script>
 
-<div class="dynamic-gallery-wrapper">
-    <div class="dynamic-gallery">
-        <div class="gallery-content">
-            <div class="parent-container">
-                {#each images as image}
-                    <div class="image-card-wrapper">
-                        <ImageCard {image}/>
-                    </div>
-                {/each}
+<div class="dynamic-gallery">
+    <div class="gallery-grid w-full">
+        {#each images as image}
+            <div class="image-card-wrapper">
+                <ImageCard {image}/>
             </div>
-        </div>
+        {/each}
     </div>
-    <!-- <div class="gallery-footer-spacer"></div> -->
 </div>
 
 <style>
-    .dynamic-gallery-wrapper {
-        position: relative;
-        width: 100%;
-        display: block;
-        clear: both;
-        overflow: hidden;
-    }
-
     .dynamic-gallery {
         position: relative;
         width: 100%;
         margin-bottom: 2rem;
         display: block;
         clear: both;
-    }
-
-    .gallery-content {
-        position: relative;
-        width: 100%;
-        display: block;
-        clear: both;
-    }
-
-    /* Masonry effect using CSS columns */
-    .parent-container {
-        column-count: 1;
-        column-gap: 2rem; /* controls the gap between columns */
-        position: relative;
-        display: block;
-        width: 100%;
         overflow: hidden;
     }
-  
-    @media (min-width: 768px) {
-        .parent-container {
-            column-count: 2;
-        }
-    }
 
-    /* Desktop mode (or larger screens) using three columns */
-    @media (min-width: 1024px) {
-        .parent-container {
-            column-count: 3;
+    /* Responsive masonry layout using CSS Grid */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        width: 100%;
+    }
+    
+    /* Use your custom breakpoints for responsive grid */
+    @media (min-width: 830px) { /* lg breakpoint */
+        .gallery-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
   
-    /* Ensure that each child is treated as a whole block in the columns */
+    /* Grid item styling */
     .image-card-wrapper {
-        display: inline-block;
+        display: block;
         width: 100%;
-        margin-bottom: 2rem;
-        break-inside: avoid; /* Prevents the child from breaking across columns */
-        vertical-align: top; /* Ensures proper alignment */
-        -webkit-column-break-inside: avoid; /* WebKit-specific */
-        page-break-inside: avoid;
     }
 
 </style>

@@ -17,21 +17,7 @@ export default {
         iconColor: '#000000', // Tu color de iconos
         highlight: '#FBFF2B', // Color destacado para botones
         lightgray: '#f3f4f6', // Equivalente a gray-100
-        disabled: '#d1d5db', // Equivalente a gray-300
-  
-        // Colores adicionales de Flowbite
-        primary: {
-          50: '#FFF5F2',
-          100: '#FFF1EE',
-          200: '#FFE4DE',
-          300: '#FFD5CC',
-          400: '#FFBCAD',
-          500: '#FE795D',
-          600: '#EF562F',
-          700: '#EB4F27',
-          800: '#CC4522',
-          900: '#A5371B'
-        }
+        disabled: '#9CA3AF', // Equivalente a gray-400
       },
       height: {
         'dynamic': 'var(--dynamic-height)', // Tu configuración de altura

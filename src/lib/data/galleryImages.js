@@ -25,7 +25,8 @@ export const galleryImages = [
         ],
         defaultSize:  [0.457, 0.609],
         ratio: 0.75
-    },
+    }
+    ,
     {
         author : "Vibrant Geometric",
         src: "/referenceImages/3.webp",
