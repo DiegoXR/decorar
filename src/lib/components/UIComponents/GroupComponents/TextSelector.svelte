@@ -51,6 +51,9 @@
     selectedOption = availableOptions[currentIndex];
     displayValue = selectedOption;
   }
+  
+  // Update displayValue when selectedOption changes externally
+  $: displayValue = selectedOption;
 
   /**
    * @param {{ preventDefault: () => void; }} event

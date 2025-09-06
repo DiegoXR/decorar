@@ -28,10 +28,20 @@
     onMount(() => {
         isInitialized = true;
         
+        // Ensure isActive is properly set on mount
+        if (localFrameConfiguration) {
+            isActive = localFrameConfiguration.FrameIsVisible && localFrameConfiguration.PasspartoutIsVisible;
+        }
+        
         return () => {
             unsubscribe();
         };
     });
+    
+    // Reactive statement to ensure isActive is always up to date
+    $: if (localFrameConfiguration) {
+        isActive = localFrameConfiguration.FrameIsVisible && localFrameConfiguration.PasspartoutIsVisible;
+    }
     
     // Track previous state of passpartout cutout size
     /** @type {string | undefined} */

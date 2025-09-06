@@ -24,16 +24,18 @@
         // Set whether frame is active
         isFrameActive = value.FrameIsVisible;
         
-        // If the frame is not visible, passpartout should be disabled
-        if (!value.FrameIsVisible && value.PasspartoutIsVisible) {
-            // Update the store to maintain consistency
-            const updatedConfig = { ...value, PasspartoutIsVisible: false };
-            frameConfigurationStore.set(updatedConfig);
-            return; // Avoid an infinite loop by exiting here
-        }
-        
         // Set the initial passpartout type based on PasspartoutIsVisible
-        selectedPasspartoutType = value.PasspartoutIsVisible ? "Standard" : "No Passpartout";
+        if (isInitialized) {
+            // Only update the UI selection if we've already initialized to avoid conflicts
+            if (!value.FrameIsVisible) {
+                selectedPasspartoutType = "No Passpartout";
+            } else {
+                selectedPasspartoutType = value.PasspartoutIsVisible ? "Standard" : "No Passpartout";
+            }
+        } else {
+            // First-time initialization
+            selectedPasspartoutType = value.PasspartoutIsVisible ? "Standard" : "No Passpartout";
+        }
     });
 
     onMount(() => {
@@ -52,11 +54,28 @@
         previousPasspartoutType = selectedPasspartoutType;
         handlePasspartoutTypeChange(selectedPasspartoutType);
     }
+    
+    // Always force "No Passpartout" when frame is not visible
+    $: if (!isFrameActive) {
+        // Always ensure selectedPasspartoutType is "No Passpartout" when frame is inactive
+        // This ensures the text is shown correctly even when the component is disabled
+        if (selectedPasspartoutType !== "No Passpartout") {
+            selectedPasspartoutType = "No Passpartout";
+        }
+    }
 
     /**
      * @param {string} passpartoutType
      */
     function handlePasspartoutTypeChange(passpartoutType) {
+        // If the frame is not visible, always set PasspartoutIsVisible to false
+        // regardless of the selection
+        if (!isFrameActive) {
+            const updatedConfig = { ...localFrameConfiguration, PasspartoutIsVisible: false };
+            frameConfigurationStore.set(updatedConfig);
+            return;
+        }
+        
         // Set PasspartoutIsVisible based on the selected passpartout type
         const isPasspartoutVisible = passpartoutType === "Standard";
         
@@ -84,7 +103,7 @@
         <TextSelector 
             bind:selectedOption={selectedPasspartoutType}
             availableOptions={passpartoutTypeOptions}
-            defaultOption={selectedPasspartoutType}
+            defaultOption={!isFrameActive ? "No Passpartout" : selectedPasspartoutType}
             isActive={isFrameActive}
             on:change
         />
