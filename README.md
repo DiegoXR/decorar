@@ -2,6 +2,8 @@
 
 **Try wall art in your real space, at real size, before you buy or hang it.**
 
+**Live demo:** https://decorar.pages.dev
+
 ![decorar.space demo](static/LivingRoomIntro.gif)
 
 ## The story
@@ -12,7 +14,7 @@ The goal is simple: try artwork in your own environment, with its real dimension
 
 ## How it works
 
-1. **Pick an image.** Take a photo of a painting or poster, upload an image, or choose one from the gallery.
+1. **Pick an image.** Take a photo of a painting or poster, upload an image, or choose one from your phone's gallery.
 2. **Configure it.** Set the real dimensions, the frame type (material, color, width and depth) and the passe-partout (mat).
 3. **Generate the 3D model.** From that configuration, the app builds a 3D scene with [Three.js](https://threejs.org/) at runtime and exports it as a **GLB** model in the browser with `GLTFExporter`, with no server involved.
 4. **See it in AR.** The generated GLB is loaded into Google's [`<model-viewer>`](https://modelviewer.dev/), which places it on a wall with Augmented Reality (`ar-placement="wall"`) at true scale.
@@ -58,4 +60,4 @@ AR needs a real mobile device. Because `npm run dev` runs with `--host`, you can
 
 ## Status
 
-decorar.space started in **January 2024** as a personal project. The commit history documents its development from the first commit.
+decorar.space started in **January 2024** as a personal project. The commit history documents its development from the first commit. The app is now hosted at [decorar.pages.dev](https://decorar.pages.dev).
