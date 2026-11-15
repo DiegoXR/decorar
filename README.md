@@ -61,3 +61,11 @@ AR needs a real mobile device. Because `npm run dev` runs with `--host`, you can
 ## Status
 
 decorar.space started in **January 2024** as a personal project. The commit history documents its development from the first commit. The app is now hosted at [decorar.pages.dev](https://decorar.pages.dev).
+
+## License
+
+Copyright © 2024 Diego Millan ([DiegoXR](https://github.com/DiegoXR)).
+
+The source code is licensed under the [PolyForm Noncommercial License 1.0.0](LICENSE.md). You may view, study and modify it for personal, educational and other **noncommercial** purposes, as long as you keep the copyright notice. **Commercial use is not permitted without written permission.** For commercial licensing, please contact me through my GitHub profile.
+
+Third-party libraries, fonts and images (e.g. from Unsplash) remain under their own licenses.
