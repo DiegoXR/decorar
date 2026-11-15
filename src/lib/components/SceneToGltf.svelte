@@ -4,7 +4,6 @@
     import * as THREE from "three";
     import { sceneStore } from "../SceneStatusStore"; // Adjust the import path as necessary
     import "@google/model-viewer";
-    import { browser} from '$app/environment';
 
     /**
      * @type {THREE.Scene}
@@ -133,22 +132,6 @@
         lightsToRemove.forEach((light) => scene.remove(light));
     }
 
-    function handleButtonClick() {
-    if (browser && window.gtag) {
-      window.gtag("event", "level_start", {
-        level_name: "AR Session Started"
-      });
-    //   console.log('Custom event sent');
-    
-      window.gtag("event", "post_score", {     
-      question: "3",
-      answer: "AR_LAUNCHED"
-    });
-    
-      }
-    }
-
-
 </script>
 
 <!-- <button
@@ -180,7 +163,6 @@
     <button
     slot="ar-button"
     class="bg-[#FBFF2B] text-black hover:bg-[#FBFF2B] button-4 py-3 px-3 rounded-xl transition-colors absolute left-1/2 top-16 transform -translate-x-1/2"
-    on:click={handleButtonClick}
     >
     Activate AR
     </button>

@@ -7,9 +7,6 @@
     import { get } from 'svelte/store';
     import { redirect } from '@sveltejs/kit';
     import {isMainPageVisited} from '../../lib/PageStatusStore';
-    import {GA4_ID} from "../../projectConstants.js"
-    import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
-    import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
     import Footer from "$lib/components/UIComponents/GroupComponents/Footer.svelte";
     import FakePageHeader from "$lib/components/UIComponents/CustomMadeComponents/FakePageHeader.svelte";
     import { initializeTextureCaches } from "$lib/TextureCacheStore.js";
@@ -30,24 +27,7 @@
         
       // Initialize texture caches early in the application lifecycle
       await initializeTextureCaches();
-        
-      // // Add Google Analytics script
-      // const script = document.createElement('script');
-      //   script.async = true;
-      //   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-      //   document.head.appendChild(script);
 
-      //   // Initialize Google Analytics
-      //   window.dataLayer = window.dataLayer || [];
-      //   function gtag() {
-      //       window.dataLayer.push(arguments);
-      //   }
-      //   gtag('js', new Date());
-      //   gtag('config', `${GA4_ID}`);
-        
-      //   console.log("Layout Mounted");
-      
-      
       // Update the store with the renderer instance
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -63,7 +43,6 @@
     
 </script>
 
-<GoogleAnalytics></GoogleAnalytics>
 <PageHeader></PageHeader>
 <div class="main-content-wrapper w-full">           
     <!-- SPACER BEHIND THE HEADER  -->
@@ -77,7 +56,6 @@
 
 
 <Footer />
-<CloudfareAnalytics></CloudfareAnalytics>
 
 <style>
     .main-content-wrapper {

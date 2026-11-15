@@ -8,8 +8,6 @@
   import BaseButton from '$lib/components/UIComponents/CustomMadeComponents/BaseButton.svelte';
   
   // Importaciones no críticas después
-  import GoogleAnalytics from "$lib/components/Analytics/GoogleAnalytics.svelte";
-  import CloudfareAnalytics from "$lib/components/Analytics/CloudfareAnalytics.svelte";
   import InstagramBrowserPopup from "$lib/components/UIComponents/InstagramBrowserPopup.svelte";
   import Separator from "$lib/components/UIComponents/CustomMadeComponents/Separator.svelte";
   import ProjectCarousel from '$lib/components/UIComponents/GroupComponents/ProjectCarousel.svelte';
@@ -19,20 +17,6 @@
   let email = '';
 
   onMount(() => {
-  //       // Add Google Analytics script
-  //       const script = document.createElement('script');
-  //       script.async = true;
-  //       script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
-  //       document.head.appendChild(script);
-
-  //       // Initialize Google Analytics
-  //       window.dataLayer = window.dataLayer || [];
-  //       function gtag() {
-  //           window.dataLayer.push(arguments);
-  //       }
-  //       gtag('js', new Date());
-  //       gtag('config', `${GA4_ID}`);   
-
     // Check if the user is using Instagram
     if (window.navigator.userAgent.includes('Instagram')) {
       isInstagramBrowser = true;
@@ -48,8 +32,6 @@
 {#if isInstagramBrowser}
   <InstagramBrowserPopup />
 {/if}
-
-<GoogleAnalytics></GoogleAnalytics>
 
 <!-- Reducir la duración de la animación de entrada para mejorar el rendimiento inicial -->
 <main class="min-h-screen flex flex-col" in:fade={{ duration: 300 }}>
@@ -118,8 +100,6 @@
   </footer>
   
 </main>
-
-<CloudfareAnalytics></CloudfareAnalytics>
 
 <style>
   /* Hide scrollbar but keep functionality */
